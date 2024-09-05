@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_add_product_sku" model="ir.ui.view">
+        <field name="name">Add SKU</field>
+        <field name="model">inno.product.sku</field>
+        <field name="arch" type="xml">
+            <form >
+                <sheet>
+                    <group>
+                        <group>
+                            <field name='product_tmpl_id' required="1" style="border-bottom: 1px solid black" options="{'no_create': True, 'no_open': True}"/>
+                            <field name='standard_size' required="1" style="border-bottom: 1px solid black" options="{'no_create': True, 'no_open': True}"/>
+                        </group>
+                        <group>
+                            <field name="sku" required="1" style="border-bottom: 1px solid black"/>
+                            <field name="manufacturing_size" required="1" style="border-bottom: 1px solid black" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="finishing_size" required="1" style="border-bottom: 1px solid black" options="{'no_create': True, 'no_open': True}"/>
+                        </group>
+                    </group>
+                </sheet>
+                 <footer>
+                    <button type="object" name="do_confirm" string="Confirm" class="btn-primary"/>
+                     <button name="do_cancel" string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_add_product_sku" model="ir.actions.act_window">
+        <field name="name">Add Sku</field>
+        <field name="res_model">inno.product.sku</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

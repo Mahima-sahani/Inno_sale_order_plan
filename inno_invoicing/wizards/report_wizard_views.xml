@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_inno_report_wizard_form" model="ir.ui.view">
+            <field name="name">inno.packaging</field>
+            <field name="model">invoice.report.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <b>PDF</b>
+                                    </div>
+                                    <div class="col-6">
+                                        <field name="pdf"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <b>EXCEL</b>
+                                    </div>
+                                    <div class="col-6">
+                                        <field name="excel"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="type"/>
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button type="object" name="generate_reports" string="Generate Reports" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

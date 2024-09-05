@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_inno_packaging_invoice_view_tree" model="ir.ui.view">
+            <field name="name">inno.packaging.invoice.tree</field>
+            <field name="model">inno.packaging.invoice</field>
+            <field name="arch" type="xml">
+                <tree delete="0">
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_inno_packaging_invoice_form" model="ir.ui.view">
+            <field name="name">inno.packaging.invoice.form</field>
+            <field name="model">inno.packaging.invoice</field>
+            <field name="arch" type="xml">
+                <form delete="0">
+                    <header>
+                        <button name="button_confirm" string="Confirm" type="object" class="btn-success"
+                                attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                        <button name="generate_mda_package_list" string="Packaging List (MDA CLAIM)" type="object" class="btn-success"
+                                context="{'report_type': 'packaging_list_mda'}"
+                                attrs="{'invisible': [('state', '!=', 'final')]}"/>
+                        <button name="generate_group_label_mda" string="Group Label (MDA)" type="object" class="btn-success"
+                                context="{'report_type': 'group_label_mda'}"
+                                attrs="{'invisible': [('state', '!=', 'final')]}"/>
+                        <button name="confirm_container" string="Confirm container" type="object" class="btn-success"
+                                attrs="{'invisible': [('state', '!=', 'container')]}"/>
+                        <button name="finalise_container" string="Finalise container" type="object" class="btn-success"
+                                attrs="{'invisible': [('state', '!=', 'final')]}"/>
+                        <button name="update_rate" string="Update Rate" type="object" class="btn-success"
+                                attrs="{'invisible': [('state', '!=', 'container')]}"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,container,done"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <label for="name"/>
+                                <div class="d-flex">
+                                    <field class="text-break" name="name" attrs="{'readonly': [('state', '!=', 'draft')]}" placeholder="ABC-2024-0001"/>
+                                </div>
+                            </h1>
+                        </div>
+                        <group>
+                            <group string="Documents Info">
+                                <field name="partner_id" required="1"
+                                       attrs="{'readonly': [('state', 'not in',['draft',])]}"/>
+                                <field name="consignee_id" required="1"
+                                       attrs="{'readonly': [('state', 'not in',['draft',])]}"/>
+                                <field name="exchange_rate" required="1"/>
+                                <field name="pre_carriage_by"/>
+                                <field name="place_of_receipt"/>
+                                <field name="transportation_type"/>
+                                <field name="buyer_order_no"/>
+                                <field name="delivery_term" placeholder="As soon as possible"/>
+                                <field name="net_weight"/>
+                                <field name="gross_weight"/>
+                            </group>
+                            <group string="Other Info">
+                                <field name="date" attrs="{'readonly': [('state', 'not in',['draft',])]}"
+                                       required="1"/>
+                                <field name="buyer_order_date" />
+                                <field name="other_reference"/>
+                                <field name="port_of_loading"/>
+                                <field name="port_of_discharge"/>
+                                <field name="order_sheet_no"/>
+                                <field name="packaging_list" attrs="{'invisible': [('state', '!=', 'container')]}"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Packaging Line" attrs="{'invisible': [('state', 'in',['draft',])]}">
+                                <field name="pack_invoice_line_ids" editable="bottom">
+                                    <tree editable="bottom" create="0" delete="0">
+                                        <field name="product_id" readonly="1" force_save="1"/>
+                                        <field name="bale_no" readonly="1" force_save="1"/>
+                                        <field name="roll_no" readonly="1" force_save="1"/>
+                                        <field name="invoice_group" readonly="1" force_save="1"/>
+                                        <field name="qty" readonly="1" force_save="1"/>
+                                        <field name="deal_qty" readonly="1" force_save="1"/>
+                                        <field name="rate" readonly="1" force_save="1"/>
+                                        <field name="rate_update" attrs="{'invisible': [('parent.state', '!=', 'container')]}"/>
+                                        <field name="amount" readonly="1" force_save="1"/>
+                                        <field name="sale_order_id" readonly="1" force_save="1" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Goods Description">
+                                <group>
+                                    <field name="description_of_goods"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_inno_packaging_invoice" model="ir.actions.act_window">
+            <field name="name">Packaging Invoice</field>
+            <field name="res_model">inno.packaging.invoice</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>

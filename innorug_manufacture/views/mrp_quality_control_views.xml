@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Quality Control Tree -->
+    <record id="view_mrp_quality_control_tree" model="ir.ui.view">
+        <field name="name">Quality Control</field>
+        <field name="model">mrp.quality.control</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="subcontractor_id"/>
+                <field name="quality_state"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Quality Control Form -->
+    <record id="view__mrp_quality_control_form" model="ir.ui.view">
+        <field name="name">mrp.quality.control</field>
+        <field name="model">mrp.quality.control</field>
+        <field name="arch" type="xml">
+            <form >
+                <header>
+                    <button name="do_quality_check" type="object" class="btn-primary" string="Pass" data-hotkey="q" attrs="{'invisible' : [('quality_state', '!=', 'draft')]}" context="{'qc':'pass'}"/>
+                    <button name="do_quality_check" type="object" class="btn-primary" string="Fail" data-hotkey="w" attrs="{'invisible' : [('quality_state', '!=', 'draft')]}" context="{'qc':'fail'}"/>
+                    <field name="quality_state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="subcontractor_id" readonly="1"/>
+                            <field name="main_job_work_id" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="qc_manager_id" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Products">
+                            <field name="job_work_ids" readonly="1" style="pointer-events:none;">
+                                <tree>
+                                    <field name="product_id"/>
+                                    <field name="product_qty"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Notes">
+                            <field name="note"/>
+                        </page>
+                        <page string="Pictures">
+                            <field name="picture" widget="many2many_binary" attrs="{'readonly': [('quality_state', '!=', 'draft')]}"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="o_attachment_preview" attrs="{'invisible': [('picture', '=', False)]}"/>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_mrp_quality_control_filter_id" model="ir.ui.view">
+        <field name="name">mrp.quality.control</field>
+        <field name="model">mrp.quality.control</field>
+        <field name="arch" type="xml">
+            <search string="Status">
+                <group expand="1" string="Group By">
+                    <filter string="QC Manager" name="qc_manager_id" context="{'group_by':'qc_manager_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+
+
+
+    <record id="action_mrp_quality_controls_id" model="ir.actions.act_window">
+        <field name="name">Loom Inspection</field>
+        <field name="res_model">mrp.quality.control</field>
+        <field name="view_mode">tree,form</field>
+         <field name="view_ids" eval="[(5, 0, 0),
+    (0, 0, {'view_mode': 'tree', 'view_id': ref('view_mrp_quality_control_tree')}),
+    (0, 0, {'view_mode': 'form', 'view_id': ref('view__mrp_quality_control_form')})]"/>
+    </record>
+
+</odoo>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="inno_stock_package_inherit" model="ir.ui.view">
+            <field name="name">Inno stock package inherit</field>
+            <field name="model">stock.quant.package</field>
+            <field name="inherit_id" ref="stock.view_quant_package_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='button_box']" position="after">
+                    <field name="pack_image" widget="image" class="oe_avatar" readonly="1" attrs="{'invisible':[('picking_id', '=', False)]}"/>
+                </xpath>
+                <xpath expr="//header" position="inside">
+                    <button class="btn-primary" name="action_print_labels" string="Print Labels" type="object" attrs="{'invisible': [('picking_id', '=', False)]}"/>
+                </xpath>
+                <xpath expr="//header/button[@name='unpack']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('picking_id', '!=', False)]}</attribute>
+                </xpath>
+                <xpath expr="//sheet/div[@name='button_box']/button[@name='action_view_picking']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('picking_id', '!=', False)]}</attribute>
+                </xpath>
+                <xpath expr="//sheet/div[@name='button_box']" position="inside">
+                    <field name="picking_id" invisible="1"/>
+                    <button class="oe_stat_button" name="action_view_inno_picking" string="Transfer" type="object" widget="statinfo" icon="fa-arrows-v" attrs="{'invisible': [('picking_id', '=', False)]}"/>
+                </xpath>
+                <field name="pack_date" position="after">
+                    <field name="barcode_ids" widget="many2many_tags" attrs="{'invisible': [('picking_id', '=', False)]}"/>
+                </field>
+                <field name="location_id" position="after">
+                    <field name="inno_shipping_weight"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

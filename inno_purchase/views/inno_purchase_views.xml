@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Purchase Tree -->
+    <record id="view_mrp_purchase_tree" model="ir.ui.view">
+        <field name="name">Purchase</field>
+        <field name="model">inno.purchase</field>
+        <field name="arch" type="xml">
+            <tree delete="0">
+                <field name="reference"/>
+                <field name="subcontractor_id"/>
+                <field name="issue_date"/>
+                <field name="expected_received_date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <!-- Purchase Form -->
+    <record id="view_mrp_purchase_form" model="ir.ui.view">
+        <field name="name">Purchase</field>
+        <field name="model">inno.purchase</field>
+        <field name="arch" type="xml">
+            <form delete="0">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="purchase,done"/>
+                    <button name="button_confirm" string="CONFIRM" type="object" class="btn-success"
+                            attrs="{'invisible': [('state', '!=', 'draft')]}" context="{'status': 'confirm'}"/>
+                    <button name="button_confirm" string="RE-CONFIRM ORDER" type="object" class="btn-success"
+                            attrs="{'invisible': [('state', '!=', '1_draft')]}" context="{'status': 're_confirm'}"/>
+                    <button name="button_receive_products" class="btn-success" string="RECEIVE PRODUCTS" type="object"
+                            attrs="{'invisible': [('state', '!=', 'purchase')]}"
+                            context="{'status': 'received'}"/>
+                    <button name="upload_Planning_Product" string="UPLOAD PLANNING" class="btn-success" type="object"
+                            attrs="{'invisible':['|',('types', 'not in', ['spinning',]),('state', 'not in', ['draft',])]}"
+                            context="{'status': 'spinning'}"/>
+                    <button name="button_confirm" string="LOCK" class="btn-success" type="object"
+                            attrs="{'invisible': [('state', '!=', 'purchase')]}"
+                            context="{'status': 'lock'}"/>
+                    <button name="button_confirm" string="CANCEL" type="object"
+                            attrs="{'invisible': [('state', 'in', ['done', 'cancel'])]}"
+                            context="{'status': 'cancel'}"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_open_material_record" type="object"
+                                attrs="{'invisible': [('picking_count', '=', 0)]}"
+                                class="oe_stat_button" icon="fa-file-text-o">
+                            <div class="o_stat_info">
+                                <span class="o_stat_text">Material Issue</span>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="h2" name="reference_header">
+                        <field name="reference" nolabel="1" readonly="1"/>
+                    </div>
+                    <group>
+                        <group string="General Information">
+                            <field name="picking_count" invisible="1"/>
+                            <field name="subcontractor_id" required="True"
+                                   attrs="{'readonly': [('state', 'not in', ['draft',])]}" options="{'no_open': True 'no_create': True}"/>
+                            <field name="types" required="True"
+                                   attrs="{'readonly': [('state', 'not in', ['draft',])]}"/>
+                        </group>
+                        <group string="Order Timeline" attrs="{'readonly': [('state', 'in', ['draft',])]}">
+                            <label for="issue_date" string="Order Date"/>
+                            <div class="d-flex flex-row align-items-start">
+                                <field name="issue_date" class="w-auto"
+                                       attrs="{'readonly': [('state', 'not in', ['draft',])]}" required="True"/>
+                                <h5 class="ml8 mr8 oe_inline">to</h5>
+                                <field name="expected_received_date"
+                                       attrs="{'readonly': [('state', 'not in', ['draft',])]}" required="True"/>
+                            </div>
+                            <field name="planing_ids"  widget="many2many_tags" options="{'no_open': True 'no_create': True}" attrs="{'invisible':['|',('types', 'not in', ['spinning',]),('state', 'not in', ['draft',])]}"/>
+                        </group>
+                    </group>
+
+
+                    <notebook>
+                        <page string="Order Lines">
+                            <field name="inno_purchase_line" mode="tree"
+                                   attrs="{'readonly': [('state', 'not in', ['draft',])]}">
+                                <tree editable="bottom">
+                                    <field name="product_id" required="True" string="Product"
+                                           options="{'no_open': True 'no_create': True}"/>
+                                    <field name="product_qty" required="True" sum="Sum Qty" attrs="{'column_invisible':[('parent.types', 'in', ['tufting_cloth_weaving','third_backing_cloth',])]}"/>
+                                    <field name="uom_id" readonly="1" attrs="{'column_invisible':[('parent.types', 'in', ['tufting_cloth_weaving','third_backing_cloth',])]}"/>
+                                    <field name="deal_qty" sum="Sum Qty"
+                                           attrs="{'column_invisible':[('parent.types', 'in', ['yarn','wool','newar_production','tana_job_order','spinning'])]}"/>
+                                    <field name="deal_uom_id"
+                                           attrs="{'column_invisible':[('parent.types', 'in', ['yarn','wool','newar_production','tana_job_order','spinning'])],'required':[('parent.types', 'in', ['tufting_cloth_weaving','third_backing_cloth',])]}"/>
+                                    <field name="rate" required="True"/>
+                                    <field name="tax_id" string="Tax Details" widget="many2many_tags"
+                                           options="{'no_open': True}"/>
+                                    <field name="receive_qty" required="True" readonly="True" optional="hide"/>
+                                    <field name="invoice_qty" required="True" readonly="True" optional="hide"/>
+                                    <field name="return_receive_qty" required="True" readonly="True" optional="hide"/>
+                                    <field name="return_invoice_qty" required="True" readonly="True" optional="hide"/>
+                                    <field name="remarks" optional="hide"/>
+                                    <field name="discount"/>
+                                    <field name="currency_id" invisible="1"/>
+                                    <field name="price_subtotal" readonly="True"/>
+                                    <field name="price_total" invisible="1"/>
+                                    <field name="price_tax" invisible="1"/>
+                                </tree>
+                            </field>
+                            <group>
+                                <group>
+                                </group>
+                                <group class="oe_subtotal_footer oe_right">
+                                    <field name="tax_totals" widget="account-tax-totals-field" nolabel="1" colspan="2"
+                                           readonly="1"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Receive Products" attrs="{'invisible': [('state', 'in', ['draft','1_draft'])]}">
+                            <field name="inno_receive_ids" mode="tree">
+                                <tree editable="bottom" delete="0" create="0">
+                                    <field name="reference" readonly="True"/>
+                                    <field name="receive_docs" readonly="True"/>
+                                    <field name="receive_invoice" readonly="True"/>
+                                    <field name="receipt_no" readonly="True"/>
+                                    <field name="date" readonly="True"/>
+                                    <button name="open_receiving_form" type="object" icon="fa-external-link"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Return Products" attrs="{'invisible': [('state', 'in', ['draft','1_draft'])]}">
+                            <field name="inno_receive_return_ids" mode="tree">
+                                <tree editable="bottom" delete="0" create="0">
+                                    <field name="reference" readonly="True"/>
+                                    <field name="receive_docs" readonly="True"/>
+                                    <field name="receive_invoice" readonly="True"/>
+                                    <field name="receipt_no" readonly="True"/>
+                                    <field name="date" readonly="True"/>
+                                    <button name="open_receiving_form" type="object" icon="fa-external-link"/>
+                                </tree>
+                            </field>
+                        </page>
+
+                    </notebook>
+                </sheet>
+                <div class="o_attachment_preview"/>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="action_mrp_purchase_id" model="ir.actions.act_window">
+        <field name="name">Purchase</field>
+        <field name="res_model">inno.purchase</field>
+        <field name="view_mode">tree,form</field>
+         <field name="context">{'group_by':'types'}</field>
+    </record>
+
+</odoo>

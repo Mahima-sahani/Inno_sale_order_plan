@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view__mrp_weaving_order_form" model="ir.ui.view">
+        <field name="name">mrp.weaving.wizards</field>
+        <field name="model">mrp.weaving.wizards</field>
+        <field name="arch" type="xml">
+            <form >
+                <sheet>
+                    <div class="bg-danger text-center text-light mb-2 rounded" attrs="{'invisible': [('is_sunday', '=', False)]}"><b>Sunday</b></div>
+                    <group>
+                        <group>
+                            <field name="is_sunday" invisible="1"/>
+                            <field name="subcontractor_id"
+                                   attrs="{'invisible': [('allotment_type', '!=', 'subcontractor')], 'required': [('allotment_type', '=', 'subcontractor')]}"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                            <field name="alloted_days" required="1"/>
+                        </group>
+                        <group>
+                             <label for="issue_date" string="Order Date"/>
+                            <div class="oe_inline">
+                                <field name="issue_date" class="mr8 oe_inline" readonly="1"/>
+                                <strong class="mr8 oe_inline">to</strong>
+                                <field name="expected_date" class="oe_inline" required="1" style="border-bottom: 1px solid black"/>
+                                <field name="allotment_type" invisible="1"/>
+                            </div>
+                        </group>
+                        <group>
+                            <field name="is_full_finish" widget="boolean_toggle"/>
+                        </group>
+                        <group>
+                            <field name="is_far" widget="boolean_toggle"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Weaving Order">
+                            <field name="weaving_order_line" mode="tree">
+                                <tree editable="buttom" create="0">
+                                    <field name="product_id" readonly="1" force_save="1"/>
+                                    <field name="product_price" readonly="1" force_save="1"/>
+                                     <field name="product_qty" readonly="1" force_save="1"/>
+                                    <field name="alloted_qty"/>
+                                    <field name="work_order_id" invisible="1"/>
+                                    <field name="production_id" invisible="1"/>
+                                    <field name="operation_id" invisible="1"/>
+                                    <field name="area" readonly="1" sum="Total Area"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                  <footer>
+                    <button string="Confirm" class="btn-primary" type="object" name="do_confirm"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_open_allotment_view" model="ir.actions.act_window">
+        <field name="name">Job Allotment</field>
+        <field name="res_model">mrp.weaving.wizards</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="domain">[('workcenter_id.name', '=', 'Weaving')]</field>
+    </record>
+</odoo>

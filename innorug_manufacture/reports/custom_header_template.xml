@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<odoo>
+    <template id="inherit_base_template_header" inherit_id="web.external_layout_standard" name="Inherit: Base template header">
+        <xpath expr="//div[1]" position="replace">
+            <div class="header">
+                  <div style="border-bottom: 1px solid black; padding-bottom: 5px;" class="row">
+                    <div class="col-1">
+                        <img t-attf-src="data:image/*;base64,{{company.logo}}" style="width: 100px; height: 100px;"/>
+                    </div>
+                    <div class="col-5" style="margin-left:40px;">
+                        <span><b><t t-esc="company.name"/></b></span><br/>
+                        <span><t t-esc="company.street"/>, <t t-esc="company.street2"/>-<t t-esc="company.zip"/></span><br/>
+                        <span><t t-esc="company.city"/>, (<t t-esc="company.state_id.code"/>) <t t-esc="company.country_id.name"/></span><br/>
+                        <span><t t-esc="company.mobile"/></span>
+                    </div>
+                    <div class="col-2">
+                    </div>
+                    <div class="col-4">
+                        <span><b>GSTN</b> : <b><t t-esc="company.vat"/></b></span><br/>
+                        <span><b>STATE NAME</b> : <b><t t-esc="company.state_id.code"/> CODE 09</b></span><br/>
+                        <t t-if="data">
+                            <t t-if="isinstance(data, dict)">
+                                <t t-if="data.get('division')">
+                                <span><b>DIVISION</b> : <b><t t-esc="data.get('division')"/></b></span><br/>
+                            </t>
+                            <t t-if="data.get('site')">
+                                <span><b>SITE</b> : <b><t t-esc="data.get('site')"/></b></span>
+                            </t>
+                            </t>
+                        </t>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+        <xpath expr="//div[2]/div" position="replace">
+            <div>
+                <t t-call="web.address_layout"/>
+            </div>
+        </xpath>
+    </template>
+</odoo>

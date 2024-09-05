@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Cost Center Form -->
+    <record id="view_cancel_job_work_inherit" model="ir.ui.view">
+        <field name="name">cancel job work inherit</field>
+        <field name="model">inno.cancel.job.work</field>
+        <field name="inherit_id" ref="innorug_manufacture.view_inno_job_work_cancel"/>
+        <field name="arch" type="xml">
+            <field name="cancel_without_materials" position="attributes">
+                <attribute name="attrs">{'invisible': [('branch_allocation', '!=', False)]}</attribute>
+            </field>
+            <field name="raise_warning" position="after">
+                <field name="branch_allocation" invisible="1"/>
+            </field>
+        </field>
+    </record>
+</odoo>

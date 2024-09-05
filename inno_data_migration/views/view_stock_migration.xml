@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_stock_migration" model="ir.ui.view">
+        <field name="name">Stock Migration Tree</field>
+        <field name="model">inno.stock.migration</field>
+        <field name="arch" type="xml">
+            <tree duplicate="false" create="true" editable="top">
+                <field name="product_id"/>
+                <field name="location_id"/>
+                <field name="opening"/>
+                <field name="issue_qty"/>
+                <field name="rec_qty"/>
+                <field name="balance"/>
+                <field name="synced" decoration-success="synced == 'synced'" decoration-warning="synced == 'not_synced'" widget="badge"/>
+                <button name="sync_stock" icon="fa-refresh" type="object"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_stock_migration" model="ir.actions.act_window">
+        <field name="name">Stock Migration</field>
+        <field name="res_model">inno.stock.migration</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+</odoo>

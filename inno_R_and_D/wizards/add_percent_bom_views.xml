@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_bom_percent_wizard_form" model="ir.ui.view">
+        <field name="name">Bom Percentage</field>
+        <field name="model">bom.percent.wizard</field>
+        <field name="arch" type="xml">
+            <form >
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="product_id" readonly="1" attrs="{'invisible': [('product_id', '=', False)]}"/>
+                               <field name="product_tmpl_id" readonly="1" attrs="{'invisible': [('product_tmpl_id', '=', False)]}"/>
+                              <field name="quality" required="1"  readonly="1"/>
+                        </group>
+                        <group>
+                              <label for="remaining_percent"/>
+                                <div class="d-flex flex-row align-items-start">
+                                    <field name="remaining_percent" readonly="1" force_save="1"/>
+                                    <h5>%</h5>
+                                </div>
+                        </group>
+                    </group>
+                     <notebook>
+                          <page string="Consumptions">
+                                <field name="bom_percent_lines" editable="bottom">>
+                                <tree editable="bottom">
+                                    <field name="material_id" required="1" />
+                                    <field name="other"/>
+                                    <field name="percent" sum="1" attrs="{'readonly': [('other', '!=', False)]}"/>
+                                    <field name="qty" required="1" sum="1"/>
+                                </tree>
+                                </field>
+                            </page>
+                    </notebook>
+                </sheet>
+                 <footer>
+                    <button type="object" name="confirm" string="Confirm" class="btn-primary"/>
+                     <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

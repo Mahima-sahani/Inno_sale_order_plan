@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+        <!-- Form -->
+        <record id="view_inno_size_line_form" model="ir.ui.view">
+            <field name="name">inno.size</field>
+            <field name="model">inno.size.line</field>
+            <field name="arch" type="xml">
+                <form string="Size">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="inno_size_id" readonly="1"/>
+                                 <field name="child_size_id" readonly="1"/>
+                                 <field name="division_id"/>
+                            </group>
+                            <group>
+                                <field name="size_type" required="1"/>
+                                 <field name="size" />
+                            </group>
+                        </group>
+                        <div>
+                        <div attrs="{'invisible': [('child_size_id', '!=', False)]}">Size Specification</div>
+                          <group attrs="{'invisible': [('child_size_id', '!=', False)]}">
+                            <group>
+                                   <label for="length"/>
+                                <div class="oe_inline">
+                                    <field name="length" class="mr8 oe_inline" required="1" tracking="1"/>
+                                    <strong class="mr8 oe_inline">Feet</strong></div>
+                                   <label for="width"/>
+                                <div class="oe_inline">
+                                    <field name="width" class="mr8 oe_inline" required="1" tracking="1"/>
+                                    <strong class="mr8 oe_inline">Feet</strong></div>
+                                <label for="area"/>
+                                <div class="oe_inline">
+                                    <field name="area" class="mr8 oe_inline" required="1" tracking="1"/>
+                                    <strong class="mr8 oe_inline">Sq.Feet</strong></div>
+                            </group>
+                            <group>
+                                 <label for="len_fraction"/>
+                                <div class="oe_inline">
+                                    <field name="len_fraction" class="mr8 oe_inline" tracking="1"/>
+                                    <strong class="mr8 oe_inline">Inches</strong></div>
+                                 <label for="width_fraction"/>
+                                <div class="oe_inline">
+                                    <field name="width_fraction" class="mr8 oe_inline" tracking="1"/>
+                                    <strong class="mr8 oe_inline">Inches</strong></div>
+                                <label for="perimeter"/>
+                                <div class="oe_inline">
+                                    <field name="perimeter" class="mr8 oe_inline" required="1" tracking="1"/>
+                                    <strong class="mr8 oe_inline">Feet</strong></div>
+                            </group>
+                        </group>
+                        </div>
+                    </sheet>
+<!--                      <footer attrs="{'invisible': [('child_size_id', '!=', False)]}">-->
+<!--                    <button string="Confirm" class="btn-primary" type="object" name="do_confirm" attrs="{'invisible': [('child_size_id', '!=', False)]}"/>-->
+<!--                </footer>-->
+                </form>
+            </field>
+        </record>
+    </data>
+
+</odoo>

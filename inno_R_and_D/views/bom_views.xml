@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_bom_percentade_mrp_bom_form" model="ir.ui.view">
+        <field name="name">mrp.bom</field>
+        <field name="model">mrp.bom</field>
+        <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
+        <field name="arch" type="xml">
+                <xpath expr="/form/*" position="before">
+                     <button string="Add Percentage" icon="fa-refresh" type="object" name="button_add_bom_percent"  class="btn-info" context="{'type': 'design'}"
+                            groups="inno_R_and_D.group_inno_rnd_user,innorug_manufacture.group_inno_weaving_manager,inno_finishing.group_inno_finishing_manager"/>
+                </xpath>
+            <data>
+            </data>
+        </field>
+    </record>
+</odoo>

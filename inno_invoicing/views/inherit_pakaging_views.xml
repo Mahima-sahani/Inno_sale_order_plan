@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="base_inno_packaging_inherit_form" model="ir.ui.view">
+        <field name="name">inno.packaging</field>
+        <field name="model">inno.packaging</field>
+        <field name="inherit_id" ref="inno_packaging.view_inno_packaging_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+               <button name="button_action_for_generate_report" string="GENERATE REPORTS" type="object" class="btn-primary" attrs="{'invisible': [('status', 'not in',['done',])]}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

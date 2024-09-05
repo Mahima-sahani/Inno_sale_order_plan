@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="main_job_work_po" model="ir.sequence">
+            <field name="name">inno.purchase</field>
+            <field name="code">po_seq</field>
+            <field name="prefix">MPO/%(range_year)s/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="main_job_work_po_receive_no" model="ir.sequence">
+            <field name="name">inno.receive</field>
+            <field name="code">po_rc_seq</field>
+            <field name="prefix">RPO/%(range_year)s/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        <record id="main_job_work_po_return_no" model="ir.sequence">
+            <field name="name">inno.receive</field>
+            <field name="code">po_return_seq</field>
+            <field name="prefix">RETURN/RPO/%(range_year)s/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+         <record id="main_spinning_po_no" model="ir.sequence">
+            <field name="name">purchase.order</field>
+            <field name="code">po_spinning_seq</field>
+            <field name="prefix">PO/SPNG/%(range_year)s/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+         <record id="main_cloth_order_po_no" model="ir.sequence">
+            <field name="name">purchase.order</field>
+            <field name="code">po_cloth_seq</field>
+            <field name="prefix">PO/CLH/%(range_year)s/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+         <record id="main_other_po_seq_no" model="ir.sequence">
+            <field name="name">purchase.order</field>
+            <field name="code">po_other_seq</field>
+            <field name="prefix">PO/OTH/%(range_year)s/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+<!--        ###########################################################################production-->
+
+
+         <record id="main_inno_spinning_po_no" model="ir.sequence">
+            <field name="name">inno.purchase</field>
+            <field name="code">po_inno_spinning_seq</field>
+            <field name="prefix">PO/SPNG/%(range_year)s/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+         <record id="main_inno_tufting_cloth_order_po_no" model="ir.sequence">
+            <field name="name">inno.purchase</field>
+            <field name="code">po_inno_tfc_seq</field>
+            <field name="prefix">PO/TFC/%(range_year)s/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+         <record id="main_inno_tana_joborder_po_seq_no" model="ir.sequence">
+            <field name="name">inno.purchase</field>
+            <field name="code">po_inno_tjb_seq</field>
+            <field name="prefix">PO/TJB/%(range_year)s/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+          <record id="main_inno_np_po_no" model="ir.sequence">
+            <field name="name">inno.purchase</field>
+            <field name="code">po_NP_seq</field>
+            <field name="prefix">PO/NP/%(range_year)s/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+         <record id="main_inno_tcw_po_seq_no" model="ir.sequence">
+            <field name="name">inno.purchase</field>
+            <field name="code">po_inno_tcw_seq</field>
+            <field name="prefix">PO/TCW/%(range_year)s/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+<!--              types = fields.Selection(-->
+<!--        [('yarn', 'YARN'), ('wool', 'WOOL'), ('purchase', 'PURCHASE'),-->
+<!--         ('tufting_cloth_weaving', 'TUFTING CLOTH WEAVING'),-->
+<!--         ('newar_production', 'NEWAR PRODUCTION'), ('tana_job_order', 'TANA JOB ORDER'),-->
+<!--         ('third_backing_cloth', 'THIRD BACKING CLOTH'), ('spinning', 'SPINNING')],-->
+<!--        string='Type', )-->
+
+
+         <record id="main_inno_yarn_po_seq_no" model="ir.sequence">
+            <field name="name">inno.purchase</field>
+            <field name="code">po_inno_yarn_seq</field>
+            <field name="prefix">PO/YRN/%(range_year)s/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+          <record id="main_inno_wool_po_no" model="ir.sequence">
+            <field name="name">inno.purchase</field>
+            <field name="code">po_wool_seq</field>
+            <field name="prefix">PO/WL/%(range_year)s/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+         <record id="main_inno_purchase_seq_no" model="ir.sequence">
+            <field name="name">inno.purchase</field>
+            <field name="code">po_inno_pr_seq</field>
+            <field name="prefix">PO/PR/%(range_year)s/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+          <record id="vendor_material_purchase_seq_no" model="ir.sequence">
+            <field name="name">inno.vendor.material</field>
+            <field name="code">po_vd_mt_seq</field>
+            <field name="prefix">VM/%(range_year)s/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+</odoo> 

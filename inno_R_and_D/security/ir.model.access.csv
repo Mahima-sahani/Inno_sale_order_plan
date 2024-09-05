@@ -1,0 +1,15 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+inno_R_and_D_inno_research,access_inno_research,inno_R_and_D.model_inno_research,,1,1,1,1
+inno_R_and_D_inno_research_line,access_inno_research_line,inno_R_and_D.model_inno_research_line,,1,1,1,1
+inno_R_and_D_order_wizards,access_order_wizards,inno_R_and_D.model_order_wizards,,1,1,1,1
+inno_R_and_D_order_wizards_line,access_order_wizards_line,inno_R_and_D.model_order_wizards_line,,1,1,1,1
+inno_R_and_D_operation_sequence,access_operation_sequence,inno_R_and_D.model_operation_sequence,,1,1,1,1
+inno_R_and_D_operation_sequence_line,access_operation_sequence_line,inno_R_and_D.model_operation_sequence_line,,1,1,1,1
+inno_R_and_D_inno_size,access_inno_size,inno_R_and_D.model_inno_size,,1,1,1,1
+inno_add_consumption,access_add_consumption,model_inno_rnd_bom_consumption,,1,1,1,1
+inno_add_product_sku,access_add_product_sku,model_inno_product_sku,,1,1,1,1
+innorug_manufacture_rnd_data_admin,access_rnd_master_data_admin,innorug_manufacture.model_rnd_master_data,inno_R_and_D.group_inno_rnd_admin,1,1,1,1
+inno_design_copy,access_inno_design_copy,model_inno_design_copy,,1,1,1,1
+inno_size_line,access_size_line,model_size_line,,1,1,1,1
+inno_bom_percent_wizard,access_bom_percent_wizard,model_bom_percent_wizard,,1,1,1,1
+inno_bom_percent_wizard_lines,access_bom_percent_wizard_lines,model_bom_percent_wizard_lines,,1,1,1,1

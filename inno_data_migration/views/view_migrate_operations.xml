@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record id="view_inno_data_migration" model="ir.ui.view">
+        <field name="name">Inno Data Migration</field>
+        <field name="model">inno.data.migration</field>
+        <field name="arch" type="xml">
+            <form >
+                <sheet>
+                    <div style="background-color: #ffd700; margin-bottom: 10px; text-align:center;" attrs="{'invisible': [('module_warning', '=', False)]}">
+                        <p style="padding: 10px; font-weight:600;">
+                        Please Ensure Module <field name="module_warning" readonly="1"/> is installed in your system.<br/>
+                        Else the Migration Process will not Work.
+                        </p>
+                    </div>
+                    <div style="margin-bottom: 10px; text-align:center; color: white;" class="bg-info">
+                        <p style="padding: 10px; font-weight:600;">
+                            After Finishing the Operation the Window will be reloaded. <br/>
+                            If not you might have some data remaining to process. <br/>
+                            Please Click the Import button Again to continue your import process.
+                        </p>
+                    </div>
+                    <group  attrs="{'invisible': [('operations', '=', 'division_operation')]}">
+                        <group>
+                            <field name="operations" string="Select Operation" required="1"/>
+                             <field name="raw_material_group" attrs="{'invisible': [('operations', 'not in', ['consumption_product','stock'])]}"/>
+                            <field name="is_employee" attrs="{'invisible': [('operations', '!=', 'contact')]}" widget="boolean_toggle"/>
+                            <field name='file_name' invisible='1'/>
+                            <field name="data" widget="binary" filename="file_name" string="Import CSV File" attrs="{'invisible': ['|',('operations', '=', False) ,('operations', '=', 'bom_varient')]}"/>
+                        </group>
+                        <div attrs="{'invisible': ['|',('operations', '=', False),('operations', '=', 'bom_varient')]}">
+                            <div style="margin-bottom: 10px;">
+                            Please Ensure the Data is in the correct format. <br/>
+                            Please Download the Sample file to verify the Data.
+                            </div>
+                            <button name="download_sample" class="btn-success" string="Download Sample" type="object" attrs="{'invisible': [('operations', '=', 'bom_varient')]}"/>
+                        </div>
+                    </group>
+                     <group  attrs="{'invisible': [('operations', '!=', 'division_operation')]}">
+                        <group>
+                            <field name="operations" string="Select Operation" required="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="rate_list_operation" attrs="{'invisible': [('operations', '!=', 'rate_list')], 'required': [('operations', '=', 'rate_list')]}"/>
+                            <field name="rate_list_id" attrs="{'invisible': [('operations', '!=', 'rate_list')]}"/>
+                            <field name="is_outside" attrs="{'invisible': [('operations', '!=', 'rate_list')]}" widget="boolean_toggle"/>
+                            <field name="is_far" attrs="{'invisible': [('operations', '!=', 'rate_list')]}" widget="boolean_toggle"/>
+                        </group>
+                        <group style="margin-top:10px">
+                            <field name="division_id" attrs="{'invisible': [('operations', '!=', 'rate_list')], 'required': [('rate_list_id', '!=', False)]}"/>
+                            <field name="uom_id" attrs="{'invisible': [('operations', '!=', 'rate_list')], 'required': [('rate_list_id', '!=', False)]}"/>
+                        </group>
+                    </group>
+                </sheet>
+                 <footer>
+                    <button type="object" name="import_data" string="Import" class="btn-primary"  attrs="{'invisible': ['|',('operations', '=', 'bom_varient'),('operations', '=', 'division_operation')]}"/>
+                      <button type="object" name="create_varient_bom" string="Create" class="btn-primary"  attrs="{'invisible': [('operations', '!=', 'bom_varient')]}"/>
+                      <button type="object" name="migrate_division_per_operation" string="Create" class="btn-primary"  attrs="{'invisible': [('operations', '!=', 'division_operation')]}"/>
+                     <button type="object" name="delete_failed_record" string="Delete Failed Logs" class="btn-primary"  attrs="{'invisible': ['|',('operations', '=', 'bom_varient'),('operations', '=', 'division_operation')]}"/>
+                     <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_inno_data_migration" model="ir.actions.act_window">
+        <field name="name">Inno Data Migration</field>
+        <field name="res_model">inno.data.migration</field>
+        <field name="view_mode">form</field>
+         <field name="target">new</field>
+    </record>
+</odoo>

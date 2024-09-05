@@ -1,0 +1,861 @@
+<odoo>
+
+    <template id="report_print_export_invoice">
+        <t t-call="web.basic_layout">
+            <div class="page" style="border: 2px solid black;">
+                <div>
+                    <div style="text-align: center; border-bottom: 2px solid black; padding: 4px;">Export Invoice</div>
+                    <div style="text-align: center; padding: 10px; border-bottom: 2px solid black">"SUPPLY MEANT FOR
+                        EXPORT UNDER LUT, WITHOUT PAYMENT OF INTEGRATED TAX (IGST) (ARN NO. AD0903230551384
+                        DT.31/03/2023)"
+                    </div>
+                    <div class="row" style="border-bottom: 2px solid black;">
+                        <div class="col-6" style="border-right: 2px solid black; padding: 8px;">
+                            <div class="row">
+                                <div class="col-6">
+                                    <b>Manufacturer/Exporter :</b>
+                                </div>
+                                <div class="col-6"/>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div style="padding-top: 15px">
+                                        SURYA CARPET PVT. LTD.
+                                    </div>
+                                    <div style="padding-top: 10px">
+                                        UGAPUR, AURAI-221301
+                                    </div>
+                                    <div style="padding-top: 10px">
+                                        BHADOHI (U.P.) INDIA
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div style="border-top: 2px solid black; border-left:2px solid black; padding: 8px">
+                                        <b>PAN # :</b>
+                                    </div>
+                                    <div style="border-top: 2px solid black; border-left:2px solid black; padding: 8px">
+                                        <b>IEC # :</b>
+                                    </div>
+                                    <div style="border-top: 2px solid black; border-left:2px solid black; border-bottom:2px solid black; padding: 8px">
+                                        <b>GSTIN # :</b>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="row" style="border-bottom: 2px solid black; padding: 8px">
+                                <div>
+                                    <div>
+                                        <b>Invoice No &amp; Date</b>
+                                    </div>
+                                    <div>SCP537/23-24 DATED March 14, 2024</div>
+                                </div>
+                            </div>
+                            <div class="row" style="border-bottom: 2px solid black; padding: 8px">
+                                <div>
+                                    <div>
+                                        <b>Buyer's Order No &amp; Date</b>
+                                    </div>
+                                    <div>SCI/SEA-096/23-24DATED January 03, 2023</div>
+                                </div>
+                            </div>
+                            <div class="row" style="padding: 8px">
+                                <div>
+                                    <div>
+                                        <b>Other Reference :END USE: GNX 100</b>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-3"
+                             style="border-right: 2px solid black;">
+                            <div style="border-bottom: 2px solid black; padding: 8px;">
+                                <div>
+                                    <b>Consignee :</b>
+                                </div>
+                                <div>Surya Carpet Inc</div>
+                                <div>1 SURYA DRIVE</div>
+                                <div>WHITE, GA-30184</div>
+                                <div>USA</div>
+                                <div>Tel :8772757847</div>
+                                <div>E:satya.tiwari@surya.com</div>
+                            </div>
+                            <div style="border-bottom: 2px solid black; padding: 8px;">
+                                <div>
+                                    <b>Pre-carriage by</b>
+                                </div>
+                                <div>pre carriage</div>
+                            </div>
+                            <div style="border-bottom: 2px solid black; padding: 8px;">
+                                <div>
+                                    <b>Vessel/Flight No.</b>
+                                </div>
+                                <div>Sea</div>
+                            </div>
+                            <div>
+                                <div>
+                                    <b>Port Of Discharge</b>
+                                </div>
+                                <div>SAVANNAH</div>
+                            </div>
+                        </div>
+                        <div class="col-3"
+                             style="border-right: 2px solid black;">
+                            <div style="border-bottom: 2px solid black; padding: 8px;">
+                                <div>
+                                    <b>Buyer :</b>
+                                </div>
+                                <div>Surya Carpet Inc</div>
+                                <div>1 SURYA DRIVE</div>
+                                <div>WHITE, GA-30184</div>
+                                <div>USA</div>
+                                <div>Tel :8772757847</div>
+                                <div>E:satya.tiwari@surya.com</div>
+                            </div>
+                            <div style="border-bottom: 2px solid black; padding: 8px;">
+                                <div>
+                                    <b>Place of Receipt by Pre-carrier</b>
+                                </div>
+                                <div>ICD PANKI KANPUR</div>
+                            </div>
+                            <div style="border-bottom: 2px solid black; padding: 8px;">
+                                <div>
+                                    <b>Port of Loading</b>
+                                </div>
+                                <div>NHAVA SHEVA</div>
+                            </div>
+                            <div style="padding: 8px;">
+                                <div>
+                                    <b>Final Destination</b>
+                                </div>
+                                <div>WHITE, GA (U.S.A.)</div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div style="border-bottom: 2px solid black;">
+                                <br>
+                                </br>
+                                <br></br>
+                            </div>
+                            <div class="row" style="border-bottom: 2px solid black;">
+                                <div class="col-6" style="border-right: 2px solid black; padding: 5px;">
+                                    <div>
+                                        <b>Country of Origin of Goods</b>
+                                    </div>
+                                    <div>
+                                        <b>INDIA</b>
+                                    </div>
+                                </div>
+                                <div class="col-6" style="padding: 5px;">
+                                    <div>
+                                        <b>Country of final Destination</b>
+                                    </div>
+                                    <div>
+                                        <b>USA</b>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div>
+                                    <b>Terms of Delivery and Payment</b>
+                                </div>
+                                <div>F.O.B.</div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row" style="border-top: 2px solid black;">
+                        <div class="col-9" style="border-right: 2px solid black;">
+                            <div class="row">
+                                <div class="col-6" style="border-right: 2px solid black;">
+                                    <div style="border-bottom: 2px solid black; padding: 8px;">
+                                        <div>
+                                            <b>Marks &amp; Nos./Container No.</b>
+                                        </div>
+                                        <div>SURYA CARPET INC.</div>
+                                    </div>
+                                    <div style="padding: 8px;">
+                                        <div>
+                                            <b>
+                                                <b>No. And Kinds of Pkgs.</b>
+                                            </b>
+                                        </div>
+                                        <div>1066
+                                            <br></br>
+                                            (One Thousand Sixty Six) Rolls.
+                                            <br></br>
+                                            Properly Packed in New Polytube.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6" style="padding: 8px;">
+                                    <div>
+                                        <b>Description of Goods</b>
+                                    </div>
+                                    <div>HAND TUFTED WOOLLEN CARPET,
+                                        HAND TUFTED POLYESTER CARPET,
+                                        HAND LOOM WOVEN WOOLLEN CARPET,
+                                        HAND LOOM WOVEN VISCOSE CARPET,
+                                        HAND KNOTTED WOOLLEN CARPET,
+                                        HAND KNOTTED TIBETAN WOOLLEN VISCOSE
+                                        CARPET,
+                                        LOOM KNOTTED VISCOSE WOOLLEN CARPET,
+                                        HAND WOVEN WOOLLEN KELEM,
+                                        HAND WOVEN WOOLLEN DURRIES &amp;
+                                        HAND WOVEN PETYARN DURRIES.
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="border-top: 2px solid black;">
+                                <div>
+                                    <b>Roll Nos:</b>
+                                    <br></br>
+                                    1 - 1066
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-1" style="border-right: 2px solid black; padding: 5px;">
+                            Quantity
+                        </div>
+                        <div class="col-1" style="border-right: 2px solid black; padding: 5px;">
+                            Rate
+                        </div>
+                        <div class="col-1" style="padding: 5px;">
+                            Amount
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th class="cell">
+                                            <b>Design / Quality</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>ITC HS CODE NO.</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Knots/ Sq.Mtr.</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Total Area Sq.Mtr.</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Price Per Sq.Mtr.</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Total Pieces</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Total Area Sq.Feet</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Price Per Sq.Feet USD (F.O.B.)</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Total Amount USD(F.O.B.)</b>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <td>HAND TUFTED WOOLLEN CARPET (ARL) WOOL- 80%, COTTON-20%</td>
+                                        <td>57031010</td>
+                                        <td>----</td>
+                                        <td>91.00</td>
+                                        <td>10.76374</td>
+                                        <td>10.76374</td>
+                                        <td>11</td>
+                                        <td>979.500</td>
+                                        <td>1.0</td>
+                                        <td>979.50</td>
+                                    </tr>
+                                </thead>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+        <template id="custom_purchase_header_footer" inherit_id="web.external_layout_striped">
+        <xpath expr="//div[1]" position="replace">
+            <div class="header">
+                <div>
+                     <div style="text-align: center; border-bottom: 2px solid black; padding: 4px;">Export Invoice</div>
+                    <div style="text-align: center; padding: 10px; border-bottom: 2px solid black">"SUPPLY MEANT FOR
+                        EXPORT UNDER LUT, WITHOUT PAYMENT OF INTEGRATED TAX (IGST) (ARN NO. AD0903230551384
+                        DT.31/03/2023)"
+                    </div>
+                </div>
+                      <div class="row" style="border-bottom: 2px solid black;">
+                        <div class="col-6" style="border-right: 2px solid black; padding: 8px;">
+                            <div class="row">
+                                <div class="col-6">
+                                    <b>Manufacturer/Exporter :</b>
+                                </div>
+                                <div class="col-6"/>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div style="padding-top: 15px">
+                                        SURYA CARPET PVT. LTD.
+                                    </div>
+                                    <div style="padding-top: 10px">
+                                        UGAPUR, AURAI-221301
+                                    </div>
+                                    <div style="padding-top: 10px">
+                                        BHADOHI (U.P.) INDIA
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div style="border-top: 2px solid black; border-left:2px solid black; padding: 8px">
+                                        <b>PAN # :</b>
+                                    </div>
+                                    <div style="border-top: 2px solid black; border-left:2px solid black; padding: 8px">
+                                        <b>IEC # :</b>
+                                    </div>
+                                    <div style="border-top: 2px solid black; border-left:2px solid black; border-bottom:2px solid black; padding: 8px">
+                                        <b>GSTIN # :</b>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="row" style="border-bottom: 2px solid black; padding: 8px">
+                                <div>
+                                    <div>
+                                        <b>Invoice No &amp; Date</b>
+                                    </div>
+                                    <div>SCP537/23-24 DATED March 14, 2024</div>
+                                </div>
+                            </div>
+                            <div class="row" style="border-bottom: 2px solid black; padding: 8px">
+                                <div>
+                                    <div>
+                                        <b>Buyer's Order No &amp; Date</b>
+                                    </div>
+                                    <div>SCI/SEA-096/23-24DATED January 03, 2023</div>
+                                </div>
+                            </div>
+                            <div class="row" style="padding: 8px">
+                                <div>
+                                    <div>
+                                        <b>Other Reference :END USE: GNX 100</b>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+            </div>
+        </xpath>
+    </template>
+
+
+
+
+    <template id="templete_action_id">
+        <t t-call="web.html_container">
+               <t t-call="inno_invoicing.custom_purchase_header_footer">
+                                   <div class="row" style="border-top: 2px solid black;">
+                        <div class="col-9" style="border-right: 2px solid black;">
+                            <div class="row">
+                                <div class="col-6" style="border-right: 2px solid black;">
+                                    <div style="border-bottom: 2px solid black; padding: 8px;">
+                                        <div>
+                                            <b>Marks &amp; Nos./Container No.</b>
+                                        </div>
+                                        <div>SURYA CARPET INC.</div>
+                                    </div>
+                                    <div style="padding: 8px;">
+                                        <div>
+                                            <b>
+                                                <b>No. And Kinds of Pkgs.</b>
+                                            </b>
+                                        </div>
+                                        <div>1066
+                                            <br></br>
+                                            (One Thousand Sixty Six) Rolls.
+                                            <br></br>
+                                            Properly Packed in New Polytube.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6" style="padding: 8px;">
+                                    <div>
+                                        <b>Description of Goods</b>
+                                    </div>
+                                    <div>HAND TUFTED WOOLLEN CARPET,
+                                        HAND TUFTED POLYESTER CARPET,
+                                        HAND LOOM WOVEN WOOLLEN CARPET,
+                                        HAND LOOM WOVEN VISCOSE CARPET,
+                                        HAND KNOTTED WOOLLEN CARPET,
+                                        HAND KNOTTED TIBETAN WOOLLEN VISCOSE
+                                        CARPET,
+                                        LOOM KNOTTED VISCOSE WOOLLEN CARPET,
+                                        HAND WOVEN WOOLLEN KELEM,
+                                        HAND WOVEN WOOLLEN DURRIES &amp;
+                                        HAND WOVEN PETYARN DURRIES.
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="border-top: 2px solid black;">
+                                <div>
+                                    <b>Roll Nos:</b>
+                                    <br></br>
+                                    1 - 1066
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-1" style="border-right: 2px solid black; padding: 5px;">
+                            Quantity
+                        </div>
+                        <div class="col-1" style="border-right: 2px solid black; padding: 5px;">
+                            Rate
+                        </div>
+                        <div class="col-1" style="padding: 5px;">
+                            Amount
+                        </div>
+                    </div>
+                                   <div class="row">
+                        <div class="col-12">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th class="cell">
+                                            <b>Design / Quality</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>ITC HS CODE NO.</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Knots/ Sq.Mtr.</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Total Area Sq.Mtr.</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Price Per Sq.Mtr.</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Total Pieces</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Total Area Sq.Feet</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Price Per Sq.Feet USD (F.O.B.)</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Total Amount USD(F.O.B.)</b>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <td>HAND TUFTED WOOLLEN CARPET (ARL) WOOL- 80%, COTTON-20%</td>
+                                        <td>57031010</td>
+                                        <td>----</td>
+                                        <td>91.00</td>
+                                        <td>10.76374</td>
+                                        <td>10.76374</td>
+                                        <td>11</td>
+                                        <td>979.500</td>
+                                        <td>979.50</td>
+                                    </tr>
+                                </thead>
+                                <thead>
+                                     <th class="cell">
+                                            <b></b>
+                                        </th>
+                                     <th class="cell">
+                                            <b>TOTAL-</b>
+                                        </th>
+                                    <th class="cell">
+                                            <b>5085.65</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b></b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>1323</b>
+                                        </th>
+                                    <th class="cell">
+                                            <b></b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>54741.397</b>
+                                        </th>
+                                      <th class="cell">
+                                            <b></b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>65049.66</b>
+                                        </th>
+
+                                </thead>
+                                  <thead>
+                                     <th class="cell">
+                                            <b></b>
+                                        </th>
+                                     <th class="cell">
+                                            <b></b>
+                                        </th>
+                                    <th class="cell">
+                                            <b></b>
+                                        </th>
+                                        <th class="cell">
+                                            <b></b>
+                                        </th>
+                                        <th class="cell">
+                                            <b></b>
+                                        </th>
+                                    <th class="cell">
+                                            <b></b>
+                                        </th>
+                                        <th class="cell">
+                                            <b></b>
+                                        </th>
+                                      <th class="cell">
+                                            <b>Total Amount Before Tax</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>65049.66</b>
+                                        </th>
+
+                                </thead>
+                                 <thead>
+                                     <th class="cell">
+                                            <b>Amount Chargabe (in word) :</b>
+                                        </th>
+                                     <th class="cell">
+                                            <b></b>
+                                        </th>
+                                    <th class="cell">
+                                            <b>US$
+Sixty Five Thousand Forty Nine and Sixty Six Cents Only</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b></b>
+                                        </th>
+                                        <th class="cell">
+                                            <b></b>
+                                        </th>
+                                    <th class="cell">
+                                            <b></b>
+                                        </th>
+                                        <th class="cell">
+                                            <b></b>
+                                        </th>
+                                      <th class="cell">
+                                            <b>Total Amount After Tax-</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>65049.66</b>
+                                        </th>
+
+                                </thead>
+                            </table>
+
+                        </div>
+                    </div>
+                    </t>
+</t>
+        </template>
+
+
+<!--    <template id="templete_action_id">-->
+<!--        <t t-call="web.html_container">-->
+<!--            <t t-call="inno_invoicing.custom_purchase_header_footer">-->
+<!--&lt;!&ndash;                <t t-esc="data"/>&ndash;&gt;-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--            </t>-->
+<!--</t>-->
+<!--        </template>-->
+
+
+
+<!--    <template id="custom_purchase_header_footer" inherit_id="web.external_layout_striped">-->
+<!--        <xpath expr="//div[1]" position="replace">-->
+<!--            <div class="header">-->
+<!--                <div class="row">-->
+<!--                    <div class="col-6">-->
+<!--                        Header-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </xpath>-->
+<!--        <xpath expr="//div[3]/div" position="replace">-->
+<!--            <div>-->
+<!--                Footer-->
+<!--            </div>-->
+<!--        </xpath>-->
+<!--    </template>-->
+
+
+<!--    <template id="templete_action_id">-->
+<!--        <t t-call="web.html_container">-->
+<!--            <t t-call="inno_invoicing.custom_purchase_header_footer">-->
+<!--&lt;!&ndash;                <t t-esc="data"/>&ndash;&gt;-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--                <div>shivam</div>-->
+<!--            </t>-->
+<!--</t>-->
+<!--        </template>-->
+
+
+
+
+<record id="action_export_invoice_reports" model="ir.actions.report">
+<field name="name">Print Export Invoice</field>
+<field name="model">inno.packaging</field>
+<field name="report_type">qweb-pdf</field>
+<field name="report_name">inno_invoicing.templete_action_id</field>
+<field name="report_file">inno_invoicing.templete_action_id</field>
+<field name="paperformat_id" ref="inno_invoicing.inno_invoice_paper_format"/>
+<field name="binding_type">report</field>
+</record>
+
+        </odoo>

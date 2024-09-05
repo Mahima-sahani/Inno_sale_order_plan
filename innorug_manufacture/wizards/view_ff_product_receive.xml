@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_ff_receive_form" model="ir.ui.view">
+        <field name="name">Full Fininshed Product Receive</field>
+        <field name="model">ff.product.receive</field>
+        <field name="arch" type="xml">
+            <form >
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="jobwork_id" readonly="1" options="{'no_open': True}"/>
+                        </group>
+                        <group>
+                            <field name="location_id" options="{'no_create': True, 'no_open': True}"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Product To Receive">
+                            <field name="product_receive_line" mode="tree">
+                                <tree editable="buttom" create="0">
+                                    <field name="product_id" readonly="1" force_save="1"/>
+                                     <field name="qty_to_receive" readonly="1"/>
+                                    <field name="receive_qty"/>
+                                    <field name="jw_line_id" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                  <footer>
+                    <button string="Confirm" class="btn-primary" type="object" name="do_confirm"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_open_ff_receive" model="ir.actions.act_window">
+        <field name="name">Full Finished Receive</field>
+        <field name="res_model">ff.product.receive</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

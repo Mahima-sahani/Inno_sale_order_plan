@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="mrp_sale_order_planning_inherit" model="ir.ui.view">
+        <field name="name">inno.sale.order.planning</field>
+        <field name="model">inno.sale.order.planning</field>
+        <field name="inherit_id" ref="inno_sale_order_plan.view_surya_excel_sale_order_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button string="UPDATE MO BOM" icon="fa-refresh" type="object" name="update_mo_bom"  class="btn-primary" attrs="{'invisible': [('state', '!=', 'confirm')]}"/>
+                </xpath>
+        </field>
+    </record>
+</odoo>

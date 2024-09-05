@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+       <record id="view_mrp_workorder_finishing_tree" model="ir.ui.view">
+        <field name="name">mrp.workorder</field>
+        <field name="model">mrp.workorder</field>
+        <field name="arch" type="xml">
+            <tree decoration-success ="allotment =='full'" decoration-info ="allotment =='partial'" decoration-danger ="allotment =='to_do'" create="0">
+                <field name="name"/>
+                 <field name="workcenter_id"/>
+                 <field name="production_id"/>
+                 <field name="product_id"/>
+                 <field name ="allotted_qty"/>
+                 <field name ="remaining_to_allocate"/>
+                <field name="finished_qty"/>
+                <field name ="allotment"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_mrp_work_order_finishing" model="ir.actions.act_window">
+        <field name="name">Finishing Work Order</field>
+        <field name="res_model">mrp.workorder</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_mrp_workorder_finishing_tree" />
+        <field name="context">{'group_by':'sale_id'}</field>
+        <field name="domain">[('workcenter_id.is_weaving_workcenter', '!=', True)]</field>
+    </record>
+</odoo>

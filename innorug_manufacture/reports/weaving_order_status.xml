@@ -1,0 +1,240 @@
+<odoo>
+    <template id="report_weaving_order_status_summary">
+        <t t-call="web.html_container">
+            <t t-set="data_report_landscape" t-value="True"/>
+            <t t-call="web.external_layout" style="margin-top: 100px;">
+                <div class="page">
+                    <div class="text-center" style="border-bottom: 1px solid black;">
+                        <h4>
+                            <b>Weaving Order Status Summary</b>
+                        </h4>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="row">
+                                <div class="col-4">
+                                    <h6>
+                                        <b>Start Date</b>
+                                    </h6>
+                                </div>
+                                <div class="col-1">
+                                    <h6>:</h6>
+                                </div>
+                                <div class="col-6">
+                                    <h6>
+                                        <t t-esc="data.get('data').get('start_date')"/>
+                                    </h6>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <h6>
+                                        <b>Process</b>
+                                    </h6>
+                                </div>
+                                <div class="col-1">
+                                    <h6>:</h6>
+                                </div>
+                                <div class="col-6">
+                                    <h6>
+                                        Weaving
+                                    </h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="row">
+                                <div class="col-4">
+                                    <h6>
+                                        <b>End Date</b>
+                                    </h6>
+                                </div>
+                                <div class="col-1">
+                                    <h6>:</h6>
+                                </div>
+                                <div class="col-6">
+                                    <h6>
+                                        <b>
+                                            <t t-esc="data.get('data').get('end_date')"/>
+                                        </b>
+                                    </h6>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <h6>
+                                        <b>Branch Records</b>
+                                    </h6>
+                                </div>
+                                <div class="col-1">
+                                    <h6>:</h6>
+                                </div>
+                                <div class="col-6">
+                                    <h6>
+                                        <t t-if="data.get('include_branch')">
+                                            Include Branch Records
+                                        </t>
+                                        <t t-else="">
+                                            Exclude Branch Records
+                                        </t>
+                                    </h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th class="cell">
+                                            <b>Order No.</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Date</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Due Date</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Design</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Quality</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>PO No.</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Size</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Color</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Order Pcs</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Can. Pcs</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Rec. Pcs</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Bal. Pcs.</b>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <t t-foreach="data.get('records')" t-as="weav_data">
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <td>
+                                                <t t-esc="weav_data.get('name')"/>
+                                            </td>
+                                        </div>
+                                        <div class="col-3">
+                                            <td>Mobile :
+                                                <t t-esc="weav_data.get('mobile')"/>
+                                            </td>
+                                        </div>
+                                    </div>
+                                    <t t-foreach="weav_data.get('data')" t-as="record">
+                                        <tr style="text-align: center;">
+                                            <td>
+                                                <t t-esc="record.get('order_no')"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="record.get('date')"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="record.get('due_date')"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="record.get('design')"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="record.get('quality')"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="record.get('po')"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="record.get('size')"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="record.get('color')"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="record.get('ordered_pcs')"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="record.get('can_pcs')"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="record.get('rec_pcs')"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="record.get('bal_pcs')"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                    <thead>
+                                        <tr>
+                                            <th class="cell">Balance Area:</th>
+                                            <th>
+                                                <t t-esc="weav_data.get('bal_area')"/>
+                                            </th>
+                                            <th/>
+                                            <th/>
+                                            <th/>
+                                            <th/>
+                                            <th/>
+                                            <th/>
+                                            <th>
+                                                <t t-esc="weav_data.get('ord_total')"/>
+                                            </th>
+                                            <th/>
+                                            <th>
+                                                <t t-esc="weav_data.get('rec_total')"/>
+                                            </th>
+                                            <th/>
+                                        </tr>
+                                        <tr>
+                                            <th/>
+                                            <th/>
+                                            <th/>
+                                            <th/>
+                                            <th/>
+                                            <th/>
+                                            <th/>
+                                            <th/>
+                                            <th/>
+                                            <th>
+                                                <t t-esc="weav_data.get('can_total')"/>
+                                            </th>
+                                            <th/>
+                                            <th>
+                                                <t t-esc="weav_data.get('bal_total')"/>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                </t>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_weaving_order_status_summary" model="ir.actions.report">
+        <field name="name">Weaving Order Status Summary</field>
+        <field name="model">main.jobwork</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">innorug_manufacture.report_weaving_order_status_summary</field>
+        <field name="report_file">Weaving Order Status Summary</field>
+        <field name="paperformat_id" ref="base.paperformat_euro"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

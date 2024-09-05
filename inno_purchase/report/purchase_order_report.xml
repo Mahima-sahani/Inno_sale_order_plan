@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_material_purchase_order">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <style type="text/css">
+                    th{
+                    color: #348691;
+                    }
+                    .highlight {
+                    color: #af8835;
+                    }
+                    td{
+                    font-size: 12px;
+                    }
+                </style>
+                <div class="page">
+                    <div style="text-align: center; border-bottom: 2px solid black; padding: 4px;">
+                        <h4>
+                            <b>
+                                <t t-esc="data.get('header')"/>
+                            </b>
+                        </h4>
+                    </div>
+                    <br></br>
+                    <div class="row">
+                        <div class="col-5">
+                            <div class="row">
+                                <div class="col-3">
+                                    <b>Name</b>
+                                </div>
+                                <div class="col-1">:</div>
+                                <div class="col-7">
+                                    <t t-esc="data.get('supplier')"/>
+                                </div>
+                            </div>
+                            <br></br>
+                            <div class="row">
+                                <div class="col-3">
+                                </div>
+                                <div class="col-1">:</div>
+                                <t t-esc="data.get('code')"/>
+                            </div>
+                            <br></br>
+                            <div class="row">
+                                <div class="col-3">
+                                    <b>Address</b>
+                                </div>
+                                <div class="col-1">:</div>
+                                <div class="col-7">
+                                    <t t-esc="data.get('address')"/>
+                                </div>
+                            </div>
+                            <br></br>
+                            <div class="row">
+                                <div class="col-3">
+                                    <b>Mobile</b>
+                                </div>
+                                <div class="col-1">:</div>
+                                <div class="col-7">
+                                    <t t-esc="data.get('mobile')"/>
+                                </div>
+                            </div>
+                            <br></br>
+                            <div class="row">
+                                <div class="col-3">
+                                    <b>GSTIN</b>
+                                </div>
+                                <div class="col-1">:</div>
+                                <div class="col-7">
+                                    <t t-esc="data.get('gstin')"/>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-2">
+                        </div>
+                        <div class="col-5">
+                            <div class="row">
+                                <div class="col-4">
+                                    <b>Order No</b>
+                                </div>
+                                <div class="col-1">:</div>
+                                <div class="col-7">
+                                    <t t-esc="data.get('doc')"/>
+                                </div>
+                            </div>
+                            <br></br>
+                            <div class="row">
+                                <div class="col-4">
+                                    <b>Doc. Date</b>
+                                </div>
+                                <div class="col-1">:</div>
+                                <div class="col-7">
+                                    <t t-esc="data.get('docDate')"/>
+                                </div>
+                            </div>
+                            <br></br>
+                            <div class="row">
+                                <div class="col-4">
+                                    <b>Due Date</b>
+                                </div>
+                                <div class="col-1">:</div>
+                                <div class="col-7">
+                                    <t t-esc="data.get('docDue')"/>
+                                </div>
+                            </div>
+                            <br></br>
+                            <div class="row">
+                                <div class="col-4">
+                                    <b>Reverse Charge</b>
+                                </div>
+                                <div class="col-1">:</div>
+                                <div class="col-7">
+                                    <t t-esc="data.get('reverse_charge')"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br></br>
+                    <div class="row">
+                        <div class="col-12">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th class="cell">
+                                            <b>S.no</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Product</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>HSN/SAC</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Purchase Indent</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Qty</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Units</b>
+                                        </th>
+                                        <t t-if="data.get('types') == 'purchase'">
+                                            <th class="cell">
+                                                <b>Deal Qty</b>
+                                            </th>
+                                            <th class="cell">
+                                                <b>Deal Unit</b>
+                                            </th>
+                                        </t>
+
+                                        <th class="cell">
+                                            <b>Rate</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Discount %</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Amount</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Remark</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>GST %</b>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <t t-foreach="enumerate(data.get('sub_data'))" t-as="prod_data">
+                                    <tr>
+                                        <td>
+                                            <t t-esc="prod_data[0]+1"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="prod_data[1].get('product')"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="prod_data[1].get('hsn')"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="prod_data[1].get('indent')"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="prod_data[1].get('qty')"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="(prod_data[1].get('unit'))"/>
+                                        </td>
+                                        <t t-if="prod_data[1].get('types') == 'purchase'">
+                                            <td>
+                                                <t t-esc="prod_data[1].get('deal_qty')"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="(prod_data[1].get('deal_unit'))"/>
+                                            </td>
+                                        </t>
+                                        <td>
+                                            <t t-esc="prod_data[1].get('rate')"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="prod_data[1].get('discount')"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="int(prod_data[1].get('amont'))"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="prod_data[1].get('remark')"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="prod_data[1].get('gst')"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <td colspan="4">
+                                        <b>Total :</b>
+                                    </td>
+                                    <td>
+                                        <t t-esc="data.get('qty')"/>
+                                    </td>
+                                    <td></td>
+                                    <t t-if="data.get('types') == 'purchase'">
+                                        <td colspan="3">
+                                            <t t-esc="data.get('deal_qty')"/>
+                                        </td>
+                                    </t>
+                                    <t t-if="data.get('types') in ['yarn', 'wool']">
+                                        <td></td>
+                                    </t>
+                                    <td></td>
+                                    <td>
+                                        <t t-esc="data.get('total_amount')"/>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <br></br>
+                    <div class="row">
+                        <div class="col-5">
+                            <div class="row">
+                                <div class="col-12">
+                                    <table style="border: 2px solid black; padding: 1px;" class="table table-striped">
+                                        <thead>
+                                        </thead>
+                                        <thead>
+                                            <tr>
+                                                <td class="cell" colspan="6" style="text-align: center;">
+                                                    <b>
+                                                        GST Summary
+                                                    </b>
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                        <thead>
+                                            <tr>
+                                                <td>
+                                                    <b>
+                                                        DESC
+                                                    </b>
+                                                </td>
+                                                <td>
+                                                    <b>
+                                                        Taxable
+                                                    </b>
+                                                </td>
+                                                <td>
+                                                    <b>
+                                                        IGST
+                                                    </b>
+                                                </td>
+                                                <td>
+                                                    <b>
+                                                        CGST
+                                                    </b>
+                                                </td>
+                                                <td>
+                                                    <b>
+                                                        SGST
+                                                    </b>
+                                                </td>
+                                                <td>
+                                                    <b>
+                                                        CESS
+                                                    </b>
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                        <tr>
+                                            <td>
+                                                <t t-esc="data.get('tax_data').get('DESC')"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="data.get('tax_data').get('Taxable')"/>
+                                            </td>
+                                            <td>
+                                                <t t-foreach="data.get('invoice_gst').items()" t-as="key_value">
+                                                    <t t-if="key_value[0] == 'IGST'">
+                                                        <t t-esc="key_value[1]"/>
+                                                    </t>
+                                                </t>
+                                            </td>
+                                            <td>
+                                                <t t-foreach="data.get('invoice_gst').items()" t-as="key_value">
+                                                    <t t-if="key_value[0] == 'CGST'">
+                                                        <t t-esc="key_value[1]"/>
+                                                    </t>
+                                                </t>
+                                            </td>
+                                            <td>
+                                                <t t-foreach="data.get('invoice_gst').items()" t-as="key_value">
+                                                    <t t-if="key_value[0] == 'SGST'">
+                                                        <t t-esc="key_value[1]"/>
+                                                    </t>
+                                                </t>
+                                            </td>
+                                            <td>
+                                                 <t t-foreach="data.get('invoice_gst').items()" t-as="key_value">
+                                                    <t t-if="key_value[0] == 'CESS'">
+                                                        <t t-esc="key_value[1]"/>
+                                                    </t>
+                                                </t>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Total
+                                            </td>
+                                            <td>
+                                                <t t-esc="data.get('tax_data').get('Taxable')"/>
+                                            </td>
+                                            <td>
+                                                <t t-foreach="data.get('invoice_gst').items()" t-as="key_value">
+                                                    <t t-if="key_value[0] == 'IGST'">
+                                                        <t t-esc="key_value[1]"/>
+                                                    </t>
+                                                </t>
+                                            </td>
+                                            <td>
+                                                <t t-foreach="data.get('invoice_gst').items()" t-as="key_value">
+                                                    <t t-if="key_value[0] == 'CGST'">
+                                                        <t t-esc="key_value[1]"/>
+                                                    </t>
+                                                </t>
+                                            </td>
+                                            <td>
+                                                <t t-foreach="data.get('invoice_gst').items()" t-as="key_value">
+                                                    <t t-if="key_value[0] == 'SGST'">
+                                                        <t t-esc="key_value[1]"/>
+                                                    </t>
+                                                </t>
+                                            </td>
+                                            <td>
+                                              <t t-foreach="data.get('invoice_gst').items()" t-as="key_value">
+                                                    <t t-if="key_value[0] == 'CESS'">
+                                                        <t t-esc="key_value[1]"/>
+                                                    </t>
+                                                </t>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-2">
+                        </div>
+                        <div class="col-5">
+                            <div class="row" style="padding: 4px;">
+                                <div class="col-6">
+                                    Gross Amount
+                                </div>
+                                <div class="col-6">
+                                    <t t-esc="data.get('tax_data').get('untax_amout')"/>
+                                </div>
+                            </div>
+                            <t t-if="data.get('tax_data').get('tax') == 'yes'">
+                                <div class="row" style="padding: 4px;">
+                                    <div class="col-6">
+                                        Sale Tax Taxable Amt
+                                    </div>
+                                    <div class="col-6">
+                                        <t t-esc="data.get('tax_data').get('untax_amout')"/>
+                                    </div>
+                                </div>
+                                <t t-foreach="data.get('invoice_gst').items()" t-as="key_value">
+
+                                    <div class="row" style="padding: 4px;">
+                                        <div class="col-6">
+                                            <t t-esc="key_value[0]"/>
+                                        </div>
+                                        <div class="col-6">
+                                            <t t-esc="key_value[1]"/>
+                                        </div>
+                                    </div>
+                                </t>
+                            </t>
+                            <div class="row"
+                                 style="border-top: 2px solid black; border-bottom: 2px solid black; padding: 4px;">
+                                <div class="col-6">
+                                    <b>NET Amount</b>
+                                </div>
+                                <div class="col-6">
+                                    <t t-esc="data.get('tax_data').get('gross_amount')"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="padding: 4px;">
+                        <div class="col-2">
+                            <b>Amount in Words :</b>
+                        </div>
+                        <div class="col-8">
+                            <b>(<t t-esc="data.get('tax_data').get('amount_in_words')"/>)
+                            </b>
+                        </div>
+                    </div>
+                    <br></br>
+                    <div class="row" style="padding: 4px;">
+                        <div class="col-3">
+                            <b>Terms &amp; Conditions :</b>
+                        </div>
+                    </div>
+                    <div class="row" style="padding: 4px;">
+                        1: Goods must be as per sample.
+                    </div>
+                    <div class="row" style="padding: 4px;">
+                        2: Payment 45 Days as per MSME act, if applicable.
+                    </div>
+                    <div class="row" style="padding: 4px;">
+                        3: All Discrepancies will settle mutually.
+                    </div>
+                    <div class="row">
+                        <div style="padding: 4px; text-align: right;">
+                            <b>FOR SURYA CARPET PVT. LTD</b>
+                        </div>
+                    </div>
+                    <br></br>
+                    <br></br>
+                    <div class="row" style="padding: 4px; text-align: center;">
+                        <div style="padding: 4px; text-align: right;">
+                            <b>Authorised Signatory</b>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_report_print_print_purchase_orders" model="ir.actions.report">
+        <field name="name">Print Purchase Order</field>
+        <field name="model">inno.purchase</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">inno_purchase.report_material_purchase_order</field>
+        <field name="report_file">inno_purchase.report_material_purchase_order</field>
+        <field name="binding_model_id" ref="model_inno_purchase"/>
+        <field name="paperformat_id" ref="base.paperformat_euro"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

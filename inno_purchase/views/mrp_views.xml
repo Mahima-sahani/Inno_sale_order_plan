@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <record id="action_for_poly_tube_order_id" model="ir.actions.act_window">
+        <field name="name">MRP Production</field>
+        <field name="res_model">mrp.production</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('product_tmpl_id.division_id', '=', False),('product_tmpl_id.is_polytube', '=', True)]</field>
+    </record>
+</odoo>

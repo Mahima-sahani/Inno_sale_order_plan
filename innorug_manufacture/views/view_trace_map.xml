@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Main Baazar Tree -->
+    <record id="view_trace_map_record" model="ir.ui.view">
+        <field name="name">Trace Map Tree</field>
+        <field name="model">inno.trace.map</field>
+        <field name="arch" type="xml">
+            <tree create="0" edit="0">
+                <field name="partner_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Main Baazar Form -->
+    <record id="view_trace_map" model="ir.ui.view">
+        <field name="name">Trace Map Form</field>
+        <field name="model">inno.trace.map</field>
+        <field name="arch" type="xml">
+            <form create="0" edit="0">
+                <sheet>
+                    <div class="h2">
+                        <field name="partner_id" nolabel="1" readonly = "1"/>
+                    </div>
+                    <notebook>
+                        <page string="Product Details">
+                            <field name="trace_map_line_ids"/>
+                        </page>
+                        <page string="Issue">
+                            <field name="trace_map_line_ids"/>
+                        </page>
+                        <page string="Receive">
+                            <field name="trace_map_line_ids"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_trace_map_record" model="ir.actions.act_window">
+        <field name="name">Trace Map Record</field>
+        <field name="res_model">inno.trace.map</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

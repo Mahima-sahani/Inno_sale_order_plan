@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record id="view_inno_finishing_amend_return" model="ir.ui.view">
+        <field name="name">finishing.amendreturn.wiz</field>
+        <field name="model">finishing.amendreturn.wiz</field>
+        <field name="arch" type="xml">
+            <form create="false" edit="false" duplicate="false">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="job_order_id" readonly="1" attrs="{'invisible': [('job_order_id', '=', False)]}"/>
+                              <field name="is_hishabh" invisible="1"/>
+                             <field name="is_external" invisible="1"/>
+                        </group>
+                         <group>
+                            <field name="status" attrs="{'invisible': [('is_hishabh', '=', False)],'required': [('is_hishabh', '!=', False)]}"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Products" attrs="{'invisible': [('status', '=', 'no')]}">
+                            <field name="amend_return_ids">
+                                <tree create="0" editable="bottom" delete="0">
+                                    <field name="product_id" readonly="1" force_save="1"/>
+                                    <field name="location_id" force_save="1"  optional="hide" attrs="{'column_invisible':[('parent.is_hishabh', '!=', False)]}" required="1"/>
+                                    <field name="product_uom" force_save="1" optional="hide" readonly="1"/>
+                                      <field name="quantity"  sum="qty" attrs="{'column_invisible':[('parent.is_hishabh', '!=', False)]}"/>
+                                    <field name="extra"  optional="hide" readonly="1" force_save="1"  attrs="{'column_invisible':[('parent.is_hishabh', '=', False)]}"/>
+                                    <field name="qty_released" readonly="1" sum="qty" force_save="1" attrs="{'column_invisible':[('parent.is_hishabh', '=', False)]}"/>
+                                    <field name="qty_amended" sum="qty" required="1" attrs="{'column_invisible':[('parent.is_hishabh', '=', False)]}"/>
+                                    <field name="qty_return" sum="qty" attrs="{'column_invisible':[('parent.is_hishabh', '=', False)]}"/>
+                                     <field name="qty_previous" sum="qty" required="1" attrs="{'column_invisible':[('parent.is_hishabh', '=', False)]}"/>
+                                    <field name="qty_retained" required="1" sum="qty" attrs="{'column_invisible':[('parent.is_hishabh', '=', False)]}"/>
+                                    <field name="rate" attrs="{'column_invisible':['|',('parent.is_hishabh', '=', False),('parent.is_external', '=', False)]}"/>
+                                    <field name="price_subtotal" optional="hide" readonly="1" sum="qty" force_save="1" attrs="{'column_invisible':['|',('parent.is_hishabh', '=', False),('parent.is_external', '=', False)]}"/>
+                                     <field name="remark" force_save="1" optional="hide" attrs="{'column_invisible':[('parent.is_hishabh', '=', False)]}"/>
+                                      <field name="closed" force_save="1" attrs="{'column_invisible':[('parent.is_hishabh', '=', False)]}"/>
+                                    <field name="component_line_id" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <footer>
+                    <button string="Confirm" class="btn-primary" type="object" name="button_confirm"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_mrp_skip_barcode_tree" model="ir.ui.view">
+        <field name="name">Mrp Barcode</field>
+        <field name="model">mrp.barcode</field>
+        <field name="arch" type="xml">
+            <tree create="0" edit="0" delete="0">
+                <field name="name" string="Barcode Number"/>
+                <field name="mrp_id"/>
+                <field name="finishing_jobwork_id"/>
+                <field name="next_process"/>
+                <field name="current_process" readonly="1" optional="hide"/>
+                <field name="full_finishing" readonly="1" optional="hide"/>
+                <field name="location_id" readonly="1"/>
+                <field name="state"/>
+                <button name="button_action_skip_process" type="object" string="SKIP PROCESS" class="btn-primary"
+                        groups="inno_finishing.group_inno_finishing_manager"
+                        attrs="{'invisible': ['|',('state', 'in',['1_draft','8_done',]),('finishing_jobwork_id', '!=', False)]}"/>
+            </tree>
+        </field>
+    </record>
+
+            <record id="view_finishing_barcode_filter" model="ir.ui.view">
+            <field name="name">mrp.barcode.search</field>
+            <field name="model">mrp.barcode</field>
+            <field name="arch" type="xml">
+                <search string="Barcodes">
+                    <field name="name"/>
+                    <field name="finishing_jobwork_id"/>
+                    <group name="groupby">
+                        <filter
+                                name="current_process_groupby"
+                                string="Current Process"
+                                context="{'group_by': 'current_process'}"
+                        />
+                         <filter
+                                name="finishing_jobwork_id_groupby"
+                                string="Finishing Job Workers"
+                                context="{'group_by': 'finishing_jobwork_id'}"
+                        />
+                          <filter
+                                name="product_id_groupby"
+                                string="SKU"
+                                context="{'group_by': 'product_id'}"
+                        />
+                         <filter
+                                name="design_groupby"
+                                string="design"
+                                context="{'group_by': 'design'}"
+                        />
+<!--                         <filter-->
+<!--                                name="division_id_groupby"-->
+<!--                                string="division_id"-->
+<!--                                context="{'group_by': 'division_id'}"-->
+<!--                        />-->
+                        <filter
+                                name="sale_id_id_groupby"
+                                string="sale_id"
+                                context="{'group_by': 'sale_id'}"
+                        />
+                        <filter
+                                name="status_groupby"
+                                string="Status"
+                                context="{'group_by': 'state'}"
+                        />
+                        <filter
+                                name="next_process_groupby"
+                                string="Next Process"
+                                context="{'group_by': 'next_process'}"
+                        />
+                        <filter
+                                name="location_id_groupby"
+                                string="Location"
+                                context="{'group_by': 'location_id'}"
+                        />
+                    </group>
+                </search>
+            </field>
+        </record>
+
+
+    <record id="view_mrp_skip_barcode_transfer_tree" model="ir.ui.view">
+        <field name="name">Mrp Barcode</field>
+        <field name="model">mrp.barcode</field>
+        <field name="arch" type="xml">
+            <tree create="0" edit="0" delete="0">
+                <field name="name" string="Barcode Number"/>
+                <field name="mrp_id"/>
+                <field name="transfer_id" readonly="1" optional="hide"/>
+                <field name="location_id" readonly="1" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_mrp_skip_barcode_kanban" model="ir.ui.view">
+        <field name="name">mrp.barcode.kanban</field>
+        <field name="model">mrp.barcode</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="current_workcenter" class="oe_background_grey" group_create="False"
+                    quick_create="0" group_edit="false" group_delete="false" create="0">
+                <field name="state" readonly="1"/>
+                <field name="product_id"/>
+                <field name="division_id"/>
+                <field name="mrp_id"/>
+                <field name="color"/>
+                <field name="location_id"/>
+                <field name="current_process" readonly="1"/>
+                <field name="id"/>
+                <field name="finishing_jobwork_id" invisible="1"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click oe_kanban_card oe_kanban_global_click oe_semantic_html_override">
+                            <div>
+                                <div class="row" style="margin-bottom:4px;">
+                                    <div class="col-6">
+                                        <div class="o_kanban_image">
+                                            <img t-att-src="kanban_image('mrp.barcode','barcode', record.id.raw_value)"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 text-end">
+                                        <strong style="color:#338691;">
+                                            <field name="product_id"/>
+                                        </strong>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <strong>MANUFACTURING:</strong>
+                                        <t t-esc="record.mrp_id.value"/>
+                                    </div>
+                                    <div class="col-12">
+                                        <strong>DIVISION:</strong>
+                                        <t t-esc="record.division_id.value"/>
+                                        <br/>
+                                        <t t-if="record.location_id.value">
+                                            <strong>LOCATION:</strong>
+                                            <t t-esc="record.location_id.value"/>
+                                            <br/>
+                                        </t>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="row">
+                                            <div class="col-6"/>
+                                            <div class="col-6">
+                                                <button name="button_action_skip_process" type="object"
+                                                        groups="inno_finishing.group_inno_finishing_manager"
+                                                        string="SKIP PROCESS" class="btn-primary"
+                                                        attrs="{'invisible': ['|',('state', 'not in',['5_verified', '7_finishing',]),('finishing_jobwork_id', '!=', False)]}"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <record id="view_mrp_skip_barcode_transfer_kanban" model="ir.ui.view">
+        <field name="name">mrp.barcode.kanban</field>
+        <field name="model">mrp.barcode</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="next_process" class="oe_background_grey" group_create="False" quick_create="0"
+                    group_edit="false" group_delete="false" create="0">
+                <field name="state" readonly="1"/>
+                <field name="product_id"/>
+                <field name="division_id"/>
+                <field name="mrp_id"/>
+                <field name="color"/>
+                <field name="location_id"/>
+                <field name="current_process" readonly="1"/>
+                <field name="id"/>
+                <field name="finishing_jobwork_id" invisible="1"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click oe_kanban_card oe_kanban_global_click oe_semantic_html_override">
+                            <div>
+                                <div class="row" style="margin-bottom:4px;">
+                                    <div class="col-6">
+                                        <div class="o_kanban_image">
+                                            <img t-att-src="kanban_image('mrp.barcode','barcode', record.id.raw_value)"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 text-end">
+                                        <strong style="color:#338691;">
+                                            <field name="product_id"/>
+                                        </strong>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <strong>MANUFACTURING:</strong>
+                                        <t t-esc="record.mrp_id.value"/>
+                                    </div>
+                                    <div class="col-12">
+                                        <strong>DIVISION:</strong>
+                                        <t t-esc="record.division_id.value"/>
+                                        <br/>
+                                        <t t-if="record.location_id.value">
+                                            <strong>LOCATION:</strong>
+                                            <t t-esc="record.location_id.value"/>
+                                            <br/>
+                                        </t>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="row">
+                                            <div class="col-6"/>
+                                            <div class="col-6">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="mrp_barcode__form_view_inherited" model="ir.ui.view">
+        <field name="name">mrp barcode</field>
+        <field name="model">mrp.barcode</field>
+        <field name="inherit_id" ref="innorug_manufacture.view_mrp_barcode_form"/>
+        <field name="arch" type="xml">
+            <field name="sale_id" position="after">
+                <field name="transfer_id" readonly="1" attrs="{'invisible': [('transfer_id', '=', False)]}"/>
+                <field name="full_finishing" readonly="1" attrs="{'invisible': [('full_finishing', '=', False)]}"/>
+                <field name="finishing_jobwork_id" readonly="1"
+                       attrs="{'invisible': [('finishing_jobwork_id', '=', False)]}"/>
+                <field name="current_process" readonly="1" attrs="{'invisible': [('current_process', '=', False)]}"/>
+                <field name="next_process" readonly="1" attrs="{'invisible': [('next_process', '=', False)]}"/>
+                <field name="location_id" readonly="1" attrs="{'invisible': [('location_id', '=', False)]}"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="action_mrp_barcode_ids" model="ir.actions.act_window">
+        <field name="name">Barcode</field>
+        <field name="res_model">mrp.barcode</field>
+        <field name="view_mode">tree,kanban</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+                    (0, 0, {'view_mode': 'tree', 'view_id': ref('view_mrp_skip_barcode_tree')}),(0, 0, {'view_mode': 'kanban', 'view_id': ref('view_mrp_skip_barcode_kanban')}),]"/>
+        <field name="domain">[('state', 'in', ['5_verified','7_finishing']),('transfer_id', '=', False)]</field>
+    </record>
+    <record id="action_mrp_barcode_transfer_id" model="ir.actions.act_window">
+        <field name="name">Barcode</field>
+        <field name="res_model">mrp.barcode</field>
+        <field name="view_mode">tree,kanban</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+                    (0, 0, {'view_mode': 'tree', 'view_id': ref('view_mrp_skip_barcode_transfer_tree')}), (0, 0, {'view_mode': 'kanban', 'view_id': ref('view_mrp_skip_barcode_transfer_kanban')}),]"/>
+        <field name="domain">[('transfer_id', '!=', False)]</field>
+    </record>
+
+    <!--     <record model="ir.actions.server" id="action_update_parent_operation">-->
+    <!--        <field name="name">Update Parent Operation</field>-->
+    <!--        <field name="model_id" ref="model_mrp_barcode"/>-->
+    <!--        <field name="binding_view_types">form,list</field>-->
+    <!--        <field name="binding_model_id" ref="model_mrp_barcode"/>-->
+    <!--        <field name="state">code</field>-->
+    <!--        <field name="code">-->
+    <!--           action = records.map_next_operation()-->
+    <!--        </field>-->
+    <!--    </record>-->
+
+</odoo>

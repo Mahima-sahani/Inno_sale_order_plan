@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Main Baazar Tree -->
+    <record id="view_inno_bazaar_lines_tree" model="ir.ui.view">
+        <field name="name">Bazaar Lines</field>
+        <field name="model">mrp.baazar.product.lines</field>
+        <field name="arch" type="xml">
+            <tree create="0" editable="bottom" delete="0">
+                <field name="barcode" readonly="1"/>
+                <field name="expected_weight" readonly="1"/>
+                <field name="actual_weight"/>
+                <field name="penalty"/>
+                <field name="is_full_penalty"/>
+                <field name="uom_id"/>
+                <field name="remark"/>
+                <button string="Pass" class="btn-success" type="object" name="do_pass_or_reject" context="{'status': 'verified'}"/>
+                <field name="space" readonly="1"/>
+                <button string="Reject" class="btn-danger" type="object" name="do_pass_or_reject" context="{'status': 'reject'}"/>
+            </tree>
+        </field>
+    </record>
+
+     <record id="action_inno_qc_process" model="ir.actions.act_window">
+        <field name="name">Bazaar QC</field>
+        <field name="res_model">mrp.baazar.product.lines</field>
+        <field name="domain">[('state', '=', 'received')]</field>
+        <field name="view_mode">tree</field>
+    </record>
+</odoo>

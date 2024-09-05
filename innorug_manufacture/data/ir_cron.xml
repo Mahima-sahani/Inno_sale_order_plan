@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ir_cron_update_total_remaining_days" model="ir.cron">
+        <field name="name">Update Remaining Days</field>
+        <field name="model_id" ref="model_main_jobwork"/>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="state">code</field>
+        <field name="code">model.update_remaining_days()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="active">False</field>
+    </record>
+
+
+      <record id="ir_cron_update_bazaar_status" model="ir.cron">
+        <field name="name">Update Bazaar Status (Do Not Delete)</field>
+        <field name="model_id" ref="model_main_baazar"/>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="state">code</field>
+        <field name="code">model.update_bazaar_status()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+          <field name="active">False</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="inno_purchase_form_view_inherited_order_stock_picking" model="ir.ui.view">
+        <field name="name">stock.picking</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <field name="origin" position="after">
+                <field name="receive_docs" attrs="{'required': [('order_type', 'in', ['spinning','cloth','other',])]}"/>
+                <field name="order_type" />
+            </field>
+            <xpath expr="//field[@name='origin']" position="after">
+                <field name="supplier_date" />
+                <field name="receive_by" />    
+            </xpath>
+        </field>
+    </record>
+    
+    <record id="inno_purchase_form_view_inherited_order_account_move" model="ir.ui.view">
+        <field name="name">account.move</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='journal_div']" position="after">
+                <field name="supplier_date" />
+                <field name="order_type" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

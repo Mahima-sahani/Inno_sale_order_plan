@@ -1,0 +1,372 @@
+<odoo>
+    <template id="report_print_cargo_reports">
+        <t t-call="web.basic_layout">
+            <div class="page">
+                <div style=" text-align:right;"><t t-esc="data.get('dec_date')"/> </div>
+                <!-- <br/> -->
+                <div style = "text-decoration:underline;">
+                    <b>DATA ELEMENTS IN THE ADVANCE CARGO DECLARATION.</b>
+                </div>
+                <br>
+                </br>
+                <div class="row">
+                    <div class="col-1">
+                        1)
+                    </div>
+                    <div class="col-11">
+                        Booking No...........................................................................................
+                    </div>
+                </div>
+                  <br>
+                </br>
+                <div class="row">
+                    <div class="col-1">
+                        2)
+                    </div>
+                     <div class="col-5">
+                                Shipper (Exporter Full Name &amp; Address With Pin)
+                    </div>
+                     <div class="col-1">
+                        :
+                    </div>
+                    <div class="col-5">
+                        SURYA CARPET PVT. LTD.
+                        UGAPUR, AURAI-221301
+                        BHADOHI (U.P.), INDIA
+                    </div>
+                </div>
+                   <br>
+                </br>
+                <div class="row">
+                    <div class="col-1">
+                        3)
+                    </div>
+                     <div class="col-5">
+                                Consignee (Importer Full Name &amp; Address with Zip Code)
+                    </div>
+                     <div class="col-1">
+                        :
+                    </div>
+                    <div class="col-5">
+                       <t t-esc="data.get('consignee').get('name')"/>
+                        <br/><t t-esc="data.get('consignee').get('street')"/>
+                        <br/><t t-esc="data.get('consignee').get('city')"/>
+                        <br/><t t-esc="data.get('consignee').get('country')"/>
+                    </div>
+                </div>
+                 <br>
+                </br>
+                <div class="row">
+                    <div class="col-1">
+                        4)
+                    </div>
+                     <div class="col-5">
+                                Name of Ocean Carrier
+                    </div>
+                     <div class="col-1">
+                        :
+                    </div>
+                    <div class="col-5">
+                    </div>
+                </div>
+                 <br>
+                </br>
+                <div class="row">
+                    <div class="col-1">
+                        5)
+                    </div>
+                     <div class="col-5">
+                         Vessel Name /Voy No.
+                    </div>
+                     <div class="col-1">
+                        :
+                    </div>
+                    <div class="col-5">
+                    </div>
+                </div>
+                 <br>
+                </br>
+                <div class="row">
+                    <div class="col-1">
+                        6)
+                    </div>
+                     <div class="col-5">
+                                Place of receipt
+                    </div>
+                     <div class="col-1">
+                        :
+                    </div>
+                    <div class="col-5">
+                       <t t-esc="data.get('place_of_receipt')"/>
+                    </div>
+                </div>
+                 <br>
+                </br>
+                <div class="row">
+                    <div class="col-1">
+                        7)
+                    </div>
+                     <div class="col-5">
+                                Port of Loading
+                    </div>
+                     <div class="col-1">
+                        :
+                    </div>
+                    <div class="col-5">
+                       <t t-esc="data.get('loading_port')"/>
+                    </div>
+                </div>
+                 <br>
+                </br>
+                <div class="row">
+                    <div class="col-1">
+                        8)
+                    </div>
+                     <div class="col-5">
+                                Port of Discharge
+                    </div>
+                     <div class="col-1">
+                        :
+                    </div>
+                    <div class="col-5">
+                       <t t-esc="data.get('discharge_port')"/>
+                    </div>
+                </div>
+                 <br>
+                </br>
+                <div class="row">
+                    <div class="col-1">
+                        9)
+                    </div>
+                     <div class="col-5">
+                                Place of Delivery With State Code
+                    </div>
+                     <div class="col-1">
+                        :
+                    </div>
+                    <div class="col-5">
+                       <t t-esc="data.get('place_state_code')"/>
+                    </div>
+                </div>
+                  <br>
+                </br>
+                <div class="row">
+                    <div class="col-1">
+                        10)
+                    </div>
+                     <div class="col-5">
+                                Container No. (s)
+                    </div>
+                     <div class="col-1">
+                        :
+                    </div>
+                    <div class="col-5">
+
+                    </div>
+                </div>
+                  <br>
+                </br>
+                <div class="row">
+                    <div class="col-1">
+                        11)
+                    </div>
+                     <div class="col-5">
+                                Seal No. (Custom)
+                    </div>
+                     <div class="col-1">
+                        :
+                    </div>
+                    <div class="col-5">
+
+                    </div>
+                </div>
+                  <br>
+                </br>
+                <div class="row">
+                    <div class="col-1">
+                        12)
+                    </div>
+                     <div class="col-5">
+                                Shipping Bill Number
+                    </div>
+                     <div class="col-1">
+                        :
+                    </div>
+                    <div class="col-5">
+
+                    </div>
+                </div>
+                <br>
+                </br>
+                 <div class="row">
+                    <div class="col-1">
+                        13)
+                    </div>
+                     <div class="col-5">
+                         <div> Cargo Marks Numbers</div>
+                         <br></br>
+                         <div>Roll Nos.</div>
+                         <br></br>
+                         <div>1 - <t t-esc="data.get('roll_no')"/></div>
+                    </div>
+                     <div class="col-1">
+                        :
+                    </div>
+                    <div class="col-5">
+                        <t t-esc="data.get('consignee').get('name')"/>
+                    </div>
+                </div>
+                <br>
+                </br>
+                 <div class="row">
+                    <div class="col-1">
+                        14)
+                    </div>
+                     <div class="col-5">
+                                Numbers &amp; Type of Pakgs
+                    </div>
+                     <div class="col-1">
+                        :
+                    </div>
+                    <div class="col-5">
+                        <t t-esc="data.get('roll_no')"/> Rolls
+                    </div>
+                </div>
+                <br>
+                </br>
+                 <div class="row">
+                    <div class="col-1">
+                        15)
+                    </div>
+                     <div class="col-5">
+                                Full Commodity Description
+                    </div>
+                     <div class="col-1">
+                        :
+                    </div>
+                    <div class="col-5">
+                    <t t-esc="data.get('description')"/>
+                    </div>
+                </div>
+                <br>
+                </br>
+                 <div class="row">
+                    <div class="col-1">
+                        16)
+                    </div>
+                     <div class="col-5">
+                                Gross Wt. Of Cargo (Kilos)
+                    </div>
+                     <div class="col-1">
+                        :
+                    </div>
+                    <div class="col-5">
+                            <t t-esc="data.get('gross_weight')"/> KGS
+                    </div>
+                </div>
+                <br>
+                </br>
+                 <div class="row">
+                    <div class="col-1">
+                        17)
+                    </div>
+                     <div class="col-5">
+                                HTS Codes (6 Digits)
+                    </div>
+                     <div class="col-1">
+                        :
+                    </div>
+                    <div class="col-5">
+
+                    </div>
+                </div>
+                 <br>
+                </br>
+                 <div class="row">
+                    <div class="col-1">
+                        18)
+                    </div>
+                     <div class="col-5">
+                                Place of issue of Cargo Declaration
+                    </div>
+                     <div class="col-1">
+                        :
+                    </div>
+                    <div class="col-5">
+                        UGAPUR, AURAI-221301 BHADOHI (U.P.)
+                    </div>
+                </div>
+                 <br>
+                </br>
+                 <div class="row">
+                    <div class="col-1">
+                        19)
+                    </div>
+                     <div class="col-5">
+                                Date of issue of Cargo Declaration
+                    </div>
+                     <div class="col-1">
+                        :
+                    </div>
+                    <div class="col-5">
+                        <t t-esc="data.get('dec_date')"/>
+                    </div>
+                </div>
+                 <br>
+                </br>
+                 <div class="row">
+                    <div class="col-1">
+                        20)
+                    </div>
+                     <div class="col-5">
+                         Name of Shipper : Manufacturer/Exporter
+                    </div>
+                     <div class="col-1">
+                        :
+                    </div>
+                    <div class="col-5">
+                        SURYA CARPET PVT. LTD.
+                    </div>
+                </div>
+                  <br>
+                </br>
+                 <div class="row">
+                    <div class="col-1">
+                        21)
+                    </div>
+                     <div class="col-5">
+                         Name of the person signing &amp; signature
+                    </div>
+                     <div class="col-1">
+                        :
+                    </div>
+                    <div class="col-5">
+                        Surya Mani Tiwari / Shiv Prakash Tiwari
+                    </div>
+                </div>
+                <br></br>
+                 <div class="row">
+                    <div class="col-1">
+                    </div>
+                     <div class="col-11">
+                         We owner of the cargo certified that the particulars described above true and correct to our information and belief
+                    </div>
+                </div>
+
+            </div>
+        </t>
+    </template>
+
+
+
+    <record id="action_report_print_cargo_reports" model="ir.actions.report">
+        <field name="name">Print Cargo Reports</field>
+        <field name="model">inno.packaging</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">inno_packaging.report_print_cargo_reports</field>
+        <field name="report_file">inno_packaging.report_print_cargo_reports</field>
+         <field name="paperformat_id" ref="base.paperformat_euro"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

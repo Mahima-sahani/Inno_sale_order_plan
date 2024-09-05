@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_add_size_line_form" model="ir.ui.view">
+        <field name="name">ADD SIZE</field>
+        <field name="model">size.line</field>
+        <field name="arch" type="xml">
+            <form >
+                <sheet>
+                     <notebook>
+                          <page string="SKU Details">
+                                <field name="size_line" editable="bottom">>
+                                <tree editable="bottom">
+                                    <field name="shape" required="1" />
+                                    <field name="standard_size" required="1" />
+                                    <field name="manufacturing_size" required="1" />
+                                    <field name="finishing_size" required="1" />
+                                    <field name="choti"/>
+                                </tree>
+                                </field>
+                            </page>
+                    </notebook>
+                </sheet>
+                 <footer>
+                    <button type="object" name="confirm" string="Confirm" class="btn-primary"/>
+                     <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

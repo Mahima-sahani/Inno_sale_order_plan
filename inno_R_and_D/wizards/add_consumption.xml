@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_add_consumption_form" model="ir.ui.view">
+        <field name="name">Add Consumption</field>
+        <field name="model">inno.rnd.bom.consumption</field>
+        <field name="arch" type="xml">
+            <form >
+                <sheet>
+                   <group>
+                       <group>
+                           <field name="template_id" required="1" options="{'no_create': True, 'no_open': True}"/>
+                           <field name="attribute_id" attrs="{'invisible': ['|', ('template_id', '=', False), ('no_shade', '=', True)], 'required': [('no_shade', '=', False)]}" options="{'no_create': True, 'no_open': True}"/>
+                           <field name="no_shade" widget="boolean_toggle" attrs="{'invisible': [('no_shade', '=', False)]}" readonly="1"/>
+                           <field name="uom_id" attrs="{'invisible': [('attribute_id', '=', False)]}" readonly="1" options="{'no_create': True, 'no_open': True}"/>
+                       </group>
+                       <group/>
+                       <group>
+                           <field name="percentage" attrs="{'invisible': [('attribute_id', '=', False), ('no_shade', '=', False)]}"/>
+                       </group>
+                       <group>
+                           <field name="quantity" attrs="{'invisible': [('attribute_id', '=', False), ('no_shade', '=', False)]}" required="1"/>
+                       </group>
+                   </group>
+                </sheet>
+                 <footer>
+                    <button type="object" name="add_raw_material" string="Add" class="btn-primary" attrs="{'invisible': [('quantity', '=', 0.00)]}"/>
+                     <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

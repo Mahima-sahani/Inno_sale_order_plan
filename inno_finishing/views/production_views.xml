@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+      <record id="mrp_production_view_inherited_connect_operation_mrp_id" model="ir.ui.view">
+            <field name="name">mrp production</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp.mrp_production_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//header" position="inside">
+                    <button type="object" name="connect_operation" string="Connect Operation"/>
+                </xpath>
+            </field>
+        </record>
+
+    <record id="action_latex_production_order_id" model="ir.actions.act_window">
+        <field name="name">MRP Production</field>
+        <field name="res_model">mrp.production</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('product_tmpl_id.division_id', '=', False),('product_tmpl_id.is_polytube', '=', False)]</field>
+    </record>
+</odoo>

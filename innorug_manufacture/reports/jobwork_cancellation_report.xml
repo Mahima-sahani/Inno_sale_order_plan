@@ -1,0 +1,134 @@
+<odoo>
+
+    <template id="report_print_cancellation_barcodes">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+            <div class="page">
+                <div class="text-center" style="border-bottom: 1px solid black;">
+                    <h4><b>Product Weaving Cancellation</b></h4>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-4">
+                                <h6><b>Loom Holder</b></h6>
+                            </div>
+                            <div class="col-1">
+                                <h6>:</h6>
+                            </div>
+                            <div class="col-6">
+                                <h6><t t-esc="docs.subcontractor_id.name"/> </h6>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <h6><b>Address</b></h6>
+                            </div>
+                            <div class="col-1">
+                                <h6>:</h6>
+                            </div>
+                            <div class="col-6">
+                                    <t t-esc="docs.subcontractor_id.street"/>
+                                    <t t-esc="docs.subcontractor_id.street2"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <h6><b>City</b></h6>
+                            </div>
+                            <div class="col-1">
+                                <h6>:</h6>
+                            </div>
+                            <div class="col-6">
+                                <t t-esc="docs.subcontractor_id.city"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <h6><b>Contact No</b></h6>
+                            </div>
+                            <div class="col-1">
+                                <h6>:</h6>
+                            </div>
+                            <div class="col-6">
+                                <t t-esc="docs.subcontractor_id.mobile"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <h6><b>Aadhar No</b></h6>
+                            </div>
+                            <div class="col-1">
+                                <h6>:</h6>
+                            </div>
+                            <div class="col-6">
+                                <t t-esc="docs.subcontractor_id.aadhar_no"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-4">
+                                <h6><b>Order No</b></h6>
+                            </div>
+                            <div class="col-1">
+                                <h6>:</h6>
+                            </div>
+                            <div class="col-6">
+                                <h6><b><t t-esc="docs.reference"/></b></h6>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <h6><b>Date</b></h6>
+                            </div>
+                            <div class="col-1">
+                                <h6>:</h6>
+                            </div>
+                            <div class="col-6">
+                                <b><t t-esc="datetime.datetime.now()"/></b>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th class="cell"><b>Sr. No.</b></th>
+                                <th class="cell"><b>Barcode</b></th>
+                                <th class="cell"><b>Design</b></th>
+                                <th class="cell"><b>Size</b></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="enumerate(docs.cancelled_barcodes)" t-as="barcode">
+                                <tr>
+                                    <th scope="row"><t t-esc="barcode[0]+1"/></th>
+                                    <td><t t-esc="barcode[1].name"/></td>
+                                    <td><t t-esc="barcode[1].design"/></td>
+                                    <td><t t-esc="barcode[1].size"/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </t>
+        </t>
+    </template>
+
+    <record id="action_report_job_work_cancellation" model="ir.actions.report">
+        <field name="name">Job Work Cancellation Report</field>
+        <field name="model">main.jobwork</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">innorug_manufacture.report_print_cancellation_barcodes</field>
+        <field name="report_file">innorug_manufacture.report_print_cancellation_barcodes</field>
+        <field name="paperformat_id" ref="base.paperformat_euro"/>
+        <field name="binding_model_id" ref="model_main_jobwork"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

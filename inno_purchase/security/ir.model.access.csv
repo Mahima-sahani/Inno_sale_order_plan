@@ -1,0 +1,14 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+inno_purchase,access_inno_purchase,model_inno_purchase,,1,1,1,1
+inno_purchase_line,access_inno_purchase_line,model_inno_purchase_line,,1,1,1,1
+inno_inno_receive,access_inno_receive,model_inno_receive,,1,1,1,1
+inno_inno_receive_line,access_inno_receive_line,model_inno_receive_line,,1,1,1,1
+inno_inno_receive_wizard,access_inno_receive_wizard,model_inno_receive_wizard,,1,1,1,1
+inno_purchase_report_wizard,access_inno_purchase_report_wizard,model_inno_purchase_reports,,1,1,1,1
+inno_vendor_material,access_inno_vendor_material,model_inno_vendor_material,,1,1,1,1
+inno_vendor_material_line,access_inno_vendor_material_line,model_inno_vendor_material_line,,1,1,1,1
+inno_vendor_material_line,access_inno_vendor_material_line,model_inno_vendor_material_line,,1,1,1,1
+vendor_bom_wizard,access_vendor_bom_wizard,model_vendor_bom_wizard,,1,1,1,1
+vendor_bom_wizard_line,access_vendor_bom_wizard_line,model_vendor_bom_wizard_line,,1,1,1,1
+inno_machine_records,access_inno_machine_records,model_inno_machine_records,,1,1,1,1
+

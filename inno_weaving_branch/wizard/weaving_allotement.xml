@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Cost Center Form -->
+    <record id="view_mrp_weaving_order_inherit_branch" model="ir.ui.view">
+        <field name="name">mrp.weaving.wizards.inherit.branch</field>
+        <field name="model">mrp.weaving.wizards</field>
+        <field name="inherit_id" ref="innorug_manufacture.view__mrp_weaving_order_form"/>
+        <field name="arch" type="xml">
+            <field name="subcontractor_id" position="after">
+                <field name="branch_id" attrs="{'invisible': [('allotment_type', '!=', 'branch')], 'required': [('allotment_type', '=', 'branch')]}" string="Weaving Center" options="{'no_create': True, 'no_open': True}"/>
+            </field>
+        </field>
+    </record>
+</odoo>

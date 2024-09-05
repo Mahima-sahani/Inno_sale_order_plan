@@ -1,0 +1,135 @@
+<odoo>
+
+    <template id="tds_finishing_payment_advice">
+        <t t-call="web.html_container">
+            <!--             <t t-set="data_report_landscape" t-value="True"/>-->
+            <t t-call="web.external_layout">
+                <style type="text/css">
+                    th{
+                    color: #348691;
+                    }
+                    .highlight {
+                    color: #af8835;
+                    }
+                    td{
+                    font-size: 18px;
+                    }
+                </style>
+                <div class="page">
+                    <div class="row" style="border-top: 2px solid black; border-bottom: 2px solid black; padding: 4px;">
+                        <div style="text-align: center">
+                            <b>
+                                <t t-esc="data.get('process')"/>
+                                TDS Advise
+                            </b>
+                        </div>
+                    </div>
+                    <br></br>
+                    <div class="row">
+                        <div class="col-5">
+                            <div class="row">
+                                <div class="col-3">
+                                    <b>Date</b>
+                                </div>
+                                <div class="col-1">:</div>
+                                <div class="col-7">
+                                    <t t-esc="data.get('from_date')"/>
+                                    <b>to</b>
+                                    <t t-esc="data.get('to_date')"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-1">
+                        </div>
+                        <!--                        <div class="col-5">-->
+                        <!--                            <div class="row">-->
+                        <!--                                <div class="col-3">-->
+                        <!--                                    <b>Payment Status</b>-->
+                        <!--                                </div>-->
+                        <!--                                <div class="col-1">:</div>-->
+                        <!--                                <div class="col-7">-->
+                        <!--                                    <t t-esc="data.get('payment_state')"/>-->
+                        <!--                                </div>-->
+                        <!--                            </div>-->
+                        <!--                        </div>-->
+                    </div>
+                    <br></br>
+                    <!--                    <t t-foreach="enumerate(data.get('sub_data'))" t-as="rec">-->
+                    <!--                        <t t-foreach="enumerate(rec[1].get('bill'))" t-as="bill">-->
+                    <br></br>
+                    <div class="row">
+                        <div class="col-12">
+                            <table style="padding: 1px;" class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th class="cell">
+                                            <b>PAN No</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>PARTY NAME</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>TDS ON AMT.</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>TDS %</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>TDS AMT</b>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <t t-foreach="enumerate(data.get('sub_data'))" t-as="rec">
+                                    <tr>
+                                        <td style="border-right: 2px solid black; margin: 2px;">
+                                            <t t-esc="rec[1].get('pan')"/>
+                                        </td>
+                                        <td style="border-right: 2px solid black; margin: 2px;">
+                                            <t t-esc="rec[1].get('vendor')"/>
+                                        </td>
+                                        <td style="border-right: 2px solid black; margin: 2px;">
+                                            <t t-esc="rec[1].get('tds_on_amount')"/>
+                                        </td>
+                                        <td style="border-right: 2px solid black; margin: 2px;">
+                                            <t t-esc="rec[1].get('tds_percent')"/>
+                                        </td>
+                                        <td style="border-right: 2px solid black; margin: 2px;">
+                                            <t t-esc="rec[1].get('tds amt')"/>
+                                        </td>
+                                    </tr>
+                                </t>
+
+                                <tr>
+                                    <td>
+                                        <b>Sub Total</b>:
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                        <t t-esc="data.get('total_tds_on_amount')"/>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                        <t t-esc="data.get('total_tds_amt')"/>
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_reports_finishing_tds_payment_advice" model="ir.actions.report">
+        <field name="name">TDS Advice</field>
+        <field name="model">finishing.baazar</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">inno_finishing.tds_finishing_payment_advice</field>
+        <field name="report_file">inno_finishing.tds_finishing_payment_advice</field>
+        <field name="paperformat_id" ref="base.paperformat_euro"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

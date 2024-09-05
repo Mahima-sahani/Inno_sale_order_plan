@@ -1,0 +1,340 @@
+<odoo>
+
+    <template id="weaving_payment_bills">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <style type="text/css">
+                    th{
+                    color: #348691;
+                    }
+                    .highlight {
+                    color: #af8835;
+                    }
+                    td{
+                    font-size: 12px;
+                    }
+                </style>
+                <div class="page">
+                    <div class="row" style="border-top: 2px solid black; border-bottom: 2px solid black; padding: 4px;">
+                        <div style="text-align: center">
+                            <b>
+                                <t t-esc="data.get('header')"/>
+                            </b>
+                        </div>
+                    </div>
+                    <t t-if="data.get('data') == 'yes'">
+                        <br></br>
+                        <div class="row">
+                            <div class="col-5">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <b>Date</b>
+                                    </div>
+                                    <div class="col-1">:</div>
+                                    <div class="col-7">
+                                        <t t-esc="data.get('from_date')"/>
+                                        <b>to</b>
+                                        <t t-esc="data.get('to_date')"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                    <br></br>
+                    <t t-foreach="enumerate(data.get('sub_data'))" t-as="rec">
+                        <t t-foreach="enumerate(rec[1].get('bill'))" t-as="bill">
+                            <div class="row">
+                                <div class="col-5">
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <b>Vendor</b>
+                                        </div>
+                                        <div class="col-1">:</div>
+                                        <div class="col-7">
+                                            <t t-esc="bill[1].get('vendor')"/>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <b>GSTIN</b>
+                                        </div>
+                                        <div class="col-1">:</div>
+                                        <div class="col-7">
+                                            <t t-esc="bill[1].get('GSTIN')"/>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <b>Order NO</b>
+                                        </div>
+                                        <div class="col-1">:</div>
+                                        <div class="col-7">
+                                            <t t-esc="bill[1].get('order_no')"/>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-2">
+
+                                </div>
+                                <div class="col-5">
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <b>Bill No</b>
+                                        </div>
+                                        <div class="col-1">:</div>
+                                        <div class="col-7">
+                                            <t t-esc="bill[1].get('bill_no')"/>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <b>Bill Date</b>
+                                        </div>
+                                        <div class="col-1">:</div>
+                                        <div class="col-7">
+                                            <t t-esc="bill[1].get('bill_date')"/>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <b>Receive NO</b>
+                                        </div>
+                                        <div class="col-1">:</div>
+                                        <div class="col-7">
+                                            <t t-esc="bill[1].get('receive_no')"/>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <br></br>
+                            <div class="row">
+                                <div class="col-12">
+                                    <table style="padding: 1px;" class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th class="cell">
+                                                    <b>Product</b>
+                                                </th>
+                                                <th class="cell">
+                                                    <b>Quality</b>
+                                                </th>
+                                                <th class="cell">
+                                                    <b>Area</b>
+                                                </th>
+                                                 <th class="cell">
+                                                    <b>Rate</b>
+                                                </th>
+                                                <th class="cell">
+                                                    <b>PCS</b>
+                                                </th>
+                                                <th class="cell">
+                                                    <b>Unit Price</b>
+                                                </th>
+                                                <th class="cell">
+                                                    <b>Taxes</b>
+                                                </th>
+                                                <th class="cell">
+                                                    <b>Subtotal</b>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <!--                                        <thead>-->
+                                        <!--                                            <tr>-->
+                                        <!--                                                <td class="cell" colspan="1">-->
+                                        <!--                                                    <b>-->
+                                        <!--                                                        Vendor :-->
+                                        <!--                                                        <t t-esc="bill[1].get('vendor')"/>-->
+                                        <!--                                                    </b>-->
+                                        <!--                                                </td>-->
+                                        <!--                                                <td class="cell" colspan="1">-->
+                                        <!--                                                    <b>-->
+                                        <!--                                                        GSTIN :-->
+                                        <!--                                                        <t t-esc="bill[1].get('GSTIN')"/>-->
+                                        <!--                                                    </b>-->
+                                        <!--                                                </td>-->
+                                        <!--                                                <td class="cell" colspan="1">-->
+                                        <!--                                                    <b>-->
+                                        <!--                                                        Order No :-->
+                                        <!--                                                        <t t-esc="bill[1].get('order_no')"/>-->
+                                        <!--                                                    </b>-->
+                                        <!--                                                </td>-->
+                                        <!--                                                <td class="cell" colspan="1">-->
+                                        <!--                                                    <b>-->
+                                        <!--                                                        Order Date :-->
+                                        <!--                                                        <t t-esc="bill[1].get('order_date')"/>-->
+                                        <!--                                                    </b>-->
+                                        <!--                                                </td>-->
+                                        <!--                                                <td class="cell" colspan="1">-->
+                                        <!--                                                    <b>-->
+                                        <!--                                                        Receive No :-->
+                                        <!--                                                        <t t-esc="bill[1].get('receive_no')"/>-->
+                                        <!--                                                    </b>-->
+                                        <!--                                                </td>-->
+                                        <!--                                                <td class="cell" colspan="1">-->
+                                        <!--                                                    <b>-->
+                                        <!--                                                        Receive Date :-->
+                                        <!--                                                        <t t-esc="bill[1].get('baazar_date')"/>-->
+                                        <!--                                                    </b>-->
+                                        <!--                                                </td>-->
+                                        <!--                                                <td class="cell" colspan="2">-->
+                                        <!--                                                    <b>-->
+                                        <!--                                                        Bill No :-->
+                                        <!--                                                        <t t-esc="bill[1].get('bill_no')"/>-->
+                                        <!--                                                    </b>-->
+                                        <!--                                                </td>-->
+                                        <!--                                            </tr>-->
+                                        <!--                                        </thead>-->
+                                        <t t-foreach="enumerate(bill[1].get('lines'))" t-as="lines">
+                                            <tr>
+                                                <td style="border-right: 2px solid black; margin: 2px;">
+                                                    <t t-esc="lines[1].get('product')"/>
+                                                </td>
+                                                <td style="border-right: 2px solid black; margin: 2px;">
+                                                    <t t-esc="lines[1].get('quality')"/>
+                                                </td>
+                                                <td style="border-right: 2px solid black; margin: 2px;">
+                                                    <t t-esc="lines[1].get('area')"/>
+                                                </td>
+                                                 <td style="border-right: 2px solid black; margin: 2px;">
+                                                    <t t-esc="lines[1].get('rate')"/>
+                                                </td>
+                                                <td style="border-right: 2px solid black; margin: 2px;">
+                                                    <t t-esc="lines[1].get('pcs')"/>
+                                                </td>
+                                                <td style="border-right: 2px solid black; margin: 2px;">
+                                                    <t t-esc="lines[1].get('unit_price')"/>
+                                                </td>
+                                                <td style="border-right: 2px solid black; margin: 2px;">
+                                                    <t t-esc="lines[1].get('taxes')"/>
+                                                </td>
+                                                <td style="border-right: 2px solid black; margin: 2px;">
+                                                    <t t-esc="lines[1].get('total_amount')"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+
+                                        <tr>
+                                            <td colspan="2"><b>Sub Total</b>:
+                                                <b>
+                                                </b>
+                                            </td>
+                                            <td>
+                                                <t t-esc="bill[1].get('total_area')"/>
+                                                Sq.Yard
+                                            </td>
+                                            <td></td>
+                                            <td>
+                                                <t t-esc="bill[1].get('total_qty')"/>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td colspan="3">
+                                                <b>
+                                                    <t t-esc="bill[1].get('gross_amout')"/>
+                                                </b>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <div class="row">
+                                        <div class="col-5">
+                                            Amount in Words : (<t t-esc="bill[1].get('amount_in_words')"/>)
+                                        </div>
+                                        <div class="col-3">
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="row" style="padding: 4px;">
+                                                <div class="col-6">
+                                                    Gross Amount
+                                                </div>
+                                                <div class="col-6">
+                                                    <t t-esc="bill[1].get('gross_amout')"/>
+                                                </div>
+                                            </div>
+                                            <t t-if="bill[1].get('is_tax') == 'yes'">
+                                                <div class="row" style="padding: 4px;  border-top: 2px solid black;">
+                                                    <div class="col-6">
+                                                        Taxable Amt
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <t t-esc="bill[1].get('untax_amout')"/>
+                                                    </div>
+                                                </div>
+                                            </t>
+                                            <t t-foreach="bill[1].get('invoice_gst').items()" t-as="key_value">
+
+                                                <div class="row" style="padding: 4px;">
+                                                    <div class="col-6">
+                                                        <t t-esc="key_value[0]"/>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <t t-esc="key_value[1]"/>
+                                                    </div>
+                                                </div>
+                                            </t>
+                                             <t t-if="bill[1].get('invoice_amount') > 0.0">
+                                              <div class="row" style="padding: 4px; border-top: 2px solid black; ">
+                                                    <div class="col-6">
+                                                        <b>Invoice Amt</b>
+                                                    </div>
+                                                    <div class="col-6">
+                                                       <t t-esc="bill[1].get('invoice_amount')"/>
+                                                    </div>
+                                                </div>
+                                             </t>
+                                            <div class="row"
+                                                 style="border-top: 2px solid black; padding: 4px;">
+                                                <div class="col-6">
+                                                    <b>NET Amount</b>
+                                                </div>
+                                                <div class="col-6">
+                                                    <t t-esc="bill[1].get('gross_amount')"/>
+                                                </div>
+                                            </div>
+                                             <t t-foreach="bill[1].get('amount_paid').items()" t-as="key_value">
+                                                <div class="row" style="padding: 4px;">
+                                                    <div class="col-6">
+                                                        <b> <t t-esc="key_value[0]"/></b>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <t t-esc="key_value[1]"/>
+                                                    </div>
+                                                </div>
+                                            </t>
+                                            <div class="row"
+                                                 style="padding: 4px;">
+                                                <div class="col-6">
+                                                    <b>Amount Due</b>
+                                                </div>
+                                                <div class="col-6">
+                                                    <t t-esc="bill[1].get('amount_due')"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br></br>
+                            <div style="border-top: 2px solid black; padding: 4px;"></div>
+                            <br></br>
+                        </t>
+                    </t>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_reports_weaving_payment_bills" model="ir.actions.report">
+        <field name="name">Weaving Payment Bills</field>
+        <field name="model">main.jobwork</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">innorug_manufacture.weaving_payment_bills</field>
+        <field name="report_file">innorug_manufacture.weaving_payment_bills</field>
+        <field name="paperformat_id" ref="base.paperformat_euro"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

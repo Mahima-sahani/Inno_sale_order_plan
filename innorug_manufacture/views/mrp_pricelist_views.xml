@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Branch Tree -->
+    <record id="view_mrp_price_list_tree" model="ir.ui.view">
+        <field name="name">MRP PriceList</field>
+        <field name="model">mrp.pricelist</field>
+        <field name="arch" type="xml">
+            <tree>
+                 <field name="division_id"/>
+                  <field name="cost_per_yard"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <!-- Branch Form -->
+    <record id="view_mrp_price_list_form" model="ir.ui.view">
+        <field name="name"> MRP PriceList</field>
+        <field name="model">mrp.pricelist</field>
+        <field name="arch" type="xml">
+            <form >
+                <sheet>
+                    <group>
+                        <group>
+                              <label for="cost_per_yard" />
+                            <div class="o_row">
+                                <field name="cost_per_yard" widget="float"/>
+                                <span>INR</span>
+                            </div>
+                        </group>
+                        <group>
+                            <field name="division_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <!-- <page string="SKU Details">
+                            <field name="product_lines_sku" mode="tree">
+                                <tree editable="buttom">
+                                    <field name="name"/>
+                                    <field name="size"/>
+                                    <field name="shape"/>
+                                    <field name="size_type"/>
+                                </tree>
+                            </field>
+                        </page> -->
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="action_mrp_pricelist_id" model="ir.actions.act_window">
+        <field name="name">PriceList</field>
+        <field name="res_model">mrp.pricelist</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo> 

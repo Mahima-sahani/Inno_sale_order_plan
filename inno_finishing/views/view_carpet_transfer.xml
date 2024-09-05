@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Tree -->
+        <record id="view_inno_carpet_transfer_tree" model="ir.ui.view">
+            <field name="name">carpet transfer tree</field>
+            <field name="model">inno.carpet.transfer</field>
+            <field name="arch" type="xml">
+                <tree create="1" edit="0" delete="0" duplicate="0">
+                    <field name="name"/>
+                    <field name="person_id"/>
+                    <field name="source_location_id"/>
+                    <field name="dest_location_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form -->
+        <record id="view_inno_carpet_transfer_form" model="ir.ui.view">
+            <field name="name">inno carpet transfer form</field>
+            <field name="model">inno.carpet.transfer</field>
+            <field name="arch" type="xml">
+                <form create="1" delete="0" duplicate="0">
+                    <header>
+                        <button name="generate_gate_pass" string="Generate Gate Pass" type="object" class="btn-primary"  attrs="{'invisible': [('state', 'not in',['gpass',])]}"/>
+                         <button name="transfer_confirm" string="Confirm" type="object" class="btn-primary" attrs="{'invisible': [('state', 'not in',['draft',])]}"/>
+                         <button name="action_cancel" type="object" string="Cancel" data-hotkey="z" attrs="{'invisible': [('state', 'not in',['draft',])]}"/>
+                        <button name="action_force_transfer" type="object" string="Force Transfer" data-hotkey="z" class="btn-danger" attrs="{'invisible': [('state', 'not in',['transit', 'partial'])]}"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,transit,done"/>
+                    </header>
+                    <sheet>
+                         <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="object" name="open_transfer_barcode" icon="fa-truck fa-flip-horizontal" >
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="total_transfer_qty" readonly="1"/>
+                                </span>
+                                <span class="o_stat_text">Transfer Qty</span>
+                            </div>
+                        </button>
+                        <button class="oe_stat_button" type="object" name="open_received_barcodes" icon="fa-usd" >
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="total_received_qty" readonly="1"/>
+                                </span>
+                                <span class="o_stat_text">Received Qty</span>
+                            </div>
+                        </button>
+                    </div>
+                          <div style="background-color:#FADA5E; color:black; padding: 10px;text-align:center;" attrs="{'invisible': [ ('display_warning', '=', False)]}">
+                        You have scanned the barcode that is already received
+                    </div>
+                        <div class="oe_title">
+                            <h1>
+                                <div class="d-flex">
+                                    <field class="text-break" name="name" readonly="1"/>
+                                </div>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="person_id" readonly="1"/>
+                                 <label for="source_location_id" string="Source"/>
+                                <div class="oe_inline">
+                                    <field name="source_location_id" class="mr8 oe_inline" style="border: 2px solid white; border-radius:12px;" placeholder="Source ......." required="True" readonly="1"/>
+                                    <strong class="mr8 oe_inline">to</strong>
+                                    <field name="dest_location_id" class="oe_inline" style="border: 2px solid white; border-radius:12px;" placeholder="Destination......." readonly="1"/>
+                                </div>
+                            </group>
+                            <group>
+                            <field name="issue_date" readonly="1"/>
+                                <field name="remarks" readonly="1"/>
+                            </group>
+                        </group>
+                            <group>
+                            <group attrs="{'invisible': [('state', 'not in',['draft','transit','partial'])]}">
+<!--                                <field name="barcode_id" string="Scan Barcodes" options="{'no_create': True}" attrs="{'invisible': [('dest_location_id', '=', False)]}"/>-->
+                                 <field name="display_warning" invisible="1"/>
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+                          <notebook>
+                              <page string="Barcodes">
+                                <field name="barcode_line" readonly="1">
+                                    <tree>
+                                        <field name="barcode_id"/>
+                                        <field name="product_id"/>
+                                        <field name="location_id"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+<!--        kanban-->
+        <record id="view_inno_carpet_transfer_kanban" model="ir.ui.view">
+            <field name="name">Inno carpet Transfer kanban</field>
+            <field name="model">inno.carpet.transfer</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="state" class="oe_background_grey" group_create="False" quick_create="0" group_edit="false" group_delete="false" create="0">
+                    <field name="state"/>
+                    <field name="source_location_id"/>
+                    <field name="dest_location_id"/>
+                    <field name="color"/>
+                    <field name="id"/>
+                    <progressbar field="state" colors='{"draft": "warning", "transit": "info", "done": "success"}'/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click {{'oe_kanban_color_' + kanban_getcolor(record.color.raw_value) }} oe_kanban_card oe_kanban_global_click oe_semantic_html_override">
+                                <div>
+                                    <div class="row" style="margin-bottom:4px;">
+                                        <div class="col-10">
+                                            <strong style="color:#338691;"><field name="name"/></strong>
+                                        </div>
+                                        <div class="col-2">
+                                            <field name="activity_ids" widget="kanban_activity"/>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-bottom:4px;">
+                                        <div class="col-12">
+                                            <strong>Source: </strong><t t-esc="record.source_location_id.value"/>
+                                        </div>
+                                        <div class="col-12">
+                                            <strong>Destination: </strong><t t-esc="record.dest_location_id.value"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+        <record id="action_carpet_transfer" model="ir.actions.act_window">
+            <field name="name">Carpet Transfer</field>
+            <field name="res_model">inno.carpet.transfer</field>
+            <field name="view_mode">kanban,tree,form</field>
+        </record>
+
+    </data>
+</odoo>

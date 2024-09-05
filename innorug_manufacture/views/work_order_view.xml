@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="mrp_mrp_workorder__form_view_inherited_s" model="ir.ui.view">
+        <field name="name">mrp workorder</field>
+        <field name="model">mrp.workorder</field>
+        <field name="inherit_id" ref="mrp.mrp_production_workorder_tree_editable_view"/>
+        <field name="arch" type="xml">
+            <field name="qty_remaining" position="replace">
+                <field name="allotted_qty"/>
+                <field name="finished_qty"/>
+            </field>
+        </field>
+    </record>
+
+
+    <record id="mrp_mrp_job_work_order_form_view_inherited_id" model="ir.ui.view">
+        <field name="name">mrp.workorder</field>
+        <field name="model">mrp.workorder</field>
+        <field name="inherit_id" ref="mrp.mrp_production_workorder_form_view_inherit"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//header" position="inside">
+                    <button name="%(action_open_allotment_view)d" type="action" class="btn-primary" string="Allot To Subcontractor" context="{'allotment_type': 'subcontractor'}" attrs="{'invisible': [('state', '!=', 'progress'), ('allotment', '=', 'full')]}" groups="innorug_manufacture.group_inno_weaving_user"/>
+                </xpath>
+                <xpath expr="//field[@name='duration_expected']/.." position="after">
+                    <label for="qty_production" string="Total Quantity"/>
+                    <div class="o_row">
+                        <field name="qty_production" readonly="1"/>
+                        <span>Units</span>
+                    </div>
+                    <field name="workcenter_id" string="Operation" readonly="1"/>
+                </xpath>
+                <xpath expr="//field[@name='production_id']" position="after">
+                    <field name="allotment" invisible="1"/>
+                    <field name="production_bom_id" readonly="1"/>
+                    <label for="remaining_to_allocate"/>
+                    <div class="o_row">
+                        <field name="remaining_to_allocate" readonly="1"/>
+                        <span>Units</span>
+                    </div>
+                </xpath>
+                <xpath expr="//label[@for='duration_expected']" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+                <xpath expr="//field[@name='duration_expected']/.." position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+       <record id="view_mrp_workorder_tree" model="ir.ui.view">
+        <field name="name">mrp.workorder</field>
+        <field name="model">mrp.workorder</field>
+        <field name="arch" type="xml">
+            <tree delete="0" decoration-success ="allotment =='full'" decoration-info ="allotment =='partial'" decoration-danger ="allotment =='to_do'" create="0">
+                <header>
+                    <button name="%(action_open_allotment_view)d" type="action" class="btn-primary" string="Allot To Subcontractor" context="{'allotment_type': 'subcontractor'}" groups="innorug_manufacture.group_inno_weaving_user"/>
+                </header>
+                <field name="name" invisible="1"/>
+                <field name="sale_id"/>
+                 <field name="sale_order_date"/>
+                 <field name="sale_expected_date"/>
+                 <field name="product_id"/>
+                 <field name="quality"/>
+                 <field name ="allotted_qty" sum='fgdj'/>
+                  <field name ="alloted_area" sum='fgdj'/>
+                 <field name ="remaining_to_allocate" sum='sum'/>
+                  <field name ="remaining_area" sum='fgdj'/>
+                <field name="finished_qty" sum='sum'/>
+                <field name ="allotment" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_mrp_work_order_id" model="ir.actions.act_window">
+        <field name="name">Work Orders</field>
+        <field name="res_model">mrp.workorder</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_mrp_workorder_tree" />
+        <field name="context">{}</field>
+        <field name="domain">[('workcenter_id.is_weaving_workcenter', '=', True), ('allotment', '!=', 'full'),('state', '!=', 'cancel')]</field>
+    </record>
+</odoo>

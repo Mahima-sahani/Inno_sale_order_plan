@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Tree -->
+        <record id="view_operation_sequence_view_tree" model="ir.ui.view">
+            <field name="name">operation sequence</field>
+            <field name="model">operation.sequence</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form -->
+        <record id="view_operation_sequence_view_form" model="ir.ui.view">
+            <field name="name">operation sequence</field>
+            <field name="model">operation.sequence</field>
+            <field name="arch" type="xml">
+                <form string="Design Research">
+
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                            <group>
+
+                            </group>
+                        </group>
+                        <notebook>
+                              <page string="Operation">
+                                <field name="work_center_line">
+                                <tree editable="bottom">
+                                     <field name="work_center_id"/>
+                                </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_inno_operation_sequence" model="ir.actions.act_window">
+            <field name="name">Operation Groups</field>
+            <field name="res_model">operation.sequence</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+
+</odoo>

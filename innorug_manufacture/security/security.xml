@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+<!--    category-->
+     <record model="ir.module.category" id="inno_weaving_category">
+         <field name="name">Inno Weaving</field>
+         <field name="description">User Access for inno weaving module</field>
+    </record>
+
+    <record model="ir.module.category" id="inno_loom_inspection">
+         <field name="name">Loom Inspector</field>
+         <field name="description">User Access for inno weaving module</field>
+    </record>
+
+    <record model="ir.module.category" id="inno_barcode_catg">
+         <field name="name">Barcode</field>
+         <field name="description">User Access for Inno Barcode</field>
+    </record>
+
+<!--    groups-->
+    <record id="group_inno_weaving_loom_inspector" model="res.groups">
+        <field name="name">Loom Inspector</field>
+        <field name="category_id" ref="inno_loom_inspection"/>
+    </record>
+
+    <record id="group_inno_weaving_qa" model="res.groups">
+        <field name="name">Quality Assurance</field>
+        <field name="category_id" ref="inno_weaving_category"/>
+    </record>
+
+    <record id="group_inno_weaving_bazaar_organiser" model="res.groups">
+        <field name="name">Bazaar Organiser</field>
+        <field name="category_id" ref="inno_weaving_category"/>
+        <field name="implied_ids" eval="[(4, ref('group_inno_weaving_qa'))]"/>
+    </record>
+
+    <record id="group_inno_weaving_user" model="res.groups">
+        <field name="name">User</field>
+        <field name="category_id" ref="inno_weaving_category"/>
+        <field name="implied_ids" eval="[(4, ref('group_inno_weaving_loom_inspector')), (4, ref('group_inno_weaving_bazaar_organiser'))]"/>
+    </record>
+
+    <record id="group_inno_weaving_manager" model="res.groups">
+        <field name="name">Manager</field>
+        <field name="category_id" ref="inno_weaving_category"/>
+        <field name="implied_ids" eval="[(4, ref('group_inno_weaving_user'))]"/>
+    </record>
+
+    <record id="group_inno_weaving_admin" model="res.groups">
+        <field name="name">Administrator</field>
+        <field name="category_id" ref="inno_weaving_category"/>
+        <field name="implied_ids" eval="[(4, ref('group_inno_weaving_manager'))]"/>
+    </record>
+
+<!--    barcode-->
+    <record id="group_inno_barcode_user" model="res.groups">
+        <field name="name">User</field>
+        <field name="category_id" ref="inno_barcode_catg"/>
+    </record>
+
+    <record id="group_inno_barcode_manager" model="res.groups">
+        <field name="name">Manager</field>
+        <field name="category_id" ref="inno_barcode_catg"/>
+        <field name="implied_ids" eval="[(4, ref('group_inno_barcode_user'))]"/>
+    </record>
+
+    <record id="group_inno_barcode_admin" model="res.groups">
+        <field name="name">Administrator</field>
+        <field name="category_id" ref="inno_barcode_catg"/>
+        <field name="implied_ids" eval="[(4, ref('group_inno_barcode_manager'))]"/>
+    </record>
+
+<!--    rules-->
+
+<!--    jobwork-->
+    <record id="inno_weaving_jobwork_admin_rule" model="ir.rule">
+        <field name="model_id" ref="model_main_jobwork" />
+        <field name="name">Weaving jobwork Admin</field>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4,ref('group_inno_weaving_admin'))]"/>
+    </record>
+
+    <record id="inno_weaving_jobwork_manager_rule" model="ir.rule">
+        <field name="name">Weaving Jobwork Manager</field>
+        <field name="model_id" ref="model_main_jobwork"/>
+        <field name="domain_force">[('division_id', 'in', user.division_id.ids)]</field>
+        <field name="groups" eval="[(4,ref('group_inno_weaving_manager'))]"/>
+    </record>
+
+    <record id="inno_weaving_jobwork_user_rule" model="ir.rule">
+        <field name="name">Weaving Jobwork User</field>
+        <field name="model_id" ref="model_main_jobwork"/>
+        <field name="domain_force">[('division_id', 'in', user.division_id.ids), ('message_partner_ids', 'in', [user.partner_id.id])]</field>
+        <field name="groups" eval="[(4,ref('group_inno_weaving_user'))]"/>
+    </record>
+
+<!--    Loom Inspection-->
+    <record id="inno_weaving_loom_inspection_admin_rule" model="ir.rule">
+        <field name="model_id" ref="model_mrp_quality_control" />
+        <field name="name">Weaving Loom Inspector Admin</field>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4,ref('group_inno_weaving_admin'))]"/>
+    </record>
+
+    <record id="inno_loom_inspection_manager_rule" model="ir.rule">
+        <field name="name">Weaving Loom Inspection Manager</field>
+        <field name="model_id" ref="model_mrp_quality_control"/>
+        <field name="domain_force">[('division_id', 'in', user.division_id.ids)]</field>
+        <field name="groups" eval="[(4,ref('group_inno_weaving_manager'))]"/>
+    </record>
+
+    <record id="inno_loom_inspection_weaving_user_rule" model="ir.rule">
+        <field name="name">Loom Inspection access Weaving User</field>
+        <field name="model_id" ref="model_mrp_quality_control"/>
+        <field name="domain_force">[('division_id', 'in', user.division_id.ids), ('message_partner_ids', 'in', [user.partner_id.id])]</field>
+        <field name="groups" eval="[(4,ref('group_inno_weaving_user'))]"/>
+    </record>
+
+    <record id="inno_loom_inspection_user_rule" model="ir.rule">
+        <field name="name">Loom Inspection User</field>
+        <field name="model_id" ref="model_mrp_quality_control"/>
+        <field name="domain_force">[('qc_manager_id', '=', user.partner_id.id), ('division_id', 'in', user.division_id.ids)]</field>
+        <field name="groups" eval="[(4,ref('group_inno_weaving_loom_inspector'))]"/>
+    </record>
+
+<!--    bazaar receiving-->
+    <record id="inno_weaving_bazaar_admin_rule" model="ir.rule">
+        <field name="model_id" ref="model_main_baazar" />
+        <field name="name">Weaving Bazaar Admin</field>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4,ref('group_inno_weaving_admin'))]"/>
+    </record>
+
+    <record id="inno_weaving_bazaar_manager_rule" model="ir.rule">
+        <field name="name">Weaving Bazaar Manager</field>
+        <field name="model_id" ref="model_main_baazar"/>
+        <field name="domain_force">[('division_id', 'in', user.division_id.ids)]</field>
+        <field name="groups" eval="[(4,ref('group_inno_weaving_manager'))]"/>
+    </record>
+
+    <record id="inno_weaving_bazaar_weaving_user_rule" model="ir.rule">
+        <field name="name">Weaving Bazaar access Weaving User</field>
+        <field name="model_id" ref="model_main_baazar"/>
+        <field name="domain_force">[('division_id', 'in', user.division_id.ids), ('message_partner_ids', 'in', [user.partner_id.id])]</field>
+        <field name="groups" eval="[(4,ref('group_inno_weaving_user'))]"/>
+    </record>
+
+    <record id="inno_weaving_bazaar_user_rule" model="ir.rule">
+        <field name="name">Weaving Bazaar User</field>
+        <field name="model_id" ref="model_main_baazar"/>
+        <field name="domain_force">[('division_id', 'in', user.division_id.ids)]</field>
+        <field name="groups" eval="[(4,ref('group_inno_weaving_bazaar_organiser'))]"/>
+    </record>
+
+    <!--    Quality Check-->
+    <record id="inno_quality_check_admin_rule" model="ir.rule">
+        <field name="model_id" ref="model_mrp_baazar_product_lines" />
+        <field name="name">Weaving QC Admin</field>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4,ref('group_inno_weaving_admin'))]"/>
+    </record>
+
+    <record id="inno_weaving_qc_manager_rule" model="ir.rule">
+        <field name="name">Weaving QC Manager</field>
+        <field name="model_id" ref="model_mrp_baazar_product_lines"/>
+        <field name="domain_force">[('division_id', 'in', user.division_id.ids)]</field>
+        <field name="groups" eval="[(4,ref('group_inno_weaving_manager'))]"/>
+    </record>
+
+    <record id="inno_weaving_qc_bazaar_organiser_rule" model="ir.rule">
+        <field name="name">Weaving QC access Bazaar Organiser</field>
+        <field name="model_id" ref="model_mrp_baazar_product_lines"/>
+        <field name="domain_force">[('division_id', 'in', user.division_id.ids), ('message_partner_ids', 'in', [user.partner_id.id])]</field>
+        <field name="groups" eval="[(4,ref('group_inno_weaving_bazaar_organiser'))]"/>
+    </record>
+
+    <record id="inno_weaving_qc_user_rule" model="ir.rule">
+        <field name="name">Weaving QC User</field>
+        <field name="model_id" ref="model_mrp_baazar_product_lines"/>
+        <field name="domain_force">[('division_id', 'in', user.division_id.ids)]</field>
+        <field name="groups" eval="[(4,ref('group_inno_weaving_qa'))]"/>
+    </record>
+
+<!--    manufacturing-->
+    <record id="inno_production_admin_rule" model="ir.rule">
+        <field name="model_id" ref="mrp.model_mrp_production" />
+        <field name="name">Production Admin</field>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4,ref('group_inno_weaving_admin'))]"/>
+    </record>
+
+    <record id="inno_production_user_rule" model="ir.rule">
+        <field name="name">Production User</field>
+        <field name="model_id" ref="mrp.model_mrp_production"/>
+        <field name="domain_force">[('division_id', 'in', user.division_id.ids)]</field>
+        <field name="groups" eval="[(4,ref('group_inno_weaving_user'))]"/>
+    </record>
+
+<!--    workorders-->
+    <record id="inno_workorder_admin_rule" model="ir.rule">
+        <field name="model_id" ref="mrp.model_mrp_workorder" />
+        <field name="name">Work order Admin</field>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4,ref('group_inno_weaving_admin'))]"/>
+    </record>
+
+    <record id="inno_workorder_user_rule" model="ir.rule">
+        <field name="name">Work order User</field>
+        <field name="model_id" ref="mrp.model_mrp_workorder"/>
+        <field name="domain_force">[('division_id', 'in', user.division_id.ids)]</field>
+        <field name="groups" eval="[(4,ref('group_inno_weaving_user'))]"/>
+    </record>
+
+<!--    barcodes-->
+    <record id="inno_weaving_barcode_admin_rule" model="ir.rule">
+        <field name="model_id" ref="model_mrp_barcode" />
+        <field name="name">Weaving Barcode Admin</field>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4,ref('group_inno_barcode_admin'))]"/>
+    </record>
+
+    <record id="inno_weaving_barcode_manager_rule" model="ir.rule">
+        <field name="name">Weaving Barcode Manager</field>
+        <field name="model_id" ref="model_mrp_barcode"/>
+        <field name="domain_force">[('division_id', 'in', user.division_id.ids)]</field>
+        <field name="groups" eval="[(4,ref('group_inno_barcode_manager'))]"/>
+    </record>
+
+    <record id="inno_weaving_barcode_user_rule" model="ir.rule">
+        <field name="name">Weaving Barcode User</field>
+        <field name="model_id" ref="model_mrp_barcode"/>
+        <field name="domain_force">['|', ('location_id', '=', False), ('location_id', 'in', user.storage_location_ids.ids)]</field>
+        <field name="groups" eval="[(4,ref('group_inno_barcode_user'))]"/>
+    </record>
+
+    <record id="inno_inventory_user_location" model="ir.rule">
+        <field name="name">Inventory location</field>
+        <field name="model_id" ref="model_stock_picking"/>
+        <field name="domain_force">['|', ('location_id', '=', user.material_location_id.id), ('location_dest_id', '=', user.material_location_id.id)]</field>
+        <field name="groups" eval="[(4,ref('stock.group_stock_user'))]"/>
+    </record>
+
+    <record id="inno_inventory_admin_location" model="ir.rule">
+        <field name="name">Inventory location</field>
+        <field name="model_id" ref="model_stock_picking"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4,ref('stock.group_stock_manager'))]"/>
+    </record>
+
+    <record id="inno_stock_user_location" model="ir.rule">
+        <field name="name">inno Stock user</field>
+        <field name="model_id" ref="model_stock_quant"/>
+         <field name="domain_force">[('location_id', '!=', False), ('location_id', '=', user.material_location_id.id)]</field>
+        <field name="groups" eval="[(4,ref('stock.group_stock_user'))]"/>
+    </record>
+
+    <record id="inno_stock_admin_location" model="ir.rule">
+        <field name="name">Inno stock admin</field>
+        <field name="model_id" ref="model_stock_quant"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4,ref('stock.group_stock_manager'))]"/>
+    </record>
+
+</odoo>

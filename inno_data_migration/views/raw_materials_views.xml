@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_raw_material_tree" model="ir.ui.view">
+        <field name="name">raw.material</field>
+        <field name="model">raw.material</field>
+        <field name="arch" type="xml">
+            <tree duplicate="false">
+                 <field name="name" readonly="1"/>
+                <field name="raw_status" readonly="1"/>
+                 <field name="material_id" readonly="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_raw_material_form" model="ir.ui.view">
+        <field name="name">raw.material</field>
+        <field name="model">raw.material</field>
+        <field name="arch" type="xml">
+            <form duplicate="false">
+                <sheet>
+                    <group >
+                        <group>
+                            <field name="name" readonly="1"/>
+                            <field name="raw_status" readonly="1"/>
+                             <field name="line_counts" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="material_id" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Attribute">
+                            <field name="material_lines">
+                                <tree create="0" edit="bottom" delete="0">
+                                    <field name="shade_id" readonly="1"/>
+                                     <field name="attribute" readonly="1"/>
+                                    <field name="attribute_value" readonly="1"/>
+                                    <field name="sku_id" readonly="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+        <record id="model_mapped_raw_materials_process" model="ir.actions.server">
+            <field name="name">Mapped Raw Materials</field>
+            <field name="model_id" ref="inno_data_migration.model_raw_material"/>
+            <field name="binding_model_id" ref="inno_data_migration.model_raw_material"/>
+            <field name="binding_view_types">form,list</field>
+            <field name="state">code</field>
+            <field name="code">action = records.mapped_process_raw_materials()</field>
+        </record>
+
+
+    <record id="action_raw_materials" model="ir.actions.act_window">
+        <field name="name">Raw Materials</field>
+        <field name="res_model">raw.material</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

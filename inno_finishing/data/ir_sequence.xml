@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+   <data>
+       <record id="seq_carpet_transfer" model="ir.sequence">
+           <field name="name">inno.carpet.transfer</field>
+           <field name="code">carpet_transfer_seq</field>
+           <field name="prefix">CPT/%(range_year)s/</field>
+           <field name="padding">5</field>
+           <field name="company_id" eval="False"/>
+       </record>
+        <record id="seq_finishing_baazar" model="ir.sequence">
+           <field name="name">Finishing Bazaar</field>
+           <field name="code">finishing_baazar_seq</field>
+           <field name="prefix">FREC/%(range_year)s/</field>
+           <field name="padding">5</field>
+           <field name="company_id" eval="False"/>
+       </record>
+    </data>
+</odoo>

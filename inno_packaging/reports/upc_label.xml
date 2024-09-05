@@ -1,0 +1,61 @@
+<odoo>
+    <template id="report_print_upc_label">
+        <t t-call="web.basic_layout">
+                <style type="text/css">
+                    @font-face {
+                       font-family: Mulish-Regular;
+                       src: url('/inno_packaging/static/src/fonts/Mulish-Regular.ttf') format('truetype');
+                       font-weight: normal;
+                       font-style: normal;
+                         }
+                    @font-face {
+                       font-family: Mulish-Bold;
+                       src: url('/inno_packaging/static/src/fonts/Mulish-Bold.ttf') format('truetype');
+                       font-weight: bold;
+                       font-style: normal;
+                         }
+                    @font-face {
+                       font-family: Mulish-SemiBold;
+                       src: url('/inno_packaging/static/src/fonts/Mulish-SemiBold.ttff') format('truetype');
+                       font-weight: 600;
+                       font-style: normal;
+                         }
+                </style>
+            <t t-foreach="docs" t-as="o">
+                <div class="page" style="width: 100%; height: 100%; page-break-after: always;">
+                    <div class="row" style="margin-bottom: 45pt;">
+                        <div class="col-4" style="text-transform:uppercase;">
+                            <img t-attf-src="data:image/*;base64,{{data.get(o.id).get('barcode')}}" style="width:210%; height: 230px; margin-top: 45px;"/>
+                        </div>
+                    </div>
+                    <div class="row" style="text-align: center; text-transform:uppercase; margin-bottom: 50pt; font-size:14pt; font-family: Mulish-Bold; font-weight: 600;">
+                        <div class="col-4" style="text-transform:uppercase;">
+                            <img t-attf-src="data:image/*;base64,{{data.get(o.id).get('barcode')}}" style="width:210%; height: 230px; margin-top: 45px;"/>
+                        </div>
+                    </div>
+                    <div class="row" style="text-align: center; text-transform:uppercase; margin-bottom: 30pt; font-size:14pt; font-family: Mulish-Bold; font-weight: 600;">
+                        <div class="col-4" style="text-transform:uppercase;">
+                            <img t-attf-src="data:image/*;base64,{{data.get(o.id).get('barcode')}}" style="width:210%; height: 230px; margin-top: 45px;"/>
+                        </div>
+                    </div>
+                    <div class="row" style="text-transform:uppercase;">
+                        <div class="col-4" style="text-transform:uppercase;">
+                            <img t-attf-src="data:image/*;base64,{{data.get(o.id).get('barcode')}}" style="width:210%; height: 230px; margin-top: 45px;"/>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+    <record id="action_report_print_upc_label" model="ir.actions.report">
+        <field name="name">Print UPC Label</field>
+        <field name="model">stock.quant.package</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">inno_packaging.report_print_upc_label</field>
+        <field name="report_file">inno_packaging.report_print_upc_label</field>
+        <field name="paperformat_id" ref="inno_packaging.upc_label_paperformat"/>
+        <field name="binding_model_id" ref="stock.model_stock_quant_package"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

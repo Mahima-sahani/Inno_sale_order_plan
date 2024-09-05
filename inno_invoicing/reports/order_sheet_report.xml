@@ -1,0 +1,131 @@
+<odoo>
+
+    <template id="report_print_order_sheet">
+        <t t-call="web.basic_layout">
+            <div class="page">
+                <div style=" text-align:center;">Order Sheet</div>
+                <div class="row">
+                    <div class="col-3">
+                        <div style=" text-align:center;"><b>Importer</b></div><br></br>
+                        Surya Carpet Inc
+                        1 SURYA DRIVE
+                        WHITE, GA-30184
+                        USA
+                    </div>
+                     <div class="col-6">
+
+                    </div>
+                     <div class="col-3">
+                          <div style=" text-align:center;"><b>Manufacturer/Exporter :</b></div><br></br>
+                         SURYA CARPET PVT. LTD.
+                         UGAPUR, AURAI-221301
+                         BHADOHI (U.P.)
+                         INDIA
+                    </div>
+                </div>
+                <br></br>
+                <div class="row">
+                    <div class="col-3">
+                        <b>Order No.</b>
+                    </div>
+                    <div class="col-5" style="border-right: 2px solid black;border-left: 2px solid black;border-bottom: 2px solid black;">SCI/SEA-096/23-24 Dated 03/Jan/2023</div>
+                    <div  class="col-4" >
+                    </div>
+                </div>
+                <br></br>
+                 <div>
+                        Please ship the Selected HAND TUFTED WOOLLEN CARPET, HAND TUFTED POLYESTER CARPET, HAND LOOM WOVEN WOOLLEN CARPET,
+                        HAND LOOM WOVEN VISCOSE CARPET, HAND KNOTTED WOOLLEN CARPET, HAND KNOTTED TIBETAN WOOLLEN VISCOSE CARPET, LOOM
+                        KNOTTED VISCOSE WOOLLEN CARPET, HAND WOVEN WOOLLEN KELEM, HAND WOVEN WOOLLEN DURRIES &amp; HAND WOVEN PETYARN
+                        DURRIES. at an earliest
+                    </div>
+                <br></br><br></br>
+                <div class="row">
+                    <div class="col-12">
+                        <table class="table table-striped">
+                              <thead>
+                                <tr>
+                                    <th class="cell"><b>Design / Quality</b></th>
+                                    <th class="cell"><b>Total Pieces</b></th>
+                                    <th class="cell"><b>Total
+                                            Area
+                                            Sq.Feet</b></th>
+                                    <th class="cell"><b>Price Per
+                                            Sq.Feet
+                                            USD
+                                            (F.O.B.)</b></th>
+                                    <th class="cell"><b>Total
+                                                Amount
+                                                USD
+                                                (F.O.B.)</b></th>
+                                </tr>
+                                   <tr>
+                                    <td>3.5/25 HAND KNOTTED WOOLLEN CARPET (ATT) WOOL- 100%,</td>
+                                    <td>40</td>
+                                    <td>90.000</td>
+                                    <td>4.25</td>
+                                    <td>382.50</td>
+                                </tr>
+                            </thead>
+
+                        </table>
+                    </div>
+                </div>
+                <br></br>
+                <br></br>
+
+                 <div class="row">
+                    <div class="col-3">
+                         <div><b>Mode Of Shipment</b></div>
+                            <div><b>Delivery</b></div>
+                            <div><b>Port Of Discharge</b></div>
+                            <div><b>Final Place Of Delivery</b></div>
+                            <div><b>Payment Of Terms</b></div>
+                        </div>
+                     <div class="col-1">
+                         <div><b>:</b></div>
+                            <div><b>:</b></div>
+                            <div><b>:</b></div>
+                            <div><b>:</b></div>
+                            <div><b>:</b></div>
+
+                    </div>
+                     <div class="col-3">
+                           <div>By Sea</div>
+                            <div>AS SOON AS POSSIBLE</div>
+                            <div>SAVANNAH</div>
+                            <div>WHITE, GA (U.S.A.)</div>
+                            <div>D.P.</div>
+
+                    </div>
+                </div>
+                <br></br><br></br>
+                <div class="row">
+                    <div class="col-3">
+                        <div style=" text-align:left;"><b>Signature Of Importer</b></div><br></br>
+                    </div>
+                     <div class="col-6">
+
+                    </div>
+                     <div class="col-3">
+                          <div style=" text-align:right;"><b>Signature Of Exporter</b></div><br></br>
+                    </div>
+                </div>
+
+            </div>
+        </t>
+    </template>
+
+
+
+    <record id="action_report_print_order_sheet" model="ir.actions.report">
+        <field name="name">Print Order Sheet</field>
+        <field name="model">inno.packaging</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">inno_invoicing.report_print_order_sheet</field>
+        <field name="report_file">inno_invoicing.report_print_order_sheet</field>
+         <field name="paperformat_id" ref="inno_invoicing.inno_invoice_paper_format"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

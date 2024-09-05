@@ -1,0 +1,47 @@
+<odoo>
+
+    <template id="report_print_bazaar_finishing_receiving">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+            <div class="page">
+                <div t-foreach="data.get('sub_data').values()" t-as="sub_data" style="page-break-after: always;">
+                    <div class="text-center" style="border-bottom: 1px solid black;">
+                        <h4><b>SubContractor: <td><t t-esc="sub_data.get('subcontractor_name')"/></td></b></h4>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-4">
+                            <b>JOB WORK</b>
+                        </div>
+                        <div class="col-8">
+                            <b>Barcodes</b>
+                        </div>
+                    </div>
+                    <hr/>
+                    <div t-foreach="sub_data.get('jobwork')" t-as="job_work" style="border-bottom: 1px solid black; padding-bottom: 4px;">
+                        <div class="row">
+                            <div class="col-4">
+                                <t t-esc="job_work.get('jobwork_name')"/>
+                            </div>
+                            <div class="col-8">
+                                <t t-esc="job_work.get('barcodes')"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+        </t>
+    </template>
+
+    <record id="action_report_print_bazaar_finishing_receiving" model="ir.actions.report">
+        <field name="name">Finishing Receiving Report</field>
+        <field name="model">mrp.barcode</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">inno_finishing.report_print_bazaar_finishing_receiving</field>
+        <field name="report_file">inno_finishing.report_print_bazaar_finishing_receiving</field>
+        <field name="paperformat_id" ref="base.paperformat_euro"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

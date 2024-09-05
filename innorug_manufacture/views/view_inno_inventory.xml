@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_stock_quant_inno_stock" model="ir.ui.view">
+        <field name="name">Stock Quant</field>
+        <field name="model">stock.quant</field>
+        <field name="arch" type="xml">
+            <tree create="0" duplicate="0" edit="0">
+                <field name="location_id"/>
+                <field name="product_id"/>
+                <field name="quantity"/>
+                <field name="reserved_quantity"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_inno_out_inventory" model="ir.actions.act_window">
+        <field name="name">Going Inventory</field>
+        <field name="res_model">stock.picking</field>
+        <field name="domain">[('picking_type_id.code', '=', 'outgoing')]</field>
+        <field name="context">{'search_default_to_do_transfers': '1'}</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_inno_in_inventory" model="ir.actions.act_window">
+        <field name="name">InComing Inventory</field>
+        <field name="res_model">stock.picking</field>
+        <field name="domain">[('picking_type_id.code', '=', 'incoming')]</field>
+        <field name="context">{'search_default_to_do_transfers': '1'}</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_inno_internal_transfer" model="ir.actions.act_window">
+        <field name="name">Internal Transfer</field>
+        <field name="res_model">stock.picking</field>
+        <field name="domain">[('picking_type_id.code', '=', 'internal')]</field>
+        <field name="context">{'search_default_to_do_transfers': '1'}</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_inno_stock_carpet" model="ir.actions.act_window">
+        <field name="name">Carpet Stock</field>
+        <field name="res_model">stock.quant</field>
+        <field name="domain">[('product_id.is_raw_material', '=', False)]</field>
+        <field name="view_id" ref="view_stock_quant_inno_stock"/>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <record id="action_inno_stock_material" model="ir.actions.act_window">
+        <field name="name">Material Stock</field>
+        <field name="res_model">stock.quant</field>
+        <field name="view_id" ref="view_stock_quant_inno_stock"/>
+        <field name="domain">[('product_id.is_raw_material', '=', True)]</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+</odoo>

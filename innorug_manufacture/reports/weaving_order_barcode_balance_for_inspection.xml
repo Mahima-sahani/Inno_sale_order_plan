@@ -1,0 +1,261 @@
+<odoo>
+
+    <template id="weaving_barcode_insp">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <style type="text/css">
+                    th{
+                    color: #348691;
+                    }
+                    .highlight {
+                    color: #af8835;
+                    }
+                    td{
+                    font-size: 12px;
+                    }
+                </style>
+                <div class="page">
+                    <div class="row" style="border-top: 2px solid black; border-bottom: 2px solid black; padding: 4px;">
+                        <div style="text-align: center">
+                            <b>Weaving Order Balance for Inspection</b>
+                        </div>
+                    </div>
+                    <br></br>
+                    <div class="row">
+                        <div class="col-5">
+                            <div class="row">
+                                <div class="col-3">
+                                    <b>From Date :</b>
+                                </div>
+                                <div class="col-9">
+                                    <t t-esc="data.get('from_date')"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                        </div>
+                        <div class="col-5">
+                            <div class="row">
+                                <div class="col-3">To Date :</div>
+                                <div class="col-9">
+                                    <t t-esc="data.get('to_date')"/>
+                                </div>
+                            </div>
+                        </div>
+                        <t t-if="data.get('buyer')">
+                            <br></br>
+                            <div class="col-5">
+                                <div class="row">
+                                    <div class="col-3">Buyer :</div>
+                                    <div class="col-9">
+                                        <t t-esc="data.get('buyer')"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                        <t t-if="data.get('planning_ids')">
+                            <br></br>
+                            <div class="col-5">
+                                <div class="row">
+                                    <div class="col-3">PO No. :</div>
+                                    <div class="col-9">
+                                        <t t-esc="data.get('planning_ids')"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </div>
+                    <br></br>
+                    <div class="row">
+                        <div class="col-5">
+                            <div class="row">
+                                <div class="col-3">
+                                    <b>Process :</b>
+                                </div>
+                                <div class="col-9">
+                                    Weaving
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                        </div>
+                    </div>
+                    <br></br>
+                    <div class="row">
+                        <div class="col-5">
+                            <div class="row">
+                                <div class="col-3">
+                                    <b>Report Type :</b>
+                                </div>
+                                <div class="col-9">
+                                    <t t-esc="data.get('type_wise')"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                        </div>
+                    </div>
+                    <br></br>
+                    <div class="row">
+                        <div class="col-12">
+                            <t t-foreach="enumerate(data.get('summary'))" t-as="summ">
+                                <table style="border: 2px solid black; padding: 1px;" class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th class="cell">
+                                                <b>Order No</b>
+                                            </th>
+                                            <th class="cell">
+                                                <b>Date</b>
+                                            </th>
+                                            <th class="cell">
+                                                <b>Due Date</b>
+                                            </th>
+                                            <th class="cell">
+                                                <b>Design</b>
+                                            </th>
+                                            <th class="cell">
+                                                <b>Quality</b>
+                                            </th>
+                                            <th class="cell">
+                                                <b>Size</b>
+                                            </th>
+                                            <th class="cell">
+                                                <b>PCS</b>
+                                            </th>
+                                            <t t-if="data.get('report_type') == 'weaving_order_barcode_balance_for_inspection'">
+                                                <th class="cell">
+                                                    <b>Barcode</b>
+                                                </th>
+                                            </t>
+                                            <th class="cell">
+                                                <b><span style="color: white;">- - - - - -</span>Remark
+                                                    <span style="color: white;">- - - - - - -</span>
+                                                </b>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <t t-foreach="enumerate(data.get('sub_data'))" t-as="rec">
+                                        <thead>
+                                            <tr>
+                                                <td class="cell" colspan="5">
+                                                    <b>
+                                                        <t t-esc="rec[1].get('vendor')"/>
+                                                    </b>
+                                                </td>
+                                                <td class="cell" colspan="4">
+                                                    <b>
+                                                        Document Type : WVORD
+                                                    </b>
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                        <t t-foreach="enumerate(rec[1].get('records'))" t-as="recds">
+                                            <t t-foreach="enumerate(recds[1].get('data'))" t-as="data">
+                                                <t t-foreach="enumerate(data[1].get('bcodes'))" t-as="bcodes">
+                                                    <tr>
+                                                        <td style="border-right: 2px solid black; margin: 2px;">
+                                                            <t t-if="bcodes[0] == 0">
+                                                                <t t-esc="recds[1].get('order_no')"/>
+                                                            </t>
+                                                        </td>
+                                                        <td style="border-right: 2px solid black; margin: 2px;">
+                                                            <t t-if="bcodes[0] == 0">
+                                                                <t t-esc="recds[1].get('date')"/>
+                                                            </t>
+                                                        </td>
+                                                        <td style="border-right: 2px solid black; margin: 2px;">
+                                                            <t t-if="bcodes[0] == 0">
+                                                                <t t-esc="recds[1].get('due_date')"/>
+                                                            </t>
+                                                        </td>
+                                                        <td style="border-right: 2px solid black; margin: 2px;">
+                                                            <t t-if="bcodes[0] == 0">
+                                                                <t t-esc="data[1].get('design')"/>
+                                                            </t>
+                                                        </td>
+                                                        <td style="border-right: 2px solid black; margin: 2px;">
+                                                            <t t-if="bcodes[0] == 0">
+                                                                <t t-esc="data[1].get('quality')"/>
+                                                            </t>
+                                                        </td>
+                                                        <td style="border-right: 2px solid black; margin: 2px;">
+                                                            <t t-esc="bcodes[1].get('size')"/>
+                                                        </td>
+                                                        <td style="border-right: 2px solid black; margin: 2px;">
+                                                            <t t-esc="bcodes[1].get('pcs')"/>
+                                                        </td>
+                                                        <t t-if="bcodes[1].get('bar')==4">
+                                                            <td style="border-right: 2px solid black; margin: 2px;">
+                                                                <t t-esc="bcodes[1].get('barcode')"/>
+                                                            </td>
+                                                        </t>
+                                                        <td style="border-right: 2px solid black; margin: 2px;"
+                                                            colspan="4">
+                                                            -----
+                                                        </td>
+                                                    </tr>
+                                                </t>
+                                            </t>
+                                        </t>
+                                        <tr>
+                                            <td colspan="4"><b>Sub Total</b>:
+                                                <b>
+                                                    <t t-esc="rec[1].get('area')"/>
+                                                    Sq. Yard
+                                                </b>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td colspan="3">
+                                                <b>
+                                                    <t t-esc="rec[1].get('qty')"/>
+                                                    PCS
+                                                </b>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                    <tr>
+                                        <td colspan="4"><b>Grand Total</b>:
+                                            <!--                                         <t t-esc="data.get('division')"/>-->
+                                            <b>
+                                                <t t-esc="summ[1].get('total_area')"/>
+                                                <!--                                                                                                                        <t t-esc="data.get('division')"/>-->
+                                                Sq. Yard
+                                            </b>
+                                        </td>
+                                        <td>
+                                        </td>
+                                        <td>
+                                        </td>
+                                        <td colspan="3">
+                                            <b>
+                                                <t t-esc="summ[1].get('total_qty')"/>
+                                                <!--                                                                        <t t-esc="data.get('total_qty')"/> -->
+                                                PCS
+                                            </b>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+
+    <record id="action_reports_weaving_order_barcode_balance_for_inspection" model="ir.actions.report">
+        <field name="name">Weaving Order Barcode Balance for Inspection Report</field>
+        <field name="model">main.jobwork</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">innorug_manufacture.weaving_barcode_insp</field>
+        <field name="report_file">innorug_manufacture.weaving_barcode_insp</field>
+        <field name="paperformat_id" ref="base.paperformat_euro"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

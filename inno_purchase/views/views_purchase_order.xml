@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="inno_purchase_form_view_inherited_purchase_order" model="ir.ui.view">
+        <field name="name">purchase.order</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+             <xpath expr="//notebook/page[@name='products']/field/tree/field[@name='qty_received']" position="after">
+                    <field name="total_area" readonly="1" attrs="{'column_invisible': [('parent.is_sale', '=', False)]}"/>
+                    <field name="deal_unit" readonly="1" attrs="{'column_invisible': [('parent.is_sale', '=', False)]}"/>
+                    <field name="purchase_rate" attrs="{'column_invisible': [('parent.is_sale', '=', False)]}"/>
+                    <field name="remark" attrs="{'column_invisible': [('parent.is_sale', '=', False)]}"/>
+            </xpath>
+            <field name="currency_id" position="after">
+                <field name="order_type" required="1"
+                       attrs="{'readonly': [('state', 'in', ['purchase','done','cancel',])]}"/>
+                <field name="planing_ids" widget="many2many_tags" options="{'no_create': True, 'no_open': True}"
+                       attrs="{'readonly': [('state', 'in', ['purchase','done','cancel',])],'invisible': [('order_type', 'not in', ['spinning',])]}"/>
+                <button string="Upload Planning Product" icon="fa-refresh" type="object" name="upload_Planning_Product"
+                        class="btn-info" attrs="{'invisible': [('order_type', 'not in', ['spinning',])]}"/>
+            </field>
+            <xpath expr="//header" position="inside">
+                <field name="is_sale" invisible="1"/>
+                <button name="fetch_rate" type="object" string="Fetch Rate"/>
+                 <button name="carpet_print_pdf" type="object" string="Print PDF" attrs="{'invisible': [('order_type', 'not in', ['carpet',])]}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="mrp_production_view_research_id" model="ir.ui.view">
+            <field name="name">mrp production</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp.mrp_production_form_view" />
+            <field name="arch" type="xml">
+                <div name="button_box" position="inside">
+                     <button class="oe_stat_button" type="object" name="button_action_views_for_research"
+                       string ="R&amp;D" icon="fa-usd"  attrs="{'invisible': [('research_id', '=', False)]}">
+                    </button>
+                     <button class="oe_stat_button" type="object" name="button_for_open_bracodes"
+                       string ="Barcodes" icon="fa-usd">
+                    </button>
+                     <field name="research_id" invisible="1"/>
+                </div>
+            </field>
+        </record>
+    </data>
+</odoo>

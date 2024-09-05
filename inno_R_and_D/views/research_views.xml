@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_inno_research_view_tree" model="ir.ui.view">
+            <field name="name">inno research</field>
+            <field name="model">inno.research</field>
+            <field name="arch" type="xml">
+                <tree decoration-success="state =='9_done'" decoration-info="state =='5_validation'"
+                      decoration-warning="state=='7_rejection'" decoration-danger="state =='1_draft'">
+                    <field name="reference" readonly="1"/>
+                    <field name="product_tmpl_id" readonly="1"/>
+                    <field name="division_id" readonly="1"/>
+                       <field name="production_count" readonly="1" optional="hide"/>
+                    <field name="state" readonly="1" optional="hide"/>
+                    <field name="collection" readonly="1" optional="hide"/>
+                    <field name="color_ways" readonly="1" optional="hide"/>
+                    <field name="standard_cost" readonly="1" optional="hide"/>
+                    <field name="contect" readonly="1" optional="hide"/>
+                    <field name="finish_weight" readonly="1" optional="hide"/>
+                    <field name="map" readonly="1" optional="hide"/>
+                    <field name="binding_prm" readonly="1" optional="hide"/>
+                    <field name="durry_prm" readonly="1" optional="hide"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form -->
+        <record id="view_inno_resaarch_view_form" model="ir.ui.view">
+            <field name="name">inno research</field>
+            <field name="model">inno.research</field>
+            <field name="arch" type="xml">
+                <form string="Design Research">
+                    <header>
+                        <button name="button_action_confirm" string="Confirm" type="object" class="btn-primary"
+                                attrs="{'invisible': [('state', 'not in',['1_draft'])]}"/>
+                        <button name="button_action_set_operation_and_bom" string="Create Purchase Order" type="object"
+                                class="btn-primary" attrs="{'invisible': [('state', 'not in',['2_process',])]}"
+                                context="{'type': 'purchase'}"/>
+                        <button name="button_action_set_operation_and_bom" string="Create Operation" type="object"
+                                class="btn-primary" attrs="{'invisible': [('state', 'not in',['2_process',])]}"
+                                context="{'type': 'mrp'}"/>
+                        <button name="button_action_for_create_mo" string="Create Manufacturing Order" type="object"
+                                class="btn-primary" attrs="{'invisible': [('state', 'in',['1_draft','2_process','2_consumption_mrp','cancel'])]}"
+                                context="{'type': 'mrp_order'}"/>
+                        <button name="button_action_set_operation_and_bom" string="Create Shipment" type="object"
+                                class="btn-primary" attrs="{'invisible': [('state', 'not in',['3_product_sampling',])]}"
+                                context="{'type': 'shipment'}"/>
+                        <button name="button_action_rejected" string="Rejected" type="object" class="btn-primary"
+                                attrs="{'invisible': [('state', 'not in',['4_shipment','8_store'])]}"/>
+                        <button name="button_action_done" string="Done" type="object" class="btn-primary"
+                                attrs="{'invisible': [('state', 'not in',['5_validation'])]}"/>
+                        <button name="button_action_store" string="Store" type="object" class="btn-primary"
+                                attrs="{'invisible': [('state', 'not in',['3_product_sampling'])]}"/>
+                        <button name="button_action_validated" string="Validated" type="object" class="btn-primary"
+                                attrs="{'invisible': ['|',('is_main_design', '=',False),('state', 'in',['5_validation','9_done'])]}"/>
+                        <button name="button_action_create_store" string="Store" type="object" class="btn-primary"
+                                attrs="{'invisible': [('state', 'not in',['4_shipment',])]}"/>
+                        <!--                        <button name="button_action_create_shipments" string="Create Shipment" type="object" class="btn-primary" attrs="{'invisible': [('state', 'not in',['3_product_sampling',])]}"/>-->
+                        <button name="button_add_bom_data" string="Add Bom Data" type="object" class="btn-primary"
+                                attrs="{'invisible': ['|',('state', 'not in',['2_consumption_mrp',]),('is_active_verify','!=',False)]}"/>
+                        <button name="button_add_bom_verified" string="Verified" type="object" class="btn-primary"
+                                attrs="{'invisible': ['|',('state', 'not in',['2_consumption_mrp']),('is_active_verify','!=',False)]}"/>
+                        <button string="Add Size" icon="fa-refresh" type="object" name="add_size_with_sku"
+                                class="btn-info"
+                                attrs="{'invisible': [('state', 'in',['cancel','1_draft','2_process'])]}"
+                                context="{'type': 'design'}"
+                                groups="inno_R_and_D.group_inno_rnd_user,innorug_manufacture.group_inno_weaving_manager,inno_finishing.group_inno_finishing_manager"/>
+                        <button name="button_action_cancel" string="Cancel" type="object"
+                                attrs="{'invisible': [('state', 'in',['9_done', 'cancel'])]}"/>
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="1_draft,3_product_sampling"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="button_action_rejected" string="Rejected" type="object" class="btn-primary"
+                                    attrs="{'invisible': [('state', 'not in',['4_shipment',])]}"/>
+                            <button class="oe_stat_button" type="object" name="get_purchase_order" icon="fa-barcode"
+                                    attrs="{'invisible': [('purchase_count', '=', 0)]}">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value">
+                                        <field name="purchase_count"/>
+                                    </span>
+                                    <span class="o_stat_text">Purchase</span>
+                                </div>
+                            </button>
+                            <button class="oe_stat_button" string="Product" type="object" name="get_product"
+                                    icon="fa-inr" attrs="{'invisible': [('product_tmpl_id', '=', False)]}">
+                            </button>
+                            <button class="oe_stat_button" type="object" name="get_manufacturing" icon="fa-usd"
+                                    attrs="{'invisible': [('production_count', '=', 0)]}">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value">
+                                        <field name="production_count"/>
+                                    </span>
+                                    <span class="o_stat_text">Manufacturing</span>
+                                </div>
+                            </button>
+                            <button class="oe_stat_button" type="object" name="get_transfer" icon="fa-usd"
+                                    attrs="{'invisible': [('tranfer_count', '=', 0)]}">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value">
+                                        <field name="tranfer_count"/>
+                                    </span>
+                                    <span class="o_stat_text">Transfer</span>
+                                </div>
+                            </button>
+                        </div>
+                        <field name="image" widget="image" class="oe_avatar"/>
+                        <div class="h2">
+                            <field name="reference" nolabel="1" readonly="1"/>
+                        </div>
+                        <group>
+                            <group string="Genaral Information">
+                                <field name="name" string="Sample"
+                                       attrs="{'readonly': [('state', 'not in',['1_draft',])]}"/>
+                                <field name="design" string="Design"
+                                       attrs="{'readonly': [('is_main_design', '!=',False)],'invisible': [('state', 'in',['cancel','1_draft','2_process','2_consumption_mrp'])]}"/>
+                                <field name="product_tmpl_id" invisible="1"/>
+                                <field name="bom_id" invisible="1"/>
+                                <field name="pick_id" invisible="1"/>
+                                <field name="is_active_mrp" invisible="1"/>
+                                <field name="bom_id" invisible="1"/>
+                                <field name="production_count" invisible="1"/>
+                                <field name="tranfer_count" invisible="1"/>
+                                <field name="purchase_count" invisible="1"/>
+                                <field name="update_product_tmpl_data" invisible="1"/>
+                                <field name="is_main_design" invisible="1"/>
+                                <field name="construction" required="1" options="{'no_create': True, 'no_open': True}"
+                                       context="{'field_type': 'construction'}"/>
+
+                            </group>
+                            <group string="Description">
+                                <field name="date"/>
+                                <field name="division_id" options="{'no_create': True, 'no_open': True}" required="1"
+                                       attrs="{'readonly': [('state', 'not in',['1_draft',])]}"/>
+                                <field name="purchase_id" invisible="1"/>
+                                <field name="quality" options="{'no_create': True, 'no_open': True}" required="1"
+                                       attrs="{'readonly': [('state', 'not in',['1_draft',])]}"
+                                       context="{'field_type': 'quality'}"/>
+                                <field name="is_active_verify" invisible="1"/>
+                                <field name="sequence_id"
+                                       attrs="{'invisible': [('state', 'not in', ['2_process',])], 'readonly': [('state', 'not in',['2_process',])]}"/>
+
+                            </group>
+
+                        </group>
+                        <group>
+                            <group attrs="{'invisible': ['|',('design', '=', False),('is_main_design', '!=',False)]}">
+                                <button string="Accept" icon="fa-refresh" type="object" name="accept_design_name"
+                                        class="btn-info" context="{'type': 'design'}"
+                                        attrs="{'invisible': ['|',('design', '=', False),('is_main_design', '!=',False)]}"
+                                        groups="inno_R_and_D.group_inno_rnd_user,innorug_manufacture.group_inno_weaving_manager,inno_finishing.group_inno_finishing_manager"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Production Details">
+                                <form>
+                                    <group>
+                                        <group>
+                                            <field name="color" options="{'no_create': True, 'no_open': True}"
+                                                   attrs="{'readonly': [('state', 'not in',['1_draft',])]}"
+                                                   context="{'field_type': 'color'}"/>
+                                            <field name="collection" required="1"
+                                                   options="{'no_create': True, 'no_open': True}"
+                                                   attrs="{'readonly': [('state', 'not in',['1_draft',])]}"
+                                                   context="{'field_type': 'collection'}"/>
+                                            <field name="contect" required="1"
+                                                   options="{'no_create': True, 'no_open': True}"
+                                                   attrs="{'readonly': [('state', 'not in',['1_draft',])]}"
+                                                   context="{'field_type': 'contect'}"/>
+                                            <field name="color_ways" options="{'no_create': True, 'no_open': True}"
+                                                   attrs="{'readonly': [('state', 'not in',['1_draft',])]}"
+                                                   context="{'field_type': 'color_ways'}"/>
+                                            <field name="standard_cost" options="{'no_create': True, 'no_open': True}"
+                                                   attrs="{'readonly': [('state', 'not in',['1_draft',])]}"/>
+                                            <field name="finish_weight" options="{'no_create': True, 'no_open': True}"
+                                                   attrs="{'readonly': [('state', 'not in',['1_draft',])]}"/>
+                                            <field name="map" options="{'no_create': True, 'no_open': True}"
+                                                   attrs="{'readonly': [('state', 'not in',['1_draft',])]}"/>
+                                            <field name="binding_prm"
+                                                   attrs="{'readonly': [('state', 'not in',['1_draft',])]}"/>
+                                            <field name="durry_prm"
+                                                   attrs="{'readonly': [('state', 'not in',['1_draft',])]}"/>
+                                            <field name="remark"
+                                                   attrs="{'readonly': [('state', 'not in',['1_draft',])]}"/>
+                                        </group>
+                                        <group>
+                                            <field name="quality" options="{'no_create': True, 'no_open': True}"
+                                                   invisible="1" required="1"
+                                                   attrs="{'readonly': [('state', 'not in',['1_draft',])]}"
+                                                   context="{'field_type': 'quality'}"/>
+                                            <field name="quality_weight" options="{'no_create': True, 'no_open': True}"
+                                                   invisible="1"/>
+                                            <field name="style" options="{'no_create': True, 'no_open': True}"
+                                                   required="1" attrs="{'readonly': [('state', 'not in',['1_draft',])]}"
+                                                   context="{'field_type': 'style'}"/>
+                                            <field name="pattern" options="{'no_create': True, 'no_open': True}"
+                                                   attrs="{'readonly': [('state', 'not in',['1_draft',])]}"
+                                                   context="{'field_type': 'pattern'}"/>
+                                            <field name="face_content" required="1"
+                                                   options="{'no_create': True, 'no_open': True}"
+                                                   attrs="{'readonly': [('state', 'not in',['1_draft',])]}"
+                                                   context="{'field_type': 'face_content'}"/>
+                                            <field name="origin" options="{'no_create': True, 'no_open': True}"
+                                                   attrs="{'readonly': [('state', 'not in',['1_draft',])]}"/>
+                                            <field name="hns_code"
+                                                   attrs="{'readonly': [('state', 'not in',['1_draft',])]}"/>
+                                            <field name="trace" options="{'no_create': True, 'no_open': True}"
+                                                   attrs="{'readonly': [('state', 'not in',['1_draft',])]}"/>
+                                            <field name="gachhai_prm"
+                                                   attrs="{'readonly': [('state', 'not in',['1_draft',])]}"/>
+                                            <field name="pile_height"
+                                                   attrs="{'readonly': [('state', 'not in',['1_draft',])]}"/>
+                                            <field name="loop_cut"
+                                                   attrs="{'readonly': [('state', 'not in',['1_draft',])]}"/>
+                                        </group>
+                                    </group>
+                                </form>
+                            </page>
+                            <page string="SKUs">
+                                <field name="research_lines" attrs="{'readonly': [('state', 'not in',['1_draft'])]}">
+                                    <tree editable="bottom">
+                                        <field name="name" readonly="1" force_save="1"/>
+                                        <field name="shape" required="1"/>
+                                        <field name="standard_size" required="1" options="{'no_create': True}"/>
+                                        <field name="manufacturing_size" required="1" force_save="1"
+                                               options="{'no_create': True}"/>
+                                        <field name="finishing_size" required="1" force_save="1"
+                                               options="{'no_create': True}"/>
+                                        <field name="choti" force_save="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Operation"
+                                  attrs="{'readonly': [('state', 'not in',['1_draft'])],'invisible': [('bom_id', '=',False)]}">
+                                <field name="rnd_route_lines">
+                                    <tree editable="bottom">
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="name"/>
+                                        <field name="company_id" invisible="1"/>
+                                        <field name="bom_id" invisible="1"/>
+                                        <field name="rnd_bom_id" invisible="1"/>
+                                        <field name="workcenter_id"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Bom" attrs="{'invisible': [('bom_id','=',False)]}">
+                                <field name="rnd_bom_lines"
+                                       attrs="{'readonly': [('state', 'not in',['2_consumption_mrp'])]}">
+                                    <tree editable="bottom" create="0">
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="company_id" invisible="1"/>
+                                        <field name="product_uom_category_id" invisible="1"/>
+                                        <field name="allowed_operation_ids" invisible="1"/>
+                                        <field name="bom_id" invisible="1"/>
+                                        <field name="product_id" domain="[('inno_mrp_size_id', '=', False)]"
+                                               options="{'no_quick_create':True,'no_create_edit':True}"/>
+                                        <field name="percentage" sum="Total"/>
+                                        <field name="product_qty" sum="Quality" required="1"/>
+                                        <field name="product_uom_id" readonly="1"/>
+                                        <field name="operation_id" readonly="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+            <record id="view_rnd_search" model="ir.ui.view">
+            <field name="name">inno.research.search</field>
+            <field name="model">inno.research</field>
+            <field name="arch" type="xml">
+                <search string="Users">
+                    <field name="reference"/>
+                    <field name="name"/>
+                    <field name="product_tmpl_id"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_inno_research" model="ir.actions.act_window">
+            <field name="name">Research</field>
+            <field name="res_model">inno.research</field>
+            <field name="view_mode">tree,form,search</field>
+        </record>
+    </data>
+
+</odoo>
+

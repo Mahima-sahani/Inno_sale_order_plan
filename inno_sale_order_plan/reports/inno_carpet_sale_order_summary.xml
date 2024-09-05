@@ -1,0 +1,130 @@
+<odoo>
+    <template id="report_carpet_sale_order_summary">
+         <t t-call="web.html_container">
+             <t t-set="data_report_landscape" t-value="False"/>
+             <t t-call="web.external_layout" style="margin-top: 10px;">
+                 <div class="page">
+                     <div class="text-center" style="border-bottom: 1px solid black;">
+                         <br/>
+                         <h4> <b>Carpet Sale Order Summary</b></h4>
+                         <br/>
+                     </div>
+                     <br/>
+                         <div class="row">
+                             <div class="col-6">
+                                 <div class="row">
+                                     <div class="col-4">
+                                         <h6><b>Summary Type</b></h6>
+                                     </div>
+                                     <div class="col-1">
+                                         <h6>:</h6>
+                                     </div>
+                                     <div class="col-7">
+                                      <h6><b>Party Wise Summary</b></h6>
+                                     </div>
+                                 </div>
+                                 <div class="row">
+                                     <div class="col-4">
+                                         <h6><b>From Date</b></h6>
+                                     </div>
+                                     <div class="col-1">
+                                         <h6>:</h6>
+                                     </div>
+                                     <div class="col-7">
+                                          <t t-esc="from_date"/>
+                                     </div>
+                                 </div>
+                             </div>
+                             <div class="col-6">
+                                 <div class="row">
+                                     <div class="col-4">
+                                         <h6><b>To Date</b></h6>
+                                     </div>
+                                     <div class="col-1">
+                                         <h6>:</h6>
+                                     </div>
+                                     <div class="col-7">
+                                          <t t-esc="to_date"/>
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+ 
+                         <!-- Table -->
+                         <div class="row" style="margin-top: 20px;">
+                             <div class="col-12">
+                                 <table class="table table-bordered">
+                                     <thead style=" height: 5px;">
+                                         <tr style="text-align: right; background-color: rgb(182, 179, 179);">
+                                             <th scope="col" style="text-align: left;">Buyer</th>
+                                             <th scope="col">Order Qty</th>
+                                             <th scope="col">Cancel Qty</th>
+                                             <th scope="col">Order Measure</th>
+                                             <th scope="col">Cancel Measure</th>
+                                             <th scope="col">Order Ammount</th>
+                                             <th scope="col">Cancel Ammount</th>
+                                         </tr>
+                                         <tr style="text-align: right; ">
+                                             <th scope="col" ></th>
+                                             <th scope="col">PCS</th>
+                                             <th scope="col"></th>
+                                             <th scope="col">Sq. Yard</th>
+                                             <th scope="col"></th>
+                                             <th scope="col">INR</th>
+                                              <th scope="col"></th>
+                                         </tr>
+                                     </thead>
+                                     <tbody>
+                                         <t t-set="total_qty" t-value="0"/>
+                                         <t t-set="total_area" t-value="0"/>
+                                         <t t-set="total_order_amount" t-value="0"/>
+     
+                                         <t t-foreach="data.get('recs')" t-as="rec">
+                                             <tr style="text-align: right;">
+                                                 <td style="text-align: left;"><t t-esc="rec['name']"/></td>
+                                                 <td>
+                                                     <t t-esc="rec['qty']"/>
+                                                     <t t-set="total_qty" t-value="total_qty + rec['qty']"/>
+                                                 </td>
+                                                 <td>-</td>
+                                                 <td><t t-esc="rec['area']"/>
+                                                     <t t-set="total_area" t-value="total_area + rec['area']"/></td>
+                                                 <td>-</td>
+                                                 <td>
+                                                     <t t-esc="'{:.2f}'.format(rec['order_amount'])"/>
+                                                     <t t-set="total_order_amount" t-value="total_order_amount + rec['order_amount']"/>
+                                                 </td>
+                                                 <td>-</td>
+                                             </tr>
+                                         </t>
+                                     </tbody>
+                                     <tfoot>
+                                         <tr style="text-align: right;">
+                                             <td style="text-align: left;"><b>Total</b></td>
+                                             <td><b><t t-esc="total_qty"/></b></td>
+                                             <td>-</td>
+                                             <td><b><t t-esc="total_area"/></b></td>
+                                             <td>-</td>
+                                             <td><b><t t-esc="'{:.2f}'.format(total_order_amount)"/></b></td>
+                                             <td>-</td>
+                                         </tr>
+                                     </tfoot>
+                                 </table>
+                             </div>
+                         </div>  
+                 </div>
+             </t>
+         </t>
+     </template>
+ 
+     <record id="action_reports_carpet_sale_order_summary" model="ir.actions.report">
+         <field name="name">Carpet Sale Order Report</field>
+         <field name="model">inno.sale.order.planning</field>
+         <field name="report_type">qweb-html</field>
+         <field name="report_name">inno_sale_order_plan.report_carpet_sale_order_summary</field>
+         <field name="report_file">Carpet Sale Order Summary</field>
+         <field name="paperformat_id" ref="base.paperformat_euro"/>
+         <field name="binding_type">report</field>
+     </record>
+ </odoo>
+ 

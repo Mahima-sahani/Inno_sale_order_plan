@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_purchase_report" model="ir.ui.view">
+        <field name="name">Report Purchase Wizards</field>
+        <field name="model">inno.purchase.reports</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="report_type"/>
+                            <field name="vendor_id" options="{'no_create': True, 'no_open': True}"
+                                   attrs="{'invisible': [('report_type', 'not in', ['purchase_order_balance'])]}" />
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="from_date"
+                                   attrs="{'invisible': [('report_type', 'not in', ['purchase_order_balance'])]}"/>
+                            <field name="purchase_order_no"
+                                   attrs="{'invisible': [('report_type', 'not in', ['purchase_order_balance'])]}" widget="many2many_tags" options="{'no_create': True, 'no_open': True}"/>
+                        </group>
+                        <group>
+                            <field name="to_date"
+                                   attrs="{'invisible': [('report_type', 'not in', ['purchase_order_balance'])]}"/>
+                            <field name="product_id"
+                                attrs="{'invisible': [('report_type', 'not in', ['purchase_order_balance'])]}" widget="many2many_tags" options="{'no_create': True, 'no_open': True}"/>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Generate" type="object" class="btn-success"
+                            name="generate_report"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_purchase_order_reports" model="ir.actions.act_window">
+        <field name="name">Purchase Reports</field>
+        <field name="res_model">inno.purchase.reports</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

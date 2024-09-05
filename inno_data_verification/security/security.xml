@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="inno_data_verification_weaving_user_rule" model="ir.rule">
+        <field name="name">Weaving Data Verification</field>
+        <field name="model_id" ref="model_inno_product_verification"/>
+        <field name="domain_force">[('division_id', 'in', user.division_id.ids), ('state', 'in', ['manufacturing','admin','verified',])]</field>
+        <field name="groups" eval="[(4,ref('innorug_manufacture.group_inno_weaving_user'))]"/>
+    </record>
+
+     <record id="inno_data_verification_weaving_manager_rule" model="ir.rule">
+        <field name="name">Manager Weaving Data Verification</field>
+        <field name="model_id" ref="model_inno_product_verification"/>
+        <field name="domain_force">[('division_id', 'in', user.division_id.ids)]</field>
+        <field name="groups" eval="[(4,ref('innorug_manufacture.group_inno_weaving_manager'))]"/>
+    </record>
+<!--     <record id="inno_data_verification_weaving_manager_ir_model_rule" model="ir.rule">-->
+<!--        <field name="name">I R MODEL Verification</field>-->
+<!--        <field name="model_id" ref="model_ir_model_fields"/>-->
+<!--          <field name="domain_force">[(1,'=',1)]</field>-->
+<!--        <field name="groups" eval="[(4,ref('innorug_manufacture.group_inno_weaving_user'))]"/>-->
+<!--    </record>-->
+<!--      <record id="inno_data_verification_finishing_ir_user_rule" model="ir.rule">-->
+<!--        <field name="name">I R Model Verification</field>-->
+<!--         <field name="model_id" ref="model_ir_model_fields"/>-->
+<!--           <field name="domain_force">[(1,'=',1)]</field>-->
+<!--        <field name="groups" eval="[(4,ref('inno_finishing.group_inno_finishing_user'))]"/>-->
+<!--    </record>-->
+
+      <record id="inno_data_verification_finishing_user_rule" model="ir.rule">
+        <field name="name">Finishing Data Verification</field>
+        <field name="model_id" ref="model_inno_product_verification"/>
+        <field name="domain_force">[('division_id', 'in', user.division_id.ids), ('state', 'in', ['manufacturing','admin','verified',])]</field>
+        <field name="groups" eval="[(4,ref('inno_finishing.group_inno_finishing_user'))]"/>
+    </record>
+
+      <record id="inno_data_verification_finishing_manager_rule" model="ir.rule">
+        <field name="name">Manager Finishing Data Verification</field>
+        <field name="model_id" ref="model_inno_product_verification"/>
+        <field name="domain_force">[('division_id', 'in', user.division_id.ids)]</field>
+        <field name="groups" eval="[(4,ref('inno_finishing.group_inno_finishing_manager'))]"/>
+    </record>
+
+
+      <record id="inno_rnd_verification_user_data_rule" model="ir.rule">
+        <field name="name">R n D User</field>
+        <field name="model_id" ref="model_inno_product_verification"/>
+           <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4,ref('inno_R_and_D.group_inno_rnd_user'))]"/>
+    </record>
+
+
+
+</odoo>

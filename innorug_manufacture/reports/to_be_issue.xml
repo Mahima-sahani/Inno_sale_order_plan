@@ -1,0 +1,135 @@
+<odoo>
+    <template id="report_weaving_to_be_issue">
+        <t t-call="web.html_container">
+            <t t-set="data_report_landscape" t-value="False"/>
+            <t t-call="web.external_layout" style="margin-top: 100px;">
+                <div class="page">
+                    <div class="text-center" style="border-bottom: 1px solid black;">
+                        <h4>
+                            <b>Weaving To Be Issue</b>
+                        </h4>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th class="cell">
+                                            <b>Order Date</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Order No</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Due Date</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Carpet SKU</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Size</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Allotted Qty</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Remaining Qty</b>
+                                        </th>
+                                        <th>
+                                            <b>Remaining Area (Sq. Yard)</b>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <t t-foreach="data.get('records')" t-as="po_data">
+                                    <tr style="text-align: center; border-bottom: 2px solid black;">
+                                        <td>
+                                            <b><t t-esc="po_data.get('design')"/></b>
+                                        </td>
+                                        <td>
+                                            <b><t t-esc="po_data.get('quality')"/></b>
+                                        </td>
+                                        <td/>
+                                        <td/>
+                                        <td/>
+                                        <td/>
+                                        <td/>
+                                        <td/>
+                                    </tr>
+                                    <t t-foreach="po_data.get('data')" t-as="record">
+                                        <tr style="text-align: center;">
+                                            <td>
+                                                <t t-esc="record.get('order_date')"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="record.get('po_no')"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="record.get('due_date')"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="record.get('sku')"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="record.get('size')"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="record.get('alloted_qty')"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="record.get('remaining')"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="record.get('remaining_area')"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                    <tr style="text-align: center; border-bottom: 2px solid black; border-top: 2px solid black;">
+                                        <td/>
+                                        <td/>
+                                        <td/>
+                                        <td/>
+                                        <td/>
+                                        <td/>
+                                        <td>
+                                            <b><t t-esc="po_data.get('total_qty')"/></b>
+                                        </td>
+                                        <td>
+                                            <b><t t-esc="po_data.get('total_area')"/></b>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <tr style="text-align: center; border-bottom: 2px solid black; border-top: 2px solid black;">
+                                        <td>
+                                            <b>Grand Total</b>
+                                        </td>
+                                        <td/>
+                                        <td/>
+                                        <td/>
+                                        <td/>
+                                        <td/>
+                                        <td>
+                                            <b><t t-esc="data.get('grand_pcs')"/></b>
+                                        </td>
+                                        <td>
+                                            <b><t t-esc="data.get('grand_area')"/></b>
+                                        </td>
+                                    </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_weaving_to_be_issue" model="ir.actions.report">
+        <field name="name">Weaving To Be Issue</field>
+        <field name="model">mrp.workorder</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">innorug_manufacture.report_weaving_to_be_issue</field>
+        <field name="report_file">Weaving To Be Issue</field>
+        <field name="paperformat_id" ref="base.paperformat_euro"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

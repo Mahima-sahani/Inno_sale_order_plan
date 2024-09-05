@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+     <data>
+            <record id="view_inno_packaging_view_tree" model="ir.ui.view">
+            <field name="name">inno.packaging</field>
+            <field name="model">inno.packaging</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" readonly="1"/>
+                    <field name="location_id" required="1" />
+                    <field name="status"/>
+                    <field name="remark"/>
+                </tree>
+            </field>
+        </record>
+
+    <record id="view_inno_packaging_form" model="ir.ui.view">
+        <field name="name">inno.packaging</field>
+        <field name="model">inno.packaging</field>
+        <field name="arch" type="xml">
+            <form >
+                       <header>
+                           <button name="button_confirm" string="CONFIRM" type="object" class="btn-primary" attrs="{'invisible': [('status', 'not in',['draft',])]}"/>
+                           <button name="button_action_add_product" string="ADD PRODUCTS" type="object" class="btn-primary"  attrs="{'invisible': [('status', 'not in',['progress',])]}"/>
+                           <button name="button_action_for_packaging_done" string="DONE" type="object" class="btn-primary" attrs="{'invisible': [('status', 'not in',['progress',])]}"/>
+<!--                           <button name="test_print" string="test" type="object" class="btn-primary"/>-->
+                           <field name="status" widget="statusbar" statusbar_visible="draft,progress,done"/>
+                    </header>
+                <sheet>
+                      <div class="oe_title">
+                            <h1>
+                                <div class="d-flex">
+                                    <field class="text-break" name="name" readonly="1"/>
+                                </div>
+                            </h1>
+                        </div>
+                    <group>
+                        <group string="Documents Info">
+                            <field name="entry_type" required="1" attrs="{'readonly': [('status', 'not in',['draft',])]}"/>
+                              <field name="packing_date" readonly="1"/>
+                            <field name="location_id" required="1" attrs="{'readonly': [('status', 'not in',['draft',])]}" options="{'no_create': True, 'no_open': True}"/>
+                              <field name="ship_method" attrs="{'readonly': [('status', 'not in',['draft',])]}"/>
+                        </group>
+                        <group string="Other Info">
+                            <field name="buyer_id" attrs="{'readonly': [('status', 'not in',['draft',])]}" required="1" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="job_worker_id" attrs="{'readonly': [('status', 'not in',['draft',])]}" required="1" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="remark" attrs="{'readonly': [('status', 'not in',['draft',])]}"/>
+                            <field name="carrier_method" attrs="{'readonly': [('status', 'not in',['draft',])]}"/>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="max_shipment_weight" required="1" readonly="1"/>
+                            </group>
+                            <div>
+                                Kg
+                            </div>
+                        </group>
+                    </group>
+                     <notebook>
+                          <page string="Products Details" attrs="{'invisible': [('status', 'in',['draft',])]}">
+                                <field name="stock_quant_lines" editable="bottom" >
+                                <tree editable="bottom" create="0" decoration-success="is_segmented == False" decoration-info="is_segmented == True">
+                                    <field name="is_segmented" invisible="1"/>
+                                    <field name="barcode_id" readonly="1"/>
+                                    <field name="product_id" readonly="1"/>
+                                     <field name="quantity" readonly="1" sum="total_pcs"/>
+                                    <!-- <field name="area_sq_yard" readonly="1" sum="total_area"/> -->
+                                    <field name="area_sq_feet" readonly="1" sum="total_ft_area"/>
+                                    <field name="inno_sale_id" readonly="1"/>
+                                    <field name="roll_no" attrs="{'readonly': ['|', ('is_segmented', '=', False), ('parent.status', '!=', 'progress')]}"/>
+                                    <button name="button_delete_record" icon="fa-trash-o" type="object" class="btn-danger" attrs="{'invisible': [('parent.status', '!=', 'progress')]}"/>
+                                </tree>
+                                </field>
+                            </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+        <record id="action_inno_pacakaging" model="ir.actions.act_window">
+            <field name="name">Packaging</field>
+            <field name="res_model">inno.packaging</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+    (0, 0, {'view_mode': 'tree', 'view_id': ref('view_inno_packaging_view_tree')}),
+    (0, 0, {'view_mode': 'form', 'view_id': ref('view_inno_packaging_form')})]"/>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_inno_bazaar_incentive" model="ir.ui.view">
+        <field name="name">Barcode Incentive</field>
+        <field name="model">inno.incentive</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom" create="0">
+                <field name="barcode_id" readonly="1"/>
+                <field name="product_id" readonly="1"/>
+                <field name="amount"/>
+                <field name="uom_id" readonly="1"/>
+                <button name="add_incentive" type="object" class="btn-primary" string="ADD"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

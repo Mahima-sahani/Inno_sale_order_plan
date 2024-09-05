@@ -1,0 +1,179 @@
+<odoo>
+    <template id="report_weaving_order">
+        <t t-call="web.html_container">
+            <t t-set="data_report_landscape" t-value="False"/>
+            <t t-call="web.external_layout" style="margin-top: 100px;">
+                <div class="page">
+                    <div class="text-center" style="border-bottom: 1px solid black;">
+                        <br/>
+                        <h4>
+                            <b>Weaving Order Report</b>
+                        </h4>
+                        <br/>
+                    </div>
+                    <br/>
+                    <!-- Worker Details -->
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="row">
+                                <div class="col-4">
+                                    <h6><b>Report For</b></h6>
+                                </div>
+                                <div class="col-1">
+                                    <h6>:</h6>
+                                </div>
+                                <div class="col-7">
+                                    <h6><t t-esc="data.get('weavng_wise_report')"/></h6>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <h6><b>To Date</b></h6>
+                                </div>
+                                <div class="col-1">
+                                    <h6>:</h6>
+                                </div>
+                                <div class="col-7">
+                                    <h6><t t-esc="data.get('to_date')"/></h6>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <h6><b>Product</b></h6>
+                                </div>
+                                <div class="col-1">
+                                    <h6>:</h6>
+                                </div>
+                                <div class="col-7">
+                                    <t t-esc="data.get('product')"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <h6><b>Division</b></h6>
+                                </div>
+                                <div class="col-1">
+                                    <h6>:</h6>
+                                </div>
+                                <div class="col-7">
+                                    <t t-esc="data.get('division')"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="row">
+                                <div class="col-4">
+                                    <h6><b>From Date</b></h6>
+                                </div>
+                                <div class="col-1">
+                                    <h6>:</h6>
+                                </div>
+                                <div class="col-7">
+                                    <h6><t t-esc="data.get('from_date')"/></h6>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <h6><b>Document Type</b></h6>
+                                </div>
+                                <div class="col-1">
+                                    <h6>:</h6>
+                                </div>
+                                <div class="col-7">
+                                    Weaving Order
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <h6><b>Site</b></h6>
+                                </div>
+                                <div class="col-1">
+                                    <h6>:</h6>
+                                </div>
+                                <div class="col-7">
+                                    <b>SURYA CARPET PVT.LTD.</b>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Table -->
+                    <div class="row" style="margin-top: 20px;">
+                        <div class="col-12">
+                            <table class="table table-bordered">
+                                <thead style="background-color: rgb(182, 179, 179); height: 5px;">
+                                    <tr style="text-align: center;">
+                                        <th scope="col">Order No.</th>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Due Date</th>
+                                        <th scope="col">Job Worker Name</th>
+                                        <th scope="col">Sale No.</th>
+                                        <t t-if="data.get('weavng_wise_report') == 'Design Wise Report'">
+                                            <th scope="col">Design</th>
+                                        </t>
+                                        <t t-else="">
+                                            <th scope="col">Product</th>
+                                        </t>
+                                        <th scope="col">Size</th>
+                                        <th scope="col">PCS</th>
+                                        <th scope="col">Area(Sq. Yard)</th>
+                                        <th scope="col">Rate</th>
+                                        <th scope="col">Incentive</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="data.get('new_data')" t-as="record">
+                                        <tr style="text-align: center;">
+                                            <td><t t-esc="record.get('order_no')"/></td>
+                                            <td><t t-esc="record.get('date')"/></td>
+                                            <td><t t-esc="record.get('due_date')"/></td>
+                                            <td><t t-esc="record.get('job_worker')"/></td>
+                                            <td><t t-esc="record.get('sale_no')"/></td>
+                                            <t t-if="data.get('weavng_wise_report') == 'Design Wise Report'">
+                                                <td><t t-esc="record.get('design')"/></td>
+                                            </t>
+                                            <t t-else="">
+                                                <td><t t-esc="record.get('product')"/></td>
+                                            </t>
+                                            <td><t t-esc="record.get('size')"/></td>
+                                            <td><t t-esc="record.get('pcs')"/></td>
+                                            <td><t t-esc="record.get('total_area')"/></td>
+                                            <td><t t-esc="record.get('rate')"/></td>
+                                            <td><t t-esc="record.get('incentive')"/></td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                                <tfoot>
+                                    <tr style="text-align: center;">
+                                        <td><b>Total</b></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td><b><t t-esc="round(data.get('total_pcs'),3)"/></b></td>
+                                        <td><b><t t-esc="round(data.get('total_area'),3)" /></b></td>
+                                        <td><b><t t-esc="round(data.get('total_rate'),3)"/></b></td>
+                                        <td><b><t t-esc="round(data.get('total_incentive'),3)"/></b></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_report_weaving_order" model="ir.actions.report">
+        <field name="name">Weaving Order Report</field>
+        <field name="model">main.jobwork</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">innorug_manufacture.report_weaving_order</field>
+        <field name="report_file">Weaving Order Report</field>
+        <field name="paperformat_id" ref="base.paperformat_euro"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

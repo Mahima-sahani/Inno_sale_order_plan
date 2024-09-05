@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Purchase Form -->
+    <record id="view_mrp_inno_wizard_receive_form" model="ir.ui.view">
+        <field name="name">Receive Products</field>
+        <field name="model">inno.receive.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="subcontractor_id" readonly="True" options="{'no_open': True}"/>
+                            <field name="location" required="True" options="{'no_open': True}"/>
+                        </group>
+                        <group>
+                            <label for="date" string="Receive Date"/>
+                            <div class="d-flex flex-row align-items-start">
+                                <field name="date" required="True" class="w-auto"/>
+                            </div>
+                            <label for="supplier_date" string="Supplier Challan Date"/>
+                            <div class="d-flex flex-row align-items-start">
+                                <field name="supplier_date" class="w-auto"/>
+                            </div>
+                            <field name="receive_docs" string="Vendor Challan No" required="True"/>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Confirm" class="btn-primary" type="object" name="do_confirm"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

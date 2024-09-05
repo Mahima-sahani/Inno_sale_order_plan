@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Tree -->
+        <record id="view_rnd_master_dataw_tree" model="ir.ui.view">
+            <field name="name">rnd.master.data</field>
+            <field name="model">rnd.master.data</field>
+            <field name="arch" type="xml">
+                <tree editable="top">
+                    <field name="name"/>
+                    <field name="weight" invisible="context.get('field_type') != 'quality'"/>
+                    <field name="value_type" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_inno_master_collection" model="ir.actions.act_window">
+            <field name="name">collection</field>
+            <field name="res_model">rnd.master.data</field>
+            <field name="view_mode">tree</field>
+            <field name="domain">[('value_type', '=', 'collection')]</field>
+            <field name="context">{'field_type': 'collection'}</field>
+        </record>
+
+        <record id="action_inno_master_construction" model="ir.actions.act_window">
+            <field name="name">construction</field>
+            <field name="res_model">rnd.master.data</field>
+            <field name="view_mode">tree</field>
+            <field name="domain">[('value_type', '=', 'construction')]</field>
+            <field name="context">{'field_type': 'construction'}</field>
+        </record>
+
+        <record id="action_inno_master_quality" model="ir.actions.act_window">
+            <field name="name">quality</field>
+            <field name="res_model">rnd.master.data</field>
+            <field name="view_mode">tree</field>
+            <field name="domain">[('value_type', '=', 'quality')]</field>
+            <field name="context">{'field_type': 'quality'}</field>
+        </record>
+
+        <record id="action_inno_master_color_ways" model="ir.actions.act_window">
+            <field name="name">color_ways</field>
+            <field name="res_model">rnd.master.data</field>
+            <field name="view_mode">tree</field>
+            <field name="domain">[('value_type', '=', 'color_ways')]</field>
+            <field name="context">{'field_type': 'color_ways'}</field>
+        </record>
+
+        <record id="action_inno_master_style" model="ir.actions.act_window">
+            <field name="name">style</field>
+            <field name="res_model">rnd.master.data</field>
+            <field name="view_mode">tree</field>
+            <field name="domain">[('value_type', '=', 'style')]</field>
+            <field name="context">{'field_type': 'style'}</field>
+        </record>
+
+        <record id="action_inno_master_color" model="ir.actions.act_window">
+            <field name="name">color</field>
+            <field name="res_model">rnd.master.data</field>
+            <field name="view_mode">tree</field>
+            <field name="domain">[('value_type', '=', 'color')]</field>
+            <field name="context">{'field_type': 'color'}</field>
+        </record>
+
+        <record id="action_inno_master_pattern" model="ir.actions.act_window">
+            <field name="name">pattern</field>
+            <field name="res_model">rnd.master.data</field>
+            <field name="view_mode">tree</field>
+            <field name="domain">[('value_type', '=', 'pattern')]</field>
+            <field name="context">{'field_type': 'pattern'}</field>
+        </record>
+
+        <record id="action_inno_master_contect" model="ir.actions.act_window">
+            <field name="name">contect</field>
+            <field name="res_model">rnd.master.data</field>
+            <field name="view_mode">tree</field>
+            <field name="domain">[('value_type', '=', 'contect')]</field>
+            <field name="context">{'field_type': 'contect'}</field>
+        </record>
+
+        <record id="action_inno_master_face_content" model="ir.actions.act_window">
+            <field name="name">face_content</field>
+            <field name="res_model">rnd.master.data</field>
+            <field name="view_mode">tree</field>
+            <field name="domain">[('value_type', '=', 'face_content')]</field>
+            <field name="context">{'field_type': 'face_content'}</field>
+        </record>
+    </data>
+
+</odoo>

@@ -1,0 +1,483 @@
+<odoo>
+    <template id="carpet_purchase_order">
+        <t t-call="web.html_container">
+            <t t-set="data_report_portrait" t-value="True"/>
+            <t t-call="web.external_layout" style="margin-top: 100px;">
+                <div class="page">
+                    <div class="text-center">
+                        <h4 style="font-size: 40px; border-top: 2px solid black; border-bottom: 2px solid black;">
+                            <b>Carpet Purchase Order</b>
+                        </h4>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-6">
+                            <t t-foreach="docs" t-as="record">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <h5>
+                                            <b>Supplier</b>
+                                        </h5>
+                                    </div>
+                                    <div class="col-1">
+                                        <h5>:</h5>
+                                    </div>
+                                    <div class="col-6">
+                                        <h5>
+                                            <b>
+                                                <t t-esc="record.partner_id.name"/>
+                                            </b>
+                                        </h5>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <h5>
+                                            <b>Address</b>
+                                        </h5>
+                                    </div>
+                                    <div class="col-1">
+                                        <h5>:</h5>
+                                    </div>
+                                    <div class="col-6">
+                                        <h5>
+                                            <t t-esc="record.partner_id.contact_address"/>
+                                        </h5>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <h5>
+                                            <b>Mobile no.</b>
+                                        </h5>
+                                    </div>
+                                    <div class="col-1">
+                                        <h5>:</h5>
+                                    </div>
+                                    <div class="col-6">
+                                        <h5>
+                                            <t t-esc="record.partner_id.mobile"/>
+                                        </h5>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <h5>
+                                            <b>GST no.</b>
+                                        </h5>
+                                    </div>
+                                    <div class="col-1">
+                                        <h5>:</h5>
+                                    </div>
+                                    <div class="col-6">
+                                        <h5>
+                                            <t t-esc="record.partner_id.vat"/>
+                                        </h5>
+                                    </div>
+                                </div>
+                            </t>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="row">
+                                <div class="col-4">
+                                    <h5>
+                                        <b>Doc. No.</b>
+                                    </h5>
+                                </div>
+                                <div class="col-1">
+                                    <h5>:</h5>
+                                </div>
+                                <div class="col-6">
+                                    <h5>
+                                        <b>
+                                            <t t-esc="record.name"/>
+                                        </b>
+                                    </h5>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <h5>
+                                        <b>Doc. Date</b>
+                                    </h5>
+                                </div>
+                                <div class="col-1">
+                                    <h5>:</h5>
+                                </div>
+                                <div class="col-6">
+                                    <h5>
+                                        <t t-esc="data.get('date_order')"/>
+                                    </h5>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <h5>
+                                        <b>Doc. Due Date</b>
+                                    </h5>
+                                </div>
+                                <div class="col-1">
+                                    <h5>:</h5>
+                                </div>
+                                <div class="col-6">
+                                    <h5>
+                                        <t t-esc="data.get('date_planned')"/>
+                                    </h5>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <h5>
+                                        <b>Reverse Charge</b>
+                                    </h5>
+                                </div>
+                                <div class="col-1">
+                                    <h5>:</h5>
+                                </div>
+                                <div class="col-6">
+                                    <h5>
+                                        No
+                                    </h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-12">
+                            <table class="table table-bordered">
+                                <thead style="background-color: rgb(182, 179, 179); height: 5px;">
+                                    <tr style="text-align: center; font-size: 22px;">
+                                        <th scope="col">Sr</th>
+                                        <th scope="col">Product</th>
+                                        <th scope="col">HSN/SAC</th>
+                                        <th scope="col">Purchase Indent</th>
+                                        <th scope="col">Qty</th>
+                                        <th scope="col">Unit</th>
+                                        <th scope="col">Deal Qty</th>
+                                        <th scope="col">Deal Unit</th>
+                                        <th scope="col">Rate</th>
+                                        <th scope="col">Amount</th>
+                                        <th scope="col">Remark</th>
+                                        <th scope="col">GST %</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="record.order_line" t-as="rec">
+                                        <tr style="text-align: center; font-size: 20px;">
+                                            <td>
+                                                <t t-esc="data.get('serial_number').get(rec.id)"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="rec.product_id.default_code"/>
+                                                <br></br>
+                                                <b>Description:
+                                                    <t t-esc="rec.product_id.product_template_variant_value_ids.name"/>
+                                                </b>
+                                            </td>
+                                            <td></td>
+                                            <td>
+                                                <t t-esc="', '.join(rec.move_ids.move_dest_ids.group_id.sale_id.mapped('order_no'))"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="int(rec.product_qty)"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="rec.product_id.uom_id.name"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="round(float(rec.total_area),3)"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="rec.deal_unit"/>
+                                            </td>
+                                            <td>
+                                                <t t-if="float(rec.total_area) > 0">
+                                                    <t t-esc="round(rec.purchase_rate,3)"/>
+                                                </t>
+                                            </td>
+                                            <td>
+                                                <t t-esc="round(rec.price_subtotal,3)"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="rec.remark"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="rec.taxes_id.name"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                                <tfoot>
+                                    <tr style="text-align: center; font-size: 18px;">
+                                        <td>
+                                            <b>Total</b>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <b>
+                                                <t t-esc="round(float(data.get('total_qty')),3)"/>
+                                            </b>
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            <b>
+                                                <t t-esc="round(float(data.get('total_deal_qty')),3)"/>
+                                            </b>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <b>
+                                                <t t-esc="round(data.get('subtotal'),3)"/>
+                                            </b>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                    <br/>
+                    <br/>
+                    <div class="row">
+                        <div class="col-5">
+                            <table class="table table-bordered">
+                                <thead style="background-color: rgb(182, 179, 179); height: 5px;">
+                                    <tr style="text-align: center;">
+                                        <th scope="col">Desc</th>
+                                        <th scope="col">Taxable</th>
+                                        <th scope="col">IGST</th>
+                                        <th scope="col">CGST</th>
+                                        <th scope="col">SGST</th>
+                                        <th scope="col">Cess</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr style="text-align: center;">
+                                        <td>
+                                            <t t-esc="data.get('tax_name')"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="round(data.get('amount_untaxed'),3)"/>
+                                        </td>
+                                        <td>
+                                            <t t-if="'igst' in data">
+                                                <t t-esc="round(float(data.get('igst')),3)"/>
+                                            </t>
+                                        </td>
+                                        <td>
+                                            <t t-if="'cgst' in data">
+                                                <t t-esc="round(float(data.get('cgst')),3)"/>
+                                            </t>
+                                        </td>
+                                        <td>
+                                            <t t-if="'sgst' in data">
+                                                <t t-esc="round(float(data.get('sgst')),3)"/>
+                                            </t>
+                                        </td>
+                                        <td>
+                                            <t t-if="'cess' in data">
+                                                <t t-esc="round(float(data.get('cess')),3)"/>
+                                            </t>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr style="text-align: center;">
+                                        <b>
+                                            <td>Total</td>
+                                        </b>
+                                        <td>
+                                            <t t-esc="round(data.get('amount_untaxed'),3)"/>
+                                        </td>
+                                        <td>
+                                            <t t-if="'igst' in data">
+                                                <t t-esc="round(float(data.get('igst')),3)"/>
+                                            </t>
+                                        </td>
+                                        <td>
+                                            <t t-if="'cgst' in data">
+                                                <t t-esc="round(float(data.get('cgst')),3)"/>
+                                            </t>
+                                        </td>
+                                        <td>
+                                            <t t-if="'sgst' in data">
+                                                <t t-esc="round(float(data.get('sgst')),3)"/>
+                                            </t>
+                                        </td>
+                                        <td>
+                                            <t t-if="'cess' in data">
+                                                <t t-esc="round(float(data.get('cess')),3)"/>
+                                            </t>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <div class="col-1"/>
+                        <div class="col">
+                            <div class="row" style="padding: 2px; font-size: 18px;">
+                                <div class="col-4">
+                                    <h6>
+                                        <b>Gross Amount</b>
+                                    </h6>
+                                </div>
+                                <div class="col-6">
+                                    <h6>
+                                        <t t-esc="round(data.get('amount_untaxed'),3)"/>
+                                    </h6>
+                                </div>
+                            </div>
+                            <div class="row" style="padding: 2px; font-size: 18px;">
+                                <div class="col-4">
+                                    <h6>
+                                        <b>Sales Tax Taxable Amt</b>
+                                    </h6>
+                                </div>
+                                <div class="col-6">
+                                    <h6>
+                                        <t t-esc="round(data.get('amount_untaxed'),3)"/>
+                                    </h6>
+                                </div>
+                            </div>
+                            <t t-if="'cgst' in data">
+                                <div class="row" style="padding: 2px; font-size: 18px;">
+                                    <div class="col-4">
+                                        <h6>
+                                            <b>CGST</b>
+                                        </h6>
+                                    </div>
+                                    <div class="col-6">
+                                        <h6>
+                                            <t t-esc="round(data.get('cgst'),3)"/>
+                                        </h6>
+                                    </div>
+                                </div>
+                            </t>
+                            <t t-if="'sgst' in data">
+                                <div class="row" style="padding: 2px; font-size: 18px;">
+                                    <div class="col-4">
+                                        <h6>
+                                            <b>SGST</b>
+                                        </h6>
+                                    </div>
+                                    <div class="col-6">
+                                        <t t-esc="round(data.get('sgst'),3)"/>
+                                    </div>
+                                </div>
+                            </t>
+                            <t t-if="'igst' in data">
+                                <div class="row" style="padding: 2px; font-size: 18px;">
+                                    <div class="col-4">
+                                        <h6>
+                                            <b>IGST</b>
+                                        </h6>
+                                    </div>
+                                    <div class="col-6">
+                                        <t t-esc="round(data.get('igst'),3)"/>
+                                    </div>
+                                </div>
+                            </t>
+                            <t t-if="'cess' in data">
+                                <div class="row" style="padding: 2px; font-size: 18px;">
+                                    <div class="col-4">
+                                        <h6>
+                                            <b>CESS</b>
+                                        </h6>
+                                    </div>
+                                    <div class="col-6">
+                                        <t t-esc="round(data.get('cess'),3)"/>
+                                    </div>
+                                </div>
+                            </t>
+                            <div class="row"
+                                 style="padding: 2px; border-top: 2px solid black; border-bottom: 2px solid black; font-size: 18px;">
+                                <div class="col-4">
+                                    <h6>
+                                        <b>Net Amount</b>
+                                    </h6>
+                                </div>
+                                <div class="col-6">
+                                    <b>
+                                        <t t-esc="round(data.get('amount_total'),3)"/>
+                                    </b>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                    <br/>
+                    <div class="row">
+                        <div class="col-12">
+                            <b>
+                                <h5>Amount in Words : (<t t-esc="data.get('amount_in_word')"/>)
+                                </h5>
+                            </b>
+                        </div>
+                    </div>
+                    <br/>
+                    <br/>
+                    <div class="row">
+                        <div class="col-12">
+                            <b>
+                                <h5>
+                                    <b>Terms and Conditions</b>
+                                </h5>
+                                :QUALITY and COLOR MUST BE AS PER THE APPROVED COUNTER SAMPLE. FINISHING SHOULD BE AS
+                                PER COMPANY RULES AND REGULATIONS
+                            </b>
+                            <br/>
+                            <div style="font-size: 20px;">
+                                <h5>
+                                    <b>
+                                        <t t-esc="docs.notes"/>
+                                    </b>
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                    <br/>
+                    <div class="row">
+                        <div class="col-6"></div>
+                        <div class="col-1"></div>
+                        <div class="col-1"></div>
+                        <div class="col-1"></div>
+                        <div class="col-6">
+                            <b>
+                                <h5>FOR SURYA CARPET PVT. LTD.</h5>
+                            </b>
+                        </div>
+                    </div>
+                    <br/>
+                    <br/>
+                    <div class="row">
+                        <div class="col-6"></div>
+                        <div class="col-1"></div>
+                        <div class="col-1"></div>
+                        <div class="col-1"></div>
+                        <div class="col-6">
+                            <b>
+                                <h5>Authorised Signatory</h5>
+                            </b>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_carpet_purchase_order" model="ir.actions.report">
+        <field name="name">Carpet Purchase Order</field>
+        <field name="model">purchase.order</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">inno_purchase.carpet_purchase_order</field>
+        <field name="report_file">Carpet Purchase Order</field>
+        <field name="paperformat_id" ref="base.paperformat_euro"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

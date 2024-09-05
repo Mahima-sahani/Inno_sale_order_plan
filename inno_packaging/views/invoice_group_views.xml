@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+     <data>
+            <record id="view_inno_invoive_group_view_tree" model="ir.ui.view">
+            <field name="name">inno.invoive.group</field>
+            <field name="model">inno.invoive.group</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" required="1"/>
+                    <field name="rate"/>
+                    <field name="knots" />
+                    <field name="is_active"/>
+                    <field name="division_id"/>
+                </tree>
+            </field>
+        </record>
+
+    <record id="view_inno_invoive_group_form" model="ir.ui.view">
+        <field name="name">inno.invoive.group</field>
+        <field name="model">inno.invoive.group</field>
+        <field name="arch" type="xml">
+            <form >
+                <sheet>
+
+                    <group>
+                        <group string="Basic Info">
+                            <field name="name" required="1" />
+                            <field name="rate"/>
+                            <field name="knots" />
+                            <field name="is_active"/>
+                            <field name="division_id"/>
+                        </group>
+                        <group string="Other Info">
+                            <field name="hsn_code"/>
+                            <field name="weight"/>
+                            <field name="is_sample"/>
+                            <field name="seperate_wieght" required="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+        <record id="action_inno_invoive_group" model="ir.actions.act_window">
+            <field name="name">Invoice Groups</field>
+            <field name="res_model">inno.invoive.group</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>

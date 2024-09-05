@@ -1,0 +1,299 @@
+<odoo>
+
+    <template id="finsihing_baazar_reports">
+        <t t-call="web.html_container">
+            <t t-set="data_report_landscape" t-value="True"/>
+            <t t-call="web.external_layout">
+                <style type="text/css">
+                    th{
+                    color: #348691;
+                    }
+                    .highlight {
+                    color: #af8835;
+                    }
+                    td{
+                    font-size: 18px;
+                    }
+                </style>
+                <div class="page">
+                    <div class="row" style="border-top: 2px solid black; border-bottom: 2px solid black; padding: 4px;">
+                        <div style="text-align: center">
+                            <b>
+                                <t t-esc="data.get('header')"/>
+                            </b>
+                        </div>
+                    </div>
+                    <br></br>
+                    <div class="row">
+                        <!--                        <t t-if="data.get('data') == 'yes'">-->
+                        <div class="col-5">
+                            <div class="row">
+                                <div class="col-3">
+                                    <b>Date</b>
+                                </div>
+                                <div class="col-1">:</div>
+                                <div class="col-7">
+                                    <t t-esc="data.get('from_date')"/>
+                                    <b>to</b>
+                                    <t t-esc="data.get('to_date')"/>
+                                </div>
+                            </div>
+                        </div>
+                        <!--                        </t>-->
+                        <div class="col-1">
+                        </div>
+                    </div>
+                    <br></br>
+                    <!--                                        <t t-foreach="enumerate(data.get('sub_data'))" t-as="rec">-->
+                    <!--                        <t t-foreach="enumerate(rec[1].get('bill'))" t-as="bill">-->
+                    <br></br>
+                    <div class="row">
+                        <div class="col-12">
+                            <t t-foreach="enumerate(data.get('summary'))" t-as="summ">
+                                <table style="padding: 1px;" class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th class="cell">
+                                                <b>Receive No</b>
+                                            </th>
+                                            <th class="cell">
+                                                <b>ReceiveDate</b>
+                                            </th>
+                                            <th class="cell">
+                                                <b>Order No</b>
+                                            </th>
+                                            <th class="cell">
+                                                <b>Product</b>
+                                            </th>
+                                            <th class="cell">
+                                                <b>Size</b>
+                                            </th>
+                                            <th class="cell">
+                                                <b>Area</b>
+                                            </th>
+                                            <th class="cell">
+                                                <b>PCS</b>
+                                            </th>
+                                            <!--                                        <t t-if="data.get('gst') == 'yes'">-->
+                                            <th class="cell">
+                                                <b>Rate</b>
+                                            </th>
+                                            <!--                                        </t>-->
+                                            <th class="cell">
+                                                <b>Fix Inc</b>
+                                            </th>
+                                            <th class="cell">
+                                                <b>QA Inc</b>
+                                            </th>
+                                            <th class="cell">
+                                                <b>Amount</b>
+                                            </th>
+                                            <!--                                        <th class="cell">-->
+                                            <!--                                            <b>Frieght Issue</b>-->
+                                            <!--                                        </th>-->
+                                            <!--                                        <th class="cell">-->
+                                            <!--                                            <b>Frieght Receive</b>-->
+                                            <!--                                        </th>-->
+                                            <th class="cell">
+                                                <b>QA Penality</b>
+                                            </th>
+                                            <th class="cell">
+                                                <b>Net Payble</b>
+                                            </th>
+                                            <t t-if="data.get('with_barcode')">
+                                                <th class="cell">
+                                                    <b>Barcode</b>
+                                                </th>
+                                            </t>
+                                        </tr>
+                                    </thead>
+                                    <t t-foreach="enumerate(data.get('sub_data'))" t-as="rec">
+                                        <thead>
+                                            <tr>
+                                                <td class="cell" colspan="3">
+                                                    <b>
+                                                        Vendor :
+                                                        <t t-esc="rec[1].get('vendor')"/>
+                                                    </b>
+                                                </td>
+
+                                                <td class="cell" colspan="3">
+                                                    <!--                                                <t t-if="data.get('gst') == 'yes'">-->
+                                                    <b>
+                                                        GSTIN :
+                                                        <t t-esc="rec[1].get('gst')"/>
+                                                    </b>
+                                                    <!--                                                </t>-->
+                                                </td>
+                                                <td class="cell" colspan="1">
+                                                </td>
+                                                <t t-if="rec[1].get('with_barcode')">
+                                                    <td class="cell" colspan="1">
+                                                    </td>
+                                                </t>
+                                            </tr>
+                                        </thead>
+                                        <t t-foreach="enumerate(rec[1].get('record'))" t-as="lines">
+                                            <t t-foreach="enumerate(lines[1].get('data'))" t-as="data">
+                                                <tr>
+                                                    <td style="border-right: 2px solid black; margin: 2px;">
+                                                        <t t-if="data[0] == 0">
+                                                            <t t-esc="lines[1].get('receive_no')"/>
+                                                        </t>
+                                                    </td>
+                                                    <td style="border-right: 2px solid black; margin: 2px;">
+                                                        <t t-if="data[0] == 0">
+                                                            <t t-esc="lines[1].get('receive_date')"/>
+                                                        </t>
+                                                    </td>
+                                                    <!--                                                    <td style="border-right: 2px solid black; margin: 2px;">-->
+                                                    <!--                                                        <t t-if="data[0] == 0">-->
+                                                    <!--                                                            <t t-esc="lines[1].get('receive_date')"/>-->
+                                                    <!--                                                        </t>-->
+                                                    <!--                                                    </td>-->
+                                                    <td style="border-right: 2px solid black; margin: 2px;">
+                                                        <t t-if="data[0] == 0">
+                                                            <t t-esc="lines[1].get('order_no')"/>
+                                                        </t>
+                                                    </td>
+                                                    <td style="border-right: 2px solid black; margin: 2px;">
+                                                        <t t-esc="data[1].get('product')"/>
+                                                    </td>
+                                                    <td style="border-right: 2px solid black; margin: 2px;">
+                                                        <t t-esc="data[1].get('size')"/>
+                                                    </td>
+                                                    <td style="border-right: 2px solid black; margin: 2px;">
+                                                        <t t-esc="data[1].get('area')"/>
+                                                    </td>
+                                                    <!--                                                    <td style="border-right: 2px solid black; margin: 2px;">-->
+                                                    <!--                                                        <t t-esc="data[1].get('unit')"/>-->
+                                                    <!--                                                    </td>-->
+                                                    <td style="border-right: 2px solid black; margin: 2px;">
+                                                        <t t-esc="data[1].get('qty')"/>
+                                                    </td>
+                                                    <!--                                            <t t-if="data.get('gst') == 'yes'">-->
+                                                    <td style="border-right: 2px solid black; margin: 2px;">
+                                                        <t t-esc="data[1].get('rate')"/>
+                                                    </td>
+                                                    <!--                                            </t>-->
+                                                    <td style="border-right: 2px solid black; margin: 2px;">
+                                                        <t t-esc="data[1].get('fix_inc')"/>
+                                                    </td>
+                                                    <td style="border-right: 2px solid black; margin: 2px;">
+                                                        <t t-esc="data[1].get('qa_inc')"/>
+                                                    </td>
+                                                    <td style="border-right: 2px solid black; margin: 2px;">
+                                                        <t t-esc="data[1].get('amount')"/>
+                                                    </td>
+                                                    <td style="border-right: 2px solid black; margin: 2px;">
+                                                        <t t-esc="data[1].get('penality')"/>
+                                                    </td>
+                                                    <td style="border-right: 2px solid black; margin: 2px;">
+                                                        <t t-esc="data[1].get('net_payble')"/>
+                                                    </td>
+                                                    <t t-if="rec[1].get('with_barcode')">
+                                                        <td style="border-right: 2px solid black; margin: 2px;">
+                                                            <t t-esc="data[1].get('barcode')"/>
+                                                        </td>
+                                                    </t>
+                                                </tr>
+                                            </t>
+                                        </t>
+
+                                        <tr>
+                                            <td>
+                                                <b>Sub Total</b>:
+                                            </td>
+                                            <!--                                            <td>-->
+                                            <!--                                            </td>-->
+                                            <td colspan="4">
+                                                <b>
+                                                </b>
+                                            </td>
+                                            <td>
+                                                <t t-esc="rec[1].get('area')"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="rec[1].get('pcs')"/>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                                <t t-esc="rec[1].get('fix_inc')"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="rec[1].get('qa_inc')"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="rec[1].get('total_amount')"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="rec[1].get('qa_penality')"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="rec[1].get('net_pable')"/>
+                                            </td>
+                                            <t t-if="rec[1].get('with_barcode')">
+                                                <td>
+                                                </td>
+                                            </t>
+                                        </tr>
+                                    </t>
+
+                                    <tr>
+                                        <td>
+                                            <b>Grand Total</b>:
+                                        </td>
+                                        <td colspan="4">
+                                            <b>
+                                            </b>
+                                        </td>
+                                        <td>
+                                            <t t-esc="summ[1].get('total_area')"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="summ[1].get('total_pcs')"/>
+                                        </td>
+                                        <td>
+                                        </td>
+                                        <td>
+                                            <t t-esc="summ[1].get('fix_incentive')"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="summ[1].get('qa_incentive')"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="summ[1].get('total_amount')"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="summ[1].get('QA_Penalty')"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="summ[1].get('total_Net_Payable')"/>
+                                        </td>
+                                        <t t-if="rec[1].get('with_barcode')">
+                                            <td>
+                                            </td>
+                                        </t>
+                                    </tr>
+                                </table>
+                            </t>
+
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_reports_finsihing_baazar_reports" model="ir.actions.report">
+        <field name="name">Finishing Receive Register</field>
+        <field name="model">finishing.baazar</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">inno_finishing.finsihing_baazar_reports</field>
+        <field name="report_file">inno_finishing.finsihing_baazar_reports</field>
+        <field name="paperformat_id" ref="base.paperformat_euro"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

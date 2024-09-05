@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_purchase_challan">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <style type="text/css">
+                    th{
+                    color: #348691;
+                    }
+                    .highlight {
+                    color: #af8835;
+                    }
+                    td{
+                    font-size: 12px;
+                    }
+                </style>
+                <div class="page">
+                    <div style="text-align: center; border-bottom: 2px solid black; padding: 4px;">
+                        <h4>
+                            <b>
+                                <t t-esc="data.get('header')"/>
+                            </b>
+                        </h4>
+                    </div>
+                    <br></br>
+                    <div class="row">
+                        <div class="col-5">
+                            <div class="row">
+                                <div class="col-3">
+                                    <b>Name</b>
+                                </div>
+                                <div class="col-1">:</div>
+                                <div class="col-7">
+                                    <t t-esc="data.get('supplier')"/>
+                                </div>
+                            </div>
+                            <br></br>
+                            <div class="row">
+                                <div class="col-3">
+                                </div>
+                                <div class="col-1">:</div>
+                                <t t-esc="data.get('code')"/>
+                            </div>
+                            <br></br>
+                            <div class="row">
+                                <div class="col-3">
+                                    <b>Address</b>
+                                </div>
+                                <div class="col-1">:</div>
+                                <div class="col-7">
+                                    <t t-esc="data.get('address')"/>
+                                </div>
+                            </div>
+                            <br></br>
+                            <div class="row">
+                                <div class="col-3">
+                                    <b>Mobile</b>
+                                </div>
+                                <div class="col-1">:</div>
+                                <div class="col-7">
+                                    <t t-esc="data.get('mobile')"/>
+                                </div>
+                            </div>
+                            <br></br>
+                            <div class="row">
+                                <div class="col-3">
+                                    <b>GSTIN</b>
+                                </div>
+                                <div class="col-1">:</div>
+                                <div class="col-7">
+                                    <t t-esc="data.get('gstin')"/>
+                                </div>
+                            </div>
+                            <br></br>
+                            <div class="row">
+                                <div class="col-3">
+                                    <b>Order. No.</b>
+                                </div>
+                                <div class="col-1">:</div>
+                                <div class="col-7">
+                                    <t t-esc="data.get('ref_doc')"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                        </div>
+                        <div class="col-5">
+                            <div class="row">
+                                <div class="col-4">
+                                    <b>Challan No</b>
+                                </div>
+                                <div class="col-1">:</div>
+                                <div class="col-7">
+                                    <t t-esc="data.get('doc')"/>
+                                </div>
+                            </div>
+                            <br></br>
+                            <div class="row">
+                                <div class="col-4">
+                                    <b>Challan Date</b>
+                                </div>
+                                <div class="col-1">:</div>
+                                <div class="col-7">
+                                    <t t-esc="data.get('docDate')"/>
+                                </div>
+                            </div>
+                            <br></br>
+                            <div class="row">
+                                <div class="col-4">
+                                    <b>Received By</b>
+                                </div>
+                                <div class="col-1">:</div>
+                                <div class="col-7">
+                                    <t t-esc="data.get('Received_By')"/>
+                                </div>
+                            </div>
+                            <br></br>
+                            <div class="row">
+                                <div class="col-4">
+                                    <b>Godown</b>
+                                </div>
+                                <div class="col-1">:</div>
+                                <div class="col-7">
+                                    <t t-esc="data.get('Godown')"/>
+                                </div>
+                            </div>
+                            <br></br>
+                            <div class="row">
+                                <div class="col-4">
+                                    <b>Supplier Doc</b>
+                                </div>
+                                <div class="col-1">:</div>
+                                <div class="col-7">
+                                    <t t-esc="data.get('Supplier Doc')"/>
+                                </div>
+                            </div>
+                            <br></br>
+                            <div class="row">
+                                <div class="col-4">
+                                    <b>Supplier Date</b>
+                                </div>
+                                <div class="col-1">:</div>
+                                <div class="col-7">
+                                    <t t-esc="data.get('Supplier Date')"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br></br>
+                    <div class="row">
+                        <div class="col-12">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th class="cell">
+                                            <b>S.no</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Product</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>HSN/SAC</b>
+                                        </th>
+                                        <t t-if="data.get('cloth') == 'no'">
+                                            <th class="cell">
+                                                <b>Qty</b>
+                                            </th>
+                                        </t>
+                                        <t t-if="data.get('cloth') == 'yes'">
+                                            <th class="cell">
+                                                <b>Weight</b>
+                                            </th>
+                                        </t>
+                                        <th class="cell">
+                                            <b>Units</b>
+                                        </th>
+                                        <t t-if="data.get('cloth') == 'yes'">
+                                            <th class="cell">
+                                                <b>Meter</b>
+                                            </th>
+                                            <th class="cell">
+                                                <b>Machine</b>
+                                            </th>
+                                            <th class="cell">
+                                                <b>Weight/Meter</b>
+                                            </th>
+                                        </t>
+                                        <t t-if="data.get('types') == 'purchase'">
+                                            <th class="cell">
+                                                <b>Deal Qty</b>
+                                            </th>
+                                            <th class="cell">
+                                                <b>Deal Unit</b>
+                                            </th>
+                                        </t>
+                                        <th class="cell">
+                                            <b>Remark</b>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <t t-foreach="enumerate(data.get('sub_data'))" t-as="prod_data">
+                                    <tr>
+                                        <td>
+                                            <t t-esc="prod_data[0]+1"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="prod_data[1].get('product')"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="prod_data[1].get('hsn')"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="prod_data[1].get('qty')"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="(prod_data[1].get('unit'))"/>
+                                        </td>
+                                        <t t-if="data.get('cloth') == 'yes'">
+                                            <td>
+                                                <t t-esc="prod_data[1].get('deal_qty')"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="prod_data[1].get('machine')"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="(prod_data[1].get('weight_meter'))"/>
+                                            </td>
+                                        </t>
+                                        <t t-if="prod_data[1].get('types') == 'purchase'">
+                                            <td>
+                                                <t t-esc="prod_data[1].get('deal_qty')"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="(prod_data[1].get('deal_unit'))"/>
+                                            </td>
+                                        </t>
+                                        <td>
+                                            <t t-esc="prod_data[1].get('remark')"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <td colspan="3">
+                                        <b>Total :</b>
+                                    </td>
+                                    <td>
+                                        <t t-esc="data.get('qty')"/>
+                                    </td>
+                                    <td></td>
+                                    <t t-if="data.get('types') == 'purchase'">
+                                        <td colspan="2">
+                                            <t t-esc="data.get('deal_qty')"/>
+                                        </td>
+                                    </t>
+                                    <t t-if="data.get('cloth') == 'yes'">
+                                        <td colspan="2">
+                                            <t t-esc="data.get('deal_qty')"/>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                    </t>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    <div class="row" style="padding: 4px;">
+                        <div class="col-1">
+                            <b>Remark :</b>
+                        </div>
+                        <div class="col-5">
+                            <t t-esc="data.get('receipt')"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div style="padding: 4px; text-align: right;">
+                            <b>FOR SURYA CARPET PVT. LTD</b>
+                        </div>
+                    </div>
+                    <br></br>
+                    <br></br>
+                    <div class="row" style="padding: 4px; text-align: center;">
+                        <div style="padding: 4px; text-align: right;">
+                            <b>Authorised Signatory</b>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_report_print_print_purchase_challan" model="ir.actions.report">
+        <field name="name">Print Purchase Challan</field>
+        <field name="model">inno.receive</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">inno_purchase.report_purchase_challan</field>
+        <field name="report_file">inno_purchase.report_purchase_challan</field>
+        <field name="binding_model_id" ref="model_inno_receive"/>
+        <field name="paperformat_id" ref="base.paperformat_euro"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_data_verification_form" model="ir.ui.view">
+        <field name="name">inno.product.verification.form</field>
+        <field name="model">inno.product.verification</field>
+        <field name="arch" type="xml">
+            <form create="false" duplicate="false">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="verified"/>
+                    <button string="RE-sync Materials" icon="fa-refresh" type="object" name="re_sync_materials"
+                            class="btn-info" context="{'type': 'design'}"
+                            groups="inno_R_and_D.group_inno_rnd_user,innorug_manufacture.group_inno_weaving_manager,inno_finishing.group_inno_finishing_manager"
+                            attrs="{'invisible': [('state', 'not in', ['designing','manufacturing',])]}"/>
+                    <button string="RE-sync Operations" icon="fa-refresh" type="object" name="re_sync_operations"
+                            class="btn-info" context="{'type': 'design'}"
+                            groups="inno_R_and_D.group_inno_rnd_user,innorug_manufacture.group_inno_weaving_manager,inno_finishing.group_inno_finishing_manager"
+                            attrs="{'invisible': [('state', 'not in', ['designing','manufacturing',])]}"/>
+                    <button string="Design Verification" type="object" name="do_verify" class="btn-success"
+                            context="{'type': 'design'}"
+                            groups="inno_R_and_D.group_inno_rnd_user,innorug_manufacture.group_inno_weaving_manager,inno_finishing.group_inno_finishing_manager"
+                            attrs="{'invisible': [('state', '!=', 'designing')]}"/>
+                    <button string="Manufacturing Verification" type="object" name="do_verify" class="btn-success"
+                            context="{'type': 'manufacturing'}"
+                            groups="innorug_manufacture.group_inno_weaving_user,inno_finishing.group_inno_finishing_user"
+                            attrs="{'invisible': [('state', '!=', 'manufacturing')]}"/>
+                    <button string="Admin Verification" type="object" name="do_verify" class="btn-success"
+                            context="{'type': 'admin'}" groups="inno_R_and_D.group_inno_rnd_admin"
+                            attrs="{'invisible': [('state', '!=', 'admin')]}"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box"
+                         groups="inno_R_and_D.group_inno_rnd_user,inno_finishing.group_inno_finishing_user,innorug_manufacture.group_inno_weaving_user">
+                        <button class="oe_stat_button" type="object" name="open_design" icon="fa-picture-o">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_text">Design</span>
+                            </div>
+                        </button>
+                        <button class="oe_stat_button" type="object" name="open_skus" icon="fa-list-alt">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_text">SKU</span>
+                            </div>
+                        </button>
+                        <button class="oe_stat_button" type="object" name="open_bom" icon="fa-table">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_text">BOM</span>
+                            </div>
+                        </button>
+                    </div>
+                    <h1>
+                        <div class="d-flex">
+                            <field class="text-break" name="product_id" readonly="1" options="{'no_open': True}"/>
+                        </div>
+                    </h1>
+                    <group>
+                        <group>
+                        </group>
+                        <group>
+                            <field name="weaving" widget='boolean_toggle'
+                                   attrs="{'readonly': [('state', '!=', 'manufacturing')], 'invisible': [('state', '=', 'designing')]}"/>
+                            <field name="finishing" widget='boolean_toggle'
+                                   attrs="{'readonly': [('state', '!=', 'manufacturing')], 'invisible': [('state', '=', 'designing')]}"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!--    kanban-->
+
+    <record id="view_design_verification_kanban" model="ir.ui.view">
+        <field name="name">inno.product.verification.kanban</field>
+        <field name="model">inno.product.verification</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state" class="oe_background_grey" group_create="False" quick_create="0"
+                    group_edit="false" group_delete="false" create="0">
+                <field name="state" readonly="1"/>
+                <field name="product_id"/>
+                <field name="color"/>
+                <field name="weaving"/>
+                <field name="finishing"/>
+                <progressbar field="priority" colors='{"normal": "info", "urgent": "warning"}'/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click {{'oe_kanban_color_' + kanban_getcolor(record.color.raw_value) }} oe_kanban_card oe_kanban_global_click oe_semantic_html_override">
+                            <div>
+                                <div class="text-center">
+                                    <strong style="color:#338691;">
+                                        <field style="border-bottom: 2px solid black; padding: 4px" name="product_id"/>
+                                    </strong>
+                                </div>
+                                <br/>
+                                <t t-if="record.state.raw_value != 'designing'">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <strong>Weaving Rate : </strong>
+                                            <t t-if="record.weaving.raw_value == true">
+                                                <i class="fa fa-star" style="color:#00A300"></i>
+                                            </t>
+                                            <t t-else="">
+                                                <i class="fa fa-star-o"></i>
+                                            </t>
+                                        </div>
+                                        <div class="col-6">
+                                            <strong>Finishing Rate : </strong>
+                                            <t t-if="record.finishing.raw_value == true">
+                                                <i class="fa fa-star" style="color:#00A300"></i>
+                                            </t>
+                                            <t t-else="">
+                                                <i class="fa fa-star-o"></i>
+                                            </t>
+                                        </div>
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_verify_design_data" model="ir.actions.act_window">
+        <field name="name">Design Data Verification</field>
+        <field name="res_model">inno.product.verification</field>
+        <field name="view_mode">kanban,form</field>
+    </record>
+
+</odoo>

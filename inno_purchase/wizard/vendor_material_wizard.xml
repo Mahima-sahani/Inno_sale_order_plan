@@ -1,0 +1,49 @@
+<odoo>
+    <record id="view_inno_vendor_bom_wizards" model="ir.ui.view">
+        <field name="name">vendor.bom.wizard</field>
+        <field name="model">vendor.bom.wizard</field>
+        <field name="arch" type="xml">
+            <form duplicate="false">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="inno_purchase_id" required="1"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                            <field name="total_qty" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="subcontractor_id" readonly="1" options="{'no_create': True, 'no_open': True}"/>
+                             <field name="unit" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Boms">
+                            <field name="bom_wizard_line">
+                                <tree editable="bottom">
+                                    <field name="product_id" options="{'no_create': True, 'no_open': True}"/>
+                                    <field name="location_id" options="{'no_create': True, 'no_open': True}"/>
+                                    <field name="released_qty"/>
+                                    <field name="in_hand"/>
+                                     <field name="product_qty"/>
+                                    <field name="uom_id" readonly="1" options="{'no_create': True, 'no_open': True}"/>
+                                    <field name="remark"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <footer>
+                    <button string="Confirm" class="btn-primary" type="object" name="button_confirm"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_inno_vendor_bom_wizards" model="ir.actions.act_window">
+        <field name="name">Vendor Materials</field>
+        <field name="res_model">vendor.bom.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

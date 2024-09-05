@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+<!--    category-->
+     <record model="ir.module.category" id="inno_rnd_category">
+         <field name="name">Inno R &amp; D</field>
+         <field name="description">User Access for R &amp; D</field>
+    </record>
+
+    <record id="group_inno_rnd_user" model="res.groups">
+        <field name="name">User</field>
+        <field name="category_id" ref="inno_rnd_category"/>
+    </record>
+
+    <record id="group_inno_rnd_manager" model="res.groups">
+        <field name="name">Manager</field>
+        <field name="category_id" ref="inno_rnd_category"/>
+        <field name="implied_ids" eval="[(4, ref('group_inno_rnd_user'))]"/>
+    </record>
+
+    <record id="group_inno_rnd_admin" model="res.groups">
+        <field name="name">Administrator</field>
+        <field name="category_id" ref="inno_rnd_category"/>
+        <field name="implied_ids" eval="[(4, ref('group_inno_rnd_manager'))]"/>
+    </record>
+
+<!--    jobwork-->
+    <record id="inno_rnd_admin_rule" model="ir.rule">
+        <field name="model_id" ref="model_inno_research" />
+        <field name="name">Admin</field>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4,ref('group_inno_rnd_admin'))]"/>
+    </record>
+
+    <record id="inno_rnd_manager_rule" model="ir.rule">
+        <field name="name">Manager</field>
+        <field name="model_id" ref="model_inno_research"/>
+        <field name="groups" eval="[(4,ref('group_inno_rnd_manager'))]"/>
+    </record>
+
+    <record id="inno_rnd_user_rule" model="ir.rule">
+        <field name="name">User</field>
+        <field name="model_id" ref="model_inno_research"/>
+        <field name="groups" eval="[(4,ref('group_inno_rnd_user'))]"/>
+    </record>
+     <record id="inno_rnd_user_rule" model="ir.rule">
+        <field name="name">User</field>
+        <field name="model_id" ref="model_size_line"/>
+        <field name="groups" eval="[(4,ref('group_inno_rnd_user'))]"/>
+    </record>
+</odoo>

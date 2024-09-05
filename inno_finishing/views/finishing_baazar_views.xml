@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Main Baazar Tree -->
+    <record id="view_finishing_baazar_tree" model="ir.ui.view">
+        <field name="name">Main Baazar</field>
+        <field name="model">finishing.baazar</field>
+        <field name="arch" type="xml">
+            <tree create="0" edit="1">
+                <field name="reference"/>
+                <field name="finishing_work_id"/>
+                <field name="subcontractor_id"/>
+                 <field name="date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+       <record id="view_finishing_baazar_search" model="ir.ui.view">
+            <field name="name">finishing.baazar.search</field>
+            <field name="model">finishing.baazar</field>
+            <field name="arch" type="xml">
+                <search string="Users">
+                    <field name="reference"/>
+                    <field name="finishing_work_id"/>
+                     <field name="subcontractor_id"/>
+                    <group name="groupby">
+                        <filter
+                                name="operation_id_groupby"
+                                string="Operation"
+                                context="{'group_by': 'operation_id'}"
+                        />
+                        <filter
+                                name="status_groupby"
+                                string="Status"
+                                context="{'group_by': 'state'}"
+                        />
+                        <filter
+                                name="subcontractor_id_groupby"
+                                string="Subcontractor"
+                                context="{'group_by': 'subcontractor_id'}"
+                        />
+                        <filter
+                                name="issue_date_groupby"
+                                string="Issue Date"
+                                context="{'group_by': 'date'}"
+                        />
+                    </group>
+                </search>
+            </field>
+        </record>
+
+    <!-- Main Baazar Form -->
+    <record id="view__mrp_finishing_baazar_form" model="ir.ui.view">
+        <field name="name">Finishing Baazar</field>
+        <field name="model">finishing.baazar</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="state" widget="statusbar"/>
+                    <button name="finish_bazaar" type="object" string="FINISH RECEIVING" class="btn-primary" attrs="{'invisible': [('state', '!=', 'receiving')]}"/>
+                    <button name="reissue_rejected_barcodes" type="object" string="Re-Issue Rejected Barcodes" class="btn-primary" attrs="{'invisible': [('state', '!=', 'qc')]}"/>
+<!--                    <button name="generate_bill" type="object" string="GENERATE BILL" class="btn-primary" attrs="{'invisible': ['|',('state', '!=', 'bill'), ('bill_id', '!=', False)]}"/>-->
+                     <button name="button_done_bazaar" type="object" string="DONE" class="btn-primary" attrs="{'invisible': ['|',('bill_id', '=', False), ('state', '=', 'done')]}"/>
+                </header>
+                <sheet>
+<!--                     <div class="oe_button_box" name="button_box">-->
+<!--                                <button class="oe_stat_button" type="object" name="open_vendor_bills" icon="fa-inr" attrs="{'invisible': [('bill_id', '=', False)]}">-->
+<!--                            <div class="o_field_widget o_stat_info">-->
+<!--                                <span class="o_stat_text">Bill</span>-->
+<!--                            </div>-->
+<!--                        </button>-->
+<!--                    </div>-->
+                      <div style="background-color:#89CFF0; color:black; padding: 10px; text-align:center;" attrs="{'invisible': [ ('display_warning', '=', False)]}">
+                        <h4>You have scanned the barcode that is already received or not associated with current job work .</h4>
+                    </div>
+                    <div class="h2">
+                        <field name="reference" nolabel="1" readonly = "1"/>
+                    </div>
+                    <group >
+                        <group>
+                            <field name="finishing_work_id" readonly="1" attrs="{'readonly': [('state', 'in',['processing','received',])]}" options="{'no_create': True}"/>
+                            <field name="date" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="subcontractor_id" readonly="1"/>
+                            <field name="location_id" options="{'no_open': True}" attrs="{'readonly': [('state', 'in', ['qc','bill','done',])]}" required="1"/>
+                            <field name="is_external" readonly="1" attrs="{'invisible': [ ('is_external', '=', False)]}"/>
+<!--                              <field name="barcode_id" string="Scan Barcodes" attrs="{'readonly': [('state', 'not in', ['receiving',])]}" options="{'no_create': True}"/>-->
+                            <field name="display_warning" invisible="1"/>
+                             <field name="is_bill" invisible="1"/>
+                            <field name="is_bill" invisible="1"/>
+                             <field name="bill_id" invisible="1"/>
+                             <field name="is_binding" invisible="1"/>
+                             <field name="is_choti" invisible="1"/>
+                               <field name="operation_id" readonly="1"/>
+                        </group>
+                    </group>
+                      <group>
+                            <group  attrs="{'invisible': [('total_qty', '=', 0)]}">
+                                 <label for="total_qty"/>
+                                <div class="oe_inline">
+                                    <field name="total_qty" class="mr8 oe_inline" required="True" readonly="1"/>
+                                    <strong class="mr8 oe_inline">Units</strong>
+                                </div>
+                            </group>
+                            <group  attrs="{'invisible': [('verified_qty', '=', 0)]}">
+                                 <label for="verified_qty" string="Verified"/>
+                                <div class="oe_inline">
+                                    <field name="verified_qty" class="mr8 oe_inline" required="True" readonly="1"/>
+                                    <strong class="mr8 oe_inline">Units</strong>
+                                </div>
+                            </group>
+                        </group>
+                      <group>
+                            <group  attrs="{'invisible': [('rejected_qty', '=', 0)]}">
+                                 <label for="rejected_qty"/>
+                                <div class="oe_inline">
+                                    <field name="rejected_qty" class="mr8 oe_inline" required="True" readonly="1"/>
+                                    <strong class="mr8 oe_inline">Units</strong>
+                                </div>
+                            </group>
+                            <group string="Freight Charge Receive" col="4" >
+<!--                                <group string="Freight Charge Issue" col="4">-->
+                             <label for="freight_amt" string="Amount"/>
+                            <div class="d-flex flex-row align-items-start">
+                                <field name="freight_amt" widget="float" attrs="{'readonly': [('state', '=','done')]}"/>
+                                <h5 class="mr8 oe_inline">INR</h5>
+                            </div>
+                            </group>
+                        </group>
+                    <notebook>
+                        <page string="Product Details">
+                            <field name="jobwork_received_ids" editable="0" create="0">
+                                <tree create="0" editable="bottom" delete="0" decoration-success ="state =='verified'" decoration-warning="state=='received'" decoration-danger ="state =='reject'">
+                                    <field name="barcode_id" readonly="1"/>
+                                     <field name="product_id" readonly="1"/>
+                                      <field name="inno_finishing_size_id" optional="hide"/>
+                                      <field name="total_area" readonly="1" string="Area/Choti"/>
+                                    <field name="unit" readonly="1" />
+                                    <field name="rate" readonly="1" optional="hide"/>
+                                    <field name="incentive" string="Quality(Incentive)" readonly="1" sum="qty" optional="hide"/>
+                                    <field name="fixed_incentive" readonly="1" sum="qty" optional="hide"/>
+                                    <field name="penalty" readonly="1" sum="qty" optional="hide"/>
+                                    <field name="remark" readonly="1" optional="hide"/>
+                                    <field name="state" readonly="1" optional="hide"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                 <div class="o_attachment_preview" attrs="{'invisible': [('state', 'not in', ['done',])]}"/>
+                <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_mrp_finishing_baazar_id" model="ir.actions.act_window">
+        <field name="name">Receiving</field>
+        <field name="res_model">finishing.baazar</field>
+        <field name="view_mode">tree,form</field>
+         <field name="domain">[('state', '!=', 'done')]</field>
+          <field name="context">{'group_by':'operation_id'}</field>
+    </record>
+</odoo>

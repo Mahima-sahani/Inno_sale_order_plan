@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record id="view_print_inno_package_labels" model="ir.ui.view">
+        <field name="name">Print Package Labels</field>
+        <field name="model">inno.print.package.label</field>
+        <field name="arch" type="xml">
+            <form >
+                <sheet>
+                    <group>
+                        <group>
+                            <group>
+                                <field name='label_type' required="1" style="border-bottom: 1px solid black;"/>
+                            </group>
+                            <div attrs="{'invisible': [('sample_image', '=', False)]}" style="color:black; padding-bottom:30px; padding-top:80px;">
+                                <b>This image is the representation of how the printed label look like.</b>
+                            </div>
+                        </group>
+                        <group>
+                            <div>
+                                <field name="sample_image" widget="image" readonly="1" attrs="{'invisible': [('sample_image', '=', False)]}" class="img-thumbnail rounded"/>
+                            </div>
+                            <group/>
+                        </group>
+                    </group>
+                </sheet>
+                 <footer>
+                    <button type="object" name="print_package_label" string="Print" class="btn-primary"/>
+                     <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_print_inno_package_label_wizard" model="ir.actions.act_window">
+        <field name="name">Print Inno package Label wiz</field>
+        <field name="res_model">inno.print.package.label</field>
+        <field name="view_mode">form</field>
+         <field name="target">new</field>
+    </record>
+</odoo>

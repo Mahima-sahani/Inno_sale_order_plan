@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!--    main menu-->
+    <menuitem id="inno_weaving"
+              name="Weaving"
+              groups="group_inno_weaving_loom_inspector,group_inno_weaving_qa,group_inno_weaving_bazaar_organiser"/>
+
+    <menuitem id="inno_barcode_info"
+              name="Barcode Info"
+              groups="group_inno_barcode_user"/>
+
+    <menuitem id="inno_inventory"
+              name="Inno Inventory"
+              groups="stock.group_stock_user"/>
+
+
+<!--    header menu-->
+    <menuitem id="menu_barcode_info"
+              name="Barcode Info"
+              parent="inno_barcode_info"
+              action="action_inno_barcode_info"
+              sequence="5"/>
+
+    <menuitem id="menu_mrp_jobwork_allotement_id"
+              name="Operation"
+              parent="inno_weaving"
+              action="action_mrp_work_order_id"
+              groups="group_inno_weaving_user"
+              sequence="5"/>
+
+    <menuitem id="inno_jobwork"
+              name="Job Work"
+              parent="inno_weaving"
+              action="action_mrp_main_job_works_id"
+              sequence="10"/>
+
+    <menuitem id="menu_quality_control_id"
+              name="Loom Inspection"
+              parent="inno_weaving"
+              action="action_mrp_quality_controls_id"
+              sequence="15"/>
+
+    <menuitem id="menu_mrp_main_bazar_id"
+              name="Bazaar"
+              parent="inno_weaving"
+              sequence="20"/>
+
+    <menuitem id="menu_bazaar_qc"
+              name="Quality Check"
+              parent="inno_weaving"
+              action="action_inno_qc_process"
+              sequence="25"/>
+
+    <menuitem id="menu_remaining_qty"
+              name="Pending Quantity"
+              parent="inno_weaving"
+              groups="group_inno_weaving_manager"
+              action="action_pending_materials"
+              sequence="30"/>
+
+    <menuitem id="menu_weaving_reports"
+              name="Reports"
+              parent="inno_weaving"
+              action="action_reports_wizard"
+              sequence="35"/>
+
+    <menuitem id="menu_trace_map"
+              name="TRACE/MAP"
+              parent="inno_weaving"
+              sequence="40"/>
+
+    <menuitem id="menu_weaving_configuration"
+              name="Configuration"
+              parent="inno_weaving"
+              sequence="45"/>
+
+<!--    sub menu-->
+
+    <menuitem id="sub_menu_trace_map"
+              name="Subcontractor Wise Data"
+              parent="menu_trace_map"
+              action="action_trace_map_record"
+              sequence="1"/>
+
+    <menuitem id="sub_menu_weaving_settings"
+              name="Settings"
+              parent="menu_weaving_configuration"
+              action="inno_weaving_config_settings_action"
+              sequence="1"/>
+
+    <menuitem id="sub_menu_mrp_bazaar_bulk"
+              name="Bulk Bazaar"
+              parent="menu_mrp_main_bazar_id"
+              action="action_inno_barcode_scan"
+              groups="group_inno_weaving_bazaar_organiser"
+              sequence="5"/>
+
+    <menuitem id="sub_menu_mrp_bazaar_all"
+              name="All Bazaars"
+              parent="menu_mrp_main_bazar_id"
+              action="action_mrp_main_baazar_id"
+              sequence="10"/>
+
+<!--    <menuitem id="menu_mrp_product_upload_id"-->
+<!--              name="Product Uploads"-->
+<!--              parent="mrp.menu_mrp_configuration"-->
+<!--              action="action_mrp_main_wizards_id"-->
+<!--              sequence="110"/>-->
+
+    <menuitem id="menu_mrp_division_id"
+              name="Division"
+              parent="menu_weaving_configuration"
+              action="action_mrp_main_division_id"
+              groups="innorug_manufacture.group_inno_weaving_admin"
+              sequence="50"/>
+
+    <menuitem id="menu_mrp_barcodes"
+              name="Barcodes"
+              parent="mrp.menu_mrp_bom"
+              action="action_mrp_barcodes"
+              sequence="20"/>
+
+    <menuitem id="menu_inno_rate_list"
+              name="Rate List"
+              parent="mrp.menu_mrp_bom"
+              action="action_inno_rate_list"
+              sequence="30"/>
+
+<!--    Other menues-->
+
+    <menuitem id="menu_view_sku_mapper"
+              name="SKU Mapper"
+              parent="sale.product_menu_catalog"
+              action="action_sku_product_mapper"
+              sequence="25"/>
+
+<!--    inventory-->
+
+<!--    inno_inventory-->
+    <menuitem id="menu_inventory_out"
+              name="OutGoing Inventory"
+              parent="inno_inventory"
+              action="action_inno_out_inventory"
+              sequence="22"/>
+
+    <menuitem id="menu_inventory_in"
+              name="Incomming Inventory"
+              parent="inno_inventory"
+              action="action_inno_in_inventory"
+              sequence="20"/>
+
+    <menuitem id="menu_inventory_internal"
+              name="Internal Transfers"
+              parent="inno_inventory"
+              action="action_inno_internal_transfer"
+              sequence="25"/>
+
+    <menuitem id="menu_inventory_stock_carpet"
+              name="Carpet Stock"
+              parent="inno_inventory"
+              action="action_inno_stock_carpet"
+              sequence="30"/>
+
+    <menuitem id="menu_inventory_stock_materiaal"
+              name="Material Stock"
+              parent="inno_inventory"
+              action="action_inno_stock_material"
+              sequence="40"/>
+
+    <menuitem id="menu_inventory_stock_transfer"
+              name="Stock Transfer"
+              parent="inno_inventory"
+              action="action_inno_stock_transfer"
+              sequence="41"/>
+</odoo> 

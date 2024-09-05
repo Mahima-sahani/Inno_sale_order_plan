@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!--    category-->
+    <record model="ir.module.category" id="inno_finishing_category">
+        <field name="name">Inno Finishing</field>
+        <field name="description">User Access for Finishing module</field>
+    </record>
+
+    <record model="ir.module.category" id="inno_finishing_rs_transfer_category">
+        <field name="name">Carpet Transfer</field>
+        <field name="description">User Access for Transfer module</field>
+    </record>
+
+    <record id="group_inno_finishing_inno_transfer_user" model="res.groups">
+        <field name="name">User</field>
+        <field name="category_id" ref="inno_finishing_rs_transfer_category"/>
+    </record>
+
+    <record id="group_inno_finishing_transfer_manager" model="res.groups">
+        <field name="name">Manager</field>
+        <field name="category_id" ref="inno_finishing_rs_transfer_category"/>
+        <field name="implied_ids" eval="[(4, ref('group_inno_finishing_inno_transfer_user'))]"/>
+    </record>
+
+    <record id="group_inno_finishing_transfer_admin" model="res.groups">
+        <field name="name">Administrator</field>
+        <field name="category_id" ref="inno_finishing_rs_transfer_category"/>
+        <field name="implied_ids" eval="[(4, ref('group_inno_finishing_transfer_manager'))]"/>
+    </record>
+
+
+    ##################################################################################
+
+
+    <record id="group_inno_finishing_qa" model="res.groups">
+        <field name="name">Quality Assurance</field>
+        <field name="category_id" ref="inno_finishing_category"/>
+    </record>
+
+    <record id="group_inno_finishing_bazaar_organiser" model="res.groups">
+        <field name="name">Scan Member</field>
+        <field name="category_id" ref="inno_finishing_category"/>
+       </record>
+
+
+        <record id="group_inno_finishing_inventory_user" model="res.groups">
+            <field name="name">Inventory User</field>
+            <field name="category_id" ref="inno_finishing_category"/>
+        </record>
+
+    <record id="group_inno_finishing_receive_and_quality" model="res.groups">
+        <field name="name">Receive and Quality</field>
+        <field name="category_id" ref="inno_finishing_category"/>
+        <field name="implied_ids"
+               eval="[(4, ref('group_inno_finishing_bazaar_organiser')),(4, ref('group_inno_finishing_qa')),(4, ref('group_inno_finishing_inventory_user'))]"/>
+    </record>
+
+    <record id="group_inno_finishing_user" model="res.groups">
+        <field name="name">User</field>
+        <field name="category_id" ref="inno_finishing_category"/>
+        <field name="implied_ids" eval="[(4, ref('group_inno_finishing_receive_and_quality'))]"/>
+    </record>
+
+    <record id="group_inno_finishing_manager" model="res.groups">
+        <field name="name">Manager</field>
+        <field name="category_id" ref="inno_finishing_category"/>
+        <field name="implied_ids" eval="[(4, ref('group_inno_finishing_user'))]"/>
+    </record>
+
+    <record id="group_inno_finishing_admin" model="res.groups">
+        <field name="name">Administrator</field>
+        <field name="category_id" ref="inno_finishing_category"/>
+        <field name="implied_ids" eval="[(4, ref('group_inno_finishing_manager'))]"/>
+    </record>
+
+    <!--    rules-->
+
+    <!--    jobwork-->
+    <record id="inno_finishing_jobwork_admin_rule" model="ir.rule">
+        <field name="model_id" ref="model_finishing_work_order"/>
+        <field name="name">Finishing jobwork Admin</field>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4,ref('group_inno_finishing_admin'))]"/>
+    </record>
+
+    <record id="inno_finishing_jobwork_manager_rule" model="ir.rule">
+        <field name="name">Finishing Jobwork Manager</field>
+        <field name="model_id" ref="model_finishing_work_order"/>
+        <field name="domain_force">[('division_id', 'in', user.division_id.ids)]</field>
+        <field name="groups" eval="[(4,ref('group_inno_finishing_manager'))]"/>
+    </record>
+
+      <record id="inno_finishing_jobwork_inventory_user_rule" model="ir.rule">
+        <field name="name">Finishing Inventory User</field>
+        <field name="model_id" ref="model_finishing_work_order"/>
+           <field name="domain_force">[('division_id', 'in', user.division_id.ids)]</field>
+        <field name="groups" eval="[(4,ref('group_inno_finishing_inventory_user'))]"/>
+    </record>
+
+    <record id="inno_finishing_jobwork_user_rule" model="ir.rule">
+        <field name="name">Finishing Jobwork User</field>
+        <field name="model_id" ref="model_finishing_work_order"/>
+        <field name="domain_force">[('division_id', 'in', user.division_id.ids), ('location_id.id', 'in',
+            user.storage_location_ids.ids)]
+        </field>
+        <field name="groups" eval="[(4,ref('group_inno_finishing_user'))]"/>
+    </record>
+
+    <!--    bazaar receiving-->
+    <record id="inno_finishing_bazaar_admin_rule" model="ir.rule">
+        <field name="model_id" ref="model_finishing_baazar"/>
+        <field name="name">Finishing Receiving Admin</field>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4,ref('group_inno_finishing_admin'))]"/>
+    </record>
+
+    <record id="inno_finishing_bazaar_manager_rule" model="ir.rule">
+        <field name="name">Finishing Receiving Manager</field>
+        <field name="model_id" ref="model_finishing_baazar"/>
+        <field name="domain_force">[('division_id', 'in', user.division_id.ids)]</field>
+        <field name="groups" eval="[(4,ref('group_inno_finishing_manager'))]"/>
+    </record>
+
+    <record id="inno_finishing_bazaar_finishing_user_rule" model="ir.rule">
+        <field name="name">Finishing Receiving access Finishing User</field>
+        <field name="model_id" ref="model_finishing_baazar"/>
+        <field name="domain_force">[('division_id', 'in', user.division_id.ids), ('location_id.id', 'in',
+            user.storage_location_ids.ids)]
+        </field>
+        <field name="groups" eval="[(4,ref('group_inno_finishing_user'))]"/>
+    </record>
+
+    <record id="inno_finishing_bazaar_user_rule" model="ir.rule">
+        <field name="name">Finishing Receiving User</field>
+        <field name="model_id" ref="model_finishing_operation_wizard"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4,ref('group_inno_finishing_bazaar_organiser'))]"/>
+    </record>
+
+    <!--    Quality Check-->
+    <record id="inno_quality_check_finishing_admin_rule" model="ir.rule">
+        <field name="model_id" ref="model_jobwork_received"/>
+        <field name="name">Finishing QC Admin</field>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4,ref('group_inno_finishing_admin'))]"/>
+    </record>
+
+    <record id="inno_finishing_qc_manager_rule" model="ir.rule">
+        <field name="name">Finishing QC Manager</field>
+        <field name="model_id" ref="model_jobwork_received"/>
+        <field name="domain_force">[('division_id', 'in', user.division_id.ids)]</field>
+        <field name="groups" eval="[(4,ref('group_inno_finishing_manager'))]"/>
+    </record>
+
+    <!--    <record id="inno_finishing_qc_bazaar_organiser_rule" model="ir.rule">-->
+    <!--        <field name="name">Finishing QC access Receiving Organiser</field>-->
+    <!--        <field name="model_id" ref="model_jobwork_received"/>-->
+    <!--        <field name="domain_force">[('division_id', '=', user.division_id.id), ('message_partner_ids', 'in', [user.partner_id.id])]</field>-->
+    <!--        <field name="groups" eval="[(4,ref('group_inno_finishing_bazaar_organiser'))]"/>-->
+    <!--    </record>-->
+
+    <record id="inno_finishing_qc_user_rule" model="ir.rule">
+        <field name="name">Finishing QC User</field>
+        <field name="model_id" ref="model_jobwork_received"/>
+        <field name="domain_force">[('division_id', 'in', user.division_id.ids)]</field>
+        <field name="groups"
+               eval="[(4,ref('group_inno_finishing_qa')),(4,ref('group_inno_finishing_receive_and_quality'))]"/>
+    </record>
+    <record id="inno_finishing_user_qc_user_rule" model="ir.rule">
+        <field name="name">QC User</field>
+        <field name="model_id" ref="model_jobwork_received"/>
+        <field name="domain_force">[('division_id', 'in', user.division_id.ids)]</field>
+        <field name="groups" eval="[(4,ref('group_inno_finishing_user'))]"/>
+    </record>
+    <!--    carpet transfer wizard-->
+    <record id="inno_transfer_finishing_admin_rule" model="ir.rule">
+        <field name="model_id" ref="model_finishing_operation_wizard"/>
+        <field name="name">Finishing Transfer Admin</field>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4,ref('group_inno_finishing_transfer_admin'))]"/>
+    </record>
+
+    <record id="inno_finishing_transfer_manager_rule" model="ir.rule">
+        <field name="name">Finishing Transfer Manager</field>
+        <field name="model_id" ref="model_finishing_operation_wizard"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4,ref('group_inno_finishing_transfer_manager'))]"/>
+    </record>
+
+    <record id="inno_finishing_transfers_user_rule" model="ir.rule">
+        <field name="name">Transfer User</field>
+        <field name="model_id" ref="model_finishing_operation_wizard"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4,ref('group_inno_finishing_inno_transfer_user'))]"/>
+    </record>
+
+    <!--    operation transfer record-->
+    <record id="inno_transfer_finishing_admin_record_rule" model="ir.rule">
+        <field name="model_id" ref="model_inno_carpet_transfer"/>
+        <field name="name">Finishing Transfer Admin</field>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4,ref('group_inno_finishing_transfer_admin'))]"/>
+    </record>
+
+    <record id="inno_finishing_transfer_manager_record_rule" model="ir.rule">
+        <field name="name">Finishing Transfer Manager</field>
+        <field name="model_id" ref="model_inno_carpet_transfer"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4,ref('group_inno_finishing_transfer_manager'))]"/>
+    </record>
+</odoo>

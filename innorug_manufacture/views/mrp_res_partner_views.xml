@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="mrp_res_partner_id" model="ir.ui.view">
+        <field name="name">res.partner</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//notebook" position="inside">
+                    <page string="Other Information">
+                        <group>
+                            <group>
+                                <field name="is_loom_inspector"/>
+                                <field name="operation_ids" widget="many2many_tags"/>
+                                <field name="pan_no"/>
+                                <field name="is_pan_aadhar_link" widget="boolean_toggle"/>
+                            </group>
+                            <group>
+                                <field name="aadhar_no"/>
+                                <field name="is_far" widget="boolean_toggle"/>
+                                 <field name="job_worker_code"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Incentive &amp; Penalty">
+                            <field name="incentive_penalities_ids">
+                                <tree editable="bottom" create="0" delete="0">
+                                    <field name="type" readonly="1"/>
+                                    <field name="amount" readonly="1"/>
+                                    <field name="record_date" readonly="1"/>
+                                    <field name="remark" readonly="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                </xpath>
+            </data>
+        </field>
+    </record>
+</odoo>

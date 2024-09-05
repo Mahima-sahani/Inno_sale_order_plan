@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_inno_finishing_reports_report" model="ir.ui.view">
+        <field name="name">Report Finishing Wizards</field>
+        <field name="model">inno.finishing.reports</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="report_type"/>
+                        </group>
+                        <group>
+                        </group>
+                        <group attrs="{'invisible': [('report_type', 'in', ['finishing_receive_challan','receive_reports','payment_bill','payment_advice'])]}">
+                            <field name="from_date"
+                                   attrs="{'invisible': [('report_type', 'not in', ['barcode_wise_order_balance','worker_wise_outstanding_report','order_balance'])]}"/>
+                            <field name="records" attrs="{'invisible': [('report_type', '=', False)]}"/>
+<!--                            <field name="records" attrs="{'invisible': ['&amp;', ('report_type', '=', False), ('report_type', '=', 'barcode_wise_stock_ageing_report')]}"/>-->
+                            <field name="minimum_age" attrs="{'invisible': [('report_type', 'not in', ['barcode_wise_stock_ageing_report'])]}"/>
+                            <field name="unit" attrs="{'invisible': [('report_type', 'not in', ['barcode_wise_stock_ageing_report'])]}"/>
+                        </group>
+                        <group>
+                            <field name="to_date"
+                                   attrs="{'invisible': [('report_type', 'not in', ['barcode_wise_order_balance','worker_wise_outstanding_report','order_balance'])]}"/>
+                            
+                            <field name="product_design"
+                                attrs="{'invisible': [('report_type', 'not in', ['order_balance'])]}" widget="many2many_tags" options="{'no_create': True ,'no_open': True}"/>
+                            
+                            <field name="product_id"
+                                attrs="{'invisible': [('report_type', 'not in', ['order_balance'])]}" widget="many2many_tags" options="{'no_create': True ,'no_open': True}"/>
+                            
+                            <field name="po_number"
+                                attrs="{'invisible': [('report_type', 'not in', ['order_balance'])]}" widget="many2many_tags" options="{'no_create': True ,'no_open': True}"/>
+                            
+                            <field name="operation_id" attrs="{'invisible': [('records', 'in', ['all',])]}"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                            <field name="stock" attrs="{'invisible': [('report_type', 'not in', ['barcode_wise_stock_ageing_report'])]}"/>
+                            <field name="interval" attrs="{'invisible': [('report_type', 'not in', ['barcode_wise_stock_ageing_report'])]}"/>
+                            <field name="prod_custom_group" attrs="{'invisible': [('report_type', 'not in', ['barcode_wise_stock_ageing_report'])]}"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="subcontractor_id"
+                                   attrs="{'invisible': [('report_type', 'not in', ['finishing_receive_challan','receive_reports', 'payment_bill','payment_advice','order_balance','worker_wise_outstanding_report','barcode_wise_order_balance','tds_advice','material_issue_summary'])]}"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                            <field name="finishing_order"
+                                   attrs="{'invisible': [('report_type', 'not in', ['finishing_receive_challan','payment_bill','payment_advice'])]}"/>
+                            <field name="from_date" string="From Date"
+                                   attrs="{'invisible': [('report_type', 'not in', ['finishing_receive_challan','receive_reports','payment_bill','payment_advice','tds_advice','material_issue_summary'])]}"/>
+                            <field name="gst"
+                                   attrs="{'invisible': [('report_type', 'not in', ['payment_bill','payment_advice'])]}"/>
+                        </group>
+                        <group>
+                            <field name="operation_id"
+                                   attrs="{'invisible': [('report_type', 'not in', ['finishing_receive_challan','receive_reports','payment_bill','payment_advice'])],'required': [('report_type', 'in', ['finishing_receive_challan','receive_reports','payment_bill','payment_advice'])]}"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                            <field name="finishing_baazar_id" string="Receive No" options="{'no_create': True, 'no_open': True}"
+                                   attrs="{'invisible': [('report_type', 'not in', ['finishing_receive_challan','payment_bill','payment_advice'])]}"/>
+                            <field name="to_date" string="To Date"
+                                   attrs="{'invisible': [('report_type', 'not in', ['receive_reports','payment_bill','payment_advice','tds_advice','material_issue_summary'])]}"/>
+                            <field name="payment_state"
+                                   attrs="{'invisible': [('report_type', 'not in', ['payment_bill','payment_advice'])],'required': [('report_type', 'in', ['payment_bill','payment_advice'])]}"/>
+                             <field name="with_barcode"
+                                   attrs="{'invisible': [('report_type', 'not in', ['receive_reports'])]}"/>
+                        </group>
+                    </group>
+
+                </sheet>
+                <footer>
+                    <button string="Generate" type="object" class="btn-success" name="generate_report"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_finishing_reports_wizard" model="ir.actions.act_window">
+        <field name="name">Finishing Reports</field>
+        <field name="res_model">inno.finishing.reports</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

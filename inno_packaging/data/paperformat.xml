@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record id="full_package_label_paperformat" model="report.paperformat">
+        <field name="name">Full Package Label Paperformat</field>
+        <field name="default" eval="True" />
+        <field name="format">custom</field>
+        <field name="page_height">304</field>
+        <field name="page_width">127</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">40</field>
+        <field name="margin_bottom">0.00</field>
+        <field name="margin_left">9</field>
+        <field name="margin_right">9</field>
+        <field name="header_line" eval="False" />
+        <field name="header_spacing">35</field>
+        <field name="dpi">125</field>
+    </record>
+
+    <record id="custom_package_label" model="report.paperformat">
+        <field name="name">Custom Package Label</field>
+        <field name="default" eval="True" />
+        <field name="format">custom</field>
+        <field name="page_height">177</field>
+        <field name="page_width">127</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">41</field>
+        <field name="margin_bottom">0.00</field>
+        <field name="margin_left">5.0</field>
+        <field name="margin_right">5.0</field>
+        <field name="header_line" eval="False" />
+        <field name="header_spacing">35</field>
+        <field name="dpi">125</field>
+    </record>
+
+    <record id="inno_invoice_paper_format" model="report.paperformat">
+        <field name="name">Invoice paper-format</field>
+        <field name="default" eval="True"/>
+        <field name="format">custom</field>
+        <field name="page_height">210</field>
+        <field name="page_width">297</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">42</field>
+        <field name="margin_bottom">10</field>
+        <field name="margin_left">10</field>
+        <field name="margin_right">10</field>
+        <field name="header_line" eval="False" />
+        <field name="header_spacing">37</field>
+        <field name="dpi">125</field>
+    </record>
+
+    <record id="inno_order_sheet_paper_format" model="report.paperformat">
+        <field name="name">Invoice paper-format</field>
+        <field name="default" eval="True"/>
+        <field name="format">custom</field>
+        <field name="page_height">210</field>
+        <field name="page_width">297</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">6</field>
+        <field name="margin_bottom">10</field>
+        <field name="margin_left">10</field>
+        <field name="margin_right">10</field>
+        <field name="header_line" eval="False" />
+        <field name="header_spacing">5</field>
+        <field name="dpi">125</field>
+    </record>
+
+    <record id="inno_blank_paper_format" model="report.paperformat">
+        <field name="name">Blank Paper</field>
+        <field name="default" eval="True"/>
+        <field name="format">custom</field>
+        <field name="page_height">299</field>
+        <field name="page_width">211</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">8</field>
+        <field name="margin_bottom">8</field>
+        <field name="margin_left">4.50</field>
+        <field name="margin_right">4.50</field>
+        <field name="header_line" eval="False" />
+        <field name="header_spacing">0</field>
+        <field name="dpi">125</field>
+    </record>
+
+    <record id="hospitality_label_format" model="report.paperformat">
+        <field name="name">Hospitality Package Label</field>
+        <field name="default" eval="True" />
+        <field name="format">custom</field>
+        <field name="page_height">304</field>
+        <field name="page_width">127</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">41</field>
+        <field name="margin_bottom">0.00</field>
+        <field name="margin_left">9</field>
+        <field name="margin_right">9</field>
+        <field name="header_line" eval="False" />
+        <field name="header_spacing">35</field>
+        <field name="dpi">125</field>
+    </record>
+
+    <record id="livabliss_upc_label_paperformat" model="report.paperformat">
+        <field name="name">Livabliss UPC Label Paperformat</field>
+        <field name="default" eval="True" />
+        <field name="format">custom</field>
+        <field name="page_height">350</field>
+        <field name="page_width">127</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">10</field>
+        <field name="margin_bottom">0.00</field>
+        <field name="margin_left">9</field>
+        <field name="margin_right">9</field>
+        <field name="header_line" eval="False" />
+        <field name="header_spacing">35</field>
+        <field name="dpi">125</field>
+    </record>
+    
+    <record id="upc_label_paperformat" model="report.paperformat">
+        <field name="name">UPC Label Paperformat</field>
+        <field name="default" eval="True" />
+        <field name="format">custom</field>
+        <field name="page_height">304</field>
+        <field name="page_width">127</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">8</field>
+        <field name="margin_bottom">0.00</field>
+        <field name="margin_left">9</field>
+        <field name="margin_right">9</field>
+        <field name="header_line" eval="False" />
+        <field name="header_spacing">35</field>
+        <field name="dpi">125</field>
+    </record>
+</odoo>

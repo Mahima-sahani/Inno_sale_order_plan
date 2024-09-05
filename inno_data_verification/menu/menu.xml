@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <menuitem id="inno_verification"
+              name="Data Verification"
+     groups="inno_R_and_D.group_inno_rnd_user,inno_finishing.group_inno_finishing_user,innorug_manufacture.group_inno_weaving_user"/>
+
+    <menuitem id="inno_verification_sub_menu"
+              name="Data Verification"
+              parent="inno_verification"
+              action="action_verify_design_data"/>
+</odoo>

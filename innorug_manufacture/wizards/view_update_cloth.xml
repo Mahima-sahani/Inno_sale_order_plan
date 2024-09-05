@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_update_cloth" model="ir.ui.view">
+        <field name="name">Update Cloth</field>
+        <field name="model">inno.update.cloth</field>
+        <field name="arch" type="xml">
+            <form >
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="move_id" invisible="1"/>
+                            <field name="picking_id" invisible="1"/>
+                            <field name="demand_qty" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Add Products">
+                            <field name="update_cloth_line_ids">
+                                <tree editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="quantity"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <footer>
+                    <button name='confirm_update' string="Update" type="object" class="btn-success"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>
+

@@ -1,0 +1,106 @@
+<odoo>
+
+    <template id="report_product_record">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page" style="width : 100%">
+                        <div class ="oe_structue">
+                            <div class ="row">
+                                <div class ="col-xs-8">
+                                    <h3 class="text-center">Product Allotment Report</h3>
+                                    <table class = "table table - condensed">
+                                        <tr>
+                                        <!-- <div>
+                                         <span  t-field ="o.mrp_production_id.name" t-options ="{'widget' : 'barcode','humanreadable' : 1 , 'width' : 400, 'height' : 100}"/>
+                                        </div> -->
+                                         <div>
+                                           <!-- <img t-att-src ="'/report/barcode/QR/%s' %(o.subcontractor_id)" width="80" height="80" alt ="Barcode" /> -->
+                                        </div>
+                                            <td width="100%">
+                                                <div class= "row">
+                                                    <div class = "col-8">
+                                                        <p >Subcontractor : <span t-field="o.subcontractor_id"/>
+                                                        </p>
+                                                        <p>Work Center : <span t-field="o.work_center_id"/>
+                                                        </p>
+                                                    </div>
+                                                    <div class = "col-4">
+                                                        <p>Manager : <span t-field="o.manager_id"/>
+                                                        </p>
+                                                        <p>Date : <span t-field="o.issue_date"/>
+                                                        </p>
+            
+                                                    </div>
+                                                </div>
+                                                <br></br>
+                                                <div class= "row">
+                                                    <div class = "col-8">
+                                                        <p>Warehouse : <span t-field="o.warehouse"/>
+                                                        </p>
+                                                        <p>Reference : <span t-field="o.reference"/>
+                                                        </p>
+                                                    </div>
+                                                    <div class = "col-4">
+                                                        <p>Remarks : <span t-field="o.remarks"/>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <table class="table table-bordered">
+                                                            <thead style="display: table-row-group">
+                                                                <tr>
+                                                                    <th class="text-center" style="width: 100%" scope="col">Product</th>
+                                                                    <th class="text-center" style="width: 100%" scope="col">Quantity</th>
+                                                                    <th class="text-center" style="width: 100%" scope="col">Units</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <t t-foreach="o.subcontracter_alloted_product_ids" t-as="id">
+                                                                    <tr>
+                                                                        <td>
+                                                                            <span t-field="id.alloted_product_id"/>
+                                                                        </td>
+                                                                        <td>
+                                                                            <span t-field="id.alloted_quantity"/>
+                                                                        </td>
+                                                                        <td>
+                                                                            <span/>
+KG</td>
+                                                                    </tr>
+                                                                </t>
+                                                            </tbody>
+                                                        </table>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                     <div>
+                                         <span  t-field ="o.mrp_production_id.name" t-options ="{'widget' : 'barcode','humanreadable' : 1 , 'width' : 400, 'height' : 100}"/>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+
+
+
+    <record id="action_report_product_id" model="ir.actions.report">
+        <field name="name">Product Allotment Report</field>
+        <field name="model">mrp.job.work</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">innorug_manufacture.report_product_record</field>
+        <field name="report_file">innorug_manufacture.report_product_record</field>
+        <field name="binding_model_id" ref="model_mrp_job_work"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

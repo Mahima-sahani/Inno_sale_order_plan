@@ -1,0 +1,147 @@
+<odoo>
+    <template id="report_order_balance_reports_report">
+        <t t-call="web.html_container">
+            <t t-set="data_report_landscape" t-value="True" />
+            <t t-call="web.external_layout" style="margin-top: 100px;">
+                <div class="page">
+                    <div class="text-center" style="border-bottom: 1px solid black;">
+                        <br />
+                        <h4>
+                            <b>Product Wise Finishing Order Balance</b>
+                        </h4>
+                        <br />
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="row">
+                                <div class="col-4">
+                                    <h6>
+                                        <b>From Date</b>
+                                    </h6>
+                                </div>
+                                <div class="col-1">
+                                    <h6>:</h6>
+                                </div>
+                                <div class="col-7">
+                                    <t t-esc="from_date" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <h6>
+                                        <b>Process</b>
+                                    </h6>
+                                </div>
+                                <div class="col-1">
+                                    <h6>:</h6>
+                                </div>
+                                <div class="col-7">
+                                    <t t-esc="process" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="row">
+                                <div class="col-4">
+                                    <h6>
+                                        <b>To Date</b>
+                                    </h6>
+                                </div>
+                                <div class="col-1">
+                                    <h6>:</h6>
+                                </div>
+                                <div class="col-7">
+                                    <h6>
+                                        <t t-esc="to_date" />
+                                    </h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Table -->
+                    <div class="row" style="margin-top: 20px;">
+                        <div class="col-12">
+                            <table class="table table-bordered">
+                                <thead style="background-color: rgb(182, 179, 179); height: 5px;">
+                                    <tr style="text-align: center;">
+                                        <th scope="col">Order Date</th>
+                                        <th scope="col">Order No</th>
+                                        <th scope="col">Quality</th>
+                                        <th scope="col">Design</th>
+                                        <th scope="col">Size</th>
+                                        <th scope="col">PCS</th>
+                                        <th scope="col">Area</th>
+                                        <th scope="col">Urgent</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="data" t-as="part">
+                                        <t t-foreach="part.items()" t-as="rec">
+                                            <tr>
+                                                <th colspan="8" style="text-align: left;">
+                                                    <t t-esc="rec[0]" />
+                                                </th>
+                                            </tr>
+                                            <t t-foreach="rec[1]" t-as="record">
+                                                <tr style="text-align: center;">
+                                                    <td>
+                                                        <t t-esc="record.get('order_date')" />
+                                                    </td>
+                                                    <td>
+                                                        <t t-esc="record.get('order_no')" />
+                                                    </td>
+                                                    <td>
+                                                        <t t-esc="record.get('quality')" />
+                                                    </td>
+                                                    <td>
+                                                        <t t-esc="record.get('design')" />
+                                                    </td>
+                                                    <td>
+                                                        <t t-esc="record.get('size')" />
+                                                    </td>
+                                                    <td>
+                                                        <t t-esc="record.get('pcs')" />
+                                                    </td>
+                                                    <td>
+                                                        <t t-esc="round(record.get('area'), 3)" />
+                                                    </td>
+                                                    <td>
+                                                        -
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                            <tr style="text-align: center; background-color: #f2f2f2;">
+                                                <td colspan="5"><b>Subtotal</b></td>
+                                                <td><b><t t-esc="subcontractor_totals.get(rec[0]).get('total_pcs')" /></b></td>
+                                                <td><b><t t-esc="round(subcontractor_totals.get(rec[0]).get('total_area'), 3)" /></b></td>
+                                                <td>-</td>
+                                            </tr>
+                                        </t>
+                                    </t>
+                                    <tr style="text-align: center; background-color: #d9d9d9;">
+                                        <td colspan="5"><b>Grand Total</b></td>
+                                        <td><b><t t-esc="sum(subcontractor_totals.get(subc).get('total_pcs') for subc in subcontractor_totals)" /></b></td>
+                                        <td><b><t t-esc="round(sum(subcontractor_totals.get(subc).get('total_area') for subc in subcontractor_totals), 3)" /></b></td>
+                                        <td>-</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_report_order_balance_report" model="ir.actions.report">
+        <field name="name">Order Balance Reports</field>
+        <field name="model">finishing.work.order</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">inno_finishing.report_order_balance_reports_report</field>
+        <field name="report_file">inno_finishing.report_order_balance_reports_report</field>
+        <field name="paperformat_id" ref="base.paperformat_euro" />
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Branch Tree -->
+    <record id="view_mrp_weaving_branch_tree" model="ir.ui.view">
+        <field name="name">Weaving Centers</field>
+        <field name="model">weaving.branch</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <!-- <field name = "mo_order_ids"/>
+                <field name = "sale_order_ids"/>
+                <field name="work_order_ids"/> -->
+            </tree>
+        </field>
+    </record>
+
+
+                                            <!-- Branch Form -->
+    <record id="view_mrp_weaving_branch__form" model="ir.ui.view">
+        <field name="name"> Weaving Centers</field>
+        <field name="model">weaving.branch</field>
+        <field name="arch" type="xml">
+            <form >
+                <header>
+                    <!-- <button name="button_action_for_job_work" string="Job Work" type="object" class="btn-primary" /> -->
+                    <button name="button_action_for_main_Job_work_record" string="Main Job Work" type="object" class="btn-primary" />
+                    <button name="button_action_for_alloted_record" string="Allote" type="object" class="btn-primary" />
+<!--                      <button name="button_action_for_baazar" string="Baazars" type="object" class="btn-primary" />-->
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="object" name="open_associated_barcodes" icon="fa-barcode" attrs="{'invisible': [('total_product_qty', '=', 0)]}" context="{'operation': 'total_qty'}">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="total_product_qty"/>
+                                </span>
+                                <span class="o_stat_text">Product Qty</span>
+                            </div>
+                        </button>
+                        <button class="oe_stat_button" type="object" name="open_associated_barcodes" icon="fa-barcode" attrs="{'invisible': [('total_alloted_qty', '=', 0)]}" context="{'operation': 'alloted_qty'}">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="total_alloted_qty"/>
+                                </span>
+                                <span class="o_stat_text">Alloted Qty</span>
+                            </div>
+                        </button>
+                        <button class="oe_stat_button" type="object" name="open_associated_barcodes" icon="fa-barcode" attrs="{'invisible': [('total_remaining_qty', '=', 0)]}" context="{'operation': 'remaining_qty'}">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="total_remaining_qty"/>
+                                </span>
+                                <span class="o_stat_text">Remaining Qty</span>
+                            </div>
+                        </button>
+                        <button class="oe_stat_button" type="object" name="open_associated_barcodes" icon="fa-barcode" attrs="{'invisible': [('total_receive_qty', '=', 0)]}" context="{'operation': 'received_qty'}">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="total_receive_qty"/>
+                                </span>
+                                <span class="o_stat_text">Received Qty</span>
+                            </div>
+                        </button>
+                        <button class="oe_stat_button" type="object" name="open_associated_barcodes" icon="fa-barcode" attrs="{'invisible': [('total_pending_qty', '=', 0)]}" context="{'operation': 'pending_qty'}">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="total_pending_qty"/>
+                                </span>
+                                <span class="o_stat_text">Pending Qty</span>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name" string="Branch Name"/>
+                        <h1>
+                            <div class="d-flex">
+                                <field class="text-break" name="name"/>
+                            </div>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="warehouse_id"/>
+                            <field name="partner_id"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+
+    <!-- 
+    <record id="view_filter_group_mrp_weaving_branch" model="ir.ui.view">
+        <field name="name">Branch</field>
+        <field name="model">weaving.branch</field>
+        <field name="arch" type="xml">
+            <search string="Status">
+                <group expand="1" string="Group By">
+                    <filter string="Branch" name='name' context="{'group_by':'name'}"/>
+                </group>
+            </search>
+        </field>
+    </record> -->
+
+
+    <!-- <record id="server_mrp_branch_id" model="ir.actions.server">
+        <field name="name">Product allotment Map</field>
+        <field name="model_id" ref="innorug_manufacture.model_mrp_branch"/>
+        <field name="binding_model_id" ref="innorug_manufacture.model_mrp_branch"/>
+        <field name="binding_view_types">list,form</field>
+        <field name="state">code</field>
+        <field name="code">action = records.map_sub_product_allotement_record()</field>
+    </record> -->
+
+
+    <record id="action_mrp_weaving_branch_id" model="ir.actions.act_window">
+        <field name="name">Weaving Centers</field>
+        <field name="res_model">weaving.branch</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo> 

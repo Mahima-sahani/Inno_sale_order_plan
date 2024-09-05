@@ -1,0 +1,557 @@
+<odoo>
+
+    <template id="report_print_inno_export_invoice">
+        <t t-call="web.html_container">
+            <t t-call="inno_packaging.custom_invoice_header_footer">
+                <div class="page" style="border-right: 2px solid black; border-left: 2px solid black; border-bottom: 2px solid black;">
+                    <div>
+                        <div class="row">
+                            <div class="col-3"
+                                 style="border-right: 2px solid black;">
+                                <div style="border-bottom: 2px solid black; padding: 8px;">
+                                    <div>
+                                        <b>Consignee :</b>
+                                    </div>
+                                    <div>
+                                        <t t-esc="data.get('consignee_info').get('name')"/>
+                                    </div>
+                                    <div>
+                                        <t t-esc="data.get('consignee_info').get('street')"/>
+                                    </div>
+                                    <div>
+                                        <t t-esc="data.get('consignee_info').get('city')"/>
+                                    </div>
+                                    <div>
+                                        <t t-esc="data.get('consignee_info').get('country')"/>
+                                    </div>
+                                    <div>Tel :
+                                        <t t-esc="data.get('consignee_info').get('mobile')"/>
+                                    </div>
+                                    <div>Email:
+                                        <t t-esc="data.get('consignee_info').get('email')"/>
+                                    </div>
+                                </div>
+                                <div style="border-bottom: 2px solid black; padding: 8px;">
+                                    <div>
+                                        <b>Pre-carriage by</b>
+                                    </div>
+                                    <div>
+                                        <t t-esc="data.get('pre_car_by')"/>
+                                    </div>
+                                </div>
+                                <div style="border-bottom: 2px solid black; padding: 8px;">
+                                    <div>
+                                        <b>Vessel/Flight No.</b>
+                                    </div>
+                                    <div>
+                                        By <t t-esc="data.get('vessel')"/>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div>
+                                        <b>Port Of Discharge</b>
+                                    </div>
+                                    <div>
+                                        <t t-esc="data.get('discharge_port')"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3"
+                                 style="border-right: 2px solid black;">
+                                <div style="border-bottom: 2px solid black; padding: 8px;">
+                                    <div>
+                                        <b>Buyer :</b>
+                                    </div>
+
+                                    <t t-if="data.get('partner_info').get('name') == 'SURYA CARPET FRESNO '">
+                                        <div>
+                                            Surya Carpet Inc
+                                        </div>
+                                        <div>
+                                            <t t-esc="data.get('partner_info').get('street')"/>
+                                        </div>
+                                    </t>
+                                    <t t-else="">
+                                        <div>
+                                            <t t-esc="data.get('partner_info').get('name')" />
+                                        </div>
+                                        <div>
+                                            <t t-esc="data.get('partner_info').get('street')"/>
+                                        </div>
+                                        <div>
+                                            <t t-esc="data.get('partner_info').get('city')"/>
+                                        </div>
+                                        <div>
+                                            <t t-esc="data.get('partner_info').get('country')"/>
+                                        </div>
+                                        <div>Tel :
+                                            <t t-esc="data.get('partner_info').get('mobile')"/>
+                                        </div>
+                                        <div>Email:
+                                            <t t-esc="data.get('partner_info').get('email')"/>
+                                        </div>
+                                    </t>
+                                </div>
+                                <div style="border-bottom: 2px solid black; padding: 8px;">
+                                    <div>
+                                        <b>Place of Receipt by Pre-carrier</b>
+                                    </div>
+                                    <div>
+                                        <t t-esc="data.get('pre_car_place')"/>
+                                    </div>
+                                </div>
+                                <div style="border-bottom: 2px solid black; padding: 8px;">
+                                    <div>
+                                        <b>Port of Loading</b>
+                                    </div>
+                                    <div>
+                                        <t t-esc="data.get('loading_port')"/>
+                                    </div>
+                                </div>
+                                <div style="padding: 8px;">
+                                    <div>
+                                        <b>Final Destination</b>
+                                    </div>
+                                    <div>
+                                        <t t-esc="data.get('final_destination')"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div style="border-bottom: 2px solid black;">
+                                    <br>
+                                    </br>
+                                    <br></br>
+                                </div>
+                                <div class="row" style="border-bottom: 2px solid black;">
+                                    <div class="col-6" style="border-right: 2px solid black; padding: 5px;">
+                                        <div>
+                                            <b>Country of Origin of Goods</b>
+                                        </div>
+                                        <div>
+                                            <b>INDIA</b>
+                                        </div>
+                                    </div>
+                                    <div class="col-6" style="padding: 5px;">
+                                        <div>
+                                            <b>Country of final Destination</b>
+                                        </div>
+                                        <div>
+                                            <b>
+                                                <t t-esc="data.get('final_destination_country')"/>
+                                            </b>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="padding: 6px;">
+                                    <div>
+                                        <b>Terms of Delivery and Payment</b>
+                                    </div>
+                                    <br/>
+                                    <br/>
+                                    <div>F.O.B.</div>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <div>D.P.</div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row" style="border-top: 2px solid black;">
+                            <div class="col-9" style="border-right: 2px solid black;">
+                                <div class="row">
+                                    <div class="col-6" style="border-right: 2px solid black;">
+                                        <div style="border-bottom: 2px solid black; padding: 8px;">
+                                            <div>
+                                                <b>Marks &amp; Nos./Container No.</b>
+                                            </div>
+                                            <br/>
+
+                                            <t t-if="data.get('partner_info').get('name') == 'SURYA CARPET FRESNO '">
+                                                <div>
+                                                    <t t-esc="data.get('container_no')"/>
+                                                </div>
+                                            </t>
+                                            <t t-else="">
+                                                <div>
+                                                    <t t-esc="data.get('partner_info').get('name')" />
+                                                </div>
+                                            </t>
+
+                                            <!-- <div>
+                                                <t t-esc="data.get('partner_info').get('name')"/>
+                                            </div> -->
+                                        </div>
+                                        <div style="padding: 8px;">
+                                            <div>
+                                                <b>
+                                                    <b>No. And Kinds of Pkgs.</b>
+                                                </b>
+                                            </div>
+                                            <div>
+                                                <br/>
+                                                <t t-esc="data.get('no_of_pack')"/>
+                                                <br/>
+                                                (<t t-esc="data.get('no_of_pack_in_words')"/>) Rolls.
+                                                <br/>
+                                                <br/>
+                                                Properly Packed in New Polytube.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6" style="padding: 8px;">
+                                        <div>
+                                            <b>Description of Goods</b>
+                                        </div>
+                                        <div>
+                                            <t t-esc="data.get('description_of_goods')"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="border-top: 2px solid black;">
+                                    <div>
+                                        <b>Roll Nos:</b>
+                                        <br></br>
+                                        1 -
+                                        <t t-esc="data.get('no_of_pack')"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-1" style="border-right: 2px solid black; padding: 5px;">
+                                Quantity
+                            </div>
+                            <div class="col-1" style="border-right: 2px solid black; padding: 5px;">
+                                Rate
+                            </div>
+                            <div class="col-1" style="padding: 5px;">
+                                Amount
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th class="cell">
+                                                <b>Design / Quality</b>
+                                            </th>
+                                            <th class="cell">
+                                                <b>ITC HS CODE NO.</b>
+                                            </th>
+                                            <th class="cell">
+                                                <b>Knots/ Sq.Mtr.</b>
+                                            </th>
+                                            <th class="cell">
+                                                <b>Total Area Sq.Mtr.</b>
+                                            </th>
+                                            <th class="cell">
+                                                <b>Price Per Sq.Mtr.</b>
+                                            </th>
+                                            <th class="cell">
+                                                <b>Total Pieces</b>
+                                            </th>
+                                            <th class="cell">
+                                                <b>Total Area Sq.Feet</b>
+                                            </th>
+                                            <th class="cell">
+                                                <b>Price Per Sq.Feet USD (F.O.B.)</b>
+                                            </th>
+                                            <th class="cell">
+                                                <b>Total Amount USD(F.O.B.)</b>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <t t-foreach="data.get('invoice_group_data')" t-as="group_data">
+                                        <tr style="text-align: right;">
+                                            <td>
+                                                <t t-esc="group_data.get('design')"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="group_data.get('itch')"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="group_data.get('knots')"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="group_data.get('area_sq_mt')"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="group_data.get('rate_sq_mt')"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="group_data.get('total_pcs')"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="group_data.get('area_sq_feet')"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="group_data.get('rate_sq_ft')"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="group_data.get('amount')"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                    <thead>
+                                        <tr>
+                                            <td colspan="2"/>
+                                            <td><b>TOTAL</b>-
+                                            </td>
+                                            <td>
+                                                <b>
+                                                    <t t-esc="data.get('total_sq_mt')"/>
+                                                </b>
+                                            </td>
+                                            <td/>
+                                            <td>
+                                                <b>
+                                                    <t t-esc="data.get('total_pcs')"/>
+                                                </b>
+                                            </td>
+                                            <td>
+                                                <b>
+                                                    <t t-esc="data.get('total_sq_ft')"/>
+                                                </b>
+                                            </td>
+                                            <td/>
+                                            <td>
+                                                <b>
+                                                    <t t-esc="data.get('total_amount')"/>
+                                                </b>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="6"/>
+                                            <td colspan="2">
+                                                <b>Total Amount Before Tax</b>
+                                            </td>
+                                            <td>
+                                                <b>
+                                                    <t t-esc="data.get('total_amount')"/>
+                                                </b>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="6"/>
+                                            <td colspan="2">
+                                                <b>Add: IGST</b>
+                                            </td>
+                                            <td>
+                                                <b>0.00</b>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="6">Amount Chargeable (in Word)
+                                                &#xA0;&#xA0;&#xA0;&#xA0;&#xA0;
+                                                <b>
+                                                   US$ &#xA0;&#xA0;&#xA0;&#xA0;&#xA0;<t t-esc="data.get('total_amount_in_words')"/>
+                                                </b>
+                                            </td>
+                                            <td colspan="2">
+                                                <b>Total Amount After Tax-</b>
+                                            </td>
+                                            <td>
+                                                <b>
+                                                    <t t-esc="data.get('total_amount')"/>
+                                                </b>
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                        <div style="page-break-inside: avoid;">
+                            <div class="row">
+                                <div class="col-12" style="padding: 6px; padding-top: 12px;">
+                                    <b>WEIGHT DETAILS :</b>
+                                    <br/>
+                                    <br/>
+                                    Gross Weight :
+                                    <t t-esc="data.get('gross_weight')"/>
+                                    Kgs.
+                                    <br/>
+                                    <br/>
+                                    Net Weight :
+                                    <t t-esc="data.get('net_weight')"/>
+                                    Kgs.
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6"/>
+                                <div class="col-6">
+                                    <b>Declaration:</b>
+                                    <br/>
+                                    <ol>
+                                        <li>We intend to claim rewards under RoDTEP Scheme.</li>
+                                        <li>We abide by provisional of foreign exchange management Act regarding
+                                            realization.
+                                        </li>
+                                        <li>"SUPPLY MEANT FOR EXPORT UNDER LUT WITHOUT PAYMENT OF INTEGRATED TAX (IGST)"
+                                        </li>
+                                        <li>We declare that this invoice shows the actual price of the goods described and
+                                            all
+                                            particulars are true and corrct.
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="row" style="border-top: 2px solid black; ">
+                                <div class="col-6"
+                                     style="border-bottom: 2px solid black; border-right: 2px solid black; padding: 4px;">
+                                    <div class="row">
+                                        <div class="col-2">
+                                            <b>Rolls :</b>
+                                        </div>
+                                        <div class="col-8"/>
+                                        <div class="col-2">
+                                            <b>
+                                                <t t-esc="data.get('no_of_pack')"/>
+                                            </b>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <b>TOTAL PIECES :</b>
+                                        </div>
+                                        <div class="col-6"/>
+                                        <div class="col-2">
+                                            <b>
+                                                <t t-esc="data.get('total_pcs')"/>
+                                            </b>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <b>TOTAL AREA SQ FTS :</b>
+                                        </div>
+                                        <div class="col-4"/>
+                                        <div class="col-2">
+                                            <b>
+                                                <t t-esc="data.get('total_sq_ft')"/>
+                                            </b>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row"
+                                 style="padding-top: 30px; padding-right: 10px; padding-left: 20px; border-top:">
+                                <div class="col-3"/>
+                                <div class="col-3"/>
+                                <div class="col-3"/>
+                                <div class="col-3"
+                                     style="border-top: 2px solid black; border-right: 2px solid black; border-left: 2px solid black; padding-top: 4px; padding-left: 4px;">
+                                    Signature &amp; Date
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <template id="custom_invoice_header_footer" inherit_id="web.external_layout_striped">
+        <xpath expr="//div[1]" position="replace">
+            <div class="header">
+                <div>
+                    <div style="text-align: center; border: 2px solid black; padding: 4px;"><b>Export Invoice</b></div>
+                    <div style="text-align: center; padding: 10px; border-left: 2px solid black;border-right: 2px solid black;border-bottom: 2px solid black">"SUPPLY MEANT FOR
+                        EXPORT UNDER LUT, WITHOUT PAYMENT OF INTEGRATED TAX (IGST) (ARN NO. AD090324210353H
+                        DT.29/03/2024)"
+                    </div>
+                </div>
+                <div class="row" style="border: 2px solid black;">
+                    <div class="col-6" style="border-right: 2px solid black; padding: 8px;">
+                        <div class="row">
+                            <div class="col-6">
+                                <b>Manufacturer/Exporter :</b>
+                            </div>
+                            <div class="col-6"/>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div style="padding-top: 15px">
+                                    SURYA CARPET PVT. LTD.
+                                </div>
+                                <div style="padding-top: 10px">
+                                    UGAPUR, AURAI-221301
+                                </div>
+                                <div style="padding-top: 10px">
+                                    BHADOHI (U.P.) INDIA
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div style="border-top: 2px solid black; border-left:2px solid black; padding: 8px">
+                                    <b>PAN # : AADCS1781L</b>
+                                </div>
+                                <div style="border-top: 2px solid black; border-left:2px solid black; padding: 8px">
+                                    <b>IEC # : 1588000311</b>
+                                </div>
+                                <div style="border-top: 2px solid black; border-left:2px solid black; border-bottom:2px solid black; padding: 8px">
+                                    <b>GSTIN # : 09AADCS1781L1ZY</b>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="row" style="border-bottom: 2px solid black; padding: 8px">
+                            <div>
+                                <div>
+                                    <b>Invoice No &amp; Date</b>
+                                </div>
+                                <div style="padding-top: 6px;">
+                                    <t t-esc="data.get('inv_name')"/>
+                                    <span style="padding-right: 10px;"/>
+                                    <b>DATED</b>
+                                    <t t-esc="data.get('inv_date')"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="border-bottom: 2px solid black; padding: 8px">
+                            <div>
+                                <div>
+                                    <b>Buyer's Order No &amp; Date</b>
+                                </div>
+                                <div style="padding-top: 6px;">
+                                    <t t-esc="data.get('order_no')"/>
+                                    <span style="padding-right: 10px;"/>
+                                    <b>DATED</b>
+                                    <t t-esc="data.get('order_date')"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="padding: 8px">
+                            <div>
+                                <div>
+                                    <b>Other Reference :
+                                        <t t-esc="data.get('other_ref')"/>
+                                    </b>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+    <record id="action_inno_export_invoice_reports" model="ir.actions.report">
+        <field name="name">Print sale Export Invoice</field>
+        <field name="model">inno.packaging.invoice</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">inno_packaging.report_print_inno_export_invoice</field>
+        <field name="report_file">inno_packaging.report_print_inno_export_invoice</field>
+        <field name="paperformat_id" ref="inno_packaging.inno_invoice_paper_format"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Tree -->
+        <record id="view_dyeing_material_issue_tree" model="ir.ui.view">
+            <field name="name">Dyeing Material Tree</field>
+            <field name="model">dyeing.material.issue</field>
+            <field name="arch" type="xml">
+                <tree create="0" edit="0" delete="1" duplicate="0">
+                    <field name="name"/>
+                    <field name="division"/>
+                    <field name="dyeing_order_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form -->
+        <record id="view_dyeing_material_issue_form" model="ir.ui.view">
+            <field name="name">Dyeing Material Form</field>
+            <field name="model">dyeing.material.issue</field>
+            <field name="arch" type="xml">
+                <form create="0" delete="0" duplicate="0">
+                    <header>
+                        <field name="state" widget="statusbar"/>
+                        <button name="confirm_issue" string="Confirm Issue" type="object"
+                                class="btn-primary" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                    </header>
+                    <sheet>
+<!--                        <div class="oe_button_box" name="button_box">-->
+<!--                            <button name="action_open_purchase" type="object"-->
+<!--                                    class="oe_stat_button" icon="fa-file-text-o"-->
+<!--                                    attrs="{'invisible': [('dyeing_purchase_count', '=', 0)]}">-->
+<!--                                <div class="o_stat_info">-->
+<!--                                    <span class="o_stat_text">Purchase Order</span>-->
+<!--                                </div>-->
+<!--                            </button>-->
+<!--                        </div>-->
+                        <group>
+                            <group>
+                                <field name="name" readonly="1"/>
+                                <field name="division" invisible="1"/>
+                                <field name="remark"/>
+                            </group>
+                            <group>
+                                <field name="partner_id"/>
+                                <field name="dyeing_order_id" readonly="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Products">
+                                <field name="dyeing_material_issue_line_ids" attrs="{'readonly': [('state', '=', 'done')]}">
+                                    <tree editable="bottom" delete="0">
+                                        <field name="product_id"/>
+                                        <field name="quantity"/>
+                                        <field name="uom_id" readonly="1"/>
+                                        <field name="remark"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Material Transfer" attrs="{'invisible': [('state', '!=', 'done')]}">
+                                <field name="material_move_ids" readonly="1"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="o_attachment_preview" attrs="{'invisible': [('state', '=', 'draft')]}"/>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+<!--        <record id="view_dyeing_intend_search" model="ir.ui.view">-->
+<!--            <field name="name">Dyeing intend search</field>-->
+<!--            <field name="model">dyeing.intend</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <search string="Users">-->
+<!--                    <field name="order_no"/>-->
+<!--                    <field name="product_tmpl_id"/>-->
+<!--                </search>-->
+<!--            </field>-->
+<!--        </record>-->
+
+        <record id="action_dyeing_material_issue" model="ir.actions.act_window">
+            <field name="name">Dyeing Material Issue</field>
+            <field name="res_model">dyeing.material.issue</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>

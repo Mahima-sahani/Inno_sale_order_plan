@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="weaving_branch_work_order_inherit_form" model="ir.ui.view">
+        <field name="name">mrp.workorder.inherit.inno.weaving.branch.form</field>
+        <field name="model">mrp.workorder</field>
+        <field name="inherit_id" ref="mrp.mrp_production_workorder_form_view_inherit"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="%(innorug_manufacture.action_open_allotment_view)d" type="action" class="btn-primary" string="Allot To Branch" context="{'allotment_type': 'branch'}" attrs="{'invisible': [('state', '!=', 'progress'), ('allotment', '=', 'full')]}" groups="innorug_manufacture.group_inno_weaving_user"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="weaving_branch_work_order_inherit_tree" model="ir.ui.view">
+        <field name="name">mrp.workorder.inherit.inno.weaving.branch.tree</field>
+        <field name="model">mrp.workorder</field>
+        <field name="inherit_id" ref="innorug_manufacture.view_mrp_workorder_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="%(innorug_manufacture.action_open_allotment_view)d" type="action" class="btn-primary" string="Allot To Branch" context="{'allotment_type': 'branch'}" groups="innorug_manufacture.group_inno_weaving_user"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

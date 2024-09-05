@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+   <data>
+       <record id="seq_migrate_logr" model="ir.sequence">
+           <field name="name">Migration Logs</field>
+           <field name="code">inno.migrate.logs</field>
+           <field name="prefix">LOG/</field>
+           <field name="padding">6</field>
+           <field name="company_id" eval="False"/>
+       </record>
+        <record id="seq_migrate_record" model="ir.sequence">
+           <field name="name">Migration Record</field>
+           <field name="code">inno.migration.record</field>
+           <field name="prefix">MIGRATION/</field>
+           <field name="padding">6</field>
+           <field name="company_id" eval="False"/>
+       </record>
+   </data>
+</odoo>

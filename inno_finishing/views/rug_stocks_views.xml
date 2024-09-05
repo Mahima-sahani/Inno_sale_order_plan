@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="mrp_stock_location_view_inherited_mrp_id" model="ir.ui.view">
+            <field name="name">stock.location</field>
+            <field name="model">stock.location</field>
+            <field name="inherit_id" ref="stock.view_location_form" />
+            <field name="arch" type="xml">
+                <div name="button_box" position="inside">
+                    <button class="oe_stat_button" type="object" name="action_view_mrp_stock_lpcation"
+                       string ="MRP Stock" icon="fa-user">
+                    </button>
+                </div>
+            </field>
+        </record>
+    </data>
+</odoo>
+

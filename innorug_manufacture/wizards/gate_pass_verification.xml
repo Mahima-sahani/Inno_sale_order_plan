@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_gate_pass_verification" model="ir.ui.view">
+        <field name="name">Gate Pass Verification View</field>
+        <field name="model">inno.gate.pass.verification</field>
+        <field name="arch" type="xml">
+            <form>
+                <div class="alert alert-danger" role="alert" attrs="{'invisible': [('qr_status', '!=', 'Failed')]}">
+                  <h5><center>This Delivery is already left the gate</center></h5>
+                </div>
+                <div class="alert alert-success" role="alert" attrs="{'invisible': [('qr_status', '!=', 'Passed')]}">
+                  <h5><center>This Delivery is verified to pass the gate</center></h5>
+                </div>
+                <sheet>
+                    <group>
+                        <field name="scan_qr_code"/>
+                        <field name="qr_status" invisible="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_gate_pass_verification" model="ir.actions.act_window">
+        <field name="name">Gate Pass Verification</field>
+        <field name="res_model">inno.gate.pass.verification</field>
+        <field name="view_mode">form</field>
+    </record>
+</odoo>

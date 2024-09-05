@@ -1,0 +1,134 @@
+<odoo>
+    <template id="weaving_cheque_details">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <div class="text-center" style="border-bottom: 1px solid black;">
+                        <br/>
+                        <h4>
+                            <b>Cheque Details</b>
+                        </h4>
+                        <br/>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="row">
+                                <div class="col-4">
+                                    <h6><b>Payment Date</b></h6>
+                                </div>
+                                <div class="col-1">
+                                    <h6>:</h6>
+                                </div>
+                                <div class="col-7">
+                                    <h6><t t-esc="data.get('payment_date')"/></h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-12">
+                            <!-- Section for records with cheque numbers -->
+                            <t t-foreach="data.get('cheque')" t-as="cheque_record">
+                                <table class="table table-bordered">
+                                    <thead style="background-color: rgb(182, 179, 179); height: 5px;">
+                                        <tr style="text-align: center;">
+                                            <b>
+                                                <th scope="col">Payment No</th>
+                                            </b>
+                                            <b>
+                                                <th scope="col">Bill No</th>
+                                            </b>
+                                            <th scope="col">Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <div style="text-align: center; background-color:white;">
+                                        <th>
+                                            Vendor: <t t-esc="cheque_record.get('partner')"/>
+                                        </th>
+                                        <th>
+                                            Cheque No.: <t t-esc="cheque_record.get('cheque_no')"/>
+                                        </th>
+                                    </div>
+                                    <tbody>
+                                        <tr style="text-align: center;">
+                                            <td>
+                                                <t t-esc="cheque_record.get('details').get('payment_no')"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="cheque_record.get('details').get('bill_no')"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="round(cheque_record.get('details').get('amount'), 3)"/>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </t>
+                            <!-- Section for records without cheque numbers -->
+                            <t t-foreach="data.get('sub_data')" t-as="record">
+                                <table class="table table-bordered">
+                                    <thead style="background-color: rgb(182, 179, 179); height: 5px;">
+                                        <tr style="text-align: center;">
+                                            <b>
+                                                <th scope="col">Payment No</th>
+                                            </b>
+                                            <b>
+                                                <th scope="col">Bill No</th>
+                                            </b>
+                                            <th scope="col">Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <div style="text-align: center; background-color:white;">
+                                        <th>
+                                            Vendor: <t t-esc="record.get('partner')"/>
+                                        </th>
+                                    </div>
+                                    <tbody>
+                                        <t t-foreach="record.get('checks')" t-as="rec">
+                                            <tr style="text-align: center;">
+                                                <td>
+                                                    <t t-esc="rec.get('payment_no')"/>
+                                                </td>
+                                                <td>
+                                                    <t t-esc="rec.get('bill_no')"/>
+                                                </td>
+                                                <td>
+                                                    <t t-esc="round(rec.get('amount'), 3)"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </t>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <table class="table table-bordered">
+                                <thead style="background-color: rgb(182, 179, 179); height: 5px;">
+                                    <tr style="text-align: center;">
+                                        <th colspan="2">Grand Total</th>
+                                        <th></th>
+                                        <th><t t-esc="data.get('total_cheque_amount')"/></th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_reports_weaving_cheque_details" model="ir.actions.report">
+        <field name="name">Weaving Payment Check Details</field>
+        <field name="model">account.payment</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">innorug_manufacture.weaving_cheque_details</field>
+        <field name="report_file">innorug_manufacture.weaving_cheque_details</field>
+        <field name="paperformat_id" ref="base.paperformat_euro"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

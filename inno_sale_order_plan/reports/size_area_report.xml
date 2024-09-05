@@ -1,0 +1,92 @@
+<odoo>
+    <template id="report_size_area">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout" style="margin-top: 100px;">
+                <div class="page">
+                    <div class="text-center" style="border-bottom: 1px solid black;">
+                        <h4>
+                            <b>Weaving Plan (<t t-esc="data.get('order_no')"/>)</b> (<t t-esc="data.get('date')"/>)
+                        </h4>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-12">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr style="background-color: #AEAEAE">
+                                        <th class="cell">
+                                            <b>Design</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Product</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Size</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Area</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Qty</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Total Area</b>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <t t-foreach="data.get('records')" t-as="plan_data">
+                                    <thead>
+                                        <tr>
+                                            <td>
+                                                <b>
+                                                    <t t-esc="plan_data.get('design')"/> -  <t t-esc="plan_data.get('quality')"/>
+                                                </b>
+                                            </td>
+                                             <td>
+                                            </td>
+                                            <td/>
+                                            <td/>
+                                            <td/>
+                                            <td/>
+                                        </tr>
+                                    </thead>
+                                    <t t-foreach="plan_data.get('data')" t-as="record">
+                                        <tr style="text-align: center;">
+                                            <td/>
+                                            <td>
+                                                <t t-esc="record.get('product')"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="record.get('size')"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="record.get('area')"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="record.get('qty')"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="record.get('total_area')"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </t>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_size_area_report" model="ir.actions.report">
+        <field name="name">Size Area Report</field>
+        <field name="model">inno.sale.order.planning</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">inno_sale_order_plan.report_size_area</field>
+        <field name="report_file">Size and Area Report</field>
+        <field name="paperformat_id" ref="base.paperformat_euro"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

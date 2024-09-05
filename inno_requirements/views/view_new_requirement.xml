@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_new_requirement_kanaban" model="ir.ui.view">
+        <field name="name">New Requirement Kanban</field>
+        <field name="model">inno.new.requirement</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state" class="oe_background_grey" group_create="True" quick_create="0"
+                    group_edit="false" group_delete="false" create="0">
+                <field name="state" readonly="1"/>
+                <field name="name" readonly="1"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click oe_kanban_card oe_kanban_global_click oe_semantic_html_override">
+                            <div>
+                                <div class="text-center">
+                                    <strong style="color:#338691;">
+                                        <field style="border-bottom: 2px solid black; padding: 4px" name="name"/>
+                                    </strong>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_new_requirement_form" model="ir.ui.view">
+        <field name="name">New Requirement Form</field>
+        <field name="model">inno.new.requirement</field>
+        <field name="arch" type="xml">
+            <form duplicate="false" create="0">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible ="draft,remanagement,technical,live"/>
+                    <button string="Management Verification" type="object" name="do_verify"
+                            class="btn-success" context="{'type': 'management'}"
+                            groups="inno_requirements.group_inno_management"
+                            attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                    <button string="Technical Verification" type="object" name="do_verify"
+                            class="btn-success" context="{'type': 'technical'}"
+                            groups="inno_requirements.group_inno_technical"
+                            attrs="{'invisible': [('state', '!=', 'management')]}"/>
+                    <button string="Move to Analysis" type="object" name="do_verify"
+                            class="btn-success" context="{'type': 'analysis'}"
+                            groups="inno_requirements.group_inno_developer"
+                            attrs="{'invisible': [('state', 'not in', ['draft', 'technical'])]}"/>
+                    <button string="Move to Development" type="object" name="do_verify"
+                            class="btn-success" context="{'type': 'development'}"
+                            groups="inno_requirements.group_inno_developer"
+                            attrs="{'invisible': [('state', '!=', 'analysis')]}"/>
+                    <button string="Start Testing" type="object" name="do_verify"
+                            class="btn-success" context="{'type': 'testing'}"
+                            groups="inno_requirements.group_inno_developer"
+                            attrs="{'invisible': [('state', '!=', 'development')]}"/>
+                    <button string="Development Live" type="object" name="do_verify"
+                            class="btn-success" context="{'type': 'live'}"
+                            groups="inno_requirements.group_inno_developer"
+                            attrs="{'invisible': [('state', '!=', 'testing')]}"/>
+                    <button string="Cancel" type="object" name="not_verified"
+                            class="btn-danger" attrs="{'invisible': [('state', 'in', ['live', 'done', 'cancel'])]}"
+                            context="{'type': 'cancel'}"/>
+                    <button string="Required Further Changes" type="object" name="not_verified"
+                            class="btn-warning" attrs="{'invisible': [('state', '!=', 'live')]}"
+                            groups="inno_requirements.group_inno_user"
+                            context="{'type': 'not_verify'}"/>
+                    <button string="Verify Development" type="object" name="do_verify"
+                            class="btn-success" context="{'type': 'done'}"
+                            groups="inno_requirements.group_inno_user"
+                            attrs="{'invisible': [('state', '!=', 'live')]}"/>
+                </header>
+                <sheet>
+                    <div class="h2" name="reference_header">
+                        <field name="name" nolabel="1" readonly="1"/>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="deadline" attrs="{'invisible': [('state', 'in', ['draft','management','technical'])], 'readonly': [('state', '!=', 'analysis')]}"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Requirement">
+                            <group>
+                                <group>
+                                    <field name="requirement_description"/>
+                                </group>
+                                <group>
+                                    <field name="management_suggestion" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Attachments">
+                            <field name="attachment_id" widget="many2many_binary"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="o_attachment_preview" attrs="{'invisible': [('state', 'in', ['draft', 'allotment'])]}"/>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_new_requirement" model="ir.actions.act_window">
+        <field name="name">New Requirement</field>
+        <field name="res_model">inno.new.requirement</field>
+        <field name="view_mode">kanban,form</field>
+    </record>
+
+    <record id="create_new_requirement" model="ir.actions.act_window">
+        <field name="name">New </field>
+        <field name="res_model">inno.new.requirement</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="new_requirement_ment"
+              name="Requirements"
+    />
+
+    <menuitem id="sub_menu_new_requirement"
+              name="Requirements"
+              parent="new_requirement_ment"
+              action="action_new_requirement"
+              sequence="1"/>
+
+    <menuitem id="sub_menu_create_new_requirement"
+              name="New"
+              parent="new_requirement_ment"
+              action="create_new_requirement"
+              sequence="2"/>
+
+</odoo>

@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Tree -->
+        <record id="view_inno_finishing_work_order_view_tree" model="ir.ui.view">
+            <field name="name">finishing work order tree</field>
+            <field name="model">finishing.work.order</field>
+            <field name="arch" type="xml">
+                <tree create="0" edit="0" delete="0" duplicate="0">
+                    <field name="name"/>
+                    <field name="subcontractor_id"/>
+                    <field name="issue_date"/>
+                    <field name="total_qty"/>
+                    <field name="status"/>
+                    <field name="operation_id"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="view_finishing_job_work_search" model="ir.ui.view">
+            <field name="name">finishing.work.order.search</field>
+            <field name="model">finishing.work.order</field>
+            <field name="arch" type="xml">
+                <search string="Users">
+                    <field name="name"/>
+                    <field name="subcontractor_id"/>
+                    <group name="groupby">
+                        <filter
+                                name="operation_id_groupby"
+                                string="Operation"
+                                context="{'group_by': 'operation_id'}"
+                        />
+                        <filter
+                                name="status_groupby"
+                                string="Status"
+                                context="{'group_by': 'status'}"
+                        />
+                        <filter
+                                name="subcontractor_id_groupby"
+                                string="Subcontractor"
+                                context="{'group_by': 'subcontractor_id'}"
+                        />
+                        <filter
+                                name="issue_date_groupby"
+                                string="Issue Date"
+                                context="{'group_by': 'issue_date'}"
+                        />
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Form -->
+        <record id="view_inno_finishing_work_order_view_form" model="ir.ui.view">
+            <field name="name">finishing work order form</field>
+            <field name="model">finishing.work.order</field>
+            <field name="arch" type="xml">
+                <form delete="0" duplicate="0">
+                    <header>
+                        <button name="button_confirm" string="CONFIRM" type="object" class="btn-primary"
+                                attrs="{'invisible': [('status', 'not in',['draft',])]}"/>
+                        <!--                        attrs="{'readonly': ['|',('material_transfer_id', '!=', False),('statbill_generatedus', 'in', ['','baazar','done','cancel','return','return_waiting'])]}"-->
+                        <!--                        <button name="button_action_for_materials_issue" string="MATERIALS RELEASE" type="object"-->
+                        <!--                                class="btn-primary"-->
+                        <!--                                attrs="{'invisible': ['|','|',('material_state','=', False),('material_transfer_id', '!=', False),('status', 'in', ['bill_generated','baazar','done','cancel','return','return_waiting'])]}"/>-->
+                        <button name="button_action_for_reports" string="REPORTS" type="object"
+                                class="btn-primary" attrs="{'invisible': [('is_report', '=',False)]}"/>
+<!--                        <button name="create_rate_list_data" string="UPDATE RATE" type="object"-->
+<!--                                class="btn-primary"-->
+<!--                                attrs="{'invisible': [('status', 'in',['cancel','done','hishabh'])]}"/>-->
+                         <button name="update_rate_and_area_with_master" string="UPDATE RATE &amp; AREA WITH MASTER" type="object"
+                                class="btn-primary" attrs="{'invisible': [('status', 'in',['cancel','done','hishabh'])]}"/>
+                        <button name="update_rate_and_area" string="UPDATE RATE &amp; AREA" type="object"
+                                class="btn-primary" attrs="{'invisible': [('status', 'in',['cancel','done','hishabh'])]}"/>
+                        <button name="update_bill" string="UPDATE Bill" type="object"
+                                class="btn-primary"/>
+                        <button name="button_for_quality_inspector" string="ASSIGN TO INSPECTION" type="object"
+                                class="btn-primary"
+                                attrs="{'invisible': ['|',('status', 'not in',['release',]),('is_qa', '!=', False)]}"/>
+                        <button name="action_create_invoice" string="Create Bill" type="object"
+                                class="oe_highlight"
+                                attrs="{'invisible': [('status', 'in',['cancel','done','hishabh','draft','allotment','release'])]}"
+                                data-hotkey="w"/>
+                        <button name="action_create_for_material_credit_note" string="Credit Note" type="object"
+                                class="oe_highlight"
+                                attrs="{'invisible': ['|',('status', 'in',['cancel','done',]),('picking_count', '=', 0)]}"
+                                context="{'create_bill':True}"
+                                data-hotkey="w"/>
+                        <button name="action_create_for_material_hishabh" string="Material Hishabh" type="object"
+                                class="oe_highlight"
+                                attrs="{'invisible': ['|',('status', 'in',['cancel','done',]),('picking_count', '=', 0)]}"
+                                context="{'create_bill':True}"
+                                data-hotkey="w"/>
+                        <button name="action_for_material_amended" type="object" string="MATERIAL AMENDED"
+                                class="btn-primary"
+                                attrs="{'invisible': ['|',('status', 'in',['cancel','done',]),('picking_count', '=', 0)]}"/>
+                        <button name="action_for_material_return" type="object" string="MATERIAL RETURN"
+                                class="btn-primary"
+                                attrs="{'invisible': ['|',('status', 'in',['cancel','done',]),('picking_count', '=', 0)]}"
+                        />
+                        <button name="action_return" type="object" string="CANCEL" class="btn-primary"
+                                attrs="{'invisible': [('status', 'not in',['release','qa','baazar'])]}"/>
+                        <button name="action_done" type="object" string="DONE" class="btn-primary"
+                                attrs="{'invisible': [('status', 'not in',['hishabh',])]}"/>
+                        <button name="action_cancel" type="object" string="CANCEL" data-hotkey="z"
+                                attrs="{'invisible': [('status', 'not in',['draft','return_waiting'])]}"/>
+                        <field name="status" widget="statusbar"
+                               statusbar_visible="draft,release"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" type="object" name="open_material_transfer"
+                                    icon="fa-truck fa-flip-horizontal"
+                                    attrs="{'invisible': [('picking_count', '=', 0)]}">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_text">Material Issue</span>
+                                </div>
+                            </button>
+                            <button class="oe_stat_button" type="object" name="open_cancel_return" icon="fa-truck"
+                                    attrs="{'invisible': [('cancel_picking_count', '=', 0)]}">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value">
+                                    </span>
+                                    <field name="cancel_picking_count"/>
+                                    <span class="o_stat_text">Return</span>
+                                </div>
+                            </button>
+                            <button class="oe_stat_button" type="object" name="open_vendor_bills" icon="fa-inr"
+                                    attrs="{'invisible': [('bill_count', '=', 0)]}">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value">
+                                        <field name="bill_count" readonly="1"/>
+                                    </span>
+                                    <span class="o_stat_text">Bill</span>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="alert alert-warning" role="alert"
+                             style="color:black; padding: 10px; text-align:center;"
+                             attrs="{'invisible': [ ('barcode_status', '=', False)]}">
+                            <h4>Barcode Status :
+                                <field name="barcode_status" readonly="1" nolabel="1"/>
+                            </h4>
+                        </div>
+                        <div class="alert alert-warning" role="alert"
+                             style="color:black; padding: 10px; text-align:center;"
+                             attrs="{'invisible': [ ('start_wo', '=', False)]}">
+                            <h4>
+                                <field name="start_wo" readonly="1" nolabel="1"/>
+                            </h4>
+                        </div>
+                        <div class="alert alert-warning" role="alert"
+                             style="color:black; padding: 10px; text-align:center;"
+                             attrs="{'invisible': [ ('display_warning', '=', False)]}">
+                            <h4>You have scanned the barcode that is already received or not associated with current job
+                                work .
+                            </h4>
+                        </div>
+                        <div>
+                            <div class="float-end badge rounded bg-info text-uppercase p-2 text-bg-dark"
+                                 attrs="{'invisible': [('pattimurai', '=', False)]}" style="height:2rem;">
+                                <field name="pattimurai" no_label="1" readonly="1"
+                                       style="font-weight:600; font-size: 1rem; padding:1px;"/>
+                            </div>
+                        </div>
+                        <div class="oe_title">
+                            <h1>
+                                <div class="d-flex">
+                                    <field class="text-break" name="name" readonly="1"/>
+                                </div>
+                            </h1>
+                        </div>
+                        <group>
+                            <group string="General Information">
+                                <field name="subcontractor_id" required="True"
+                                       attrs="{'readonly': [('status', '!=', 'draft')]}"/>
+                                <field name="is_external" widget="boolean_toggle"/>
+                                <field name="location_id" options="{'no_open': True}" readonly="1"/>
+                                <field name="quality_inspector_id"
+                                       attrs="{'invisible': [('status', 'not in',['release','qa'])]}"
+                                       options="{'no_create': True, 'no_open': True}"/>
+                                <field name="is_qa" invisible="1"/>
+                                <field name="full_finishing_id" invisible="1"/>
+                                <!--                                <field name="material_transfer_id" invisible="1"/>-->
+                                <field name="bill_count" invisible="1"/>
+                                <!--                             <field name="barcode_id" string="Scan Barcodes" options="{'no_create': True}"-->
+                                <!--                                       attrs="{'invisible': [('status', 'not in',['draft',])]}" style="border: 2px solid black; border-radius:12px;"/>-->
+                            </group>
+                            <group string="Order Timeline">
+                                <label for="issue_date" string="Order"/>
+                                <div class="d-flex flex-row align-items-start">
+                                    <field name="issue_date" required="True" readonly="1"/>
+                                    <strong class="mr8 oe_inline">Due</strong>
+                                    <field name="expected_date" required="True"
+                                           attrs="{'readonly': [('status', 'not in',['draft'])]}"/>
+                                </div>
+                                <field name="alloted_days" attrs="{'readonly': [('status', '!=', 'draft')]}"/>
+                                <field name="time_incentive" attrs="{'readonly': [('status', '!=', 'draft')]}"/>
+                                <field name="display_warning" invisible="1"/>
+                                <field name="cancel_picking_count" invisible="1"/>
+                                <field name="is_accepted" invisible="1"/>
+                                <field name="is_return" invisible="1"/>
+                                <field name="material_state" invisible="1"/>
+                                <field name="picking_count" invisible="1"/>
+                                <field name="is_binding" invisible="1"/>
+                                <field name="is_choti" invisible="1"/>
+                                <field name="is_full_finishing" invisible="1"/>
+                                <field name="is_report" invisible="1"/>
+                                <field name="is_rate" invisible="1"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Quantity Details">
+                                <group>
+                                    <label for="total_qty" string="Issue"/>
+                                    <div class="d-flex flex-row align-items-start">
+                                        <field name="total_qty" readonly="1"/>
+                                        <h5>Units</h5>
+                                    </div>
+                                </group>
+                                <group/>
+                                <group attrs="{'invisible': [('cancel_qty', '=', 0)]}">
+                                    <label for="cancel_qty" string="Cancel"/>
+                                    <div class="d-flex flex-row align-items-start">
+                                        <field name="cancel_qty" readonly="1"/>
+                                        <h5>Units</h5>
+                                    </div>
+                                </group>
+                                <group/>
+                                <group attrs="{'invisible': [('rejected_qty', '=', 0)]}">
+                                    <label for="rejected_qty" string="Reject"/>
+                                    <div class="d-flex flex-row align-items-start">
+                                        <field name="rejected_qty" readonly="1"/>
+                                        <h5>Units</h5>
+                                    </div>
+                                </group>
+                            </group>
+                            <group string="Freight Charge Issue" col="4">
+                                <label for="freight_amt" string="Amount"/>
+                                <div class="d-flex flex-row align-items-start">
+                                    <field name="freight_amt" widget="float"
+                                           attrs="{'readonly': [('status', '!=','draft')]}"/>
+                                    <h5 class="mr8 oe_inline">INR</h5>
+                                </div>
+                            </group>
+                        </group>
+                        <group>
+                        </group>
+                        <notebook>
+                            <page string="Product Details">
+                                <field name="jobwork_barcode_lines" attrs="{'readonly': [('status', '!=','draft')]}">
+                                    <tree decoration-success="state =='accepted'" decoration-info="state =='cancel'"
+                                          decoration-warning="state=='rejected'" decoration-danger="state =='draft'"
+                                          create="0" editable="top">
+                                        <field name="barcode_id"/>
+                                        <field name="product_id"/>
+                                        <field name="inno_finishing_size_id" optional="hide"/>
+                                        <field name="state" invisible="1"/>
+                                        <field name="state" invisible="1"/>
+                                        <field name="total_area" readonly="1" sum="Qty" string="Area/Choti"/>
+                                        <field name="unit" readonly="1" string="Units"/>
+                                        <field name="rate" force_save="1" string="Rate(INR)" readonly="1"/>
+                                        <field name="currency_id" invisible="1"/>
+                                        <field name="price_subtotal" readonly="True"/>
+                                        <field name="price_total" invisible="1"/>
+                                    </tree>
+                                </field>
+                                <group>
+                                    <group>
+                                    </group>
+                                    <group class="oe_subtotal_footer oe_right">
+                                        <field name="currency_id" invisible="1"/>
+                                        <field name="tax_totals" widget="account-tax-totals-field" nolabel="1"
+                                               colspan="2"
+                                               readonly="1"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Rate &amp; Incentive" attrs="{'readonly': [('status', '!=','draft')],}">
+                                <field name="rate_incentive_ids">
+                                    <tree editable="top" create="0" delete="0">
+                                        <field name="product_tmpl_id" readonly="1"/>
+                                        <field name="qty" string="Quantity(Units)" sum="Qty" readonly="1"/>
+<!--                                        <field name="rate" invisible="1"/>-->
+<!--                                        <field name="rate_discount"-->
+<!--                                               attrs="{'column_invisible':[('parent.status', '!=', 'draft')]}"/>-->
+                                        <field name="unit" readonly="1"/>
+                                        <field name="sample_rate"
+                                               attrs="{'column_invisible':[('is_sample', '!=', False)]}"/>
+                                        <field name="fixed_incentive" readonly="1"/>
+                                        <field name="expire_incentive" readonly="1"/>
+                                        <field name="is_sample" invisible="0" string="Sample" readonly="1"/>
+                                        <field name="is_size_wize" invisible="1"/>
+<!--                                        <button name="update_rate" string="UPDATE RATE" type="object"-->
+<!--                                                class="btn-primary"-->
+<!--                                                attrs="{'invisible':['|',('rate', '>', 0),('is_size_wize', '!=', False)]}"/>-->
+<!--                                         <button name="update_size_wize_rate" type="object" string="RATE"-->
+<!--                                                icon="fa-external-link"/>-->
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Materials" attrs="{'invisible': [('material_state', '=',False)],}">
+                                <field name="material_lines" readonly="1">
+                                    <tree editable="bottom">
+                                        <field name="product_id" required="1"/>
+                                        <field name="location_id" required="1"/>
+                                        <field name="uom_id" readonly="1"/>
+                                        <field name="product_qty" sum="qty" required="1"/>
+                                        <field name="qty_released" sum="qty" readonly="1"/>
+                                        <field name="extra" readonly="1" force_save="1" optional="hide"
+                                               attrs="{'column_invisible':[('parent.is_external', '=', False)]}"/>
+                                        <field name="qty_amended" sum="qty" readonly="1" optional="hide"/>
+                                        <field name="qty_return" sum="qty" readonly="1" optional="hide"/>
+                                        <field name="qty_previous" sum="qty" required="1" optional="hide"/>
+                                        <field name="qty_retained" required="1" sum="qty" optional="hide"/>
+                                        <field name="rate" readonly="1" force_save="1"
+                                               attrs="{'column_invisible':[('parent.is_external', '=', False)]}"/>
+                                        <field name="currency_id" invisible="1"/>
+                                        <field name="price_subtotal" sum="price" readonly="True"
+                                               attrs="{'column_invisible':[('parent.is_external', '=', False)]}"/>
+                                        <field name="price_total" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Quality Controls"
+                                  attrs="{'invisible': [('quality_inspector_id', '=', False)]}">
+                                <field name="quality_control_ids" mode="tree">
+                                    <tree create="false" editable="True" delete="0">
+                                        <field name="qc_manager_id" readonly="1"/>
+                                        <field name="quality_state" readonly="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Receiving"
+                                  attrs="{'invisible': [('status', 'not in',['done','baazar','hishabh'])]}">
+                                <field name="baazar_lines_ids">
+                                    <tree editable="0" create="0" delete="0">
+                                        <field name="reference" readonly="1"/>
+                                        <field name="date" readonly="1"/>
+                                        <field name="state" readonly="1"/>
+                                        <button name="open_receiving_form" type="object" icon="fa-external-link"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Cancel Product" attrs="{'invisible': [('is_return', '=', False)]}">
+                                <field name="return_barcode_lines" readonly="1">
+                                    <tree decoration-success="state =='accepted'" decoration-danger="state =='cancel'"
+                                          decoration-warning="state=='rejected'" decoration-info="state =='draft'"
+                                          create="0">
+                                        <field name="barcode_id"/>
+                                        <field name="product_id"/>
+                                        <field name="total_area"/>
+                                        <field name="inno_finishing_size_id"/>
+                                        <field name="date"/>
+                                        <field name="state"/>
+                                        <field name="cancel_reason"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="o_attachment_preview"
+                         attrs="{'invisible': [('status', 'in', ['draft', 'allotment'])]}"/>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!--        kanban-->
+        <record id="view_inno_finishing_work_order_view_kanban" model="ir.ui.view">
+            <field name="name">finishing work order kanban</field>
+            <field name="model">finishing.work.order</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="operation_id" class="oe_background_grey" group_create="False" quick_create="0"
+                        group_edit="false" group_delete="false" create="0">
+                    <field name="operation_id" readonly="1"/>
+                    <field name="subcontractor_id"/>
+                    <field name="status"/>
+                    <field name="issue_date"/>
+                    <field name="expected_date"/>
+                    <field name="color"/>
+                    <field name="id"/>
+                    <progressbar field="status" colors='{"draft": "warning", "issue": "info", "done": "success"}'/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click {{'oe_kanban_color_' + kanban_getcolor(record.color.raw_value) }} oe_kanban_card oe_kanban_global_click oe_semantic_html_override">
+                                <div>
+                                    <div class="row" style="margin-bottom:4px;">
+                                        <div class="col-10">
+                                            <strong style="color:#338691;">
+                                                <field name="name"/>
+                                            </strong>
+                                        </div>
+                                        <div class="col-2">
+                                            <field name="activity_ids" widget="kanban_activity"/>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-bottom:4px;">
+                                        <div class="col-5">
+                                            <strong>Issue:</strong>
+                                            <t t-esc="record.issue_date.value"/>
+                                        </div>
+                                        <div class="col-6">
+                                            <strong>Expected:</strong>
+                                            <t t-esc="record.expected_date.value"/>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <t t-if="record.subcontractor_id.value">
+                                                <strong>SUBCONTRACTOR:</strong>
+                                                <t t-esc="record.subcontractor_id.value"/>
+                                            </t>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="action_finishing_work_order" model="ir.actions.act_window">
+            <field name="name">Finishing Work Order</field>
+            <field name="res_model">finishing.work.order</field>
+            <field name="view_mode">tree,kanban,form</field>
+            <field name="context">{'group_by':'operation_id'}</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <!-- Cost Center Form -->
+    <record id="view__mrp_main_cost_center551_form" model="ir.ui.view">
+        <field name="name">Split</field>
+        <field name="model">mrp.sale.order</field>
+        <field name="arch" type="xml">
+            <form >
+                <sheet>
+                   
+                    <group>
+                        <group>
+                                <field name='file_name' invisible='1'/>
+                            <field name="data" widget="binary" filename="filename" string="CSV File" required="1"/>
+                        </group>
+                        <group>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_mrp_main_wizards_sale_id" model="ir.actions.act_window">
+        <field name="name">Sale Order Import</field>
+        <field name="res_model">mrp.sale.order</field>
+        <field name="view_mode">form</field>
+         <field name="target">new</field>
+
+    </record>
+     <!-- <menuitem id="menu_surya_sale_excel_id" name="Sale Order Import" parent="sale.sale_order_menu" action="action_mrp_main_wizards_sale_id" sequence="50100"/> -->
+</odoo>
+

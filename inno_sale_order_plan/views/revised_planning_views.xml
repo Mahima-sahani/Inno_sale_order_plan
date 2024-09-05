@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record id="view_revised_sale_order" model="ir.ui.view">
+        <field name="name">Revised Sale Order</field>
+        <field name="model">inno.sale.order.planning.line</field>
+        <field name="arch" type="xml">
+            <form create="0" edit="0" >
+                <sheet>
+                    <group>
+                        <group>
+                            <field name='product_id' readonly="1"/>
+                        </group>
+                        <group>
+<!--                            <field name="reasons" required="1"/>-->
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Revised Lines">
+                            <field name="revised_lines">
+                                <tree editable="bottom" delete="1" create="0">
+                                    <field name="amended_qty" sum="qty" readonly="1"/>
+                                    <field name="desc_manufacturing_qty" string="Less QTY" readonly="1"/>
+                                    <field name="update_rate" sum="qty" readonly="1"/>
+                                    <field name="revised_date" sum="qty" readonly="1"/>
+                                    <field name="reasons" readonly="1"/>
+                                     <field name="barcodes"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

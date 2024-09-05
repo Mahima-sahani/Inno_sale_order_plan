@@ -1,0 +1,416 @@
+<odoo>
+
+    <template id="report_print_material_allocation">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <style type="text/css">
+                    th{
+                    color: #348691;
+                    }
+                    .highlight {
+                    color: #af8835;
+                    }
+                    td{
+                    font-size: 12px;
+                    text-align: center;
+                    }
+                </style>
+                <div class="page">
+                    <div class="text-center" style="border-bottom: 1px solid black;">
+                        <h4>
+                            <b>Weaving Order (Job Work)</b>
+                        </h4>
+                    </div>
+                    <!--                subcontractor data-->
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="row">
+                                <div class="col-4">
+                                    <h6>
+                                        <b>Loom Holder</b>
+                                    </h6>
+                                </div>
+                                <div class="col-1">
+                                    <h6>:</h6>
+                                </div>
+                                <div class="col-6">
+                                    <h6>
+                                        <t t-esc="data.get('subcontractor').get('name')"/>
+                                    </h6>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <h6>
+                                        <b>Address</b>
+                                    </h6>
+                                </div>
+                                <div class="col-1">
+                                    <h6>:</h6>
+                                </div>
+                                <div class="col-6">
+                                    <t t-esc="data.get('subcontractor').get('address')"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <h6>
+                                        <b>City</b>
+                                    </h6>
+                                </div>
+                                <div class="col-1">
+                                    <h6>:</h6>
+                                </div>
+                                <div class="col-6">
+                                    <t t-esc="data.get('subcontractor').get('city')"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <h6>
+                                        <b>Contact No</b>
+                                    </h6>
+                                </div>
+                                <div class="col-1">
+                                    <h6>:</h6>
+                                </div>
+                                <div class="col-6">
+                                    <t t-esc="data.get('subcontractor').get('contact_no')"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <h6>
+                                        <b>Aadhar No</b>
+                                    </h6>
+                                </div>
+                                <div class="col-1">
+                                    <h6>:</h6>
+                                </div>
+                                <div class="col-6">
+                                    <t t-esc="data.get('subcontractor').get('aadhar_no')"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="row">
+                                <div class="col-4">
+                                    <h6>
+                                        <b>Order No</b>
+                                    </h6>
+                                </div>
+                                <div class="col-1">
+                                    <h6>:</h6>
+                                </div>
+                                <div class="col-6">
+                                    <h6>
+                                        <b>
+                                            <t t-esc="data.get('subcontractor').get('order_no')"/>
+                                        </b>
+                                    </h6>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <h6>
+                                        <b>Date</b>
+                                    </h6>
+                                </div>
+                                <div class="col-1">
+                                    <h6>:</h6>
+                                </div>
+                                <div class="col-6">
+                                    <b>
+                                        <t t-esc="data.get('subcontractor').get('date')"/>
+                                    </b>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <h6>
+                                        <b>Due Date</b>
+                                    </h6>
+                                </div>
+                                <div class="col-1">
+                                    <h6>:</h6>
+                                </div>
+                                <div class="col-6">
+                                    <t t-esc="data.get('subcontractor').get('due_date')"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <h6>
+                                        <b>Order Issue By</b>
+                                    </h6>
+                                </div>
+                                <div class="col-1">
+                                    <h6>:</h6>
+                                </div>
+                                <div class="col-6">
+                                    <t t-esc="data.get('subcontractor').get('issue_by')"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--                product table-->
+                    <div class="row">
+                        <div class="col-12">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th class="cell">
+                                            <b>Sr. No.</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Barcode</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Design</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Size</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Pcs</b>
+                                        </th>
+                                        <t t-if="data.get('subcontractor').get('pcs') == 'yes'">
+                                            <th class="cell">
+                                                <b>Area</b>
+                                            </th>
+                                        </t>
+                                        <th class="cell">
+                                            <b>Rate</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Inc</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>PO. No.</b>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <thead>
+                                    <tr>
+                                        <td class="cell" colspan="3">
+                                            <b>
+                                                <t t-esc="data.get('subcontractor').get('quality')"/>
+                                            </b>
+                                        </td>
+
+                                        <td class="cell" colspan="3">
+                                            <!--                                                <t t-if="data.get('gst') == 'yes'">-->
+                                            <!--                                                    <b>-->
+                                            <!--                                                        GSTIN :-->
+                                            <!--&lt;!&ndash;                                                        <t t-esc="rec[1].get('GSTIN')"/>&ndash;&gt;-->
+                                            <!--                                                    </b>-->
+                                            <!--                                                </t>-->
+                                        </td>
+                                        <td class="cell" colspan="2">
+                                            <!--                                                <t t-esc="data.get('payment_state')"/>-->
+                                        </td>
+                                    </tr>
+                                </thead>
+                                <t t-foreach="enumerate(data.get('products').get('data'))" t-as="prod_data">
+                                    <tr>
+                                        <td>
+                                            <t t-esc="prod_data[0]+1"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="prod_data[1].get('barcode')"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="prod_data[1].get('design')"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="prod_data[1].get('size')"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="int(prod_data[1].get('pcs'))"/>
+                                        </td>
+                                        <t t-if="data.get('subcontractor').get('pcs') == 'yes'">
+                                            <td>
+                                                <t t-esc="prod_data[1].get('area')"/>
+                                            </td>
+                                        </t>
+                                        <td>
+                                            <t t-esc="round(prod_data[1].get('rate'), 2)"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="round(prod_data[1].get('inc'), 2)"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="prod_data[1].get('po_no')"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <thead>
+                                    <tr>
+                                        <th class="cell">Total Pcs</th>
+                                        <th class="cell">
+                                            <t t-esc="int(data.get('products').get('total_pcs'))"/>
+                                        </th>
+                                        <th class="cell"/>
+                                        <th class="cell"/>
+                                        <th class="cell"/>
+                                        <th class="cell">
+                                            <t t-if="data.get('subcontractor').get('pcs') == 'yes'">Total Area</t></th>
+                                        <th class="cell">
+                                             <t t-if="data.get('subcontractor').get('pcs') == 'yes'">
+                                                 <t t-esc="round(data.get('products').get('total_area'), 4)"/></t>
+                                        </th>
+                                        <th class="cell">
+                                            <t t-if="data.get('subcontractor').get('pcs') == 'yes'">
+                                            <t t-esc="data.get('products').get('uom')"/>
+                                            </t>
+                                        </th>
+                                        <th class="cell"/>
+                                    </tr>
+                                    <tr>
+                                        <th class="cell">Lagat (Sq. Yard)</th>
+                                        <th class="cell">
+                                            <t t-esc="round(data.get('products').get('lagat'), 3)"/>
+                                        </th>
+                                        <th class="cell"/>
+                                        <th class="cell"/>
+                                        <th class="cell"/>
+                                        <th class="cell">Loss</th>
+                                        <th class="cell">
+                                            <t t-esc="round(docs.loss, 3)"/>
+                                        </th>
+                                        <th class="cell"/>
+                                        <th class="cell"/>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                    <br/>
+                    <!--                <div class="highlight"><b><span>Remark</span></b><span><t t-esc="data.get('subcontractor').get('remarks')"/></span></div>-->
+                    <t t-if="data.get('division') == 'KNOTTED'">
+                        <div>
+                            Time Penalty of Rs.
+                            <t t-esc="data.get('subcontractor').get('time_panality')"/>
+                            per Sq. Yard will be deducted if all pcs of Weaving Order will not be
+                            delivered after 10 days of delivery date
+                        </div>
+                    </t>
+                    <t t-if="data.get('division') == 'TUFTED'">
+                        <div>
+                            Time Penalty of Rs.
+                            <t t-esc="data.get('subcontractor').get('time_panality')"/>
+                            per Sq. Yard will be deducted if all pcs of Weaving Order will not be
+                            delivered after 10 days of delivery date.
+                            Small Chunks Bazar Penalty of
+                            <t t-esc="data.get('subcontractor').get('small_chunk')"/>
+                            per Sq. Yard will be deducted if all pcs of Weaving
+                            Order will not be delivered in 4 Times.
+                        </div>
+                    </t>
+                    <br></br>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="row">
+                                <div class="col-6">
+                                    <span class="highlight">Remark</span>
+                                </div>
+                                <div class="col-6">
+                                    <t t-esc="data.get('subcontractor').get('remarks')"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--                materials-->
+                    <div class="row">
+                        <div class="col-7">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th class="cell">
+                                            <b>Material</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Shade</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Required Qty</b>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <t t-foreach="data.get('material')" t-as="material">
+                                    <tr>
+                                        <td>
+                                            <t t-esc="material.get('product_name')"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="material.get('shade')"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="round(material.get('qty'), 3)"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <td>
+                                        <b>Grand Total</b>
+                                    </td>
+                                    <td/>
+                                    <td>
+                                        <b>
+                                            <t t-esc="round(data.get('total_materials'), 3)"/>
+                                        </b>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-4" style="margin-left:8px;">
+                            <t t-foreach="data.get('designs')" t-as="design">
+                                <span>
+                                    <img t-attf-src="data:image/*;base64,{{design}}"
+                                         style="width:110px; height:110px; padding-bottom: 8px;"/>
+                                </span>
+                            </t>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-5" style="border: 1px solid grey; margin-top:8px;">
+                            <b>Disclaimer :</b>
+                            <ul>
+                                <li>Use of Child Labour is Strictly Prohibited.</li>
+                                <li>Loom HOlder Must Pay Minimum Wages to the work man.</li>
+                                <li>Carpet should be strictly as per the design &amp; Directions Provided.</li>
+                                <li>Loom holder will be responsible for any violation of child labour Act or minimum
+                                    wage Act.
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-4" style="border: 1px solid grey; margin-top:8px;">
+                            <b>Terms &amp; Conditions :</b>
+                        </div>
+                        <div class="col-3" style="border: 1px solid grey; margin-top:8px;">
+                            <b>Job Instruction :</b>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 40px;">
+                    <div class="col-9"/>
+                    <div class="col-3">
+                        Authorized Signatory
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+
+    <record id="action_report_print_material_allocation" model="ir.actions.report">
+        <field name="name">Job Work Issue</field>
+        <field name="model">main.jobwork</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">innorug_manufacture.report_print_material_allocation</field>
+        <field name="report_file">innorug_manufacture.report_print_material_allocation</field>
+        <field name="paperformat_id" ref="base.paperformat_euro"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

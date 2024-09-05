@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_pending_materials_tree" model="ir.ui.view">
+        <field name="name">Pending Materials Tree</field>
+        <field name="model">inno.pending.material</field>
+        <field name="arch" type="xml">
+            <tree create="0" edit="0" delete="0" duplicate="0">
+                <field name="subcontractor_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_pending_materials_form" model="ir.ui.view">
+        <field name="name">Pending Materials Form</field>
+        <field name="model">inno.pending.material</field>
+        <field name="arch" type="xml">
+            <form create="0" edit="0" delete="0" duplicate="0">
+                <header>
+<!--                    <button name="generate_bill" type="object" string="GENERATE BILL" class="btn-primary" attrs="{'invisible': [('state', '!=', 'bill')]}"/>-->
+                </header>
+                <sheet>
+                    <div class="h2" name="subcontractor_id">
+                        <field name="subcontractor_id" nolabel="1" readonly = "1"/>
+                    </div>
+                    <notebook>
+                        <page string="Materials Details">
+                            <field name="material_line_ids">
+                                <tree create="0">
+                                    <field name="product_id" readonly="1" options="{'no_open': True}"/>
+                                    <field name="quantity" readonly="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_pending_materials" model="ir.actions.act_window">
+        <field name="name">Pending Materials</field>
+        <field name="res_model">inno.pending.material</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

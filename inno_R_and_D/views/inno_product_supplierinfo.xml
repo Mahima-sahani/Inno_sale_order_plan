@@ -1,0 +1,72 @@
+<odoo>
+    <data>
+
+        <!-- Tree -->
+        <record id="view_inno_inno_product_supplierinfo_tree" model="ir.ui.view">
+            <field name="name">inno.product.supplierinfo</field>
+            <field name="model">inno.product.supplierinfo</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="partner_id"/>
+                     <field name="product_tmpl_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form -->
+        <record id="view_inno_inno_product_supplierinfo_form" model="ir.ui.view">
+            <field name="name">inno.product.supplierinfo</field>
+            <field name="model">inno.product.supplierinfo</field>
+            <field name="arch" type="xml">
+                <form string="Supplier">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="partner_id"/>
+                                 <field name="rate"/>
+                            </group>
+                            <group>
+                                <field name="product_tmpl_id" required="1"/>
+                                 <field name="uom_id"/>
+                            </group>
+                        </group>
+                        <notebook>
+                              <page string="Purchase">
+                                <field name="variant_seller_ids">
+                                <tree create="false" delete="0">
+                                     <field name="product_id"/>
+                                    <field name="area"/>
+                                     <field name="price"/>
+                                </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+
+         <record id="model_update_rate_inno_product_supplierinfo" model="ir.actions.server">
+            <field name="name">Update Varient Rate</field>
+            <field name="model_id" ref="innorug_manufacture.model_inno_product_supplierinfo"/>
+            <field name="binding_model_id" ref="innorug_manufacture.model_inno_product_supplierinfo"/>
+            <field name="binding_view_types">form,list</field>
+            <field name="state">code</field>
+            <field name="code">action = records.update_rate()</field>
+        </record>
+
+
+        <record id="action_inno_inno_product_supplierinfo" model="ir.actions.act_window">
+            <field name="name">Supplier</field>
+            <field name="res_model">inno.product.supplierinfo</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+
+</odoo>

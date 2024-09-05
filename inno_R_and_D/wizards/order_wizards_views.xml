@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_mrp_wizard_order_shipments_form" model="ir.ui.view">
+        <field name="name"> Product Import</field>
+        <field name="model">order.wizards</field>
+        <field name="arch" type="xml">
+            <form >
+                <sheet>
+                    <group>
+                        <group>
+                             <field name='partner_id' string="Delivered To"/>
+                            <field name='product_temp_id'/>
+<!--                             <field name='carrier_id'/>-->
+                        </group>
+                        <group>
+                            <label for="issue_date" string="Planned Date"/>
+                            <div class="oe_inline">
+                                <field name="issue_date" class="mr8 oe_inline" required="True" readonly="1"/>
+                                <strong class="mr8 oe_inline">to</strong>
+                                <field name="expected_date" class="oe_inline" required="1" style="border-bottom: 1px solid black"/>
+                            </div>
+                        </group>
+                    </group>
+                    <notebook>
+                          <page string="Orders">
+                                <field name="order_wizards_lines">
+                                <tree editable="0">
+                                    <field name="product_id"/>
+                                    <field name="available_qty"/>
+                                    <field name="allote_qty"/>
+                                </tree>
+                                </field>
+                            </page>
+                    </notebook>
+                </sheet>
+                 <footer>
+                      <button type="object" name="do_shipment" string="Create Shipment" class="btn-primary"/>
+                     <button type="object" name="do_cancel" string="Cancel" class="btn-primary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_mrp_wizard_order_manufacturing_form" model="ir.ui.view">
+        <field name="name"> Product Import</field>
+        <field name="model">order.wizards</field>
+        <field name="arch" type="xml">
+            <form >
+                <sheet>
+                    <group>
+                        <group>
+                            <field name='product_temp_id'/>
+                        </group>
+                        <group>
+                            <label for="issue_date" string="Planned Date"/>
+                            <div class="oe_inline">
+                                <field name="issue_date" class="mr8 oe_inline" required="True" readonly="1"/>
+                                <strong class="mr8 oe_inline">to</strong>
+                                <field name="expected_date" class="oe_inline" style="border-bottom: 1px solid black"/>
+                            </div>
+                        </group>
+                    </group>
+                    <notebook>
+                          <page string="Orders">
+                                <field name="order_wizards_lines">
+                                <tree editable="0">
+                                    <field name="product_id"/>
+                                    <field name="product_qty"/>
+                                </tree>
+                                </field>
+                            </page>
+                    </notebook>
+                </sheet>
+                 <footer>
+                       <button type="object" name="do_manufacturing" string="Manufacturing" class="btn-primary"/>
+                     <button type="object" name="do_cancel" string="Cancel" class="btn-primary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_mrp_wizard_purchase_order_form" model="ir.ui.view">
+        <field name="name"> Product Import</field>
+        <field name="model">order.wizards</field>
+        <field name="arch" type="xml">
+            <form >
+                <sheet>
+                    <group>
+                        <group>
+                            <field name='partner_id'/>
+                            <field name='product_temp_id'/>
+                        </group>
+                        <group>
+                            <label for="issue_date" string="Planned Date"/>
+                            <div class="oe_inline">
+                                <field name="issue_date" class="mr8 oe_inline" required="True" readonly="1"/>
+                                <strong class="mr8 oe_inline">to</strong>
+                                <field name="expected_date" class="oe_inline" style="border-bottom: 1px solid black"/>
+                            </div>
+                        </group>
+                    </group>
+                    <notebook>
+                          <page string="Orders">
+                                <field name="order_wizards_lines">
+                                <tree editable="0">
+                                    <field name="product_id"/>
+                                    <field name="product_qty"/>
+                                </tree>
+                                </field>
+                            </page>
+                    </notebook>
+                </sheet>
+                 <footer>
+                    <button type="object" name="do_purchase" string="Purchase" class="btn-primary"/>
+                     <button type="object" name="do_cancel" string="Cancel" class="btn-primary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

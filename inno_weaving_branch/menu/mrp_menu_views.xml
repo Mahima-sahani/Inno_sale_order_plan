@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!--    main menu-->
+    <menuitem id="inno_branch"
+              name="Weaving Centers"
+              groups="innorug_manufacture.group_inno_weaving_user"
+    />
+
+<!--    header menu-->
+    <menuitem id="menu_mrp_jobwork_allotement_id"
+              name="Allotment"
+              parent="inno_branch"
+              action="action_mrp_jobwork_allotements_id"
+              sequence="1"/>
+
+    <menuitem id="menu_branch_main_job_work"
+              name="Job Work"
+              action="action_branch_mrp_main_job_works_id"
+              parent="inno_branch"
+              sequence="5"/>
+
+    <menuitem id="menu_branch_configuration"
+              name="Configuration"
+              parent="inno_branch"
+              sequence="10"/>
+
+<!--    sub menu-->
+
+    <menuitem id="sub_menu_weaving_branch_settings"
+              name="Settings"
+              parent="menu_branch_configuration"
+              action="inno_weaving_branch_config_settings_action"
+              sequence="1"/>
+
+    <menuitem id="menu_mrp_weaving_allotement_id"
+              name="Weaving Centers"
+              parent="menu_branch_configuration"
+              action="action_mrp_weaving_branch_id"
+              groups="innorug_manufacture.group_inno_weaving_admin"
+              sequence="5"/>
+
+</odoo> 

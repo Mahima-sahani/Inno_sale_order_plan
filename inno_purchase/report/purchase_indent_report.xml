@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_purchase_indent">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <style type="text/css">
+                    th{
+                    color: #348691;
+                    }
+                    .highlight {
+                    color: #af8835;
+                    }
+                    td{
+                    font-size: 12px;
+                    }
+                </style>
+                <div class="page">
+                    <div style="text-align: center; border-bottom: 2px solid black; padding: 4px;">
+                        <h4>
+                            <b>
+                              Purchase Indent
+                            </b>
+                        </h4>
+                    </div>
+                    <br></br>
+                    <div class="row">
+                        <div class="col-5">
+                            <div class="row">
+                                <div class="col-3">
+                                    <b>Plan No</b>
+                                </div>
+                                <div class="col-1">:</div>
+                                <div class="col-7">
+                                    <t t-esc="data.get('plan_no')"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                        </div>
+                        <div class="col-5">
+                            <div class="row">
+                                <div class="col-4">
+                                    <b>Plan Date</b>
+                                </div>
+                                <div class="col-1">:</div>
+                                <div class="col-7">
+                                    <t t-esc="data.get('Plan_date')"/>
+                                </div>
+                            </div>
+                            <br></br>
+                            <div class="row">
+                                <div class="col-4">
+                                    <b>Due Date</b>
+                                </div>
+                                <div class="col-1">:</div>
+                                <div class="col-7">
+                                    <t t-esc="data.get('Due_date')"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br></br>
+                    <div class="row">
+                        <div class="col-12">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th class="cell">
+                                            <b>S.no</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Product</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Plan Qty</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Unit</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Remark</b>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <t t-foreach="enumerate(data.get('sub_data'))" t-as="prod_data">
+                                    <tr>
+                                        <td>
+                                            <t t-esc="prod_data[0]+1"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="prod_data[1].get('product')"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="prod_data[1].get('plan_qty')"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="prod_data[1].get('unit')"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="(prod_data[1].get('remark'))"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <td colspan="2">
+                                        <b>Total :</b>
+                                    </td>
+                                    <td>
+                                        <t t-esc="data.get('total_qty')"/>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <br></br>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_report_print_print_purchase_indent" model="ir.actions.report">
+        <field name="name">Print Purchase Indent</field>
+        <field name="model">inno.purchase</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">inno_purchase.report_purchase_indent</field>
+        <field name="report_file">inno_purchase.report_purchase_indent</field>
+        <field name="binding_model_id" ref="model_inno_purchase"/>
+        <field name="paperformat_id" ref="base.paperformat_euro"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

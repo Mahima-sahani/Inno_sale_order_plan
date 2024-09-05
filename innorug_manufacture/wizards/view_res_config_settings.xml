@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="res_config_settings_view_form" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.inherit.innorug.manufacturing</field>
+            <field name="model">res.config.settings</field>
+            <field name="priority" eval="90"/>
+            <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[hasclass('settings')]" position="inside">
+                    <div class="app_settings_block" data-string="InnoRug Manufacturing" id="inno_manufacture" string="InnoRug Manufacturing" data-key="innorug_manufacture">
+<!--                        groups="fleet.fleet_group_manager"-->
+                        <h2>General Weaving Configuration</h2>
+                        <div class="row mt16 o_settings_container" id="innorug_manufacturing_general_setting">
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="o_setting_left_pane"/>
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">Weaving Work Center</span>
+                                    <div class="text-muted content-group mt16">
+                                        <span>Select the Work Center configured for Weaving</span>
+                                        <field name="weaving_operation_id" class="text-center"/>
+                                    </div>
+                                </div>
+                                <br/>
+                                 <div class="o_setting_right_pane">
+                                    <span class="o_form_label">Extra Weaving Time</span>
+                                    <div class="text-muted content-group mt16">
+                                        <span>Extra time given to weaving job worker</span>
+                                        <field name="extra_time" class="text-center"/>
+                                    </div>
+                                </div>
+                                <br/>
+                            </div>
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">Default Warehouse for stock Transfer</span>
+                                    <div class="text-muted content-group mt16">
+                                        <span>Warehouse Configured to store the actual stock and consumption materials</span>
+                                        <br/>
+                                        <field name="main_warehouse_id" class="text-center"/>
+                                    </div>
+                                </div>
+                                <br/>
+                            </div>
+                        </div>
+                        <h2>Penalties and Incentives</h2>
+                        <div class="row mt16 o_settings_container" id="innorug_penalty_setting">
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">Barcode Re-Print Penalty</span>
+                                    <div class="text-muted content-group mt16">
+                                        <span>Penalty Added to the barcode if the barcode is Re-Printed</span>
+                                        <br/>
+                                        <field name="barcode_reprint_penalty" class="text-center"/>
+                                    </div>
+                                </div>
+                                <br/>
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">Penalty Product</span>
+                                    <div class="text-muted content-group mt16">
+                                        <span>Penalty Product Used to add in penalty in Vendor Bill</span>
+                                        <br/>
+                                        <field name="penalty_product_id" class="text-center"/>
+                                    </div>
+                                </div>
+                                <br/>
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">Incentive Product</span>
+                                    <div class="text-muted content-group mt16">
+                                        <span>Incentive Product used to add incentive to the vendor bill.</span>
+                                        <br/>
+                                        <field name="incentive_product_id" class="text-center"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">Bazaar Fragments Allowed</span>
+                                    <div class="text-muted content-group mt16">
+                                        <span>Total Number of Bazaar Allowed for a Job Work without penalty.</span>
+                                        <br/>
+                                        <field name="allowed_fragments" class="text-center"/>
+                                    </div>
+                                </div>
+                                <br/>
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">Penalty After Bazaar limit Exceeds</span>
+                                    <div class="text-muted content-group mt16">
+                                        <span>Penalty Per square Yards if Bazaar limit Exceeds</span>
+                                        <br/>
+                                        <field name="fragment_penalty" class="text-center"/>
+                                    </div>
+                                </div>
+                                <br/>
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">Time Incentive and Penalty allowed for User to Permit</span>
+                                    <div class="text-muted content-group mt16">
+                                        <span>Incentive Given if weaver finish job work before time.</span>
+                                        <br/>
+                                        <field name="time_incentive" class="text-center"/>
+                                    </div>
+                                </div>
+                                <br/>
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">Time Incentive and Penalty allowed for Manager to Permit</span>
+                                    <div class="text-muted content-group mt16">
+                                        <span>Incentive Given if weaver finish job work before time.</span>
+                                        <br/>
+                                        <field name="manager_time_incentive" class="text-center"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h2>Accounts</h2>
+                        <div class="row mt16 o_settings_container" id="innorug_accounts_setting">
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">Weaving Journal</span>
+                                    <div class="text-muted content-group mt16">
+                                        <span>Journal to use for weaving bill.</span>
+                                        <br/>
+                                        <field name="weaving_journal_id" class="text-center" options="{'no_create': True}"/>
+                                    </div>
+                                </div>
+                            </div>
+<!--                            <div class="col-12 col-lg-6 o_setting_box">-->
+<!--                                <div class="o_setting_right_pane">-->
+<!--                                    <span class="o_form_label">Bazaar Fragments Allowed</span>-->
+<!--                                    <div class="text-muted content-group mt16">-->
+<!--                                        <span>Total Number of Bazaar Allowed for a Job Work without penalty.</span>-->
+<!--                                        <br/>-->
+<!--                                        <field name="allowed_fragments" class="text-center"/>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="inno_weaving_config_settings_action" model="ir.actions.act_window">
+            <field name="name">Settings</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.config.settings</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+            <field name="context">{'module' : 'innorug_manufacture', 'bin_size': False}</field>
+        </record>
+    </data>
+</odoo>

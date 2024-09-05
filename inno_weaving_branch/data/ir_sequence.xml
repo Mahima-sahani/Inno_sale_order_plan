@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="seq_weaving_center_cost_center" model="ir.sequence">
+            <field name="name">Weaving center cost center</field>
+            <field name="code">mrp.cost.center.weaving.center</field>
+            <field name="prefix">WCC/%(range_year)s/</field>
+            <field name="padding">10</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        <record id="seq_weaving_center_job_work" model="ir.sequence">
+            <field name="name">Weaving Center Job Work</field>
+            <field name="code">weaving.center.job.work</field>
+            <field name="prefix">WCJW/%(range_year)s/</field>
+            <field name="padding">10</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="branch_chk_job_work_tufted" model="ir.sequence">
+            <field name="name">Main Job Work Checksari</field>
+            <field name="code">main.jobwork.chk</field>
+            <field name="prefix">CHK/%(range_year)s/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="branch_fattupur_job_work_tufted" model="ir.sequence">
+            <field name="name">Main Job Work Fattupur</field>
+            <field name="code">main.jobwork.ftpp</field>
+            <field name="prefix">FTPP/%(range_year)s/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="branch_srv_job_work_tufted" model="ir.sequence">
+            <field name="name">Main Job Work Saravkhani</field>
+            <field name="code">main.jobwork.srv</field>
+            <field name="prefix">SRVK/%(range_year)s/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        <record id="branch_mahrajganj_job_work_tufted" model="ir.sequence">
+            <field name="name">Main Job Work Mahrajganj</field>
+            <field name="code">main.jobwork.mhrj</field>
+            <field name="prefix">SRVK/%(range_year)s/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+</odoo> 

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="action_branch_mrp_main_job_works_id" model="ir.actions.act_window">
+        <field name="name">Weaving Center Job Work</field>
+        <field name="res_model">main.jobwork</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('branch_id', '!=', False)]</field>
+        <field name="context">{'group_by':'parent_job_work_id'}</field>
+    </record>
+
+    <record id="innorug_manufacture.action_mrp_main_job_works_id" model="ir.actions.act_window">
+        <field name="domain">[('branch_id', '=', False)]</field>
+    </record>
+
+    <record id="Weaving_branch_main_job_work_inherit_form" model="ir.ui.view">
+        <field name="name">main.jobwork.inherit.inno.weaving.branch.form</field>
+        <field name="model">main.jobwork</field>
+        <field name="inherit_id" ref="innorug_manufacture.view_mrp_main_job_work_form"/>
+        <field name="arch" type="xml">
+            <div name="reference_header" position="before">
+                <div class="float-end badge rounded bg-info text-uppercase p-2 text-bg-dark" attrs="{'invisible': [('is_branch_subcontracting', '=', False)]}" style="height:2rem;">
+                    <field name="weaving_center_name" no_label="1" readonly="1" style="font-weight:600; font-size: 1rem; padding:1px;"/>
+                </div>
+            </div>
+            <field name="barcode_released" position="after">
+                <field name="branch_id" invisible="1"/>
+                <field name="child_job_work_ids" invisible="1"/>
+                <field name="is_branch_subcontracting" invisible="1"/>
+            </field>
+<!--            <button name="button_release_components" position="attributes">-->
+<!--                <attribute name="attrs">{'invisible': ['|', ('state', '!=', 'allotment'), ('branch_id', '!=', False)]}</attribute>-->
+<!--            </button>-->
+            <xpath expr="//header/button[3]" position="attributes">
+                <attribute name="attrs">{'invisible': ['|', '|',('state', '!=', 'release'), ('barcode_released', '=', True), ('branch_id', '!=', False)]}</attribute>
+            </xpath>
+            <xpath expr="//header/button[4]" position="attributes">
+                <attribute name="attrs">{'invisible': ['|', '|', '|', ('barcode_released', '!=', True), ('state', 'not in', ['release', 'qa', 'baazar']), ('quantity_full_received', '!=', False), ('branch_id', '!=', False)]}</attribute>
+            </xpath>
+            <button name="button_assign_qa" position="attributes">
+                <attribute name="attrs">{'invisible': ['|', '|', ('state', 'not in', ['release', 'qa']), ('force_qa_needed', '!=', False), ('branch_id', '!=', False)]}</attribute>
+            </button>
+            <button name="button_ready_bazaar" position="attributes">
+                <attribute name="attrs">{'invisible': ['|', '|', ('state', 'not in', ['qa', 'release', 'baazar']), ('quantity_full_received', '=', True), ('branch_id', '!=', False)]}</attribute>
+            </button>
+<!--            <button name="button_amend_quantity" position="attributes">-->
+<!--                <attribute name="attrs">{'invisible': ['|', '|', ('quantity_full_received', '=', True), ('is_branch_subcontracting', '!=', False), ('branch_id', '!=', False)]}</attribute>-->
+<!--            </button>-->
+<!--             <button name="button_return_components" position="attributes">-->
+<!--                <attribute name="attrs">{'invisible': ['|', '|', ('state', '!=', 'baazar'), ('quantity_full_received', '!=', True), ('child_job_work_ids', '!=', False)]}</attribute>-->
+<!--            </button>-->
+            <button name="button_cancel" position="attributes">
+                <attribute name="attrs">{'invisible': ['|', ('state', 'in',['cancel','done']), ('branch_id', '!=', False)]}</attribute>
+            </button>
+            <button name="button_ready_bazaar" position="attributes">
+                <attribute name="attrs">{'invisible': ['|', '|', ('state', 'not in', ['qa', 'release', 'baazar']), ('quantity_full_received', '=', True), ('is_branch_subcontracting', '!=', False)]}</attribute>
+            </button>
+            <button name="button_confirm" position="after">
+                <button name="button_amend_quantity" string="AMENDED QUANTITY" type="object" class="btn-primary" attrs="{'invisible': ['|', ('branch_id', '=', False), ('state', '!=', 'baazar')]}" context="{'branch_amendment': True}"/>
+                <button name="button_cancel_for_branch" string="CANCEL" type="object" class="btn-primary" attrs="{'invisible': ['|', ('state', 'in',['cancel','done']), ('branch_id', '=', False)]}"/>
+            </button>
+        </field>
+    </record>
+</odoo>

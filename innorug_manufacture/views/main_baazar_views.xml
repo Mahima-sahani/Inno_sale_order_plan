@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Main Baazar Tree -->
+    <record id="view_mrp_main_baazar_tree" model="ir.ui.view">
+        <field name="name">Main Baazar</field>
+        <field name="model">main.baazar</field>
+        <field name="arch" type="xml">
+            <tree create="0" edit="0" delete="0">
+                <field name="reference"/>
+                <field name="date"/>
+                <field name="main_jobwork_id"/>
+                <field name="subcontractor_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Main Baazar Form -->
+    <record id="view__mrp_main_main_baazar_form" model="ir.ui.view">
+        <field name="name">Main Baazar</field>
+        <field name="model">main.baazar</field>
+        <field name="arch" type="xml">
+            <form create="0" delete="0">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible ="receiving,qc"/>
+                    <button name="finish_bazaar" type="object" string="FINISH RECEIVING" class="btn-primary" attrs="{'invisible': [('state', '!=', 'receiving')]}"/>
+                    <button name="reissue_rejected_barcodes" type="object" string="Re-Issue Rejected Barcodes" class="btn-primary" attrs="{'invisible': [('state', '!=', 'qc')]}"/>
+                    <button name="button_incentive" type="object" string="ADD INCENTIVE" class="btn-primary" attrs="{'invisible': [('state', '!=', 'incentive')]}" context="{'incentive': True}" groups="innorug_manufacture.group_inno_weaving_manager"/>
+                    <button name="button_incentive" type="object" string="CONTINUE WITHOUT INCENTIVE" class="btn-primary" attrs="{'invisible': [('state', '!=', 'incentive')]}"/>
+                    <button name="generate_bill" type="object" string="GENERATE BILL" class="btn-primary" attrs="{'invisible': [('state', '!=', 'bill')]}"/>
+                    <button name="generate_bill" type="object" string="GENERATE BILL [ADD BARCODE DISCOUNT]" class="btn-primary" attrs="{'invisible': [('state', '!=', 'bill')]}" context="{'re_print_discount': True}"/>
+                </header>
+                <div class="alert alert-warning" role="alert" attrs="{'invisible': [('display_scan_warning', '=', False)]}">
+                  <h5><center><field name="display_scan_warning" nolabel="1" readonly="1"/></center></h5>
+                </div>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="object" name="open_vendor_bills" icon="fa-truck" attrs="{'invisible': [('bill_count', '=', 0)]}" groups="account.group_account_invoice">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="bill_count"/>
+                                </span>
+                                <span class="o_stat_text">Bill</span>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="h2">
+                        <field name="reference" nolabel="1" readonly = "1"/>
+                    </div>
+                    <group >
+                        <group>
+                            <field name="main_jobwork_id" readonly="1" attrs="{'invisible': [('main_jobwork_id', '=', False)]}" options="{'no_create': True}"/>
+                            <field name="date" readonly="1"/>
+                            <field name="location_id" attrs="{'readonly': [('state', '!=', 'receiving')]}" force_save="1" required="1"/>
+                        </group>
+                        <group>
+                            <field name="subcontractor_id" readonly="1"/>
+                            <field name="scanned_barcode_id" attrs="{'invisible': ['|', ('state', '!=', 'receiving'), ('location_id', '=',  False)]}" options="{'no_create': True}" style="border: 2px solid black; border-radius:12px;" placeholder="Click here and Start Scanning Barcodes......."/>
+                            <field name="display_scan_warning" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Product Details">
+                            <field name="baazar_lines_ids">
+                                <tree editable="bottom" create="0" delete="0">
+                                    <field name="barcode" readonly="1"/>
+                                    <field name="product_id" readonly="1"/>
+                                    <field name="penalty" readonly="1"/>
+                                    <field name="is_full_penalty" readonly="1"/>
+                                    <field name="expected_weight" readonly="1"/>
+                                    <field name="actual_weight" readonly="1"/>
+                                    <field name="state" readonly="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="o_attachment_preview" attrs="{'invisible': [('state', 'not in', ['bill', 'done'])]}"/>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_main_bazaar_search" model="ir.ui.view">
+            <field name="name">main.bazaar.search</field>
+            <field name="model">main.baazar</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="reference"/>
+                    <field name="main_jobwork_id"/>
+                    <field name="subcontractor_id"/>
+                </search>
+            </field>
+        </record>
+
+    <record id="action_mrp_main_baazar_id" model="ir.actions.act_window">
+        <field name="name">Main Baazar</field>
+        <field name="res_model">main.baazar</field>
+        <field name="view_mode">tree,form,search</field>
+        <field name="context">{}</field>
+        <field name="domain">[('state', '!=', 'done')]</field>
+    </record>
+</odoo> 

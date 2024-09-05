@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+inno_weaving_branch.weaving_branch,access_weaving_branch,inno_weaving_branch.model_weaving_branch,,1,1,1,1
+inno_weaving_branch.jobwork_allotment,access_jobwork_allotment,inno_weaving_branch.model_jobwork_allotment,innorug_manufacture.group_inno_weaving_user,1,1,1,1
+inno_weaving_branch.weaving_center_allotment,access_weaving_center_allotment,inno_weaving_branch.model_weaving_center_allotment,,1,1,1,1
+inno_weaving_branch.weaving_center_allotment_line,access_weaving_center_allotment_line,inno_weaving_branch.model_weaving_center_allotment_line,,1,1,1,1

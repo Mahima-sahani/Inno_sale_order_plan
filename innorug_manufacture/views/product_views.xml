@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="mrp_stock_warehouse_form_view_inheritedww_product_product_id" model="ir.ui.view">
+        <field name="name">product.template</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <data>
+                  <xpath expr="//header" position="inside">
+                        <button name="update_rate_operation" type="object" string="Update Rate Operation" class="btn-primary"/>
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page string="Design Details" attrs="{'invisible': [('raw_material_group', '!=', False)]}">
+                        <group>
+                            <group>
+                                <field name="construction" options="{'no_create': True, 'no_open': True}"/>
+                                <field name="collection" options="{'no_create': True, 'no_open': True}"/>
+                                <field name="quality" options="{'no_create': True, 'no_open': True}"/>
+                                <field name="color_ways" options="{'no_create': True, 'no_open': True}"/>
+                                <field name="style" options="{'no_create': True, 'no_open': True}"/>
+                                <field name="color" options="{'no_create': True, 'no_open': True}"/>
+                                <field name="pattern" options="{'no_create': True, 'no_open': True}"/>
+                                <field name="contect" options="{'no_create': True, 'no_open': True}"/>
+                                <field name="face_content" options="{'no_create': True, 'no_open': True}"/>
+                                <field name="remark"/>
+                                <field name="standard_cost"/>
+                                <field name="origin"/>
+
+                            </group>
+                            <group>
+                                <field name="finish_weight" string="Finish Weigh(kg)"/>
+                                <field name="trace"/>
+                                <field name="map"/>
+                                <field name="binding_prm"/>
+                                <field name="gachhai_prm"/>
+                                <field name="durry_prm"/>
+                                <field name="pile_height"/>
+                                <field name="loop_cut"/>
+                                <field name="durry_prm"/>
+                                <field name="pile_height"/>
+                                <field name="loop_cut"/>
+                                <field name="division_id"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Materials Details" attrs="{'invisible': [('division_id', '!=', False)]}">
+                        <group>
+                            <group>
+                                <field name="is_raw_material" readonly="1" widget="boolean_toggle"/>
+                                <field name="with_shade" widget="boolean_toggle"
+                                       attrs="{'invisible': [('is_raw_material', '=', False)]}"/>
+                            </group>
+                            <group>
+                                <field name="raw_material_group"/>
+                                 <field name="is_polytube" widget="boolean_toggle"/>
+                                <field name="is_spinning" widget="boolean_toggle"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Rate List">
+                        <field name="rate_list_id">
+                            <tree editable="bottom">
+                                <field name="work_center_id"/>
+                                <field name="price_list_id"/>
+                                <field name="uom_id"/>
+                                <field name="rate_group_id"/>
+                                <field name="fixed_incentive"/>
+                                <field name="expire_incentive"/>
+                                <field name="is_outside"/>
+                                <field name="is_far"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+    <record id="mrp_form_view_choti_product_id" model="ir.ui.view">
+        <field name="name">product.product</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_product_tree_view"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//field[@name='standard_price']" position="after">
+                    <field name="inno_mrp_size_id" string="Mrp Size"/>
+                    <field name="mrp_area" string="Mrp Area"/>
+                    <field name="inno_finishing_size_id" string="Finishing Size"/>
+                    <field name="finishing_area" string="Finishing Arae"/>
+                    <field name="choti"/>
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+
+    <record id="mrp_form_view_inherit11_product_product_id" model="ir.ui.view">
+        <field name="name">product.product</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <data>
+                <!--                <field name='weight' position="after">-->
+                <!--                    <field name="size"/>-->
+                <!--                </field>-->
+                <xpath expr="//notebook" position="inside">
+                    <page string="Product Details">
+                        <group>
+                            <group>
+                                <field name="changeable_cloth" widget="boolean_toggle"
+                                       attrs="{'invisible': [('is_raw_material', '=', False)]}"/>
+                                <field name="is_raw_material" invisible="1"/>
+                                <field name="shape_type" attrs="{'invisible': [('is_raw_material', '!=', False)]}"/>
+                                <field name="choti" attrs="{'invisible': [('is_raw_material', '!=', False)]}"/>
+                                <field name="inno_mrp_size_id"
+                                       attrs="{'invisible': [('is_raw_material', '!=', False)]}"/>
+                                <label for="mrp_area" attrs="{'invisible': [('is_raw_material', '!=', False)]}"/>
+                                <div class="o_row" attrs="{'invisible': [('is_raw_material', '!=', False)]}">
+                                    <field name="mrp_area"/>
+                                    <span>Sqr. Yard</span>
+                                </div>
+                            </group>
+                            <group>
+                                <field name="inno_finishing_size_id"
+                                       attrs="{'invisible': [('is_raw_material', '!=', False)]}"/>
+                                <label for="finishing_area" attrs="{'invisible': [('is_raw_material', '!=', False)]}"/>
+                                <div class="o_row" attrs="{'invisible': [('is_raw_material', '!=', False)]}">
+                                    <field name="finishing_area" widget="float"/>
+                                    <span>Sqr. Yard</span>
+                                </div>
+                                <!--                                <label for="sq_feet_area"/>-->
+                                <!--                                <div class="o_row">-->
+                                <!--                                    <field name="sq_feet_area" readonly="1" widget="float"/>-->
+                                <!--                                    <span>Sqr. Feet</span>-->
+                                <!--                                </div>-->
+                                <field name="buyer_upc_code"/>
+                                <field name="buyer_specification"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Rate List">
+                        <field name="rate_list_id">
+                            <tree editable="bottom">
+                                <field name="work_center_id"/>
+                                <field name="price_list_id"/>
+                                <field name="uom_id"/>
+                                <field name="rate_group_id"/>
+                                <field name="fixed_incentive"/>
+                                <field name="expire_incentive"/>
+                                <field name="is_outside"/>
+                                <field name="is_far"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </data>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_mrp_barcode_tree" model="ir.ui.view">
+        <field name="name">barcodes.tree</field>
+        <field name="model">mrp.barcode</field>
+        <field name="arch" type="xml">
+            <tree create="false" edit="false" duplicate="false" delete="0">
+                <field name="name"/>
+                <field name="product_id"/>
+                <field name="sale_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_mrp_barcode_form" model="ir.ui.view">
+        <field name="name">barcodes.form</field>
+        <field name="model">mrp.barcode</field>
+        <field name="arch" type="xml">
+            <form create="false" edit="false" duplicate="false" delete="0">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible ="1_mrp,2_allotment,3_allocated,4_received"/>
+                </header>
+                <sheet>
+                    <field name="barcode" widget="image" class="oe_avatar"/>
+                    <div class="oe_title">
+                        <label for="name" string="Barcode Number"/>
+                        <h1>
+                            <div class="d-flex">
+                                <field class="text-break" name="name"/>
+                            </div>
+                        </h1>
+                    </div>
+                    <group >
+                        <group>
+                            <field name="product_id"/>
+                            <field name="mrp_id" readonly="1"/>
+                            <field name="main_job_work_id" readonly="1" attrs="{'invisible': [('main_job_work_id', '=', False)]}"/>
+                        </group>
+                        <group>
+                            <field name="division_id"/>
+                            <field name="size"/>
+                            <field name="quality"/>
+                        </group>
+                        <group>
+                            <field name="design"/>
+                            <field name="bazaar_id"/>
+                        </group>
+                        <group>
+                            <field name="sale_id" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Incentive &amp; Penalties">
+                            <field name="pen_inc_ids">
+                                <tree create="0" edit="bottom" delete="0">
+                                    <field name="type" string="Reason" readonly="1"/>
+                                    <field name="record_date" string="Date" readonly="1"/>
+                                    <field name="amount" readonly="1"/>
+                                    <field name="workcenter_id" readonly="1"/>
+                                    <field name="remark" readonly="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+<!--    kanban-->
+
+    <record id="view_mrp_barcode_kanban" model="ir.ui.view">
+        <field name="name">mrp.barcode.kanban</field>
+        <field name="model">mrp.barcode</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state" class="oe_background_grey" group_create="False" quick_create="0" group_edit="false" group_delete="false" create="0">
+                <field name="state" readonly="1"/>
+                <field name="product_id"/>
+                <field name="division_id"/>
+                <field name="mrp_id"/>
+                <field name="color"/>
+                <field name="sale_id"/>
+                <field name="location_id"/>
+                <field name="current_process"/>
+                <field name="id"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click oe_kanban_card oe_kanban_global_click oe_semantic_html_override">
+                            <div>
+                                <div class="row" style="margin-bottom:4px;">
+                                    <div class="col-6">
+                                        <div class="o_kanban_image">
+                                            <img t-att-src="kanban_image('mrp.barcode','barcode', record.id.raw_value)"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 text-end">
+                                        <strong style="color:#338691;"><field name="product_id" /></strong>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <strong>SALE: </strong><t t-esc="record.sale_id.value"/><br/>
+                                        <strong>MANUFACTURING: </strong><t t-esc="record.mrp_id.value"/>
+                                    </div>
+                                    <div class="col-12">
+                                        <strong>DIVISION: </strong><t t-esc="record.division_id.value"/><br/>
+                                        <strong>CURRENT OPERATION: </strong><t t-esc="record.current_process.value"/>
+                                        <t t-if="record.location_id.value">
+                                            <strong>LOCATION: </strong><t t-esc="record.location_id.value"/><br/>
+                                        </t>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_mrp_barcodes" model="ir.actions.act_window">
+        <field name="name">Barcodes</field>
+        <field name="res_model">mrp.barcode</field>
+        <field name="view_mode">tree,kanban,form</field>
+    </record>
+
+</odoo>

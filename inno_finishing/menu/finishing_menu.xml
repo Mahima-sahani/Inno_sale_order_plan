@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <menuitem id="menu_inno_finishing"
+          name="Finishing"
+           groups="group_inno_finishing_qa,group_inno_finishing_bazaar_organiser"/>
+
+    <menuitem id="menu_inno_carpet_transfer"
+          name="Carpet Transfer"
+           groups="inno_finishing.group_inno_finishing_inno_transfer_user"/>
+    <menuitem id="sub_menu_inno_barcode_transfer"
+              name="Barcode"
+              parent="menu_inno_carpet_transfer"
+              action="action_mrp_barcode_transfer_id"
+              sequence="-200"
+      groups="inno_finishing.group_inno_finishing_inno_transfer_user"/>/>
+
+     <menuitem id="menu_carpet_action_carpet_transfer"
+              name="Transfer"
+              parent="menu_inno_carpet_transfer"
+               groups="inno_finishing.group_inno_finishing_inno_transfer_user"
+              sequence="2"/>
+
+    ####################################################
+      <menuitem id="sub_menu_inno_barcode"
+              name="Barcode"
+              parent="menu_inno_finishing"
+                 action="action_mrp_barcode_ids"
+              sequence="-200"
+      groups="group_inno_finishing_bazaar_organiser"/>
+
+<!--     <menuitem id="sub_menu_inno_pending_barcode"-->
+<!--              name="Barcode"-->
+<!--              parent="sub_menu_inno_barcode"-->
+<!--              action="action_mrp_barcode_id"-->
+<!--              sequence="1"-->
+<!--      groups="group_inno_finishing_user"/>-->
+
+    ########################################################################
+
+    <menuitem id="sub_menu_inno_finishing"
+              name="Finishing Work Order"
+              parent="menu_inno_finishing"
+              action="action_finishing_work_order"
+               groups="group_inno_finishing_user"
+              sequence="3"
+    />
+
+       <menuitem id="sub_menu_inno_finishing_ready_latex"
+              name="Ready Latex MRP"
+              parent="menu_inno_finishing"
+              action="action_latex_production_order_id"
+               groups="group_inno_finishing_user"
+              sequence="5"
+    />
+
+       <menuitem id="sub_menu_inno_finishing_material_issue"
+              name="Materials Issue"
+              parent="menu_inno_finishing"
+              action="action_inno_finishing_bom_wizards"
+               groups="group_inno_finishing_user"
+              sequence="4"
+    />
+
+
+     <menuitem id="sub_menu_inno_finishing_receive"
+              name="Receive"
+              parent="menu_inno_finishing"
+              action="action_mrp_finishing_baazar_id"
+               groups="group_inno_finishing_user"
+               sequence="6
+"
+    />
+     <menuitem id="menu_carpet_action_finishing_operation_wizard"
+              name="Operation"
+              parent="menu_inno_finishing"
+               groups="inno_finishing.group_inno_finishing_bazaar_organiser"
+              sequence="2"/>
+     <menuitem id="sub_menu_carpet_issue_finishing"
+              name="Issue"
+              parent="menu_carpet_action_finishing_operation_wizard"
+              action="action_finishing_operation_issue_wizard"
+              sequence="1"/>
+
+    ##################################carpet transfer
+     <menuitem id="menu_carpet_transfer_carpet"
+              name="Issue"
+              parent="menu_carpet_action_carpet_transfer"
+              action="action_finishing_transfer_wizard"
+              sequence="3"/>
+      <menuitem id="menu_carpet_transfer_received_carpet"
+              name="Receive"
+              parent="menu_carpet_action_carpet_transfer"
+              action="action_finishing_transfer_received_wizard"
+              sequence="4"/>
+
+      <menuitem id="menu_carpet__carpet"
+              name="Bulk Receive"
+              parent="menu_carpet_action_finishing_operation_wizard"
+              action="action_finishing_inno_barcode_scan"
+              sequence="2"/>
+    <menuitem id="menu_carpet_transfer"
+              name="Record"
+              parent="menu_inno_carpet_transfer"
+              action="action_carpet_transfer"
+               groups="inno_finishing.group_inno_finishing_transfer_manager"
+              sequence="6"/>
+
+      <menuitem id="menu_finishing_qualityr"
+              name="Quality"
+              parent="menu_inno_finishing"
+              action="action_jobwork_received_process"
+                groups="inno_finishing.group_inno_finishing_qa"
+              sequence="3"/>
+       <menuitem id="menu_finishing_inspection"
+              name="Inspection"
+              parent="menu_inno_finishing"
+              action="action_finish_controls_id"
+                 groups="inno_finishing.group_inno_finishing_admin"
+              sequence="6"/>
+     <menuitem id="menu_finishing_reports"
+              name="Finishing Reports"
+              parent="menu_inno_finishing"
+               action="action_finishing_reports_wizard"
+                groups="inno_finishing.group_inno_finishing_user"
+              sequence="10"/>
+      <menuitem id="menu_finishing_configuration"
+              name="Configuration"
+              parent="menu_inno_finishing"
+                groups="inno_finishing.group_inno_finishing_admin"
+              sequence="11"/>
+    <menuitem id="sub_menu_weaving_branch_settings"
+              name="Settings"
+              parent="menu_finishing_configuration"
+              action="inno_finishing_config_settings_action"
+              sequence="1"/>
+        <menuitem id="sub_menu_weaving_bom_settings"
+              name="Bill of Materials"
+              parent="menu_finishing_configuration"
+              action="action_finishing_division_order_bom"
+              sequence="2"/>
+
+    <menuitem id="inno_menu_finishing_material_wizards"
+        name="Finishing Materials Issue"
+        parent="innorug_manufacture.inno_inventory"
+        action="action_inno_finishing_bom_wizards"
+        sequence="47" />
+</odoo>

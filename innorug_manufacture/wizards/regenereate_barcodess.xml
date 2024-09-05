@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record id="view_mrp_regenerate_barcode_wizard" model="ir.ui.view">
+        <field name="name">regenerate.barcode.wizard</field>
+        <field name="model">mrp.barcode.regenerate</field>
+        <field name="arch" type="xml">
+            <form create="false" edit="false" duplicate="false">
+                <sheet>
+                    <div style="background-color:#FADA5E; color:black; padding: 10px;">
+                        <h3>Note:</h3><br/>
+                        <li>Re-Generating Barcodes will add lost penalty of <b>₹ <field name="barcode_reprint_penalty" readonly="1"/> </b> per product.</li>
+                        <br/>
+                        <li>You can choose to download all barcodes or select the specific barcodes to print.</li>
+                    </div>
+                    <br/>
+                    <group>
+                        <group>
+                            <field name="print_all_barcodes"/>
+                        </group>
+                        <group>
+                            <field name="barcodes" widget="many2many_tags" attrs="{'invisible':[('print_all_barcodes', '=', True)]}"/>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Confirm" class="btn-primary" type="object" name="regenerate_barcodes"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

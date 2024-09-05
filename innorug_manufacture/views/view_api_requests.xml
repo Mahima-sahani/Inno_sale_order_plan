@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_api_request_tree" model="ir.ui.view">
+        <field name="name">requests.tree</field>
+        <field name="model">api.request</field>
+        <field name="arch" type="xml">
+            <tree create="false" edit="false" duplicate="false">
+                <field name="user_id"/>
+                <field name="operation"/>
+                <field name="status"/>
+                <field name="date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_api_request_form" model="ir.ui.view">
+        <field name="name">requests.form</field>
+        <field name="model">api.request</field>
+        <field name="arch" type="xml">
+            <form create="false" edit="false" duplicate="false">
+                <header>
+                    <field name="status" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="request_reference" string="Request Reference"/>
+                        <h1>
+                            <div class="d-flex">
+                                <field class="text-break" name="request_reference"/>
+                            </div>
+                        </h1>
+                    </div>
+                    <group >
+                            <field name="user_id" readonly="1"/>
+                            <field name="operation" readonly="1"/>
+                            <field name="date" readonly="1"/>
+                    </group>
+                    <notebook>
+                        <page string="Requested Data">
+                            <field name="requested_data" readonly="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="action_api_request" model="ir.actions.act_window">
+        <field name="name">Requests</field>
+        <field name="res_model">api.request</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

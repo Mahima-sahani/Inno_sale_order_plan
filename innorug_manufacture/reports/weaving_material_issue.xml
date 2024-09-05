@@ -1,0 +1,165 @@
+<odoo>
+    <template id="report_weaving_material_issue">
+        <t t-call="web.html_container">
+            <t t-set="data_report_landscape" t-value="False"/>
+            <t t-call="web.external_layout" style="margin-top: 100px;">
+                <div class="page">
+                    <div class="text-center" style="border-bottom: 1px solid black;">
+                        <br/>
+                        <h4>
+                            <b>
+                                <t t-esc="data.get('report_type')"/>
+                            </b>
+                        </h4>
+                        <br/>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="row">
+                                <div class="col-4">
+                                    <h6>
+                                        <b>Report Type</b>
+                                    </h6>
+                                </div>
+                                <div class="col-1">
+                                    <h6>:</h6>
+                                </div>
+                                <div class="col-6">
+                                    <h6>
+                                        Party Wise Summary
+                                    </h6>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <h6>
+                                        <b>To Date</b>
+                                    </h6>
+                                </div>
+                                <div class="col-1">
+                                    <h6>:</h6>
+                                </div>
+                                <div class="col-6">
+                                    <h6>
+                                        <t t-esc="data.get('to_date')"/>
+                                    </h6>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <h6>
+                                        <b>For Process</b>
+                                    </h6>
+                                </div>
+                                <div class="col-1">
+                                    <h6>:</h6>
+                                </div>
+                                <div class="col-6">
+                                    <h6>
+                                        <t t-esc="data.get('report_type')"/>
+                                    </h6>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="row">
+                                <div class="col-4">
+                                    <h6>
+                                        <b>From Date</b>
+                                    </h6>
+                                </div>
+                                <div class="col-1">
+                                    <h6>:</h6>
+                                </div>
+                                <div class="col-6">
+                                    <h6>
+                                        <t t-esc="data.get('from_date')"/>
+                                    </h6>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <h6>
+                                        <b>Document Type</b>
+                                    </h6>
+                                </div>
+                                <div class="col-1">
+                                    <h6>:</h6>
+                                </div>
+                                <div class="col-6">
+                                    <h6>
+                                        Weaving
+                                    </h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-12">
+                            <t t-foreach="data.get('material_data')" t-as="mat">
+                                <table class="table table-bordered">
+                                    <thead style="background-color: rgb(182, 179, 179); height: 5px;">
+                                        <tr style="text-align: center;">
+                                            <b>
+                                                <th scope="col">Product</th>
+                                            </b>
+                                            <b>
+                                                <th scope="col">Shade</th>
+                                            </b>
+                                            <th scope="col">Qty</th>
+                                        </tr>
+                                    </thead>
+                                    <div style="text-align: center; background-color:white;">
+                                        <th>
+                                            <t t-esc="mat.get('subcontractor')"/>
+                                        </th>
+                                    </div>
+                                    <tbody>
+                                        <t t-foreach="mat.get('data')" t-as="rec">
+                                            <tr style="text-align: center;">
+                                                <td>
+                                                    <t t-esc="rec.get('product')"/>
+                                                </td>
+                                                <td>
+                                                    <t t-esc="rec.get('shade')"/>
+                                                </td>
+                                                <td>
+                                                    <t t-esc="round(rec.get('qty'), 3)"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr style="text-align: center;">
+                                            <b>
+                                                <td>Grand Total</td>
+                                            </b>
+                                            <td></td>
+                                            <td>
+                                                <t t-esc="mat.get('gtotal')"/>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_weaving_material_issue" model="ir.actions.report">
+        <field name="name">Weaving Material Issue</field>
+        <field name="model">stock.picking</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">innorug_manufacture.report_weaving_material_issue</field>
+        <field name="report_file">Weaving Material Issue</field>
+        <field name="paperformat_id" ref="base.paperformat_euro"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

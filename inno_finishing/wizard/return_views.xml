@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_inno_finishing_return_job_work_cancel" model="ir.ui.view">
+        <field name="name">Job Work Cancel</field>
+        <field name="model">inno.return.job.work</field>
+        <field name="arch" type="xml">
+            <form >
+                <sheet>
+                    <div style="background-color:#FADA5E; color:black; padding: 10px;text-align:center;" attrs="{'invisible': [('cancel_without_materials', '=', False)]}">
+                        <strong>Cancel Without Material</strong> will Cancel barcodes with out any material return in stock.
+                    </div>
+                    <div style="background-color:#FADA5E; color:black; padding: 10px;text-align:center;" attrs="{'invisible': [('raise_warning', '=', False)]}">
+                        You Can't Select Full Cancellation, As you have already received some products.
+                    </div>
+                         <div style="background-color:#89CFF0; color:black; padding: 10px; text-align:center;" attrs="{'invisible': [ ('display_warning', '=', False)]}">
+                        <h4>You have scanned the barcode that is already received or not associated with current job work .</h4>
+                    </div>
+                    <br/>
+                    <group>
+                        <group>
+                            <field name="raise_warning" invisible="1"/>
+                            <field name='job_work_id' invisible="1"/>
+                            <field name='display_warning' invisible="1"/>
+                            <field name="total_qty"/>
+                            <field name="cancel_without_materials"  widget="boolean_toggle"/>
+                        </group>
+                        <group>
+                            <field name="scan_qty"/>
+                            <field name="barcode_ids" widget="many2many_tags"/>
+                              <field name="cancel_reason" required="1"/>
+                            <label for="penalty">Penalty</label>
+                            <div>
+                                <field name="penalty"/>
+                                <div  style="color:orange;"><strong>Penalty Per Barcode Cancelled<br/>Enter Amount to Charge per barcode cancelled</strong></div>
+                                <div style="color:red;"><strong>Penalty For Full Cancellation of the Job Work<br/>Enter Full Amount to Charge</strong></div>
+                            </div>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Confirm" class="btn-primary" type="object" name="do_confirm"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

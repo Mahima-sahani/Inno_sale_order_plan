@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Tree -->
+        <record id="view_surya_excel_sale_order_tree_view" model="ir.ui.view">
+            <field name="name">Sale Order Planning</field>
+            <field name="model">inno.sale.order.planning</field>
+            <field name="arch" type="xml">
+                <tree create="0" edit="0" delete="0" duplicate="0">
+                    <header>
+                        <button name="generate_purchase_report" string="Generate Purchase Report" type="object"
+                                class="btn-primary"/>
+                    </header>
+                    <field name="customer_name"/>
+                    <field name="order_no"/>
+                    <field name="order_date"/>
+                    <field name="due_date"/>
+                    <field name="sale_order_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form -->
+        <record id="view_surya_excel_sale_order_form_view" model="ir.ui.view">
+            <field name="name">Sale Order Planning</field>
+            <field name="model">inno.sale.order.planning</field>
+            <field name="arch" type="xml">
+                <form create="0" delete="0" duplicate="0">
+                    <header>
+                        <button name="set_mrp_qty" string="Set Mrp Qty" type="object" class="btn-primary"
+                                attrs="{'invisible': [('state', 'not in',['planning',])]}"/>
+                        <button name="manger_authentication" string="Send for manager Authorization" type="object"
+                                class="btn-primary" attrs="{'invisible': [('state', 'not in',['planning',])]}"/>
+                        <button name="button_action_for_sale_order" string="Authorize" type="object" class="btn-primary"
+                                attrs="{'invisible': [('state', 'not in',['authorization',])]}"
+                                groups="inno_sale_order_plan.group_inno_sales_planning_manager"/>
+                        <button name="generate_dyeing_purchase" string="Generate Dyeing Order" type="object"
+                                class="btn-primary"
+                                attrs="{'invisible': ['|', ('state', '!=', 'confirm'), ('dyeing_intend_count', '>', 0)]}"/>
+                        <button name="create_product_planning_report" string="Generate Dyeing Plan Report" type="object"
+                                class="btn-primary" attrs="{'invisible': [('state', '!=', 'confirm')]}"/>
+                        <button name="resync_bom" string="Re-sync Bom" type="object" class="btn-info"/>
+                        <button name="validate_weaving" string="Validate Weaving" type="object" class="btn-info"/>
+                        <button name="update_sale_order_order" string="Update Sale Order" type="object"
+                                class="btn-primary" attrs="{'invisible': ['|',('state', '!=', 'confirm'),('amd_parent_id', '!=', False)]}"/>
+                        <field name="state" widget="statusbar" statusbar_visible="planning,authorization,confirm"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_sale_order" type="object"
+                                    groups="inno_sale_order_plan.group_inno_sales_planning_manager"
+                                    class="oe_stat_button" icon="fa-file-text-o"
+                                    attrs="{'invisible': [('sale_order_id', '=', False)]}">
+                                <div class="o_stat_info">
+                                    <span class="o_stat_text">Sale Order</span>
+                                </div>
+                            </button>
+                            <button name="action_open_purchase_order" type="object"
+                                    groups="inno_sale_order_plan.group_inno_sales_planning_manager"
+                                    class="oe_stat_button" icon="fa-file-text-o"
+                                    attrs="{'invisible': [('dyeing_intend_count', '=', 0)]}">
+                                <div class="o_stat_info">
+                                    <span class="o_stat_text">Dyeing Order</span>
+                                </div>
+                            </button>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="customer_name" readonly="1"/>
+                                <label for="order_date" string="Order Date"/>
+                                <div class="oe_inline">
+                                    <field name="order_date" class="mr8 oe_inline" readonly="1" required="True"/>
+                                    <strong class="mr8 oe_inline">to</strong>
+                                    <field name="due_date" class="oe_inline" readonly="1" required="True"/>
+                                </div>
+                                <field name="order_type" attrs="{'readonly': [('state', '!=', 'planning')]}"/>
+                            </group>
+                            <group>
+                                <field name="sale_order_id" invisible="1"/>
+                                <field name="assigned_to" readonly="1"/>
+                                <field name="order_no" readonly="1"/>
+                                <field name="dyeing_order_ids" invisible="1"/>
+                                  <field name="is_amd" invisible="1"/>
+                                 <field name="amd_parent_id" invisible="1"/>
+                                <field name="dyeing_intend_count" invisible="1"/>
+                                <field name="ship_method" readonly="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Sale Order Plan">
+                                <field name="sale_order_planning_lines" mode="tree">
+                                    <tree editable="buttom" create="0" delete="0" decoration-danger="is_purchase ==True"
+                                          limit="1000">
+                                        <field name="product_id" readonly="1"/>
+                                        <field name="buyer_up_code" readonly="1" optional="hide"/>
+                                         <field name="is_new" readonly="1" string="New" optional="hide"/>
+                                        <field name="brand" readonly="1" optional="hide"/>
+                                        <field name="product_uom_qty" sum="qty" readonly="1"/>
+                                        <field name="available_qty" sum="qty" optional="hide"/>
+                                        <field name="rate" readonly="1"/>
+                                        <field name="manufacturing_qty" sum="qty"
+                                               attrs="{'readonly': [('state', '=', 'confirm')]}"/>
+                                        <field name="purchase_qty" sum="qty"
+                                               attrs="{'readonly': [('state', '=', 'confirm')]}"/>
+                                        <field name="stock_qty" sum="qty"
+                                               attrs="{'readonly': [('state', '=', 'confirm')]}" optional="hide"/>
+                                        <field name="remaining_qty" sum="qty" readonly="1" force_save="1"/>
+                                        <field name="state" invisible="1"/>
+                                        <field name="is_purchase" invisible="1"/>
+                                          <field name="planning_line_id" invisible="1"/>
+                                        <field name="total_amount" readonly="1" sum="qty"/>
+                                         <field name="is_revised" invisible="1"/>
+                                        <button name="set_purchase_qty" string="Set Purchase Qty" type="object"
+                                                class="btn-primary"
+                                                attrs="{'invisible': [('state', 'not in',['planning',])]}"/>
+                                        <button name="open_revised_form" type="object" icon="fa-external-link"  attrs="{'invisible': [('is_revised', '=',False)],}"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Amended Details" attrs="{'invisible': [('is_amd', '=',False)],}">
+                                <field name="amd_parent_line">
+                                    <tree editable="bottom" delete="0" create="0">
+                                        <field name="customer_name" readonly="1"/>
+                                        <field name="order_no" readonly="1"/>
+                                         <button name="open_amended_form" type="object" icon="fa-external-link"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_surya_excel_sale_order_custom_order_form_view" model="ir.ui.view">
+            <field name="name">Sale Order Planning custom order</field>
+            <field name="model">inno.sale.order.planning</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="customer_name" required="1" options="{'no_create': True}"/>
+                                <field name="order_date" class="mr8 oe_inline" required="True"
+                                       style="border-bottom: 1px solid black" stirng="Order Date"/>
+                                <field name="due_date" class="oe_inline" required="True"
+                                       style="border-bottom: 1px solid black" string="Due Date"/>
+                            </group>
+                            <group>
+                                <field name="sale_order_id" invisible="1"/>
+                                <field name="assigned_to" readonly="1"/>
+                                <field name="order_no"/>
+                                <field name="ship_method" required="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Sale Order Plan">
+                                <field name="sale_order_planning_lines" mode="tree">
+                                    <tree editable="bottom">
+                                        <field name="mapped_sku"/>
+                                        <field name="product_id" required="1"/>
+                                        <field name="brand" optional="hide"/>
+                                        <field name="buyer_up_code"/>
+                                        <field name="product_uom_qty" sum="qty" required="1"/>
+                                        <field name="rate" required="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_sale_planning_search" model="ir.ui.view">
+            <field name="name">sale.planning.search</field>
+            <field name="model">inno.sale.order.planning</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="order_no"/>
+                    <field name="customer_name"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_mrp_sale_import_id" model="ir.actions.act_window">
+            <field name="name">Sale Order Planning</field>
+            <field name="res_model">inno.sale.order.planning</field>
+            <field name="view_mode">tree,form,search</field>
+               <field name="domain">[('amd_parent_id', '=', False)]</field>
+        </record>
+
+        <record id="action_mrp_sale_custom_order" model="ir.actions.act_window">
+            <field name="name">Custom Sale order</field>
+            <field name="res_model">inno.sale.order.planning</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_surya_excel_sale_order_custom_order_form_view"/>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>
+    

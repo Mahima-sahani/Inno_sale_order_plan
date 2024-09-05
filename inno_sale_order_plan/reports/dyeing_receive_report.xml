@@ -1,0 +1,274 @@
+<odoo>
+    <template id="report_dyeing_receive">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout" style="margin-top: 100px;">
+                <div class="page">
+                    <div class="text-center" style="border-bottom: 1px solid black;">
+                        <h4>
+                            <b>Dyeing Receive</b>
+                        </h4>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="row">
+                                <div class="col-4">
+                                    <h6>
+                                        <b>Dyeing House</b>
+                                    </h6>
+                                </div>
+                                <div class="col-1">
+                                    <h6>:</h6>
+                                </div>
+                                <div class="col-6">
+                                    <h6>
+                                        <t t-esc="data.get('subcontractor').get('name')"/>
+                                    </h6>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <h6>
+                                        <b>Address</b>
+                                    </h6>
+                                </div>
+                                <div class="col-1">
+                                    <h6>:</h6>
+                                </div>
+                                <div class="col-6">
+                                    <t t-esc="data.get('subcontractor').get('address')"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <h6>
+                                        <b>City</b>
+                                    </h6>
+                                </div>
+                                <div class="col-1">
+                                    <h6>:</h6>
+                                </div>
+                                <div class="col-6">
+                                    <t t-esc="data.get('subcontractor').get('city')"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <h6>
+                                        <b>Contact No</b>
+                                    </h6>
+                                </div>
+                                <div class="col-1">
+                                    <h6>:</h6>
+                                </div>
+                                <div class="col-6">
+                                    <t t-esc="data.get('subcontractor').get('contact_no')"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <h6>
+                                        <b>Tin No</b>
+                                    </h6>
+                                </div>
+                                <div class="col-1">
+                                    <h6>:</h6>
+                                </div>
+                                <div class="col-6">
+                                    <t t-esc="data.get('subcontractor').get('aadhar_no')"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="row">
+                                <div class="col-4">
+                                    <h6>
+                                        <b>Receive No</b>
+                                    </h6>
+                                </div>
+                                <div class="col-1">
+                                    <h6>:</h6>
+                                </div>
+                                <div class="col-6">
+                                    <h6>
+                                        <b>
+                                            <t t-esc="data.get('subcontractor').get('order_no')"/>
+                                        </b>
+                                    </h6>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <h6>
+                                        <b>Receive Date</b>
+                                    </h6>
+                                </div>
+                                <div class="col-1">
+                                    <h6>:</h6>
+                                </div>
+                                <div class="col-6">
+                                    <b>
+                                        <t t-esc="data.get('subcontractor').get('date')"/>
+                                    </b>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <h6>
+                                        <b>Godown</b>
+                                    </h6>
+                                </div>
+                                <div class="col-1">
+                                    <h6>:</h6>
+                                </div>
+                                <div class="col-6">
+                                    <t t-esc="data.get('subcontractor').get('location')"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <h6>
+                                        <b>Receive By</b>
+                                    </h6>
+                                </div>
+                                <div class="col-1">
+                                    <h6>:</h6>
+                                </div>
+                                <div class="col-6">
+                                    <t t-esc="data.get('subcontractor').get('issue_by')"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <h6>
+                                        <b>Job Worker Doc.</b>
+                                    </h6>
+                                </div>
+                                <div class="col-1">
+                                    <h6>:</h6>
+                                </div>
+                                <div class="col-6">
+                                    <t t-esc="data.get('subcontractor').get('job_no')"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-12">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr style="background-color: #AEAEAE">
+                                        <th class="cell">
+                                            <b>Order No</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Design</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Product</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Shade</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Dyed Qty</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Recd Qty</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Loss</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Remarks</b>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <t t-foreach="data.get('records')" t-as="record">
+                                    <tr style="text-align: center;">
+                                        <td>
+                                            <t t-esc="record.order_no.name"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="record.design_id.name"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="record.product_id.name"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="record.product_id.product_template_variant_value_ids.name"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="round(record.allotted_qty, 3)"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="round(record.received_qty, 3)"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="round(record.loss_qty, 3)"/>
+                                        </td>
+                                        <td/>
+                                    </tr>
+                                </t>
+                                <thead>
+                                    <tr style="background-color: #AEAEAE">
+                                        <th class="cell">
+                                            <b>Total</b>
+                                        </th>
+                                        <th/>
+                                        <th/>
+                                        <th/>
+                                        <th class="cell">
+                                            <b><t t-esc="round(sum([rec.allotted_qty for rec in data.get('records')]), 3)"/></b>
+                                        </th>
+                                        <th class="cell">
+                                            <b><t t-esc="round(sum([rec.received_qty for rec in data.get('records')]), 3)"/></b>
+                                        </th>
+                                        <th class="cell">
+                                            <b><t t-esc="round(sum([rec.loss_qty for rec in data.get('records')]), 3)"/></b>
+                                        </th>
+                                        <th/>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <div class="row">
+                        <div class="col-12">
+                            <h5>
+                                <b>Remark : <t t-esc="data.get('remark')"/></b>
+                            </h5>
+                        </div>
+                    </div>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <div class="row">
+                        <div class="col-8"/>
+                        <div class="col-4">
+                            <h5>
+                                <b>Authorised Signatory</b>
+                            </h5>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_dyeing_receive_report" model="ir.actions.report">
+        <field name="name">Dyeing Receive</field>
+        <field name="model">inno.dyeing.receive</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">inno_sale_order_plan.report_dyeing_receive</field>
+        <field name="report_file">Dyeing Receive</field>
+        <field name="paperformat_id" ref="base.paperformat_euro"/>
+        <field name="binding_model_id" ref="model_inno_dyeing_receive"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

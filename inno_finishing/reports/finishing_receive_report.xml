@@ -1,0 +1,338 @@
+<odoo>
+
+    <template id="finishing_receive_report">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <style type="text/css">
+                    th{
+                    color: #348691;
+                    }
+                    .highlight {
+                    color: #af8835;
+                    }
+                    td{
+                    font-size: 12px;
+                    }
+                </style>
+                <div class="page">
+                    <div class="row" style="border-top: 2px solid black; border-bottom: 2px solid black; padding: 4px;">
+                        <div style="text-align: center">
+                            <b>  <t t-esc="data.get('header')"/></b>
+                        </div>
+                    </div>
+                    <br></br>
+                    <t t-foreach="enumerate(data.get('sub_data'))" t-as="rec">
+                        <div class="row">
+                            <div class="col-5">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <b>Name</b>
+                                    </div>
+                                    <div class="col-1">:</div>
+                                    <div class="col-7">
+                                        <t t-esc="rec[1].get('vendor')"/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-3">
+                                        <b>Code</b>
+                                    </div>
+                                    <div class="col-1">:</div>
+                                    <div class="col-7">
+                                        <t t-esc="rec[1].get('Code')"/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-3">
+                                        <b>GSTIN</b>
+                                    </div>
+                                    <div class="col-1">:</div>
+                                    <div class="col-7">
+                                        <t t-esc="rec[1].get('GSTIN')"/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-3">
+                                        <b>Address</b>
+                                    </div>
+                                    <div class="col-1">:</div>
+                                    <div class="col-7">
+                                        <t t-esc="rec[1].get('Address')"/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-3">
+                                        <b>Mobile</b>
+                                    </div>
+                                    <div class="col-1">:</div>
+                                    <div class="col-7">
+                                        <t t-esc="rec[1].get('Mobile')"/>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-2">
+
+                            </div>
+                            <div class="col-5">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <b>Receive Date</b>
+                                    </div>
+                                    <div class="col-1">:</div>
+                                    <div class="col-7">
+                                        <t t-esc="rec[1].get('Receive Date')"/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <b>Godown</b>
+                                    </div>
+                                    <div class="col-1">:</div>
+                                    <div class="col-7">
+                                        <t t-esc="rec[1].get('Godown')"/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <b>Receive By</b>
+                                    </div>
+                                    <div class="col-1">:</div>
+                                    <div class="col-7">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <b>Remark</b>
+                                    </div>
+                                    <div class="col-1">:</div>
+                                    <div class="col-7">
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <br></br>
+                        <div class="row">
+                            <div class="col-12">
+                                <table style="padding: 1px;" class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th class="cell">
+                                                <b>Receive No</b>
+                                            </th>
+                                            <th class="cell">
+                                                <b>Order No</b>
+                                            </th>
+                                            <th class="cell">
+                                                <b>Issue Date</b>
+                                            </th>
+                                            <th class="cell">
+                                                <b>Design</b>
+                                            </th>
+                                            <th class="cell">
+                                                <b>HSN/SAC</b>
+                                            </th>
+                                            <th class="cell">
+                                                <b>Size</b>
+                                            </th>
+                                            <th class="cell">
+                                                <b>PCS</b>
+                                            </th>
+                                            <th class="cell">
+                                                <b>Penality</b>
+                                            </th>
+                                            <th class="cell">
+                                                <b>Barcode</b>
+                                            </th>
+                                            <th class="cell">
+                                                <b>Status</b>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <t t-foreach="enumerate(rec[1].get('data'))" t-as="records">
+                                        <t t-foreach="enumerate(records[1].get('lines'))" t-as="data_records">
+                                            <tr>
+                                                <td style="border-right: 2px solid black; margin: 2px;">
+                                                    <t t-if="data_records[0] == 0">
+                                                        <t t-esc="records[1].get('receive_no')"/>
+                                                    </t>
+                                                </td>
+                                                <td style="border-right: 2px solid black; margin: 2px;">
+                                                    <t t-if="data_records[0] == 0">
+                                                        <t t-esc="records[1].get('order_no')"/>
+                                                    </t>
+                                                </td>
+                                                <td style="border-right: 2px solid black; margin: 2px;">
+                                                    <t t-if="data_records[0] == 0">
+                                                        <t t-esc="records[1].get('order_date')"/>
+                                                    </t>
+                                                </td>
+                                                <td style="border-right: 2px solid black; margin: 2px;">
+                                                    <t t-esc="data_records[1].get('design')"/>
+
+                                                </td>
+                                                <td style="border-right: 2px solid black; margin: 2px;">
+                                                    <t t-esc="data_records[1].get('hsn')"/>
+                                                </td>
+                                                <td style="border-right: 2px solid black; margin: 2px;">
+                                                    <t t-esc="data_records[1].get('size')"/>
+                                                </td>
+                                                <td style="border-right: 2px solid black; margin: 2px;">
+                                                    <t t-esc="data_records[1].get('pcs')"/>
+                                                </td>
+                                                <td style="border-right: 2px solid black; margin: 2px;">
+                                                    <t t-esc="data_records[1].get('penality')"/>
+                                                </td>
+                                                <td style="border-right: 2px solid black; margin: 2px;">
+                                                    <t t-esc="data_records[1].get('barcode')"/>
+                                                </td>
+                                                <td style="border-right: 2px solid black; margin: 2px;">
+                                                    <t t-esc="data_records[1].get('status')"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </t>
+
+                                    <tr>
+                                        <td colspan="2"><b>Total</b>:
+                                            <b>
+                                            </b>
+                                        </td>
+                                        <td>
+                                            <t t-esc="data.get('area')"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="data.get('area_in_feet')"/>
+                                        </td>
+                                        <td>
+                                        </td>
+                                        <td>
+                                        </td>
+                                        <td colspan="1">
+                                            <b>
+                                                PCS
+                                                <t t-esc="data.get('pcs')"/>
+                                            </b>
+                                        </td>
+                                          <td>
+                                              <b>
+                                               Penality
+                                               <t t-esc="data.get('penality')"/>
+                                              </b>
+                                        </td>
+                                         <td>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </t>
+                    <br></br>
+                    <div class="row">
+                        <div class="col-3">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th class="size">
+                                            <b>Size</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Qty</b>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <t t-foreach="enumerate(data.get('size1'))" t-as="prod_data">
+                                    <tr>
+                                        <td>
+                                            <t t-esc="prod_data[1].get('size')"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="prod_data[1].get('qty')"/>
+                                        </td>
+
+                                    </tr>
+                                </t>
+                            </table>
+
+                        </div>
+                        <div class="col-3">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th class="size">
+                                            <b>Size</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Qty</b>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <t t-foreach="enumerate(data.get('size2'))" t-as="prod_data">
+                                    <tr>
+                                        <td>
+                                            <t t-esc="prod_data[1].get('size')"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="prod_data[1].get('qty')"/>
+                                        </td>
+
+                                    </tr>
+                                </t>
+                            </table>
+
+                        </div>
+                        <div class="col-1"></div>
+                        <div class="col-3">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th class="size">
+                                            <b>Size</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Qty</b>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <t t-foreach="enumerate(data.get('size3'))" t-as="prod_data">
+                                    <tr>
+                                        <td>
+                                            <t t-esc="prod_data[1].get('size')"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="prod_data[1].get('qty')"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </table>
+                        </div>
+                        <div class="col-2">Total PCS:
+                            <t t-esc="data.get('pcs')"/>
+                        </div>
+                    </div>
+                    <br></br>
+                    <br></br>
+                    <div class="row">
+                        <div class="col-4">Received By</div>
+                        <div class="col-4">Checked By</div>
+                        <div class="col-4">Authorised Signatory</div>
+                    </div>
+                    <br></br>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_reports_finishing_finishing_receive_report" model="ir.actions.report">
+        <field name="name">Finishing Receive Challan</field>
+        <field name="model">finishing.work.order</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">inno_finishing.finishing_receive_report</field>
+        <field name="report_file">inno_finishing.finishing_receive_report</field>
+        <field name="paperformat_id" ref="base.paperformat_euro"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,247 @@
+<odoo>
+
+    <template id="report_print_sci_custom">
+        <t t-call="web.basic_layout">
+            <style type="text/css">
+                @font-face {
+                font-family: Mulish-Regular;
+                src: url('/inno_packaging/static/src/fonts/Mulish-Regular.ttf') format('truetype');
+                font-weight: normal;
+                font-style: normal;
+                }
+                @font-face {
+                font-family: Mulish-Bold;
+                src: url('/inno_packaging/static/src/fonts/Mulish-Bold.ttf') format('truetype');
+                font-weight: bold;
+                font-style: normal;
+                }
+                @font-face {
+                font-family: Mulish-SemiBold;
+                src: url('/inno_packaging/static/src/fonts/Mulish-SemiBold.ttff')
+                format('truetype');
+                font-weight: 600;
+                font-style: normal;
+                }
+            </style>
+            <t t-foreach="docs" t-as="o">
+                <div class="page" style="width: 100%; height: 100%; page-break-after: always;">
+                    <div>
+                        <b>CUSTOMER PO#:
+                            <t t-esc="data.get(o.id).get('po_number')"/>
+                        </b>
+                    </div>
+                    <br></br>
+                    <div
+                            style="font-family: Mulish-Bold; font-size:35pt; font-weight:bold; letter-spacing:2px; text-transform:capitalize; margin-bottom:22pt;">
+                        <t
+                                t-esc="o.quant_ids.product_id.product_tmpl_id.collection.name.capitalize()"/>
+                    </div>
+                    <div
+                            style="font-family: Mulish-Regular; font-size:27pt; letter-spacing:2px; text-transform:uppercase; margin-bottom:27pt;">
+                        <t t-esc="o.quant_ids.product_id.product_tmpl_id.name"/>
+                    </div>
+                    <div
+                            style="font-family: Mulish-Regular; font-size:18pt; letter-spacing:2px; text-transform:lowercase; margin-bottom:26pt;">
+                        <t t-esc="data.get(o.id).get('size')"/>
+                    </div>
+                    <div
+                            style="font-family: Mulish-Regular; font-size:12pt; letter-spacing:2px; text-transform:capitalize; margin-bottom:15pt;">
+                        <t t-esc="o.quant_ids.product_id.product_tmpl_id.face_content.name"/>
+                    </div>
+
+
+                    <t t-if="o.quant_ids.product_id.product_tmpl_id.division_id.name == 'KELIM'">
+                        <t t-if="o.quant_ids.product_id.product_tmpl_id.collection.name == 'DERBY'">
+                            <div
+                                    style="font-family: Mulish-Regular; font-size:12pt; letter-spacing:2px; text-transform:capitalize; margin-bottom:27pt;">
+                                Hand Tufted
+                                in
+                                <t t-esc="o.quant_ids.product_id.product_tmpl_id.origin.name"/>
+                            </div>
+                        </t>
+                        <t t-elif="o.quant_ids.product_id.product_tmpl_id.collection.name == 'MIA'">
+                            <div
+                                    style="font-family: Mulish-Regular; font-size:12pt; letter-spacing:2px; text-transform:capitalize; margin-bottom:27pt;">
+                                Hand Made
+                                in
+                                <t t-esc="o.quant_ids.product_id.product_tmpl_id.origin.name"/>
+                            </div>
+                        </t>
+                        <t t-elif="o.quant_ids.product_id.product_tmpl_id.collection.name not in ['MIA', 'DERBY']">
+                            <div
+                                    style="font-family: Mulish-Regular; font-size:12pt; letter-spacing:2px; text-transform:capitalize; margin-bottom:27pt;">
+                                Hand Woven
+                                in
+                                <t t-esc="o.quant_ids.product_id.product_tmpl_id.origin.name"/>
+                            </div>
+                        </t>
+                    </t>
+                    <t t-if="o.quant_ids.product_id.product_tmpl_id.division_id.name == 'KNOTTED'">
+                        <div
+                                style="font-family: Mulish-Regular; font-size:12pt; letter-spacing:2px; text-transform:capitalize; margin-bottom:27pt;">
+                            Hand Knotted
+                            in
+                            <t t-esc="o.quant_ids.product_id.product_tmpl_id.origin.name"/>
+                        </div>
+                    </t>
+                    <t t-if="o.quant_ids.product_id.product_tmpl_id.division_id.name == 'TUFTED'">
+                        <div
+                                style="font-family: Mulish-Regular; font-size:12pt; letter-spacing:2px; text-transform:capitalize; margin-bottom:27pt;">
+                            <t t-esc="o.quant_ids.product_id.product_tmpl_id.construction.name.title()"/>
+                            in
+                            <t t-esc="o.quant_ids.product_id.product_tmpl_id.origin.name"/>
+                        </div>
+                    </t>
+
+
+                    <!-- <div
+                        style="font-family: Mulish-Regular; font-size:12pt; letter-spacing:2px; text-transform:capitalize; margin-bottom:27pt;">
+                        <t t-esc="o.quant_ids.product_id.product_tmpl_id.construction.name.title()" />
+                        in <t t-esc="o.quant_ids.product_id.product_tmpl_id.origin.name" />
+                    </div> -->
+                    <div
+                            style="font-family: Mulish-Bold; font-size:14pt; font-weight:bold; letter-spacing:2px; text-transform:none; margin-bottom:10pt;">
+                        Care Instructions
+                    </div>
+                    <div
+                            style="font-family: Mulish-Regular; font-size:9pt; letter-spacing:1px; line-height:15pt;  margin-bottom:15pt;">
+                        Vacuum regularly. Spot clean only with mild detergent. Use a Surya rug pad
+                        to
+                    </div>
+                    <div
+                            style="font-family: Mulish-Regular; font-size:9pt; letter-spacing:1px; line-height:15pt;  margin-bottom:15pt;">
+                        extend the life of the rug. For additional care information, visit
+                        surya.com/rug-guide.
+                    </div>
+                    <div
+                            style="font-family: Mulish-SemiBold; font-size:8pt; letter-spacing:2px; line-height:16pt;  margin-bottom:60pt;">
+                        Surya rugs are ethically sourced and made with the highest labor standards.
+                    </div>
+
+                    <div class="row" style="margin-bottom: 45pt;">
+                        <div class="col-4">
+
+                        </div>
+                        <div class="col-4">
+
+                        </div>
+                        <div class="col-4"
+                             style="text-align: center; text-transform:uppercase; font-size:14pt; font-family: Mulish-Bold; font-weight: 600;">
+                            <t t-esc="o.quant_ids.product_id.default_code"/>
+                            <br/>
+                            <img
+                                    t-attf-src="data:image/*;base64,{{data.get(o.id).get('qr_code')}}"
+                                    style="width:90%; height: 150px; padding: 6px;"/>
+                            <br/>
+                            <t
+                                    t-esc="data.get(o.id).get('po_number')"/>|
+                            <t
+                                    t-esc="data.get(o.id).get('random_code')"/>
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 50pt;">
+                        SURYA.COM
+                    </div>
+                    <div class="row"
+                         style="text-align: center; text-transform:uppercase; margin-bottom: 50pt; font-size:14pt; font-family: Mulish-Bold; font-weight: 600;">
+                        <div class="col-4">
+                            <t t-esc="o.quant_ids.product_id.default_code"/>
+                            <br/>
+                            <img
+                                    t-attf-src="data:image/*;base64,{{data.get(o.id).get('qr_code')}}"
+                                    style="width:90%; height: 150px; padding: 6px;"/>
+                            <br/>
+                            <t
+                                    t-esc="data.get(o.id).get('po_number')"/>|
+                            <t
+                                    t-esc="data.get(o.id).get('random_code')"/>
+                        </div>
+                        <div class="col-2">
+
+                        </div>
+                        <div class="col-2">
+
+                        </div>
+                        <div class="col-4">
+                            <t t-esc="o.quant_ids.product_id.default_code"/>
+                            <br/>
+                            <img
+                                    t-attf-src="data:image/*;base64,{{data.get(o.id).get('qr_code')}}"
+                                    style="width:90%; height: 150px; padding: 6px;"/>
+                            <br/>
+                            <t
+                                    t-esc="data.get(o.id).get('po_number')"/>|
+                            <t
+                                    t-esc="data.get(o.id).get('random_code')"/>
+                        </div>
+                    </div>
+                    <br></br>
+                    <br></br>
+                    <!-- <br></br> -->
+                    <div class="row"
+                         style="text-align: center; text-transform:uppercase; margin-bottom: 30pt; font-size:14pt; font-family: Mulish-Bold; font-weight: 600;">
+                        <div class="col-4">
+                            <t t-esc="o.quant_ids.product_id.default_code"/>
+                            <br/>
+                            <img
+                                    t-attf-src="data:image/*;base64,{{data.get(o.id).get('qr_code')}}"
+                                    style="width:90%; height: 150px; padding: 6px;"/>
+                            <br/>
+                            <t
+                                    t-esc="data.get(o.id).get('po_number')"/>|
+                            <t
+                                    t-esc="data.get(o.id).get('random_code')"/>
+                        </div>
+                        <div class="col-2"/>
+                        <div class="col-2"/>
+                        <div class="col-4">
+                            <t t-esc="o.quant_ids.product_id.default_code"/>
+                            <br/>
+                            <img
+                                    t-attf-src="data:image/*;base64,{{data.get(o.id).get('qr_code')}}"
+                                    style="width:90%; height: 150px; padding: 6px;"/>
+                            <br/>
+                            <t
+                                    t-esc="data.get(o.id).get('po_number')"/>|
+                            <t
+                                    t-esc="data.get(o.id).get('random_code')"/>
+                        </div>
+                    </div>
+
+                    <div class="row" style="text-transform:uppercase;">
+                        <div class="col-6"
+                             style="border: 1px solid black; font-family: Mulish-Bold; font-weight: 600; padding:5px; text-align: center; font-size:16pt;">
+                            <img
+                                    t-attf-src="data:image/*;base64,{{data.get(o.id).get('package_barcode')}}"
+                                    style="width:100%; height: 120px; padding: 6px;"/>
+                            <br/>
+                            <t t-esc="data.get(o.id).get('package_barcode_data')"/>
+                        </div>
+                        <div class="col-1"/>
+                        <div class="col-5">
+                            <t t-if="data.get(o.id).get('product_barcode')">
+                                <img
+                                        t-attf-src="data:image/*;base64,{{data.get(o.id).get('product_barcode')}}"
+                                        style="width:90%; height: 150px; padding: 6px; border: 1px solid black;"/>
+                                <br/>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+
+    <record id="action_report_print_sci_custom_label" model="ir.actions.report">
+        <field name="name">Print SCI Custom Label</field>
+        <field name="model">stock.quant.package</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">inno_packaging.report_print_sci_custom</field>
+        <field name="report_file">inno_packaging.report_print_sci_custom</field>
+        <field name="paperformat_id" ref="inno_packaging.full_package_label_paperformat"/>
+        <field name="binding_model_id" ref="stock.model_stock_quant_package"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

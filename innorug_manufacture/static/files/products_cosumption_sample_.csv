@@ -1,0 +1,17 @@
+Design,Unit of Measure,variant_name,attribute_name,Standard_size/Value,Product_name,Can be Sold,​Can be Purchased,replenish_on_order,buy,manufacture
+C IMP,kg,color,color,white,60 C IMP WHITE,1,1,false,true,false
+C IMP,kg,color,color,CREAMY,60 c IMP CREAMY,1,1,false,true,false
+C IMP,kg,color,color,PALE,60C IMP PALE,1,1,false,true,false
+C IMP,kg,color,color,white,63 C IMP WHITE,1,1,false,true,false
+Weaving Cloth,kg,dimension,dimension,8`60”,"8`6"" Weaving Cloths",1,1,false,true,false
+Weaving Cloth,kg,dimension,dimension,9`62”,"9`6"" Weaving Cloth",1,1,false,true,false
+Weaving Cloth,kg,dimension,dimension,10`61”,"10`6"" Weaving Cloth",1,1,false,true,false
+IMP WHITE,kg,color,color,white,65 C IMP WHITE,1,1,false,true,false
+IMP WHITE,kg,color,color,white,62 C IMP WHITE,1,1,false,true,false
+ C NATURAL,kg,color,color,yellow,60 C NATURAL,1,1,false,true,false
+"Cloth 8`6""",kg,dimension,dimension," 8`6""","Cloth 8`6""",1,1,false,true,false
+TUSSA LIGHT,kg,color,color, LIGHT,60 C TUSSA LIGHT,1,1,false,true,false
+ TUSSA MEDIUM,kg,color,color, MEDIUM,60 C TUSSA MEDIUM,1,1,false,true,false
+C IMP,kg,color,color,green,10 C IMP,1,1,false,true,false
+Weaving Cloth,kg,dimension,dimension,18’ 60”,18’ 6” Weaving Cloth,1,1,false,true,false
+C IMP WHITE,kg,color,color,white,61 C IMP WHITE,1,1,false,true,false

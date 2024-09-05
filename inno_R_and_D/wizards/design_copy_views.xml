@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_inno_design_copy_form" model="ir.ui.view">
+        <field name="name">Copy Design</field>
+        <field name="model">inno.design.copy</field>
+        <field name="arch" type="xml">
+            <form >
+                <sheet>
+                   <group>
+                       <group>
+<!--                           <field name="inno_research_id" options="{'no_create': True, 'no_open': True}"/>-->
+                           <field name="design_id" required="1" options="{'no_create': True, 'no_open': True}"/>
+                           <field name="new_design" required="1" options="{'no_create': True, 'no_open': True}"/>
+                       </group>
+                        <group>
+                            <field name="is_bom" widget="boolean_toggle"/>
+                       </group>
+                   </group>
+                </sheet>
+                 <footer>
+                    <button type="object" name="confirm" string="Confirm" class="btn-primary"/>
+                     <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+      <record id="action_copy_design" model="ir.actions.act_window">
+        <field name="name">Copy Design</field>
+        <field name="res_model">inno.design.copy</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_weaving_report" model="ir.ui.view">
+        <field name="name">Report Weaving Wizards</field>
+        <field name="model">inno.weaving.reports</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="report_type"/>
+                            <field name="report_wise" attrs="{'invisible': [('report_type','not in',['weaving_material_issue','weaving_material_receive'])]}" />
+                            <field name="weavng_wise_report" attrs="{'invisible': [('report_type','not in',['weaving_order'])]}"/>
+                        </group>
+                        <group>
+                            <field name="include_branch" widget="boolean_toggle"
+                                   attrs="{'invisible': [('report_type', 'not in', ['weaving_order_status','baazar_repots','weaving_bills','weaving_payment_advice'])]}"/>
+                               <field name="exclude_branch" widget="boolean_toggle"
+                                   attrs="{'invisible': [('report_type', 'not in', ['baazar_repots','weaving_bills','weaving_payment_advice','tds_advice'])]}"/>
+                              <field name="branch_id"
+                                   attrs="{'invisible': [('report_type', 'not in', ['7','weaving_bills','weaving_payment_advice','tds_advice','baazar_repots'])]}" options="{'no_create': True, 'no_open': True}"/>
+<!--                            <field name="is_branch_vendor" widget="boolean_toggle"-->
+<!--                                   attrs="{'invisible': [('report_type', 'not in', ['baazar_repots','weaving_bills','weaving_payment_advice'])]}"/>-->
+                            <field name="weaving_order"
+                                   attrs="{'invisible': [('report_type', 'not in', ['purja'])], 'required': [('report_type', 'in', ['purja'])]}" options="{'no_create': True, 'no_open': True}"/>
+                        </group>
+                        <group>
+                            <field name="subcontractor_id"
+                                   options="{'no_create': True, 'no_open': True}"
+                                   attrs="{'invisible': [('report_type', 'not in', ['weaving_order_barcode_balance_for_inspection','weaving_order_product_balance_for_inspection','baazar_repots','weaving_bills','weaving_payment_advice','weaving_bazar_receipt','weaving_material_issue', 'weaving_material_receive','weaving_order_status','weaving_order','material_on_loom'])]}"/>
+                            <field name="buyer" options="{'no_create': True, 'no_open': True}"
+                                   attrs="{'invisible': [('report_type', 'not in', ['to_be_issue','weaving_order_product_balance_for_inspection','weaving_order_barcode_balance_for_inspection','baazar_repots','weaving_order'])]}"/>
+                            <field name="division_id" options="{'no_create': True, 'no_open': True}"
+                                   attrs="{'invisible': [('report_type', 'not in', ['to_be_issue','weaving_order_product_balance_for_inspection','weaving_order_barcode_balance_for_inspection','weaving_order','weaving_order'])]}"
+                                   widget="many2many_tags"/>
+                            <field name="order_type" options="{'no_create': True, 'no_open': True}"
+                                   attrs="{'invisible': [('report_type', 'not in', ['to_be_issue','weaving_order_product_balance_for_inspection','weaving_order_barcode_balance_for_inspection'])]}"/>
+                        </group>
+                        <group/>
+                        <group
+                                attrs="{'invisible': [('report_type', 'not in', ['weaving_bills','weaving_payment_advice'])]}">
+                            <field name="job_work_id" options="{'no_create': True, 'no_open': True}"
+                                   attrs="{'invisible': [('report_type', 'not in', ['weaving_bills','weaving_payment_advice'])]}"/>
+                        </group>
+                        <group>
+                            <field name="bazaar_id" options="{'no_create': True, 'no_open': True}"
+                                   attrs="{'invisible': [('report_type', 'not in', ['weaving_bills','weaving_payment_advice'])]}"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="from_date"
+                                   attrs="{'invisible': [('report_type', 'not in', ['weaving_order_status', 'jw_weaving_ledger','weaving_order_barcode_balance_for_inspection','weaving_order_product_balance_for_inspection','baazar_repots','weaving_bills','weaving_payment_advice','weaving_bazar_receipt','weaving_material_issue', 'weaving_material_receive','tds_advice','weaving_order','to_be_issue','material_on_loom'])]}"/>
+                            <field name="gst"
+                                attrs="{'invisible': [('report_type', 'not in', ['weaving_bills','weaving_payment_advice'])]}" />
+                            <field name="payment_date"
+                                attrs="{'invisible': [('report_type', 'not in', ['cheque_details'])]}" />
+
+                            <!--                                                            <field name="order_type"-->
+                            <!--                                                                   attrs="{'invisible': [('report_type', 'not in',
+                            ['weaving_order_barcode_balance_for_inspection','weaving_order_product_balance_for_inspection',])]}"/>-->
+                        </group>
+                        <group>
+                            <field name="to_date"
+                                   attrs="{'invisible': [('report_type', 'not in', ['weaving_order_status', 'jw_weaving_ledger','weaving_order_barcode_balance_for_inspection','weaving_order_product_balance_for_inspection','baazar_repots','weaving_bills','weaving_payment_advice','weaving_material_issue', 'weaving_material_receive','weaving_bazar_receipt','weaving_order_barcode_balance_for_inspection','tds_advice','weaving_order','to_be_issue','material_on_loom'])]}"/>
+                            <field name="planning_ids" options="{'no_create': True, 'no_open': True}"
+                                   attrs="{'invisible': [('report_type', 'not in', ['to_be_issue','weaving_order_product_balance_for_inspection','weaving_order_barcode_balance_for_inspection','baazar_repots','weaving_order_status','weaving_order'])]}"
+                                   widget='many2many_tags'/>
+                            <field name="product_group" options="{'no_create': True, 'no_open': True}"
+                                attrs="{'invisible': [('report_type', 'not in', ['to_be_issue','weaving_order_product_balance_for_inspection','weaving_order_barcode_balance_for_inspection','baazar_repots','weaving_order_status','weaving_order'])]}" widget="many2many_tags" />
+                            <field name="product" options="{'no_create': True, 'no_open': True}"
+                                attrs="{'invisible': [('report_type', 'not in', ['to_be_issue','weaving_order_product_balance_for_inspection','weaving_order_barcode_balance_for_inspection','baazar_repots','weaving_order_status','weaving_order'])]}" widget="many2many_tags"/>
+                            <field name="cheque_no"
+                                attrs="{'invisible': [('report_type', 'not in', ['cheque_details'])]}"/>
+                            <field name="weaving_summary"
+                                   attrs="{'invisible': [('report_type', 'not in', ['weaving_material_issue','weaving_material_receive'])]}"/>
+                            <field name="payment_state"
+                                   attrs="{'invisible': [('report_type', 'not in', ['weaving_bills','weaving_payment_advice'])],'required': [('report_type', 'in', ['weaving_bills','weaving_payment_advice'])]}"/>
+                             <field name="with_barcode"
+                                   attrs="{'invisible': [('report_type', 'not in', ['baazar_repots'])]}"/>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Generate" type="object" class="btn-success"
+                            name="generate_report"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_reports_wizard" model="ir.actions.act_window">
+        <field name="name">Weaving Reports</field>
+        <field name="res_model">inno.weaving.reports</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

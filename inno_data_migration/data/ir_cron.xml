@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="ir_cron_process_all_records" model="ir.cron">
+        <field name="name">get and process all records</field>
+        <field name="model_id" ref="model_inno_migration_record"/>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="state">code</field>
+        <field name="code">model.process_migration()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="active">False</field>
+    </record>
+
+        <record id="ir_cron_process_weaving_sale_order_api" model="ir.cron">
+        <field name="name">Process Weaving Main Job Work Order</field>
+        <field name="model_id" ref="model_inno_migration_record"/>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="state">code</field>
+        <field name="code">model.process_weaving_sale_order()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="active">False</field>
+    </record>
+
+    <record id="ir_cron_process_pending_sale_order" model="ir.cron">
+        <field name="name">Process pending Sale orders</field>
+        <field name="model_id" ref="model_inno_migration_record"/>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="state">code</field>
+        <field name="code">model.process_pending_sale_order()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="active">False</field>
+    </record>
+
+    <record id="ir_cron_process_process_finishing_order" model="ir.cron">
+        <field name="name">Process Finishing orders</field>
+        <field name="model_id" ref="model_inno_migration_record"/>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="state">code</field>
+        <field name="code">model.process_finishing_orders()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="active">False</field>
+    </record>
+
+    <record id="ir_cron_process_finishing_bazaar" model="ir.cron">
+        <field name="name">Process Finishing bazaars</field>
+        <field name="model_id" ref="model_inno_migration_record"/>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="state">code</field>
+        <field name="code">model.process_finishing_bazaar()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="active">False</field>
+    </record>
+
+    <record id="ir_cron_process_purchase_pending_orders" model="ir.cron">
+        <field name="name">Process Pending Sale Order Purchase</field>
+        <field name="model_id" ref="model_inno_migration_record"/>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="state">code</field>
+        <field name="code">model.process_pending_sale_purchase()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="active">False</field>
+    </record>
+
+       <record id="ir_cron_process_get_weaving_baazar_through_api_order_api" model="ir.cron">
+        <field name="name">Get Weaving Baazar Through api</field>
+        <field name="model_id" ref="model_inno_migration_record"/>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="state">code</field>
+        <field name="code">model.get_weaving_baazar_through_api()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="active">False</field>
+    </record>
+
+          <record id="ir_cron_process_weaving_baazar_api" model="ir.cron">
+        <field name="name">Get Weaving Baazar</field>
+        <field name="model_id" ref="model_inno_migration_record"/>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="state">code</field>
+        <field name="code">model.process_weaving_baazar()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="active">False</field>
+    </record>
+
+    <record id="ir_cron_process_confirm_production_order" model="ir.cron">
+        <field name="name">Confirm Production order</field>
+        <field name="model_id" ref="model_inno_migration_record"/>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="state">code</field>
+        <field name="code">model.confirm_production_order()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="active">False</field>
+    </record>
+
+    <record id="ir_cron_get_invoice_per_day" model="ir.cron">
+        <field name="name">Fetch Invoice Per Day</field>
+        <field name="model_id" ref="model_inno_migration_record"/>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="state">code</field>
+        <field name="code">model.get_invoice_per_day()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="active">False</field>
+    </record>
+
+    <record id="ir_cron_process_invoice_per_day" model="ir.cron">
+        <field name="name">Process Invoice Per Day</field>
+        <field name="model_id" ref="model_inno_migration_record"/>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="state">code</field>
+        <field name="code">model.process_invoice_per_day()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="active">False</field>
+    </record>
+
+
+</odoo>

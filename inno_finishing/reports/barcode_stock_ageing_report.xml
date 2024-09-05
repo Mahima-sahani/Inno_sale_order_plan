@@ -1,0 +1,139 @@
+<odoo>
+    <template id="report_barcode_stock_ageing">
+        <t t-call="web.html_container">
+            <!-- <t t-foreach="docs" t-as="record"> -->
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div class="text-center" style="border-bottom: 1px solid black;">
+                            <br />
+                            <h4><b>Barcode Based Stock Ageing</b></h4>
+                            <br />
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <h6><b>Report Type</b></h6>
+                                    </div>
+                                    <div class="col-1"><h6>:</h6></div>
+                                    <div class="col-6"><h6>Product Wise Summary</h6></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <h6><b>Minimum Age</b></h6>
+                                    </div>
+                                    <div class="col-1"><h6>:</h6></div>
+                                    <div class="col-6"><h6>0</h6></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <h6><b>Product Division</b></h6>
+                                    </div>
+                                    <div class="col-1"><h6>:</h6></div>
+                                    <div class="col-6"><h6>TUFTED</h6></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <h6><b>Product Custom Group</b></h6>
+                                    </div>
+                                    <div class="col-1"><h6>:</h6></div>
+                                    <div class="col-6"><h6>Custom Order</h6></div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <h6><b>Stock</b></h6>
+                                    </div>
+                                    <div class="col-1"><h6>:</h6></div>
+                                    <div class="col-6"><h6>Inside</h6></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <h6><b>Interval</b></h6>
+                                    </div>
+                                    <div class="col-1"><h6>:</h6></div>
+                                    <div class="col-6"><h6>5</h6></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <h6><b>Unit</b></h6>
+                                    </div>
+                                    <div class="col-1"><h6>:</h6></div>
+                                    <div class="col-6"><h6>PCS</h6></div>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-12">
+                                <table class="table table-bordered">
+                                    <thead style="background-color: rgb(182, 179, 179); height: 5px;">
+                                        <tr style="text-align: center;">
+                                            <th class="col-md-2">Location</th>
+                                            <th class="col-md-2">Product</th>
+                                            <th class="col-md-2">0-5</th>
+                                            <th class="col-md-2">6-10</th>
+                                            <th class="col-md-2">11-15</th>
+                                            <th class="col-md-2">>15</th>
+                                            <th class="col-md-2">Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="data" t-as="part">
+                                            <t t-foreach="part.items()" t-as="rec">
+                                                <tr>
+                                                    <th colspan="8" style="text-align: left;">
+                                                        <t t-esc="rec[0]" />
+                                                    </th>
+                                                </tr>
+                                                <t t-foreach="rec[1]" t-as="record">
+                                                    <tr style="text-align: center;">
+                                                        <td><t t-esc="record.get('location')"/></td>
+                                                        <td><t t-esc="record.get('product')"/></td>
+                                                        <td><t t-esc="record.get('0_5')"/></td>
+                                                        <td><t t-esc="record.get('6_10')"/></td>
+                                                        <td><t t-esc="record.get('11_15')"/></td>
+                                                        <td><t t-esc="record.get('>15')"/></td>
+                                                        <td><t t-esc="record.get('row_count')"/></td>
+                                                    </tr>
+                                                </t>
+                                                <tr style="text-align: center; background-color: #f2f2f2;">
+                                                    <td colspan="2"><b>Subtotal</b></td>
+                                                    <td><b><t t-esc="subtotal.get(rec[0]).get('total_0_5')" /></b></td>
+                                                    <td><b><t t-esc="subtotal.get(rec[0]).get('total_6_10')" /></b></td>
+                                                    <td><b><t t-esc="subtotal.get(rec[0]).get('total_11_15')" /></b></td>
+                                                    <td><b><t t-esc="subtotal.get(rec[0]).get('total_16')" /></b></td>
+                                                    <td><b><t t-esc="subtotal.get(rec[0]).get('raw_total')" /></b></td>
+                                                </tr>
+                                            </t>
+                                        </t>
+                                        <tr style="text-align: center; background-color: #d9d9d9;">
+                                            <td colspan="2"><b>Grand Total</b></td>
+                                            <td><b><t t-esc="sum(subtotal.get(subc).get('total_0_5') for subc in subtotal)" /></b></td>
+                                            <td><b><t t-esc="sum(subtotal.get(subc).get('total_6_10') for subc in subtotal)" /></b></td>
+                                            <td><b><t t-esc="sum(subtotal.get(subc).get('total_11_15') for subc in subtotal)" /></b></td>
+                                            <td><b><t t-esc="sum(subtotal.get(subc).get('total_16') for subc in subtotal)" /></b></td>
+                                            <td><b><t t-esc="sum(subtotal.get(subc).get('raw_total') for subc in subtotal)" /></b></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            <!-- </t> -->
+        </t>
+    </template>
+
+    <record id="action_reports_barcode_stock_ageing" model="ir.actions.report">
+        <field name="name">Barcode Based Stock Ageing</field>
+        <field name="model">jobwork.barcode.line</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">inno_finishing.report_barcode_stock_ageing</field>
+        <field name="report_file">inno_finishing.report_barcode_stock_ageing</field>
+        <field name="paperformat_id" ref="base.paperformat_euro"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

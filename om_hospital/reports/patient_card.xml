@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!-- <template id="report_patient">
+    <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="web.external_layout">
+                <div style="border: 1px solid black; padding: 30px; border-radius: 5px;">
+                    <h2>Patient Card</h2>
+                    <img t-att-src="image_data_uri(o.image)"
+                         alt="Not Found"
+                         height="50" width="50"
+                    /><br/>
+                    <strong>Name:</strong> <t t-esc="o.name"/><br/>
+                    <strong>Age: </strong><t t-esc="o.age"/><br/>
+                    <t t-if="o.age > 10">
+                    <strong> Gender: </strong><t t-esc="o.gender"/>
+                    </t>
+                </div>
+            </t>
+        </t>
+    </t>
+</template> -->
+ 
+
+    <template id="report_static">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                   <t t-call="web.external_layout">
+                   <div class="static">
+                        <h2>Dyeing Receive Summary</h2>
+                    </div>
+                    </t>
+                </t>
+            </t>
+    </template>
+
+    
+
+</odoo>

@@ -1,0 +1,117 @@
+<odoo>
+    <template id="report_packaging_register">
+        <t t-call="web.html_container">
+            <t t-set="data_report_landscape" t-value="False"/>
+            <t t-call="web.external_layout" style="margin-top: 100px;">
+                <div class="page">
+                    <div class="text-center" style="border-bottom: 1px solid black;">
+                        <br/>
+                        <h4>
+                            <b>Packaging Register</b>
+                        </h4>
+                        <br/>
+                    </div>
+                    <br/>
+                    <!-- <t t-foreach="data" t-as="rec"> -->
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <h6><b>From Date</b></h6>
+                                    </div>
+                                    <div class="col-1">
+                                        <h6>:</h6>
+                                    </div>
+                                    <div class="col-7">
+                                        <t t-esc="from_date"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <h6><b>To Date</b></h6>
+                                    </div>
+                                    <div class="col-1">
+                                        <h6>:</h6>
+                                    </div>
+                                    <div class="col-7">
+                                        <t t-esc="to_date"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Table -->
+                        <div class="row" style="margin-top: 20px;">
+                            <div class="col-12">
+                                <table class="table table-bordered">
+                                    <thead style="background-color: rgb(182, 179, 179); height: 5px;">
+                                        <tr style="text-align: center;">
+                                            <th scope="col">Packaging Date</th>
+                                            <th scope="col">Packaging No</th>
+                                            <th scope="col">Order No</th>
+                                            <th scope="col">Bale No</th>
+                                            <th scope="col">Barcode</th>
+                                            <th scope="col">Product Name</th>
+                                            <th scope="col">Product Quality</th>
+                                            <th scope="col">Product Group</th>
+                                            <th scope="col">Product Size</th>
+                                            <th scope="col">Qty</th>
+                                            <th scope="col">Area(Sq.Feet)</th>
+                                            <th scope="col">Area(Sq.Yard)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="data" t-as="record">
+                                            <tr style="text-align: center;">
+                                                <td><t t-esc="record.get('pack_date')"/></td>
+                                                <td><t t-esc="record.get('pack_no')"/></td>
+                                                <td><t t-esc="record.get('order_no')"/></td>
+                                                <td><t t-esc="record.get('bale_no')"/></td>
+                                                <td><t t-esc="record.get('barcode')"/></td>
+                                                <td><t t-esc="record.get('prod_name')"/></td>
+                                                <td><t t-esc="record.get('prod_quality')"/></td>
+                                                <td><t t-esc="record.get('prod_tmpl')"/></td>
+                                                <td><t t-esc="record.get('prod_size')"/></td>
+                                                <td><t t-esc="record.get('qty')"/></td>
+                                                <td><t t-esc="round(record.get('area_ft'),3)"/></td>
+                                                <td><t t-esc="round(record.get('area_yard'),3)"/></td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr style="text-align: center;">
+                                            <td><b>Total</b></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><t t-esc="round(total_qty,3)"/></td>
+                                            <td><t t-esc="round(total_area_ft,3)"/></td>
+                                            <td><t t-esc="round(total_area_sq,3)"/></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    <!-- </t> -->
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_reports_packaging_register" model="ir.actions.report">
+        <field name="name">Packaging Register</field>
+        <field name="model">stock.quant</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">inno_packaging.report_packaging_register</field>
+        <field name="report_file">Packaging Register</field>
+        <field name="paperformat_id" ref="base.paperformat_euro"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

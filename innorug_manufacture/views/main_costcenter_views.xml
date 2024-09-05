@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Cost Center Tree -->
+    <record id="view_mrp_cost_center_tree" model="ir.ui.view">
+        <field name="name">Cost Center</field>
+        <field name="model">main.costcenter</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="reference"/>
+                <field name="subcontractor_id"/>
+                <field name="main_job_work_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Cost Center Form -->
+    <record id="view__mrp_main_cost_center_form" model="ir.ui.view">
+        <field name="name">Main Cost Center</field>
+        <field name="model">main.costcenter</field>
+        <field name="arch" type="xml">
+            <form >
+                <header>
+                      <button name="generate_bill" string="Generate Bill" type="object" class="btn-primary"/>
+                </header>
+                <sheet>
+                    <div class="h2">
+                        <field name="reference" nolabel="1" readonly="1"/>
+                    </div>
+                    <div>
+                        <field name="issue_date"/>
+                        &#x2063;
+                        <field name="expected_received_date"/>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="subcontractor_id"/>
+                        </group>
+                        <group>
+                            <field name="main_job_work_id" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Cost Center">
+                            <field name="cost_center_line_ids" mode="tree">
+                                <tree >
+                                    <field name="product_id"/>
+                                    <field name="product_qty"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_mrp_main_cost_center_id" model="ir.actions.act_window">
+        <field name="name">Main Cost Center</field>
+        <field name="res_model">main.costcenter</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+
+
+</odoo> 

@@ -1,0 +1,168 @@
+ <odoo>
+    <template id="report_dyeing_plan">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout" style="margin-top: 100px;">
+                <div class="page">
+                    <div class="text-center" style="border-bottom: 1px solid black;">
+                        <h4>
+                            <b>Dyeing Plan</b>
+                        </h4>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="row">
+                                <div class="col-4">
+                                    <h6>
+                                        <b>Plan No</b>
+                                    </h6>
+                                </div>
+                                <div class="col-1">
+                                    <h6>:</h6>
+                                </div>
+                                <div class="col-6">
+                                    <h6>
+                                        <t t-esc="data.get('plan_id')"/>
+                                    </h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="row">
+                                <div class="col-4">
+                                    <h6>
+                                        <b>Plan Date</b>
+                                    </h6>
+                                </div>
+                                <div class="col-1">
+                                    <h6>:</h6>
+                                </div>
+                                <div class="col-6">
+                                    <h6>
+                                        <b>
+                                            <t t-esc="data.get('plan_date')"/>
+                                        </b>
+                                    </h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-12">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr style="background-color: #AEAEAE">
+                                        <th class="cell">
+                                            <b>Sr.</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Material</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Shade</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Color</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Required Qty</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Unit</b>
+                                        </th>
+                                        <th class="cell">
+                                            <b>Remark</b>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <t t-foreach="data.get('records')" t-as="plan_data">
+                                    <thead>
+                                        <tr>
+                                            <td><b>SKU</b></td>
+                                            <td>
+                                                <b>
+                                                    <t t-esc="plan_data.get('design')"/>
+                                                </b>
+                                            </td>
+                                            <td/>
+                                            <td/>
+                                            <td><b>Qualtiy</b></td>
+                                            <td>
+                                                <b>
+                                                    <t t-esc="plan_data.get('quality')"/>
+                                                </b>
+                                            </td>
+                                            <td/>
+                                        </tr>
+                                    </thead>
+                                    <t t-foreach="enumerate(plan_data.get('data'))" t-as="record">
+                                        <tr style="text-align: center;">
+                                            <td>
+                                                <t t-esc="record[0]+1"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="record[1].get('name')"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="record[1].get('shade')"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="record[1].get('color')"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="round(record[1].get('req_qty'), 4)"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="record[1].get('uom')"/>
+                                            </td>
+                                            <td/>
+                                        </tr>
+                                    </t>
+                                    <thead>
+                                        <tr style="background-color: #C5C5C5">
+                                            <th/>
+                                            <th>Area (Sq. Yard)</th>
+                                            <th>
+                                                <t t-esc="plan_data.get('area')"/>
+                                            </th>
+                                            <th/>
+                                            <th>
+                                                <t t-esc="round(plan_data.get('total_material'), 4)"/>
+                                            </th>
+                                            <th/>
+                                            <th/>
+                                        </tr>
+                                    </thead>
+                                </t>
+                                <thead>
+                                    <tr style="background-color: #C5C5C5">
+                                        <th/>
+                                        <th/>
+                                        <th/>
+                                        <th>Total</th>
+                                        <th>
+                                            <t t-esc="round(data.get('total_material'), 4)"/>
+                                        </th>
+                                        <th/>
+                                        <th/>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_dyeing_plan_report" model="ir.actions.report">
+        <field name="name">Dyeing Plan Report</field>
+        <field name="model">inno.sale.order.planning</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">inno_sale_order_plan.report_dyeing_plan</field>
+        <field name="report_file">Dyeing Plan Report</field>
+        <field name="paperformat_id" ref="base.paperformat_euro"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

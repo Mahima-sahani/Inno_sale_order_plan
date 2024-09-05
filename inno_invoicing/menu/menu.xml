@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <menuitem id="menu_inno_invoicing"
+          name="Invoicing"/>
+
+    <menuitem id="sub_menu_inno_packaging"
+              name="Invoicing"
+              parent="menu_inno_invoicing"
+              action="action_inno_invoicing"
+              sequence="1"/>
+
+</odoo>

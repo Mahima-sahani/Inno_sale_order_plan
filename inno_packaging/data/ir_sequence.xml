@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+   <data>
+       <record id="seq_inno_packaging" model="ir.sequence">
+           <field name="name">inno.packaging</field>
+           <field name="code">inno_packaging_seq</field>
+           <field name="prefix">PKG/%(range_year)s/</field>
+           <field name="padding">5</field>
+           <field name="company_id" eval="False"/>
+       </record>
+
+       <record id="seq_inno_packaging_invoice" model="ir.sequence">
+           <field name="name">inno.packaging.invoice</field>
+           <field name="code">inno_packaging_invoice_seq</field>
+           <field name="prefix">INV/%(range_year)s/</field>
+           <field name="padding">5</field>
+           <field name="company_id" eval="False"/>
+       </record>
+    </data>
+</odoo>

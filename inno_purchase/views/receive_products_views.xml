@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Purchase Form -->
+    <record id="view_mrp_inno_receive_form_id" model="ir.ui.view">
+        <field name="name">Receive Products</field>
+        <field name="model">inno.receive</field>
+        <field name="arch" type="xml">
+            <form delete="0">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,ready,done"/>
+                    <button name="button_confirm" string="VALIDATE" type="object" class="btn-success"
+                            attrs="{'invisible': [('state', '!=', 'draft')]}" context="{'status': 'draft'}"/>
+                    <button name="button_confirm" string="RE-VALIDATE" type="object" class="btn-success"
+                            attrs="{'invisible': [('state', '!=', 'ready')]}" context="{'status': 're_validate'}"/>
+                    <button name="button_confirm" string="CREATE BILL" type="object" class="btn-success"
+                            attrs="{'invisible': [('state', 'not in', ['done',])]}"
+                            context="{'status': 'bill'}"/>
+                    <!--                    <button name="button_confirm" string="RETURN" type="object"-->
+                    <!--                            attrs="{'invisible': ['|','|',('state', 'not in', ['done','locked']),('parent_id', '!=',False),('return_id', '!=',False)]}"-->
+                    <!--                            context="{'status': 'return'}"/>-->
+<!--                    <button name="button_confirm" string="ADD CREDIT NOTE" type="object"-->
+<!--                            attrs="{'invisible': ['|','|',('state', 'not in', ['done','locked']),('parent_id', '!=',False),('return_id', '!=',False)]}"-->
+<!--                            context="{'status': 'credit_note'}"/>-->
+                    <button name="button_confirm" string="CANCEL" type="object"
+                            attrs="{'invisible': [('state', 'in', ['done', 'cancel','locked'])]}"
+                            context="{'status': 'cancel'}"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="object" name="open_main_receipt"
+                                icon="fa-truck fa-flip-horizontal"
+                                attrs="{'invisible': [('state', 'not in', ['done', 'locked'])]}">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value">
+                                    <!--                                    <field name="delivery_count"/>-->
+                                </span>
+                                <span class="o_stat_text">Receipt</span>
+                            </div>
+                        </button>
+                        <button class="oe_stat_button" type="object" name="open_vendor_bills" icon="fa-pencil-square-o"
+                                attrs="{'invisible': [('state', 'not in', ['locked'])]}">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value">
+                                    <!--                                    <field name="bill_count"/>-->
+                                </span>
+                                <span class="o_stat_text">Bill</span>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="h2" name="reference_header">
+                        <field name="reference" nolabel="1" readonly="1"/>
+                    </div>
+                    <group>
+                        <group string="General Information">
+                            <field name="subcontractor_id" readonly="True" options="{'no_open': True}"/>
+                            <field name="location" readonly="1"/>
+                            <field name="inno_purchase_return_id" readonly="1"
+                                   attrs="{'invisible': [('inno_purchase_return_id', '=',False)]}"/>
+                            <field name="inno_purchase_id" readonly="1"
+                                   attrs="{'invisible': [('inno_purchase_id', '=',False)]}"/>
+                            <field name="parent_id" readonly="1" attrs="{'invisible': [('parent_id', '=',False)]}"/>
+                            <field name="receipt_no" attrs="{'readonly': [('state', 'in',['locked'])]}"/>
+                            <field name="return_id" readonly="1" attrs="{'invisible': [('return_id', '=',False)]}"/>
+                            <field name="received_by" required="1"
+                                   attrs="{'readonly': [('state', 'not in',['draft'])]}"/>
+                        </group>
+                        <group string="DESCRIPTION">
+                            <label for="date" string="Receive Date"/>
+                            <div class="d-flex flex-row align-items-start">
+                                <field name="date" readonly="1" class="w-auto"/>
+                            </div>
+                            <label for="supplier_date" string="Supplier Challan Date"/>
+                            <div class="d-flex flex-row align-items-start">
+                                <field name="supplier_date" readonly="1" class="w-auto"/>
+                            </div>
+                            <field name="receive_docs" readonly="1"/>
+                            <field name="types" invisible="1"/>
+                            <field name="receive_invoice" attrs="{'readonly': [('state', 'in',['locked'])]}"/>
+                            <field name="invoice_date" attrs="{'readonly': [('state', 'in',['locked'])]}"/>
+                             <field name="supplier_invoice_date" attrs="{'readonly': [('state', 'in',['locked'])]}"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Products Details">
+                            <field name="inno_receive_line" mode="tree"
+                                   attrs="{'readonly': [('state', 'not in',['draft'])]}">
+                                <tree editable="bottom" delete="1" create="0">
+                                    <field name="product_id" readonly="True" string="Product"
+                                           options="{'no_open': True}"/>
+                                    <field name="label" attrs="{'readonly': [('product_id', '=',False)]}"/>
+                                    <field name="demand_qty" readonly="True" sum="Sum Qty" optional="hide"
+                                           attrs="{'readonly': [('product_id', '=',False)],'invisible': [('product_id', '=',False)],'column_invisible':[('parent.parent_id', '!=', False)]}"/>
+                                    <field name="uom_id" optional="hide"
+                                           attrs="{'readonly': [('product_id', '=',False)],'invisible': [('product_id', '=',False)]}"/>
+                                    <field name="demand_deal_qty" readonly="True" sum="Sum Qty" optional="hide"
+                                           attrs="{'column_invisible':['|',('parent.types', 'in', ['yarn','wool']),('parent.parent_id', '!=', False)],'invisible': [('product_id', '=',False)]}"/>
+                                    <field name="deal_uom_id" readonly="True" optional="hide"
+                                           attrs="{'column_invisible':[('parent.types', 'in', ['yarn','wool'])]}"/>
+                                    <field name="receive_qty" required="True" sum="Sum Qty"
+                                           attrs="{'readonly': [('product_id', '=',False)],'invisible': [('product_id', '=',False)],'column_invisible':[('parent.types', 'in', ['tufting_cloth_weaving','third_backing_cloth',])]}"/>
+                                    <field name="receive_qty" required="True" sum="Sum Qty" string="Weight"
+                                           attrs="{'readonly': [('product_id', '=',False)],'invisible': [('product_id', '=',False)],'column_invisible':[('parent.types', 'not in', ['tufting_cloth_weaving','third_backing_cloth',])]}"/>
+                                    <field name="invoice_stock_qty" sum="Sum Qty"
+                                           attrs="{'column_invisible':[('parent.types', 'not in', ['purchase',])]}"/>
+                                    <field name="invoice_qty" required="True" sum="Sum Qty"
+                                           attrs="{'readonly': [('product_id', '=',False)],'column_invisible':[('parent.types', 'in', ['tufting_cloth_weaving','third_backing_cloth',])]}"/>
+                                    <field name="invoice_qty" required="True" sum="Sum Qty" string="Meter"
+                                           attrs="{'readonly': [('product_id', '=',False)],'column_invisible':[('parent.types', 'not in', ['tufting_cloth_weaving','third_backing_cloth',])]}"/>
+                                    <field name="return_receive_qty" required="True" sum="Sum Qty"
+                                           attrs="{'readonly': [('product_id', '=',False)],'invisible': [('product_id', '=',False)],'column_invisible':[('parent.parent_id', '==', False)]}"/>
+                                    <field name="return_invoice_qty" required="True" sum="Sum Qty"
+                                           attrs="{'readonly': [('product_id', '=',False)],'column_invisible':[('parent.parent_id', '==', False)]}"/>
+                                    <field name="weight_per_mtr" readonly="1"
+                                           attrs="{'column_invisible':[('parent.types', 'not in', ['tufting_cloth_weaving','third_backing_cloth',])]}"/>
+<!--                                    <field name="machines"-->
+<!--                                           attrs="{'readonly': [('product_id', '=',False)],'column_invisible':[('parent.types', 'not in', ['tufting_cloth_weaving','third_backing_cloth',])]}"/>-->
+                                    <field name="rate"/>
+                                    <field name="remarks"/>
+                                    <field name="lot"/>
+                                    <field name="tax_id" string="GST Details %" widget="many2many_tags"
+                                           options="{'no_open': True}"/>
+                                    <field name="discount" readonly="True"/>
+                                    <field name="currency_id" invisible="1"/>
+                                    <field name="price_subtotal" readonly="True"/>
+                                    <field name="price_total" invisible="1"/>
+                                    <field name="price_tax" invisible="1"/>
+                                    <button name="button_for_machine_records" string="Machines" type="object" class="btn-success" attrs="{'column_invisible':[('parent.types', 'not in', ['tufting_cloth_weaving','third_backing_cloth',])]}"/>
+                                </tree>
+                            </field>
+                            <group>
+                                <group>
+                                </group>
+                                <group class="oe_subtotal_footer oe_right">
+                                    <field name="tax_totals" widget="account-tax-totals-field" nolabel="1" colspan="2"
+                                           readonly="1"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="o_attachment_preview"/>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+
+     <record id="view_mrp_inno_inno_receive_line_form_id" model="ir.ui.view">
+        <field name="name">inno.receive.line</field>
+        <field name="model">inno.receive.line</field>
+        <field name="arch" type="xml">
+            <form delete="0">
+                <sheet>
+<!--                    <group>-->
+<!--                        <group>-->
+<!--                            <field name="receive_qty" tring="Weight" readonly="1" Force_save="1"/>-->
+<!--                        </group>-->
+<!--                        <group>-->
+<!--                            <field name="invoice_qty" readonly="1" string="Meter" Force_save="1"/>-->
+<!--                            <field name="weight_per_mtr" readonly="1" Force_save="1" />-->
+<!--                        </group>-->
+<!--                    </group>-->
+                    <notebook>
+                        <page string="Products Details">
+                            <field name="inno_machine_line" mode="tree">
+                                <tree editable="bottom">
+                                    <field name="machines"/>
+                                    <field name="receive_qty" sum="qty" string="Weight"/>
+                                    <field name="invoice_qty" sum="qty" string="Meter"/>
+                                    <field name="weight_per_mtr"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_mrp_purchase_receive_id" model="ir.actions.act_window">
+        <field name="name">Purchase</field>
+        <field name="res_model">inno.receive</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

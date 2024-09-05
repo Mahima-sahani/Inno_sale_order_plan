@@ -1,0 +1,12 @@
+<odoo>
+
+    <record id="action_report_print_order_invoice_xlsx" model="ir.actions.report">
+        <field name="name">Invoice XLSX</field>
+        <field name="model">inno.packaging</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">inno_invoicing.report_print_invoice_xlx</field>
+        <field name="report_file">inno_invoicing.report_print_invoice_xlx</field>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

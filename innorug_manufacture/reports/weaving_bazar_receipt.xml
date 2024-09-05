@@ -1,0 +1,171 @@
+<odoo>
+    <template id="report_weaving_bazar_receipt">
+        <t t-call="web.html_container">
+            <t t-set="data_report_landscape" t-value="False"/>
+            <t t-call="web.external_layout" style="margin-top: 100px;">
+                <div class="page">
+                    <div class="text-center" style="border-bottom: 1px solid black;">
+                        <br/>
+                        <h4>
+                            <b>Weaving Bazar Receipt</b>
+                        </h4>
+                        <br/>
+                    </div>
+                    <br/>
+                    <t t-foreach="data" t-as="rec">
+                        <!-- Worker Details -->
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <h6><b>Job Worker Name</b></h6>
+                                    </div>
+                                    <div class="col-1">
+                                        <h6>:</h6>
+                                    </div>
+                                    <div class="col-7">
+                                        <h6><t t-esc="rec.get('subcontractor')"/></h6>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <h6><b>Address</b></h6>
+                                    </div>
+                                    <div class="col-1">
+                                        <h6>:</h6>
+                                    </div>
+                                    <div class="col-7">
+                                        <h6><t t-esc="rec.get('address')"/></h6>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <h6><b>City</b></h6>
+                                    </div>
+                                    <div class="col-1">
+                                        <h6>:</h6>
+                                    </div>
+                                    <div class="col-7">
+                                        <h6><t t-esc="rec.get('city')"/></h6>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <h6><b>Mobile No.</b></h6>
+                                    </div>
+                                    <div class="col-1">
+                                        <h6>:</h6>
+                                    </div>
+                                    <div class="col-7">
+                                        <h6><t t-esc="rec.get('mobile')"/></h6>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <h6><b>Pan no.</b></h6>
+                                    </div>
+                                    <div class="col-1">
+                                        <h6>:</h6>
+                                    </div>
+                                    <div class="col-7">
+                                        <h6><t t-esc="rec.get('pan_no')"/></h6>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <h6><b>Aadhar no.</b></h6>
+                                    </div>
+                                    <div class="col-1">
+                                        <h6>:</h6>
+                                    </div>
+                                    <div class="col-7">
+                                        <h6><t t-esc="rec.get('aadhar_no')"/></h6>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <h6><b>GST no.</b></h6>
+                                    </div>
+                                    <div class="col-1">
+                                        <h6>:</h6>
+                                    </div>
+                                    <div class="col-7">
+                                        <h6><t t-esc="rec.get('gst_no')"/></h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Table -->
+                        <div class="row" style="margin-top: 20px;">
+                            <div class="col-12">
+                                <table class="table table-bordered">
+                                    <thead style="background-color: rgb(182, 179, 179); height: 5px;">
+                                        <tr style="text-align: center;">
+                                            <th scope="col">Receive No.</th>
+                                            <th scope="col">Receive Date</th>
+                                            <th scope="col">Godown</th>
+                                            <th scope="col">Bar Code</th>
+                                            <th scope="col">Design</th>
+                                            <th scope="col">Size</th>
+                                            <th scope="col">Quality</th>
+                                            <th scope="col">Pcs</th>
+                                            <th scope="col">Weight (Kg)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="rec.get('baz_data')" t-as="bdata">
+                                            <tr style="text-align: center;">
+                                                <td><t t-esc="bdata.get('rec_no')"/></td>
+                                                <td><t t-esc="bdata.get('receive_date')"/></td>
+                                                <td><t t-esc="bdata.get('godown')"/></td>
+                                                <td><t t-esc="bdata.get('bcodes')"/></td>
+                                                <td><t t-esc="bdata.get('design')"/></td>
+                                                <td><t t-esc="bdata.get('size')"/></td>
+                                                <td><t t-esc="bdata.get('quality')"/></td>
+                                                <td><t t-esc="bdata.get('pcs')"/></td>
+                                                <td><t t-esc="bdata.get('weight')"/></td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr style="text-align: center;">
+                                            <td>Total</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><t t-esc="round(rec.get('total_area'),3)"/></td>
+                                            <td></td>
+                                            <td><t t-esc="rec.get('total_pcs')"/></td>
+                                            <td><t t-esc="round(rec.get('total_weight'),3)"/></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="row" style="margin-top: 20px;">
+                            <div class="col-12 text-center">
+                                <h6><b>Authorised Signatory</b></h6>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_weaving_bazar_receipt" model="ir.actions.report">
+        <field name="name">Weaving Bazar Receipt</field>
+        <field name="model">main.baazar</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">innorug_manufacture.report_weaving_bazar_receipt</field>
+        <field name="report_file">Weaving Bazar Receipt</field>
+        <field name="paperformat_id" ref="base.paperformat_euro"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_update_expected_date" model="ir.ui.view">
+        <field name="name">Update Expected Date</field>
+        <field name="model">inno.update.expected.date</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="bg-warning mb-8 p-4">
+                        <b>Please Note:</b><br/>
+                        The penalties will not be Removed, If Expected date is already passed.<br/>
+                        The Future penalties will be stopped till the next Expected Date.
+                    </div>
+                    <group>
+                        <group>
+                            <field name="job_work_id" invisible="1"/>
+                            <field name="orignal_expected_date" readonly="1" attrs="{'invisible': [('orignal_expected_date', '=', False)]}"/>
+                        </group>
+                        <group>
+                            <field name="new_expected_date" required="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="reason" required="1"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Update" class="btn-primary" type="object" name="do_update"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,97 @@
+<odoo>
+
+    <template id="report_print_barcode">
+        <t t-call="web.html_container">
+        <style type="text/css">
+            table, th, td {
+            padding-top: 8px;
+            padding-bottom: 8px;
+            border: 2px solid black;
+            border-collapse: collapse;
+            }
+        </style>
+
+            <t t-foreach="docs" t-as="o" style="page-break-after: always;">
+                <div class="page" style="width : 100%; height: 23rem;">
+                    <div style="border-left: 2px solid black; border-right: 2px solid black; border-top: 2px solid black; height: 25%; padding: 3px;">
+                        <img t-attf-src="data:image/*;base64,{{o.company_id.logo}}" style="max-width: 100%; max-height: 100%; margin-left:35%;"/>
+                    </div>
+                    <table style="width:100%; text-align:center;">
+                        <tr>
+                            <td>
+                                <b>Sale Order</b>
+                            </td>
+                            <td>
+                                <b><t t-esc="o.sale_id.order_no"/></b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                               <b>SKU</b>
+                            </td>
+                            <td>
+                                <b><t t-esc="o.product_id.default_code"/></b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <b>Design</b>
+                            </td>
+                            <td>
+                                <b><t t-esc="o.design"/></b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <b>color</b>
+                            </td>
+                            <td>
+                                <b><t t-esc="o.color"/></b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <b>size</b>
+                            </td>
+                            <td>
+                                <b><t t-esc="o.size"/></b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <b>Quality</b>
+                            </td>
+                            <td>
+                                <b><t t-esc="o.quality"/></b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <b>Spl.Note</b>
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                    </table>
+                    <div style="border-left: 2px solid black; border-right: 2px solid black; border-bottom: 2px solid black; height: 20%; max-width: 100%;">
+                        <img t-attf-src="data:image/*;base64,{{o.barcode}}" style="width: 100%; height: 100%;"/>
+                    </div>
+                </div>
+                <br/>
+            </t>
+        </t>
+    </template>
+
+
+    <record id="action_report_print_barcode" model="ir.actions.report">
+        <field name="name">Print Barcodes</field>
+        <field name="model">mrp.barcode</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">innorug_manufacture.report_print_barcode</field>
+        <field name="report_file">innorug_manufacture.report_print_barcode</field>
+        <field name="paperformat_id" ref="innorug_manufacture.barcode_paper_format"/>
+        <field name="binding_model_id" ref="model_mrp_barcode"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

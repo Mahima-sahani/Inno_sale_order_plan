@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record id="view_inno_amend_return" model="ir.ui.view">
+        <field name="name">regenerate.barcode.wizard</field>
+        <field name="model">inno.amend.return</field>
+        <field name="arch" type="xml">
+            <form create="false" edit="false" duplicate="false">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="job_order_id" readonly="1" attrs="{'invisible': [('job_order_id', '=', False)]}"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Products">
+                            <field name="amend_return_ids">
+                                <tree create="0" editable="bottom" delete="0">
+                                    <field name="product_id" readonly="1" force_save="1"/>
+                                    <field name="quantity"/>
+                                    <field name="product_uom" readonly="1" force_save="1"/>
+                                    <field name="component_line_id" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <footer>
+                    <button string="Confirm" class="btn-primary" type="object" name="button_confirm"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

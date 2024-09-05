@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <!-- Branch Form -->
+    <record id="view_mrp_rug_bom_form" model="ir.ui.view">
+        <field name="name">mrp.rug.bom.lines</field>
+        <field name="model">mrp.rug.bom.lines</field>
+        <field name="arch" type="xml">
+            <form >
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="product_id"/>
+                            <field name="product_qty"/>
+                            <field name="product_uom_category_id"/>
+                        </group>
+                        <group>
+                            <field name="operation_id"/>
+                            <field name="bom_id"/>
+                             <field name="allowed_operation_ids"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="mrp_res_bom_id" model="ir.ui.view">
+        <field name="name">mrp.bom</field>
+        <field name="model">mrp.bom</field>
+        <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
+        <field name="arch" type="xml">
+                <xpath expr="/form/*" position="before">
+                    <!-- <header>
+                         <button name="button_action_for_apply_varient" string="Apply Varient" type="object" class="btn-primary" />
+                    </header> -->
+                </xpath>
+            <data>
+                <!-- <xpath expr="//notebook" position="inside">
+                    <page string="Bom details">
+                        <field name="mrp_rug_lines" mode="tree">
+                            <tree editable="buttom">
+                                <field name="product_id"/>
+                                <field name="product_qty"/>
+                                <field name="product_uom_category_id"/>
+                                <field name="operation_id"/>
+                                <field name="allowed_operation_ids" invisible="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath> -->
+            </data>
+        </field>
+    </record>
+</odoo>

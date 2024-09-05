@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Main Baazar Tree -->
+    <record id="view_inno_logs_tree" model="ir.ui.view">
+        <field name="name">Migration Logs Tree</field>
+        <field name="model">inno.migration.logs</field>
+        <field name="arch" type="xml">
+            <tree create="0" edit="0">
+                <field name="name"/>
+                <field name="migration_type"/>
+                <field name="migration_status" decoration-success="migration_status == 'success'" decoration-danger="migration_status == 'failed'" widget="badge"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_inno_log_form" model="ir.ui.view">
+        <field name="name">Migration Logs Form</field>
+        <field name="model">inno.migration.logs</field>
+        <field name="arch" type="xml">
+            <form >
+                <header>
+                        <button name="mark_as_resolved" string="Resolve" type="object" class="btn-primary"  attrs="{'invisible': ['|', ('migration_status', '=', 'success'), ('migration_type', '!=', 'product')]}"/>
+                    </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="object" name="open_record" icon="fa-external-link" attrs="{'invisible': ['|', ('migration_status', '=', 'failed'), ('is_resolved', '=', True)]}">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_text">Check Record</span>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="float-end badge rounded-pill p-2 bg-success" attrs="{'invisible': ['|', ('migration_status', '=', 'failed'), ('is_resolved', '=', True)]}" style="height:2rem; color:white;">
+                        Success
+                    </div>
+                    <div class="float-end badge rounded-pill p-2 bg-danger" attrs="{'invisible': ['|', ('migration_status', '=', 'success'), ('is_resolved', '=', True)]}" style="height:2rem; color:white;">
+                        Failed
+                    </div>
+                    <div class="float-end badge rounded-pill p-2 bg-success" attrs="{'invisible': [('is_resolved', '=', False)]}" style="height:2rem; color:white;">
+                        Resolved
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <div class="d-flex">
+                                <field class="text-break" name="name" readonly="1"/>
+                            </div>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name='migration_type' readonly="1"/>
+                            <field name="migration_status" invisible="1"/>
+                            <field name="rec_id" invisible="1"/>
+                            <field name="is_resolved" invisible="1"/>
+                        </group>
+                    </group>
+                    <div class="row">
+                        <div class="col-6">
+                            <hr/>
+                            <div style="font-weight:600; text-align:center;">DATA</div>
+                            <hr/>
+                            <div>
+                                <field name='data' readonly="1"/>
+                            </div>
+                        </div>
+                        <div class="col-6" string="Error" attrs="{'invisible': [('migration_status', '=', 'success'), ('is_resolved', '=', False)]}" style="border-left: 1px solid black;">
+                            <hr/>
+                            <div style="font-weight:600; text-align:center;">ERROR</div>
+                            <hr/>
+                            <div>
+                                <field name="error_description" readonly="1"/>
+                            </div>
+                        </div>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="action_inno_migration_logs" model="ir.actions.act_window">
+        <field name="name">Migration Logs</field>
+        <field name="res_model">inno.migration.logs</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'group_by': ['migration_type', 'migration_status']}</field>
+    </record>
+</odoo>

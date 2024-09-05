@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Tree -->
+        <record id="view_inno_size_tree" model="ir.ui.view">
+            <field name="name">inno size</field>
+            <field name="model">inno.size</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                     <field name="shape"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form -->
+        <record id="view_inno_size_form" model="ir.ui.view">
+            <field name="name">inno.size</field>
+            <field name="model">inno.size</field>
+            <field name="arch" type="xml">
+                <form string="Size">
+                      <header>
+                             <button name="fix_binding_and_gachai_lenght" string="Update Binding and Gachhai Perimeter" attrs="{'invisible': [('update_binding_gacchai', '=',True)]}" type="object" class="btn-primary"/>
+<!--                           <button name="fix_binding_and_gachai_lenght" string="Confirm" type="object" class="btn-primary"/>-->
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="state"  invisible="1"/>
+                                <field name="name" readonly="1" force_save="1"/>
+                                 <field name="size" readonly="1" string="Type"/>
+                            </group>
+                            <group>
+                                <field name="size_type" required="1"/>
+                                 <field name="is_child" invisible="1"/>
+                            </group>
+                        </group>
+                        <div>
+                        <div>Size Specification</div>
+                          <group>
+                            <group>
+                                   <label for="length"/>
+                                <div class="oe_inline">
+                                    <field name="length" class="mr8 oe_inline" required="1" tracking="1"/>
+                                    <strong class="mr8 oe_inline">Feet</strong></div>
+                                   <label for="width"/>
+                                <div class="oe_inline">
+                                    <field name="width" class="mr8 oe_inline" required="1" tracking="1"/>
+                                    <strong class="mr8 oe_inline">Feet</strong></div>
+                                 <field name="update_binding_gacchai" widget="boolean_toggle"/>
+<!--                                   <label for="height"/>-->
+<!--                                <div class="oe_inline">-->
+<!--                                    <field name="height" class="mr8 oe_inline" tracking="1"/>-->
+<!--                                    <strong class="mr8 oe_inline">Feet</strong></div>-->
+                            </group>
+                            <group>
+                                 <label for="len_fraction"/>
+                                <div class="oe_inline">
+                                    <field name="len_fraction" class="mr8 oe_inline" tracking="1"/>
+                                    <strong class="mr8 oe_inline">Inches</strong></div>
+                                 <label for="width_fraction"/>
+                                <div class="oe_inline">
+                                    <field name="width_fraction" class="mr8 oe_inline" tracking="1"/>
+                                    <strong class="mr8 oe_inline">Inches</strong></div>
+<!--                                 <label for="height_fraction"/>-->
+<!--                                <div class="oe_inline">-->
+<!--                                    <field name="height_fraction" class="mr8 oe_inline" tracking="1"/>-->
+<!--                                    <strong class="mr8 oe_inline">Inches</strong></div>-->
+                            </group>
+                        </group>
+                            <div>Binding &amp; Gachhai Details</div>
+                           <group>
+                            <group>
+                                 <label for="len_parm"/>
+                                <div class="oe_inline">
+                                    <field name="len_parm" attrs="{'readonly': [('update_binding_gacchai', '=',True)]}" class="mr8 oe_inline" force_save="1" required="1" tracking="1"/>
+                                    <strong class="mr8 oe_inline">Feet</strong></div>
+                                   <label for="width_parm"/>
+                                <div class="oe_inline">
+                                    <field name="width_parm" class="mr8 oe_inline" attrs="{'readonly': [('update_binding_gacchai', '=',True)]}" force_save="1" required="1" tracking="1"/>
+                                    <strong class="mr8 oe_inline">Feet</strong></div>
+                            </group>
+                            <group>
+                                 <label for="perimeter" string="Both"/>
+                                <div class="oe_inline">
+                                    <field name="perimeter" class="mr8 oe_inline" force_save="1" attrs="{'readonly': [('update_binding_gacchai', '=',True)]}" required="1" tracking="1"/>
+                                    <strong class="mr8 oe_inline">Feet</strong></div>
+
+                            </group>
+                        </group>
+                         <div>Area</div>
+                           <group>
+                            <group>
+                                  <label for="area"/>
+                                <div class="oe_inline">
+                                    <field name="area" class="mr8 oe_inline" force_save="1" required="1" tracking="1"/>
+                                </div>
+                                 <label for="area_sq_mt"/>
+                                <div class="oe_inline">
+                                    <field name="area_sq_mt" class="mr8 oe_inline" force_save="1" readonly="1"/>
+                                </div>
+                            </group>
+                            <group>
+                                  <label for="area_sq_yard"/>
+                                <div class="oe_inline">
+                                    <field name="area_sq_yard" class="mr8 oe_inline" force_save="1" readonly="1"/>
+                                </div>
+                                     <label for="area_cm"/>
+                                <div class="oe_inline">
+                                    <field name="area_cm" class="mr8 oe_inline" force_save="1"/>
+                                </div>
+                            </group>
+                        </group>
+                        </div>
+                        <notebook>
+                              <page string="Size Configuration"  attrs="{'invisible': [('is_child', '!=', False)]}">
+                                <field name="inno_size_line">
+                                <tree create="false" delete="0">
+                                     <field name="child_size_id"/>
+<!--                                     <field name="size_type"/>-->
+                                     <field name="size" string="Type"/>
+                                     <field name="division_id"/>
+                                </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="action_inno_size_data" model="ir.actions.act_window">
+            <field name="name">Size</field>
+            <field name="res_model">inno.size</field>
+            <field name="view_mode">tree,form</field>
+             <field name="domain">[('is_child', '=', False)]</field>
+        </record>
+    </data>
+
+</odoo>

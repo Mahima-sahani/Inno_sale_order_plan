@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <menuitem id="menu_inno_RnD"
+           name="R &amp; D"
+          groups="group_inno_rnd_user"/>
+    />
+
+    <menuitem id="sub_menu_inno_RnD"
+              name="Research"
+              parent="menu_inno_RnD"
+              action="action_inno_research"
+              sequence="1"/>
+     <menuitem id="sub_menu_copy_design"
+              name="Copy Design"
+              parent="menu_inno_RnD"
+              action="action_copy_design"
+              sequence="2"/>
+    <menuitem id="sub_menu_inno_RnD_operation"
+              name="Operation"
+              parent="menu_inno_RnD"
+              action="action_inno_operation_sequence"
+              sequence="3"/>
+
+    <menuitem id="sub_menu_action_product_attribute"
+          name="Masters"
+          parent="menu_inno_RnD"
+          sequence="4"/>
+
+    <menuitem id="sub_menu_inno_masters_product_group"
+          name="Product Rate Group"
+          parent="sub_menu_action_product_attribute"
+          action="action_inno_rate_group"
+          sequence="1"/>
+
+    <menuitem id="sub_menu_inno_masters_collection"
+          name="Collections"
+          parent="sub_menu_action_product_attribute"
+          action="action_inno_master_collection"
+          sequence="2"/>
+
+    <menuitem id="sub_menu_inno_masters_construction"
+          name="Construction"
+          parent="sub_menu_action_product_attribute"
+          action="action_inno_master_construction"
+          sequence="2"/>
+
+    <menuitem id="sub_menu_inno_masters_quality"
+          name="Quality"
+          parent="sub_menu_action_product_attribute"
+          action="action_inno_master_quality"
+          sequence="2"/>
+
+    <menuitem id="sub_menu_inno_masters_color_ways"
+          name="Color Ways"
+          parent="sub_menu_action_product_attribute"
+          action="action_inno_master_color_ways"
+          sequence="2"/>
+
+    <menuitem id="sub_menu_inno_masters_style"
+          name="Style"
+          parent="sub_menu_action_product_attribute"
+          action="action_inno_master_style"
+          sequence="2"/>
+
+    <menuitem id="sub_menu_inno_masters_color"
+          name="Color"
+          parent="sub_menu_action_product_attribute"
+          action="action_inno_master_color"
+          sequence="2"/>
+
+    <menuitem id="sub_menu_inno_masters_pattern"
+          name="Pattern"
+          parent="sub_menu_action_product_attribute"
+          action="action_inno_master_pattern"
+          sequence="2"/>
+
+    <menuitem id="sub_menu_inno_masters_contect"
+          name="Content"
+          parent="sub_menu_action_product_attribute"
+          action="action_inno_master_contect"
+          sequence="2"/>
+
+    <menuitem id="sub_menu_inno_masters_face_content"
+          name="Face Content"
+          parent="sub_menu_action_product_attribute"
+          action="action_inno_master_face_content"
+          sequence="2"/>
+
+    <menuitem id="sub_menu_size_master"
+              name="Size"
+              parent="menu_inno_RnD"
+              action="action_inno_size_data"
+              sequence="5"/>
+    <menuitem id="sub_menu_add_sku"
+              name="ADD NEW SKU"
+              parent="menu_inno_RnD"
+              action="action_add_product_sku"
+              sequence="6"/>
+
+    <menuitem id="sub_menu_supplier_info"
+              name="Supplier Info"
+              parent="menu_inno_RnD"
+              action="action_inno_inno_product_supplierinfo"
+              sequence="7"/>
+
+</odoo>

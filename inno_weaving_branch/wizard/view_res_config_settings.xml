@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="res_config_settings_view_form_weaving_branch" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.inherit.innorug.weaving</field>
+            <field name="model">res.config.settings</field>
+            <field name="priority" eval="90"/>
+            <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[hasclass('settings')]" position="inside">
+                    <div class="app_settings_block" data-string="Weaving Centers" id="inno_weaving_branch" string="Weaving Centers" data-key="inno_weaving_branch">
+<!--                        groups="fleet.fleet_group_manager"-->
+                        <h2>Weaving Centers</h2>
+                        <div class="row mt16 o_settings_container" id="innorug_manufacturing_setting">
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="o_setting_left_pane"/>
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">Warehouse Transfer Operation</span>
+                                    <div class="text-muted content-group mt16">
+                                        <span>Select operation used to transfer stock from main warehouse to weaving centers</span>
+                                        <field name="inter_warehouse_operation_id" class="text-center"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="inno_weaving_branch_config_settings_action" model="ir.actions.act_window">
+            <field name="name">Settings</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.config.settings</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+            <field name="context">{'module' : 'inno_weaving_branch', 'bin_size': False}</field>
+        </record>
+    </data>
+</odoo>

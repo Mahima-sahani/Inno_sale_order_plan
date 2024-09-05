@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_package_wizard_form" model="ir.ui.view">
+            <field name="name">package.wizard</field>
+            <field name="model">package.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div style="text-align: center;">
+                            <b>Total of <field name="packed_weight" readonly="1" force_save="1" />
+                                Ton is packed</b>
+                        </div>
+                        <br />
+                        <group>
+                            <group>
+                                <field name="barcode_id"
+                                    options="{'no_create': True, 'no_open': True}" />
+                                <field name="sale_order_id" options="{'no_create': True, 'no_open': True}" />
+                                <field name="is_sample" widget="boolean_toggle" />
+                                <field name="roll_no" required="1" />
+                                <field name="qty" required="1" />
+                                <field name="gross_weight" />
+                                <field name="remark" />
+                            </group>
+                            <group>
+                                <field name="product_id" required="1" options="{'no_create': True, 'no_open': True}" />
+                                <field name="size" readonly="1" force_save="1" />
+                                <field name="invoice_group_id" required="1" options="{'no_create': True, 'no_open': True}"/>
+                                <field name="deal_qty" readonly="1" force_save="1" />
+                                <field name="net_weight" readonly="1" force_save="1" />
+                                <field name="label_type" required="1" />
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button type="object" name="save_and_generate_label"
+                            string="Save and Generate Label" class="btn-primary" />
+                        <button string="Cancel" class="btn-secondary" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+        <record id="view_package_label_wizard_form" model="ir.ui.view">
+            <field name="name">package.wizard</field>
+            <field name="model">package.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="inno_package_id" options="{'no_create': True, 'no_open': True}" />
+                                <field name="id_barcode" options="{'no_create': True, 'no_open': True}" />
+                                <field name="sale_order_id" options="{'no_create': True, 'no_open': True}"/>
+                                <field name="bale_no"/>
+                            </group>
+                            <group>
+                                <field name="product_id" required="1" options="{'no_create': True, 'no_open': True}"/>
+                                <field name="invoice_group_id" required="1" options="{'no_create': True, 'no_open': True}"/>
+                                <field name="label_type" required="1" />
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button type="object" name="generate_label_again"
+                            string="Generate Label" class="btn-primary" />
+                        <button string="Cancel" class="btn-secondary" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_packaging_multiple_labels" model="ir.actions.act_window">
+            <field name="name">Packaging Labels</field>
+            <field name="res_model">package.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="inno_packaging.view_package_label_wizard_form"></field>
+            <field name="target">new</field>
+        </record>
+
+
+    </data>
+</odoo>

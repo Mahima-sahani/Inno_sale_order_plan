@@ -1,0 +1,46 @@
+<odoo>
+    <data>
+        <!-- Form View -->
+        <record id="view_barcode_scanner_form" model="ir.ui.view">
+            <field name="name">custom.barcode.scanner.form</field>
+            <field name="model">barcode.scanner</field>
+            <field name="arch" type="xml">
+                <form>
+                     <header>
+                        <button name="check_bluetooth" string="ADD BLUETOOTH" type="object" class="btn-primary"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            <field name="is_bluetooth"/>
+                            </group>
+                            <group>
+                                 <field name="device_address"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Tree View -->
+        <record id="view_barcode_scanner_tree" model="ir.ui.view">
+            <field name="name">custom.barcode.scanner.tree</field>
+            <field name="model">barcode.scanner</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="device_address"/>
+                   <field name="is_bluetooth"/>
+                </tree>
+            </field>
+        </record>
+    </data>
+
+
+         <record id="action_barcode_scanner" model="ir.actions.act_window">
+            <field name="name">Barcode Scanner Data</field>
+            <field name="res_model">barcode.scanner</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+</odoo>

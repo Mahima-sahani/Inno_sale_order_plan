@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="inno_account_move_extend" model="ir.ui.view">
+        <field name="name">Inno Account move Extend</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//notebook/page[@id='invoice_tab']/field/tree/field[@name='quantity']" position="before">
+                    <field name="inno_area" readonly="1"/>
+                    <field name="inno_price" readonly="1"/>
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+       <record id="inno_account_view_account_payment_register_form" model="ir.ui.view">
+        <field name="name">account.payment.register</field>
+        <field name="model">account.payment.register</field>
+        <field name="inherit_id" ref="account.view_account_payment_register_form"/>
+        <field name="arch" type="xml">
+            <field name="payment_date" position="after">
+                <field name="cheque"/>
+            </field>
+        </field>
+    </record>
+
+       <record id="inno_account_view_account_payment_form" model="ir.ui.view">
+        <field name="name">account.payment</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_form"/>
+        <field name="arch" type="xml">
+            <field name="partner_bank_id" position="after">
+                <field name="cheque"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

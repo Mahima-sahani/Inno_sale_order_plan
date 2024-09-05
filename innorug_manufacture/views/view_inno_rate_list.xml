@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Branch Tree -->
+    <record id="view_inno_rate_list_tree" model="ir.ui.view">
+        <field name="name">Inno Rate List tree</field>
+        <field name="model">inno.rate.list</field>
+        <field name="arch" type="xml">
+            <tree>
+                 <field name="name"/>
+                  <field name="condition_required"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <!-- Branch Form -->
+    <record id="view_inno_rate_list_form" model="ir.ui.view">
+        <field name="name">Inno Rate List Form</field>
+        <field name="model">inno.rate.list</field>
+        <field name="arch" type="xml">
+            <form>
+                <div style="background-color:#FADA5E; color:black; padding: 10px;text-align:center;">
+                        <strong>Changing field will remove all the conditions for that field.</strong>
+                    </div>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" string="Price List"/>
+                        <h1>
+                            <div class="d-flex">
+                                <field class="text-break" name="name" required="1"/>
+                            </div>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="condition_required" widget="boolean_toggle"/>
+                        </group>
+                        <group>
+                            <field name="product_field_id" attrs="{'invisible': [('condition_required', '=', False)]}" options="{'no_create': True}"/>
+                            <field name="field_type" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="base_price" attrs="{'invisible': [('condition_required', '!=', False)]}"/>
+                        </group>
+                        <group>
+                            <field name="variable_price" attrs="{'invisible': [('condition_required', '!=', False)]}"/>
+                        </group>
+                        <group>
+                            <field name="loss"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Conditions" attrs="{'invisible': ['|', ('condition_required', '=', False), ('product_field_id', '=', False)]}">
+                            <field name="price_condition_ids">
+                                <tree edit="0">
+                                    <field name="condition"/>
+                                    <field name="display_value"/>
+                                    <field name="base_price"/>
+                                    <field name="variable_price"/>
+                                </tree>
+                                <form editable="bottom">
+                                    <group>
+                                        <group>
+                                            <field name="base_price"/>
+                                        </group>
+                                        <group>
+                                            <field name="variable_price"/>
+                                        </group>
+                                    </group>
+                                    <hr/>
+                                    <div><center style="font-weight:600;">Conditon</center></div>
+                                    <hr/>
+                                    <group>
+                                        <group>
+                                            <field name="product_field_id" readonly="1"/>
+                                        </group>
+                                        <group/>
+                                        <group>
+                                            <field name="condition" force_save="1"/>
+                                        </group>
+                                        <group>
+                                            <field name="matching_value" attrs="{'invisible': [('parent.field_type', '!=', 'float')]}" string="Value"/>
+                                            <field name="matching_selection" attrs="{'invisible': [('parent.field_type', '!=', 'selection')]}" string="Value"/>
+                                            <field name="matching_data" attrs="{'invisible': [('parent.field_type', '!=', 'other')]}" string="Value"/>
+                                        </group>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="action_inno_rate_list" model="ir.actions.act_window">
+        <field name="name">Rate List</field>
+        <field name="res_model">inno.rate.list</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

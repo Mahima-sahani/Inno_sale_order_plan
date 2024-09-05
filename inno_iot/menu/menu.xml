@@ -1,0 +1,9 @@
+<!-- custom_barcode_scanner/views/barcode_scanner_menus.xml -->
+<odoo>
+    <data>
+
+        <!-- Menu Item -->
+        <menuitem id="menu_barcode_scanner_inno" name="Internet Of Things"
+                  action="action_barcode_scanner"/>
+    </data>
+</odoo>

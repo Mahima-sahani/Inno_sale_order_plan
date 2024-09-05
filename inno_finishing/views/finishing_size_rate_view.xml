@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Form -->
+        <record id="view_inno_rate_and_incentive_rate_form" model="ir.ui.view">
+            <field name="name">Size Wize Rate</field>
+            <field name="model">rate.and.incentive</field>
+            <field name="arch" type="xml">
+                <form create="1" delete="0" duplicate="0" >
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="product_tmpl_id" readonly="1"/>
+                                <field name="unit" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="rate" invisible="1"/>
+                                  <field name="status" invisible="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

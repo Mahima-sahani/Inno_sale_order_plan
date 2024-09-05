@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Cost Center Form -->
+    <record id="view_weaving_center_allotment_view" model="ir.ui.view">
+        <field name="name">mrp.weaving.center.allotment</field>
+        <field name="model">weaving.center.allotment</field>
+        <field name="arch" type="xml">
+            <form >
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="subcontractor_id" required="1"/>
+                        </group>
+                        <group>
+                             <label for="issue_date" string="Order Date"/>
+                            <div class="oe_inline">
+                                <field name="issue_date" class="mr8 oe_inline" required="True"/>
+                                <strong class="mr8 oe_inline">to</strong>
+                                <field name="expected_date" class="oe_inline" required="True"/>
+                            </div>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Allotment Line">
+                            <field name="allotment_line_ids" mode="tree">
+                                <tree create="0" editable="bottom">
+                                    <field name="product_id" readonly="1" force_save="1"/>
+                                     <field name="product_qty" readonly="1" sum="qty" force_save="1"/>
+                                    <field name="alloted_qty" sum="qty"/>
+                                    <field name="work_order_id" invisible="1"/>
+                                    <field name="allotment_id" invisible="1"/>
+                                    <field name="allotted_barcodes" widget="many2many_tags" domain="[('id', 'in', [])]" options="{'no_create': True}"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                  <footer>
+                    <button string="Confirm" class="btn-primary" type="object" name="do_confirm"/>
+                      <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

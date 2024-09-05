@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Form -->
+        <record id="view_inno_inno_sample_rate_update_rate_form" model="ir.ui.view">
+            <field name="name">Size Wize Rate</field>
+            <field name="model">inno.sample.rate.update</field>
+            <field name="arch" type="xml">
+                <form create="1" delete="0" duplicate="0">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="finishing_work_id"/>
+                            </group>
+                             <group>
+<!--                                <field name="is_size_wize"  widget='boolean_toggle'/>-->
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Rate &amp; Area">
+                                <field name="inno_sizewise_rate_update_line">
+                                    <tree editable="bottom" create="0" delete="0">
+                                         <field name="product_id" readonly="1" force_save="1"/>
+                                        <field name="size_id" readonly="1" force_save="1"/>
+                                        <field name="total_area"/>
+                                        <field name="unit"/>
+                                        <field name="rate"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                     <footer>
+                    <button name='confirm_update' string="Update" type="object" class="btn-success"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

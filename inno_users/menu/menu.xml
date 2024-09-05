@@ -1,0 +1,15 @@
+
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+       <menuitem id="menu_inno_users"
+          name="Inno Users"/>
+
+
+    <menuitem id="sub_menu_inno_users"
+              name="Users"
+              parent="menu_inno_users"
+              action="action_mrp_inno_users_id"
+              sequence="1"/>
+
+</odoo>

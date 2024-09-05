@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="inno_picking_extended" model="ir.ui.view">
+        <field name="name">Inno picking Extended</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//header" position="inside">
+                    <field name="main_jobwork_id" invisible="1"/>
+                </xpath>
+                <xpath expr="//page[@name='operations']/field/tree/field[@name='product_uom']" position="after">
+                    <field name="changeable_cloth" invisible="1"/>
+                    <button type="object" name="add_different_clothes" string="Update Cloth" attrs="{'invisible': ['|', ('parent.main_jobwork_id', '=', False), ('changeable_cloth', '=', False)]}" class="btn-warning"/>
+                </xpath>
+                <xpath expr="//page[@name='operations']/field/tree/field[@name='quantity_done']" position="attributes">
+                    <attribute name="sum">total</attribute>
+                </xpath>
+                <xpath expr="//page[@name='operations']/field/tree/field[@name='product_uom_qty']" position="attributes">
+                    <attribute name="sum">total</attribute>
+                </xpath>
+                 <xpath expr="//field[@name='origin']" position="after">
+                <field name="doc_date" />
+            </xpath>
+                <xpath expr="//page[@name='operations']/field/tree/field[@name='product_uom_qty']" position="after">
+                    <field name="remarks" />
+                </xpath>
+            </data>
+        </field>
+    </record>
+</odoo>

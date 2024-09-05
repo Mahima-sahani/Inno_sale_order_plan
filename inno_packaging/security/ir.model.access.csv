@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+inno_package_labels_print,access_inno_package_label_print,model_inno_print_package_label,,1,1,1,1
+inno_inno_packaging,access_inno_packaging,model_inno_packaging,,1,1,1,1
+inno_package_wizard,access_package_wizard,model_package_wizard,,1,1,1,1
+inno_invoive_group,access_inno_invoive_group,model_inno_invoive_group,,1,1,1,1
+inno_packaging_invoice,access_inno_packaging_invoice,model_inno_packaging_invoice,,1,1,1,1
+inno_packaging_invoice_line,access_inno_packaging_invoice_line,model_inno_packaging_invoice_line,,1,1,1,1
+inno_roll_no_info,access_inno_roll_no_info,model_roll_no_info,,1,1,1,1
+inno_package_segmentation,access_package_segmentation,model_package_segmentation,,1,1,1,1
+inno_package_reports,access_package_reports,model_inno_packaging_reports,,1,1,1,1

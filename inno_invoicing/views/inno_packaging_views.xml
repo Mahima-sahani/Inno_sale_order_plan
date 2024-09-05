@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+     <data>
+            <record id="view_inno_invoicing_packs_view_tree" model="ir.ui.view">
+            <field name="name">inno.invoicing</field>
+            <field name="model">inno.packaging</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="invoice_name" readonly="1"/>
+                    <field name="buyer_id" required="1"/>
+<!--                    <field name="location_id" required="1" />-->
+<!--                    <field name="status"/>-->
+                </tree>
+            </field>
+        </record>
+
+    <record id="view_inno_invoicing_packs_form" model="ir.ui.view">
+        <field name="name">inno.invoicing</field>
+        <field name="model">inno.packaging</field>
+        <field name="arch" type="xml">
+            <form >
+                       <header>
+                            <button name="button_action_for_create_invoice" string="CREATE INVOICE" type="object" class="btn-primary" attrs="{'invisible': [('status', 'not in',['invoicing',])]}"/>
+                           <button name="button_action_for_generate_report" string="GENERATE REPORTS" type="object" class="btn-primary" attrs="{'invisible': [('status', 'not in',['done',])]}"/>
+                                               <field name="status" widget="statusbar"
+                               statusbar_visible="invoicing,done"/>
+                    </header>
+                <sheet>
+                      <div class="oe_title">
+                            <h1>
+                                <div class="d-flex">
+                                    <field class="text-break" name="invoice_name" readonly="1"/>
+                                </div>
+                            </h1>
+                        </div>
+                    <group>
+                        <group string="Basic Info">
+                            <field name="buyer_id" readonly="1"/>
+                            <field name="currency_id" readonly="1"/>
+                            <field name="delivery_terms" attrs="{'readonly': [('status', 'in',['done',])]}"/>
+
+                        </group>
+                        <group string="Invoice Info">
+                            <field name="invoice"/>
+                              <field name="exchange_rate" required="1" />
+                            <field name="blno"/>
+                        </group>
+                    </group>
+                     <notebook>
+                          <page string="Products Details">
+                                <field name="stock_quant_lines" editable="bottom">>
+                                <tree editable="bottom" create="0">
+                                    <field name="sequence_ref" readonly="1" string="Roll"/>
+                                    <field name="roll_no" readonly="1" string="Group"/>
+                                    <field name="barcode_id" readonly="1"/>
+                                    <field name="product_id" readonly="1"/>
+                                    <field name="quantity" readonly="1"/>
+                                    <field name="sale_order_id" readonly="1"/>
+                                    <field name="rate" readonly="1"/>
+                                </tree>
+                                </field>
+                            </page>
+                            <page string="Other Details">
+                                           <group>
+                        <group>
+                            <field name="bl_date" attrs="{'readonly': [('status', 'in',['done',])]}" />
+                            <field name="port_of_loading" attrs="{'readonly': [('status', 'in',['done',])]}"/>
+                            <field name="final_plc_dlvery" attrs="{'readonly': [('status', 'in',['done',])]}"/>
+                             <field name="circular_date" attrs="{'readonly': [('status', 'in',['done',])]}"/>
+                            <field name="order_date" attrs="{'readonly': [('status', 'in',['done',])]}"/>
+                            <field name="invoice_amt" attrs="{'readonly': [('status', 'in',['done',])]}"/>
+                            <field name="insurance" attrs="{'readonly': [('status', 'in',['done',])]}"/>
+                            <field name="other_ref" attrs="{'readonly': [('status', 'in',['done',])]}"/>
+                            <field name="notify_party" attrs="{'readonly': [('status', 'in',['done',])]}"/>
+                              <field name="desc_of_goods" attrs="{'readonly': [('status', 'in',['done',])]}"/>
+                            <field name="remark" attrs="{'readonly': [('status', 'in',['done',])]}"/>
+                        </group>
+                        <group>
+                            <field name="private_mark" attrs="{'readonly': [('status', 'in',['done',])]}"/>
+                            <field name="desination_port" attrs="{'readonly': [('status', 'in',['done',])]}"/>
+                            <field name="circular_no" attrs="{'readonly': [('status', 'in',['done',])]}"/>
+                             <field name="order_no" attrs="{'readonly': [('status', 'in',['done',])]}"/>
+                            <field name="kinds_of_pkg" attrs="{'readonly': [('status', 'in',['done',])]}"/>
+                            <field name="freight" attrs="{'readonly': [('status', 'in',['done',])]}"/>
+                            <field name="vehicle_no" attrs="{'readonly': [('status', 'in',['done',])]}"/>
+                            <field name="terms_of_sale" attrs="{'readonly': [('status', 'in',['done',])]}"/>
+                            <field name="pkg_material_desc" attrs="{'readonly': [('status', 'in',['done',])]}"/>
+                              <field name="compositions" attrs="{'readonly': [('status', 'in',['done',])]}"/>
+                        </group>
+                    </group>
+
+                            </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+        <record id="action_inno_invoicing" model="ir.actions.act_window">
+            <field name="name">Invoicing</field>
+            <field name="res_model">inno.packaging</field>
+            <field name="view_mode">tree,form</field>
+                 <field name="view_ids" eval="[(5, 0, 0),
+    (0, 0, {'view_mode': 'tree', 'view_id': ref('view_inno_invoicing_packs_view_tree')}),
+    (0, 0, {'view_mode': 'form', 'view_id': ref('view_inno_invoicing_packs_form')})]"/>
+               <field name="domain">[('status', 'in', ['invoicing','done',])]</field>
+        </record>
+    </data>
+</odoo>

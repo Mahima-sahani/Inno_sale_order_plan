@@ -1,0 +1,124 @@
+<odoo>
+    <template id="report_material_on_loom">
+        <t t-call="web.html_container">
+            <t t-set="data_report_landscape" t-value="True"/>
+            <t t-call="web.external_layout" style="margin-top: 100px;">
+                <div class="page">
+                    <div class="text-center" style="border-bottom: 1px solid black;">
+                        <br/>
+                        <h4>
+                            <b>
+                                Material On Loom
+                            </b>
+                        </h4>
+                        <br/>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="row">
+                                <div class="col-4">
+                                    <h6>
+                                        <b>From Date</b>
+                                    </h6>
+                                </div>
+                                <div class="col-1">
+                                    <h6>:</h6>
+                                </div>
+                                <div class="col-6">
+                                    <h6>
+                                        <t t-esc="data.get('from_date')"/>
+                                    </h6>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="row">
+                                <div class="col-4">
+                                    <h6>
+                                        <b>To Date</b>
+                                    </h6>
+                                </div>
+                                <div class="col-1">
+                                    <h6>:</h6>
+                                </div>
+                                <div class="col-6">
+                                    <h6>
+                                        <t t-esc="data.get('to_date')"/>
+                                    </h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-12">
+                            <table class="table table-bordered">
+                                <thead style="background-color: rgb(182, 179, 179); height: 5px;">
+                                    <tr style="text-align: center;">
+                                        <th scope="col">Party</th>
+                                        <th scope="col">Order No</th>
+                                        <th scope="col">Balance Area</th>
+                                        <t t-foreach="data.get('formatted_group')" t-as="group_col">
+                                            <th scope="col"><t t-esc="group_col"/></th>
+                                        </t>
+                                        <th scope="col">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="data.get('weaving_summary').items()" t-as="party">
+                                        <tr style="text-align: center;">
+                                            <td>
+                                                <t t-esc="party[1].get('subcontractor_id')"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="party[0]"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="party[1].get('balance_area')"/>
+                                            </td>
+                                            <t t-foreach="data.get('groups')" t-as="col">
+                                                <td scope="col">
+                                                    <t t-esc="party[1].get('quantities').get(col,'-')"/>
+                                                </td>
+                                            </t>
+                                            <td>
+                                                <t t-esc="round(float(sum(party[1]['quantities'].get(col, 0) for col in data.get('groups'))),3)"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                                <tfoot>
+                                    <tr style="text-align: center;">
+                                        <td><b>Grand Total</b></td>
+                                        <td></td>
+                                        <td><t t-esc="round(data.get('total_bal_area'),3)"/></td>
+                                        <t t-set="grand_total" t-value="0.0"/>
+                                        <t t-foreach="data.get('groups')" t-as="col">
+                                            <t t-set="total_col" t-value="sum(party.get('quantities').get(col, 0) for party in data.get('weaving_summary').values())"/>
+                                            <td><b><t t-esc="round(total_col, 3)"/></b></td>
+                                            <t t-set="grand_total" t-value="grand_total + total_col"/>
+                                        </t>
+                                        <td><b><t t-esc="round(grand_total, 3)"/></b></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_report_material_loom" model="ir.actions.report">
+        <field name="name">Material On Loom</field>
+        <field name="model">main.jobwork</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">innorug_manufacture.report_material_on_loom</field>
+        <field name="report_file">Material On Loom</field>
+        <field name="paperformat_id" ref="base.paperformat_euro"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="inno_purchase_id"
+        name="Purchase"
+        parent="innorug_manufacture.inno_inventory"
+        action="action_mrp_purchase_id"
+        sequence="41" />
+
+    <!--     <menuitem id="menu_inventory_stock_materiaal"-->
+    <!--              name="Material Stock"-->
+    <!--              parent="inno_inventory"-->
+    <!--              action="action_inno_stock_material"-->
+    <!--              sequence="40"/>-->
+
+    <menuitem id="menu_purchase_configuration"
+        name="Configuration"
+        parent="innorug_manufacture.inno_inventory"
+        sequence="90" />
+    <menuitem id="sub_menu_purchase_settings"
+        name="Settings"
+        parent="menu_purchase_configuration"
+        action="inno_puchase_config_settings_action"
+        sequence="1" />
+
+    <menuitem id="menu_purchase_reports"
+        name="Purchase Order Reports"
+        parent="purchase.menu_purchase_root"
+        action="action_purchase_order_reports"
+        sequence="90" />
+     <menuitem id="inno_menu_vendor_material_wizards"
+        name="Production Materials Issue"
+        parent="innorug_manufacture.inno_inventory"
+        action="action_inno_vendor_bom_wizards"
+        sequence="48" />
+
+       <menuitem id="sub_menu_inno_finishing_poly_tube"
+              name="Poly Tube MRP"
+               parent="innorug_manufacture.inno_inventory"
+              action="action_for_poly_tube_order_id"
+              sequence="49"
+    />
+
+</odoo>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_finishing_inno_bardcode_scan" model="ir.ui.view">
+        <field name="name">Barcode Scanning</field>
+        <field name="model">inno.barcode.scan</field>
+        <field name="arch" type="xml">
+            <form >
+                <sheet>
+                    <div style="background-color:#FADA5E; color:black; padding: 10px;text-align:center;" attrs="{'invisible': [('display_warning', '=', False),]}">
+                        <field name="display_warning" readonly="1"/>
+                    </div>
+                    <div style="color:white; padding: 10px;text-align:center;" attrs="{'invisible': [('success_message', '=', False),]}" class="bg-info">
+                        <field name="success_message" readonly="1"/>
+                    </div>
+                    <br/>
+                     <div>
+                         <field name="division_id" required="1"  style="border: 2px solid white; border-radius:8px;" placeholder="Enter Division Name ......." options="{'no_create': True, 'no_open': True}" />
+                    </div>
+                    <group attrs="{'invisible': [('division_id', '=', False),]}">
+                        <group>
+                            <field name="location_id" string="Receive Location" options="{'no_create': True, 'no_open': True}" required="1"/>
+                            <field name="barcode_ids" invisible="1"/>
+                            <field name="display_warning" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="scan_count" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name='finishing_barcode_id' options="{'no_create': True, 'no_open': True}" style="border: 2px solid black; border-radius:12px;" placeholder="Click here and Start Scanning Barcodes......."/>
+                        </group>
+                        <group>
+                            <field name="remove_barcode_id" options="{'no_create': True, 'no_open': True}" style="border: 2px solid black; border-radius:12px;" placeholder="Click here to Remove Scanned Barcodes......."/>
+                        </group>
+                        <field name="barcode_ids" widget="many2many_tags" readonly="1" force_save="1"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Confirm and Generate Report" class="btn-primary" type="object" name="do_confirm_finishing"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_finishing_inno_barcode_scan" model="ir.actions.act_window">
+        <field name="name">Bulk Receiving</field>
+        <field name="res_model">inno.barcode.scan</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+         <field name="view_id" ref="view_finishing_inno_bardcode_scan" />
+    </record>
+</odoo>

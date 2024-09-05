@@ -1,0 +1,108 @@
+<odoo>
+    <template id="report_print_group_label">
+        <t t-call="web.basic_layout">
+            <div class="page">
+                <t t-set="counter" t-value="0" />
+                <t t-foreach="data" t-as="pack_line">
+
+                    <t t-if="counter == 6">
+                        <p style="page-break-before:always;"></p>
+                        <t t-set="counter" t-value="0" />
+                    </t>
+                    <t t-set="counter" t-value="counter + 1" />
+                    
+                    <t t-if="counter==1">
+                        <div class="row"
+                            style="font-size: 25px; text-align: center; padding-top: 32px; height: 220px">
+                            <t t-foreach="pack_line" t-as="data_line">
+                                <div class="col-6">
+                                    <t t-if="report_type == 'normal'">
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <b>Group No:</b>
+                                                <br />
+                                                <b>
+                                                    <t t-esc="data_line.get('group_no')" />
+                                                </b>
+                                            </div>
+                                            <div class="col-8" style="text-align: left;">
+                                                <b>SURYA CARPET PVT. LTD. UGAPUR, AURAI-221301, BHADOHI(U.P.)</b>
+                                            </div>
+                                        </div>
+                                    </t>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <b>Roll No</b>
+                                            <br />
+                                            <b>
+                                                <t t-esc="data_line.get('roll_no')" />
+                                            </b>
+                                        </div>
+                                        <div class="col-8" style="text-align: left;">
+                                            <b>
+                                                <t t-esc="data_line.get('inv_group')" />
+                                            </b>
+                                        </div>
+                                    </div>
+                                </div>
+                            </t>
+                        </div>
+                    </t>
+
+                    <t t-else="">
+                        <div class="row"
+                            style="font-size: 25px; text-align: center; padding-top: 100px; height: 300px">
+                            <t t-foreach="pack_line" t-as="data_line">
+                                <div class="col-6">
+                                    <t t-if="report_type == 'normal'">
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <b>Group No:</b>
+                                                <br />
+                                                <b>
+                                                    <t t-esc="data_line.get('group_no')" />
+                                                </b>
+                                            </div>
+                                            <div class="col-8" style="text-align: left;">
+                                                <b>SURYA CARPET PVT. LTD. UGAPUR, AURAI-221301, BHADOHI(U.P.)</b>
+                                            </div>
+                                        </div>
+                                    </t>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <b>Roll No</b>
+                                            <br />
+                                            <b>
+                                                <t t-esc="data_line.get('roll_no')" />
+                                            </b>
+                                        </div>
+                                        <div class="col-8" style="text-align: left;">
+                                            <b>
+                                                <t t-esc="data_line.get('inv_group')" />
+                                            </b>
+                                        </div>
+                                    </div>
+                                </div>
+                            </t>
+                        </div>
+                    </t>
+
+                </t>
+            </div>
+        </t>
+    </template>
+
+
+    <record id="action_report_group_label" model="ir.actions.report">
+        <field name="name">Print Group Label</field>
+        <field name="model">inno.packaging</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">inno_packaging.report_print_group_label</field>
+        <field name="report_file">inno_packaging.report_print_group_label</field>
+        <field name="paperformat_id" ref="inno_packaging.inno_blank_paper_format" />
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

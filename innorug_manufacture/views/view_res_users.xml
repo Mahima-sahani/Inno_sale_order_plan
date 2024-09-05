@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record id="res_users_inherit_for_division" model="ir.ui.view">
+        <field name="name">Users Inherited Division</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Other Configuration">
+                    <group string="Division">
+                        <group>
+                            <field name="division_id" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                    <group string="Locations">
+                        <group>
+                            <field name="material_location_id" options="{'no_create': True, 'no_open': True}"/>
+                        </group>
+                        <group>
+                            <field name="storage_location_ids" widget="many2many_tags" options="{'no_create': True, 'no_open': True}"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

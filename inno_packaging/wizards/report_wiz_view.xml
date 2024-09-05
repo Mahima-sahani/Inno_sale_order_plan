@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_weaving_report" model="ir.ui.view">
+        <field name="name">Report Packaging Wizards</field>
+        <field name="model">inno.packaging.reports</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="report_type" />
+                            <field name="unit_area"
+                                attrs="{'invisible': [('report_type', 'not in', ['packing_summary'])]}" />
+                            <field name="from_date"
+                                attrs="{'invisible': [('report_type', 'not in', ['packagign_current_position','packing_summary','packing_register'])]}" />
+                            <field name="product_quality" options="{'no_create': True, 'no_open': True}"
+                                attrs="{'invisible': [('report_type', 'not in', ['packagign_current_position','packing_register','packing_summary'])]}" />
+                            <field name="planning_ids" options="{'no_create': True, 'no_open': True}"
+                                attrs="{'invisible': [('report_type', 'not in', ['packagign_current_position','packing_summary','packing_register'])]}" widget="many2many_tags" />
+                            </group>
+                    </group>
+                    <group>
+                        <group>
+                            
+                        </group>
+                        <group>
+                            <field name="to_date"
+                                attrs="{'invisible': [('report_type', 'not in', ['packagign_current_position','packing_summary','packing_register'])]}"/>
+                            <field name="prod_size" options="{'no_create': True, 'no_open': True}"
+                                attrs="{'invisible': [('report_type', 'not in', ['packing_register','packing_summary'])]}" widget="many2many_tags" />
+                            <field name="product_group" options="{'no_create': True, 'no_open': True}"
+                                attrs="{'invisible': [('report_type', 'not in', ['packing_register','packing_summary'])]}"
+                                widget="many2many_tags" />
+                            <field name="product" options="{'no_create': True, 'no_open': True}"
+                                attrs="{'invisible': [('report_type', 'not in', ['packing_register'])]}"
+                                widget="many2many_tags" />
+                            <field name="packing_no" options="{'no_create': True, 'no_open': True}"
+                                attrs="{'invisible': [('report_type', 'not in', ['packagign_current_position','packing_summary','packing_register'])]}"
+                                widget="many2many_tags" />
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Generate" type="object" class="btn-success"
+                        name="generate_report" />
+                    <button string="Cancel" class="btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_packaging_reports" model="ir.actions.act_window">
+        <field name="name">Packaging Reports</field>
+        <field name="res_model">inno.packaging.reports</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

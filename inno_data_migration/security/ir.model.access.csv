@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+inno_migration_logs,access_inno_migration_logs,model_inno_migration_logs,,1,1,1,1
+inno_data_migration,access_inno_data_migration,model_inno_data_migration,,1,1,1,1
+inno_data_migration_raw_material,access_raw_material,model_raw_material,,1,1,1,1
+inno_data_migration_raw_material_line,access_raw_material_line,model_raw_material_line,,1,1,1,1
+inno_migration_records,inno_migration_records,model_inno_migration_record,,1,1,1,1
+inno_stock_migration,inno_stock_migration,model_inno_stock_migration,,1,1,1,1

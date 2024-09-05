@@ -1,0 +1,95 @@
+<odoo>
+
+    <template id="report_print_custom_label">
+        <t t-call="web.basic_layout">
+                <style type="text/css">
+                    @font-face {
+                       font-family: AvenirNextLTPro-Regular;
+                       src: url('/inno_packaging/static/src/fonts/AvenirNextLTPro-Regular.otf') format('otf');
+                       font-weight: normal;
+                       font-style: normal;
+                         }
+                </style>
+            <t t-foreach="docs" t-as="o">
+                <div class="page" style="width: 100%; height: 100%; page-break-after: always;">
+                    <div class="row" style="border-bottom: 1px solid #AEAEAE;">
+                        <div class="col-5" style="padding-left:10px; font-family: AvenirNextLTPro-Regular; font-size:13pt; letter-spacing:3px; word-spacing:1px;">
+                            CUS PO#
+                        </div>
+                        <div style="font-family: AvenirNextLTPro-Regular; font-size:13pt; letter-spacing:3px; text-transform:capitalize; margin-bottom:22pt; word-spacing:1px;" class="col-7">
+                            <t t-esc="data.get(o.id).get('po_number')"/>
+                        </div>
+                    </div>
+                    <div class="row" style="border-bottom: 1px solid #AEAEAE;">
+                        <div class="col-5" style="padding-left:10px; margin-top:22pt; font-family: AvenirNextLTPro-Regular; font-size:13pt; letter-spacing:3px; word-spacing:1px;">
+                            ITEM CODE/DESIGN
+                        </div>
+                        <div style="font-family: AvenirNextLTPro-Regular; font-size:13pt; letter-spacing:3px; text-transform:capitalize; margin-bottom:22pt; margin-top:22pt; word-spacing:1px;" class="col-7">
+                            <t t-esc="o.quant_ids.product_id.product_tmpl_id.name"/>
+                        </div>
+                    </div>
+                    <div class="row" style="border-bottom: 1px solid #AEAEAE;">
+                        <div class="col-5" style="padding-left:10px; margin-top:22pt; font-family: AvenirNextLTPro-Regular; font-size:13pt; letter-spacing:3px; word-spacing:1px;">
+                            SIZE
+                        </div>
+                        <div style="font-family: AvenirNextLTPro-Regular; font-size:13pt; letter-spacing:3px; text-transform:capitalize; margin-bottom:22pt; margin-top:22pt; word-spacing:1px;" class="col-7">
+                            <t t-esc="data.get(o.id).get('size')"/>
+                        </div>
+                    </div>
+                    <div class="row" style="border-bottom: 1px solid #AEAEAE;">
+                        <div class="col-5" style="padding-left:10px; margin-top:22pt; font-family: AvenirNextLTPro-Regular; font-size:13pt; letter-spacing:3px; word-spacing:1px;">
+                            CONTENT
+                        </div>
+                        <div style="font-family: AvenirNextLTPro-Regular; font-size:13pt; letter-spacing:3px; text-transform:capitalize; margin-bottom:22pt; margin-top:22pt; word-spacing:1px;" class="col-7">
+                            <t t-esc="o.quant_ids.product_id.product_tmpl_id.face_content.name"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-5" style="padding-left:10px; margin-top:22pt; font-family: AvenirNextLTPro-Regular; font-size:13pt; letter-spacing:3px; word-spacing:1px;">
+                            ORIGIN
+                        </div>
+                        <div style="font-family: AvenirNextLTPro-Regular; font-size:13pt; letter-spacing:3px; text-transform:capitalize; margin-bottom:22pt; margin-top:22pt; word-spacing:1px;" class="col-7">
+                            <t t-esc="o.quant_ids.product_id.product_tmpl_id.origin.name"/>
+                        </div>
+                    </div>
+                    <div style="text-align:center; margin-top:40pt; font-family: AvenirNextLTPro-Regular; font-size:12pt; letter-spacing:3px; word-spacing:1px;">
+                        CARE AND CLEANING
+                    </div>
+                    <div style="text-align: justify; margin-top:26pt; padding-left:40pt; padding-right:40pt; font-family: AvenirNextLTPro-Regular; font-size:11pt; letter-spacing:3px; word-spacing:1px; line-height: 1.2;">
+                        For routine cleaning sweeping your rug with a broom or carpet
+                        sweeper on a weekly basis is highly recommended and is the
+                        least damaging way to clean your rug. If your vacuum has a
+                        beater bar it should be turned off or set on the highest setting.
+                        Poweful bagless vacuums are not recommended and can
+                        cause damage to your rug. Professional cleaning is recommended if
+                        spills cannot be cleaned with household products. A Surya rug pad is highly
+                        recommended to extend the life fo your rug.
+                    </div>
+                    <div class="row" style="margin-top:30pt;">
+                        <div class="col-7" style="text-align: right; padding-top:42pt; padding-right:20px; font-family: AvenirNextLTPro-Regular; font-size:12pt; word-spacing:1px;">
+                            SURYA.COM
+                        </div>
+                        <div class="col-5" style="text-transform:uppercase; text-align:center;">
+                            <t t-esc="o.quant_ids.product_id.default_code"/><br/>
+                            <img t-attf-src="data:image/*;base64,{{data.get(o.id).get('qr_code')}}" style="width:50%; height: 120px;"/><br/>
+                            <t t-esc="data.get(o.id).get('po_number')"/>|<t t-esc="o.id"/>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+
+    <record id="action_report_print_custom_label" model="ir.actions.report">
+        <field name="name">Print Custom Label</field>
+        <field name="model">stock.quant.package</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">inno_packaging.report_print_custom_label</field>
+        <field name="report_file">inno_packaging.report_print_custom_label</field>
+        <field name="paperformat_id" ref="inno_packaging.custom_package_label"/>
+        <field name="binding_model_id" ref="stock.model_stock_quant_package"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

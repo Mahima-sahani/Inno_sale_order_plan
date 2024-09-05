@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="res_config_settings_view_finishing_form" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.inherit.innorug.finishing</field>
+            <field name="model">res.config.settings</field>
+            <field name="priority" eval="90"/>
+            <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[hasclass('settings')]" position="inside">
+                    <div class="app_settings_block" data-string="InnoRug Finishing" id="innor_finishing" string="InnoRug Finishing" data-key="inno_finishing">
+<!--                        groups="fleet.fleet_group_manager"-->
+                        <h2>InnoRug Finishing</h2>
+                        <div class="row mt16 o_settings_container" id="innorug_finishing_setting">
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="o_setting_left_pane"/>
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">Default Product</span>
+                                    <div class="text-muted content-group mt16">
+                                        <span>Select default consumption materials</span>
+                                        <field name="finish_product_ids" widget="many2many_tags"  class="text-center"/>
+                                    </div>
+                                </div>
+                                <br/>
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">Optional Product</span>
+                                    <div class="text-muted content-group mt16">
+                                        <span>Select optional consumption materials</span>
+                                        <br/>
+                                        <field name="finish_opt_product_ids" widget="many2many_tags" class="text-center"/>
+                                    </div>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">Operation</span>
+                                    <div class="text-muted content-group mt16">
+                                        <span>Full Finishing</span>
+                                        <br/>
+                                        <field name="full_finishing_id" class="text-center"/>
+                                    </div>
+                                      <div class="text-muted content-group mt16">
+                                        <span>Binding</span>
+                                        <br/>
+                                        <field name="binding_id" class="text-center"/>
+                                    </div>
+                                      <div class="text-muted content-group mt16">
+                                        <span>Gachhai</span>
+                                        <br/>
+                                        <field name="gachhai_id" class="text-center"/>
+                                    </div>
+                                      <div class="text-muted content-group mt16">
+                                        <span>Washing</span>
+                                        <br/>
+                                        <field name="washing_id" class="text-center"/>
+                                    </div>
+                                      <div class="text-muted content-group mt16">
+                                        <span>Letexing</span>
+                                        <br/>
+                                        <field name="letexing_id" class="text-center"/>
+                                    </div>
+                                    <div class="text-muted content-group mt16">
+                                        <span>Without Materials Operations</span>
+                                        <br/>
+                                        <field name="without_materials_operation_ids"  widget="many2many_tags"  class="text-center"/>
+                                    </div>
+                                    <div class="text-muted content-group mt16">
+                                        <span>Finishing Journal</span>
+                                        <br/>
+                                        <field name="finishing_journal_id" class="text-center" options="{'no_create': True}"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="inno_finishing_config_settings_action" model="ir.actions.act_window">
+            <field name="name">Settings</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.config.settings</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+            <field name="context">{'module' : 'inno_finishing', 'bin_size': False}</field>
+        </record>
+    </data>
+</odoo>

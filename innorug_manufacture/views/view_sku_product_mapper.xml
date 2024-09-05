@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_sku_product_mapper" model="ir.ui.view">
+        <field name="name">Sku Mapper</field>
+        <field name="model">inno.sku.product.mapper</field>
+        <field name="arch" type="xml">
+            <tree duplicate="false" editable="top">
+                <field name="sku" required="1"/>
+                <field name="product_id"/>
+                <field name="product_tmpl_id" readonly="1"/>
+            </tree>
+        </field>
+    </record>
+
+
+
+    <record id="action_sku_product_mapper" model="ir.actions.act_window">
+        <field name="name">SKU Mapper</field>
+        <field name="res_model">inno.sku.product.mapper</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+</odoo>

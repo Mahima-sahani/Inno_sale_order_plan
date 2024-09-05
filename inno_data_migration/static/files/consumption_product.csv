@@ -1,0 +1,25 @@
+Material_name,UOM,Attribute,Attribute_value
+60 C IMP PALE,kg,color,Black
+60 C IMP WHITE,kg,color,White
+C IMP,kg,shade,5001TD
+C IMP,kg,shade,5030TD
+60 C TUSSA LIGHT,kg,shade,5014TD
+60 C TUSSA LIGHT,m,shade,5003TD
+60 C TUSSA LIGHT,kg,shade,5001TD
+60 C TUSSA MEDIUM,kg,shade,S-1076TD
+60 C TUSSA LIGHT,kg,shade,1 NOTD
+60 C TUSSA LIGHT,kg,shade,S-1596TD
+60 C TUSSA LIGHT,kg,shade,AH-08TD
+60 C TUSSA MEDIUM,kg,shade,AA-09
+60 C TUSSA LIGHT,kg,shade,AD-05TD
+C IMP,kg,shade,CP-06TD
+60 C IMP CREAMY,kg,shade,BT-09TD
+60 C TUSSA DARK,kg,shade,MP-8008
+60 C TUSSA DARK,kg,shade,MP-8002
+60 C TUSSA LIGHT,kg,shade,MP-8008A 
+60 C TUSSA MEDIUM,kg,shade,MP-8004
+60 C IMP WHITE,m,shade,WHITE
+60 C IMP CREAMY,kg,shade,AD-09
+60 C IMP CREAMY,kg,shade,AD-08
+60 C IMP CREAMY,kg,shade,AD-07
+60 C IMP CREAMY,kg,shade,AD-11TD

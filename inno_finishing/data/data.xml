@@ -1,0 +1,26 @@
+<odoo>
+    <data>
+          <record id="product_uom_sqyard_surface" model="uom.uom">
+        <field name="category_id" ref="uom.uom_categ_surface"/>
+        <field name="name">Sq. Yard</field>
+             <field name="ratio">1.19599</field>
+               <field name="l10n_in_code">SQY-SQUARE YARDS</field>
+        <field name="factor" eval="1.0"/>
+        <field name="uom_type">smaller</field>
+    </record>
+
+    <record id="stock_location_transfer_wh" model="stock.location">
+        <field name="name">Carpet in Transit</field>
+        <field name="location_id" ref="stock.stock_location_locations_virtual"/>
+        <field name="usage">internal</field>
+        <field name="active" eval="True"/>
+    </record>
+
+        <record id="stock_location_carpet_vendor_wh" model="stock.location">
+        <field name="name">Carpet Vendor Location</field>
+        <field name="location_id" ref="stock.stock_location_locations_virtual"/>
+        <field name="usage">internal</field>
+        <field name="active" eval="True"/>
+    </record>
+    </data>
+</odoo>

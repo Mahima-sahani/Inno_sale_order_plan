@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <record id="mrp_user_access_finishing_form_view_inherited_id" model="ir.ui.view">
+        <field name="name">user.access</field>
+        <field name="model">user.access</field>
+        <field name="inherit_id" ref="innorug_manufacture.view_api_request_form"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//field[@name='bazaar_qa_verification']/.." position="after">
+                     <group >
+                        <field name="finishing" string="Finishing" widget="boolean_toggle"/>
+                    </group>
+                     <group >
+                        <field name="allowed_operation_ids" string="Allowed Operation" widget="many2many_tags" attrs="{'invisible':[('finishing', '=', False)], 'required':[('finishing', '=', True)]}"/>
+                    </group>
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+</odoo>

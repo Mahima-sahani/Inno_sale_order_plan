@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Form -->
+        <record id="view_inno_connect_operation_form" model="ir.ui.view">
+            <field name="name">Connect Operations</field>
+            <field name="model">inno.update.parent.operation</field>
+            <field name="arch" type="xml">
+                <form create="1" delete="0" duplicate="0">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="next_operation" string="Connect Operation"/>
+                            </group>
+                             <group>
+                            </group>
+                        </group>
+                    </sheet>
+                     <footer>
+                    <button name='confirm_update' string="Update" type="object" class="btn-success"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

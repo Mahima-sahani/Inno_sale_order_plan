@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_update_sample_rate" model="ir.ui.view">
+        <field name="name">Sample Rate Update</field>
+        <field name="model">sample.rate.update</field>
+        <field name="arch" type="xml">
+            <form >
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="rate"/>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name='confirm_update' string="Update" type="object" class="btn-success"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>
+

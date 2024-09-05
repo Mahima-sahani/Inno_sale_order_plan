@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Branch Tree -->
+    <record id="view_mrp_main_division_tree" model="ir.ui.view">
+        <field name="name">Main Division</field>
+        <field name="model">mrp.division</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                 <field name="day"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <!-- Branch Form -->
+    <record id="view_mrp_main_division_form" model="ir.ui.view">
+        <field name="name"> Main Division</field>
+        <field name="model">mrp.division</field>
+        <field name="arch" type="xml">
+            <form >
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="location_id" required="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="SKU Details">
+                            <field name="product_lines_sku" mode="tree">
+                                <tree editable="buttom">
+                                    <field name="name" sting="Product"/>
+                                </tree>
+                            </field>
+                        </page>
+                          <page string="Finishing Bom">
+                                <field name="finishing_bom_lines">
+                                    <tree editable="bottom">
+                                        <field name="product_id"/>
+                                          <field name="internal"/>
+                                        <field name="product_qty"/>
+                                        <field name="uom_id"/>
+                                          <field name="extra"/>
+                                         <field name="rate"/>
+                                        <field name="work_center_id"/>
+                                    </tree>
+                                </field>
+                            </page>
+                         <page string="Configuration">
+                               <group>
+                                   <group>
+                                          <label for="shrink_mrp_length"/>
+                                <div class="oe_inline">
+                                    <field name="shrink_mrp_length" class="mr8 oe_inline" tracking="1"/>
+                                    <strong class="mr8 oe_inline">Inches</strong></div>
+                                          <label for="shrink_finishing_length"/>
+                                <div class="oe_inline">
+                                    <field name="shrink_finishing_length" class="mr8 oe_inline" tracking="1"/>
+                                    <strong class="mr8 oe_inline">Inches</strong></div>
+                                   </group>
+                                   <group>
+                                          <label for="shrink_mrp_width"/>
+                                <div class="oe_inline">
+                                    <field name="shrink_mrp_width" class="mr8 oe_inline" tracking="1"/>
+                                    <strong class="mr8 oe_inline">Inches</strong></div>
+                                          <label for="shrink_finishing_width"/>
+                                <div class="oe_inline">
+                                    <field name="shrink_finishing_width" class="mr8 oe_inline" tracking="1"/>
+                                    <strong class="mr8 oe_inline">Inches</strong></div>
+                                   </group>
+                               </group>
+<!--                             <b>Operations</b>-->
+<!--                                  <group>-->
+<!--                                   <group>-->
+<!--                                         <field name="wth_materials_operatios_ids" widget="many2many_tags"/>-->
+<!--                                   </group>-->
+<!--                                   <group>-->
+<!--                                   </group>-->
+<!--                               </group>-->
+                            </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="action_mrp_main_division_id" model="ir.actions.act_window">
+        <field name="name">Division</field>
+        <field name="res_model">mrp.division</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo> 

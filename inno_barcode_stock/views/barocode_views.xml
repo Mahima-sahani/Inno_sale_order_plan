@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <record id="action_mrp_barcodes_stocks" model="ir.actions.act_window">
+        <field name="name">Barcodes</field>
+        <field name="res_model">mrp.barcode</field>
+        <field name="view_mode">kanban,tree</field>
+       <field name="domain">[('state', '!=', '1_draft'),('transfer_id', '=', False)]</field>
+    </record>
+</odoo>

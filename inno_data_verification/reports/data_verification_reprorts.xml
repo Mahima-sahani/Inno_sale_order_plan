@@ -1,0 +1,132 @@
+<odoo>
+
+    <template id="report_design_bom_data">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <t t-foreach="docs" t-as="bom">
+                        <div style="page-break-after: always;">
+                            <div class="row">
+                                <div class="col-6">
+                                    <h2>Design:
+                                        <t t-esc="bom.product_tmpl_id.name"/>
+                                    </h2>
+                                </div>
+                                <div class="col-6">
+                                    <h2>Quality:
+                                        <t t-esc="bom.product_tmpl_id.quality.weight"/>
+                                    </h2>
+                                </div>
+                            </div>
+                            <hr/>
+                            <div>
+                                <center>BOM</center>
+                            </div>
+                            <hr/>
+                            <div class="row">
+                                <div class="col-12">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Component</th>
+                                                <th scope="col">Shade</th>
+                                                <th scope="col">Quantity</th>
+                                                <th scope="col">UOM</th>
+                                                <th scope="col">Correct</th>
+                                                <th scope="col">Removed</th>
+                                                <th scope="col">Updated</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="bom.bom_line_ids" t-as="line">
+                                                <tr>
+                                                    <td>
+                                                        <t t-esc="line.product_id.name"/>
+                                                    </td>
+                                                    <td>
+                                                        <t t-esc="line.product_id.product_template_attribute_value_ids.product_attribute_value_id.name"/>
+                                                    </td>
+                                                    <td>
+                                                        <t t-esc="line.product_qty"/>
+                                                    </td>
+                                                    <td>
+                                                        <t t-esc="line.product_uom_id.name"/>
+                                                    </td>
+                                                    <td/>
+                                                    <td/>
+                                                    <td/>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <br/>
+                            <br/>
+                            <hr/>
+                            <div>
+                                <center>OPERATIONS</center>
+                            </div>
+                            <hr/>
+                            <div class="row">
+                                <div class="col-6">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Name</th>
+                                                <th scope="col">Correct</th>
+                                                <th scope="col">Removed</th>
+                                                <th scope="col">Updated</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="bom.operation_ids" t-as="line">
+                                                <tr>
+                                                    <td>
+                                                        <t t-esc="line.name"/>
+                                                    </td>
+                                                    <td/>
+                                                    <td/>
+                                                    <td/>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <br/>
+                            <br/>
+                            <hr/>
+                            <div>
+                                <center>ANY ADDITION</center>
+                            </div>
+                            <hr/>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr style="border-bottom: 2px solid black;">
+                                        <th scope="col">Component/Operation</th>
+                                        <th scope="col">Shade</th>
+                                        <th scope="col">Quantity</th>
+                                        <th scope="col">UOM</th>
+                                        <th scope="col">Added</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </t>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_report_for_design_bom" model="ir.actions.report">
+        <field name="name">Bom Report</field>
+        <field name="model">mrp.bom</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">inno_data_verification.report_design_bom_data</field>
+        <field name="report_file">Design BOM Data</field>
+        <field name="paperformat_id" ref="base.paperformat_euro"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

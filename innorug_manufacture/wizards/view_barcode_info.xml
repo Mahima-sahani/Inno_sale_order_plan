@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_inno_bardcode_info" model="ir.ui.view">
+        <field name="name">Barcode Info</field>
+        <field name="model">inno.barcode.info</field>
+        <field name="arch" type="xml">
+            <form >
+                <sheet>
+                    <div>
+                        <field name="barcode_id" style="border-bottom:1px solid black" options="{'no_create': True, 'no_open': True}"/>
+                    </div>
+                    <notebook>
+                        <page string="General Info">
+                            <field name="barcode_info" readonly="1"/>
+                        </page>
+                        <page string="Operation Info">
+                            <field name="operation_info" readonly="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <footer>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_inno_barcode_info" model="ir.actions.act_window">
+        <field name="name">Action Barcode Infor</field>
+        <field name="res_model">inno.barcode.info</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>
+

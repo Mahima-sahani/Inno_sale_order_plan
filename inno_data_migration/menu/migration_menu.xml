@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!--    main menu-->
+    <menuitem id="menu_inno_migration"
+              name="Inno Migration"
+    />
+
+<!--    header menu-->
+    <menuitem id="menu_inno_migration_logs"
+              name="Migration Logs"
+              parent="menu_inno_migration"
+              action="action_inno_migration_logs"
+              sequence="1"/>
+
+    <menuitem id="menu_inno_data_migration"
+              name="Migrate"
+              parent="menu_inno_migration"
+              action="action_inno_data_migration"
+              sequence="2"/>
+     <menuitem id="menu_inno_raw_materials"
+              name="Raw Materials"
+              parent="menu_inno_migration"
+              action="action_raw_materials"
+              sequence="3"/>
+    <menuitem id="menu_inno_migration_records"
+              name="Migration Records (API)"
+              parent="menu_inno_migration"
+              action="action_migration_records"
+              sequence="4"/>
+    <menuitem id="menu_inno_fetch_api_data"
+              name="Fetch API Data"
+              parent="menu_inno_migration"
+              action="action_fetch_api_data"
+              sequence="5"/>
+    <menuitem id="menu_inno_fetch_stock"
+              name="Fetch stock"
+              parent="menu_inno_migration"
+              action="action_fetch_stock"
+              sequence="6"/>
+    <menuitem id="menu_inno_stock_migration"
+              name="Stock"
+              parent="menu_inno_migration"
+              action="action_stock_migration"
+              sequence="7"/>
+
+</odoo>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+<!--    rules-->
+
+<!--    jobwork-->
+    <record id="inno_jobwork_allotment_admin_rule" model="ir.rule">
+        <field name="model_id" ref="model_jobwork_allotment"/>
+        <field name="name">Jobwork Allotment Admin</field>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4,ref('innorug_manufacture.group_inno_weaving_admin'))]"/>
+    </record>
+
+    <record id="inno_jobwork_alllotment_manager_rule" model="ir.rule">
+        <field name="name">Weaving Jobwork Manager</field>
+        <field name="model_id" ref="model_jobwork_allotment"/>
+        <field name="domain_force">[('division_id', 'in', user.division_id.ids)]</field>
+        <field name="groups" eval="[(4,ref('innorug_manufacture.group_inno_weaving_manager'))]"/>
+    </record>
+
+    <record id="inno_jobwork_allotment_user_rule" model="ir.rule">
+        <field name="name">Weaving Jobwork User</field>
+        <field name="model_id" ref="model_jobwork_allotment"/>
+        <field name="domain_force">[('division_id', 'in', user.division_id.ids), ('message_partner_ids', 'in', [user.partner_id.id])]</field>
+        <field name="groups" eval="[(4,ref('innorug_manufacture.group_inno_weaving_user'))]"/>
+    </record>
+</odoo>

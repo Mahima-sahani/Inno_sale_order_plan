@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_segmentation_wizard_form" model="ir.ui.view">
+            <field name="name">package.segmentation</field>
+            <field name="model">package.segmentation</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="from_package" options="{'no_create': True, 'no_open': True}" domain="[('status', 'not in', ['done', 'invoicing'])]"/>
+                                <field name="segmentation_by"/>
+                                <field name="from_roll" attrs="{'invisible': [('segmentation_by', '!=', 'roll')]}"/>
+                            </group>
+                            <group>
+                                <field name="to_package" options="{'no_create': True, 'no_open': True}" domain="[('status', 'not in', ['done', 'invoicing'])]"/>
+                                <field name="sale_id" options="{'no_create': True, 'no_open': True}" attrs="{'readonly': [('segmentation_by', '!=', 'sale')]}"/>
+                                <field name="to_roll" attrs="{'invisible': [('segmentation_by', '!=', 'roll')]}"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button type="object" name="confirm_segmentation" string="Confirm"
+                                class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_package_segmentation" model="ir.actions.act_window">
+            <field name="name">Package Segmentation</field>
+            <field name="res_model">package.segmentation</field>
+            <field name="view_mode">form</field>
+            <field name='target'>new</field>
+        </record>
+    </data>
+</odoo>

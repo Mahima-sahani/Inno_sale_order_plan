@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_inno_finishing_operation_issued_wizard" model="ir.ui.view">
+        <field name="name">finishing.operation.wizard</field>
+        <field name="model">finishing.operation.wizard</field>
+        <field name="arch" type="xml">
+            <form >
+                <sheet>
+                    <div style="color:#89CFF0; padding: 10px; text-align:center;">
+                        <h4>FINISHING OPERATIONS DETAILS</h4>
+                    </div>
+                    <br/>
+                    <div>
+                         <field name="division_id" required="1"  style="border: 2px solid white; border-radius:8px;" placeholder="Enter Division Name ......." options="{'no_create': True, 'no_open': True}" />
+                    </div>
+                    <group>
+                        <group>
+                            <field name='operation_id' required="1" style="border: 2px solid white; border-radius:8px;" placeholder="Enter Finishing Operation Name ......." options="{'no_create': True, 'no_open': True}"  />
+                             <field name='job_worker_code' style="border: 2px solid white; border-radius:8px;" placeholder="Enter job worker code ......."/>
+                            <field name="subcontractor_id" required="1" style="border: 2px solid white; border-radius:8px;" placeholder="Enter Vendor Name ......." options="{'no_create': True, 'no_open': True}" />
+                        </group>
+                         <group>
+                            <field name="external" widget="boolean_toggle"/>
+                             <field name="source_location_id" required="1" attrs="{'invisible': [('operation_id', '=', False),]}" string="Location" style="border: 2px solid white; border-radius:8px;"
+                                     laceholder="Enter Current Location ......."  options="{'no_create': True, 'no_open': True}" />
+                              <field name="scan_count" attrs="{'invisible': [('operation_id', '=', False),]}" readonly="1"/>
+                             <field name="is_admin" invisible="1"/>
+                        </group>
+                    </group>
+                                      <div style="background-color:#FADA5E; color:black; padding: 10px;text-align:center;" attrs="{'invisible': [('display_warning', '=', False),]}">
+                        <field name="display_warning" readonly="1"/>
+                    </div>
+                    <div style="color:white; padding: 10px;text-align:center;" attrs="{'invisible': [('success_message', '=', False),]}" class="bg-info">
+                        <field name="success_message" readonly="1"/>
+                    </div>
+                       <group attrs="{'invisible': ['|',('operation_id', '=', False),('source_location_id', '=', False)]}">
+                        <group>
+                            <field name="barcode_ids" invisible="1"/>
+                            <field name="display_warning" invisible="1"/>
+                        </group>
+                        <group >
+                        </group>
+                        <group>
+                            <field name='barcode_id' options="{'no_create': True, 'no_open': True}" style="border: 2px solid black; border-radius:12px;" placeholder="Click here and Start Scanning Barcodes......."/>
+                        </group>
+                        <group>
+                            <field name="remove_barcode_id" options="{'no_create': True, 'no_open': True}" style="border: 2px solid black; border-radius:12px;" placeholder="Click here to Remove Scanned Barcodes......."/>
+                        </group>
+                        <field name="barcode_ids" widget="many2many_tags" readonly="1" force_save="1"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Confirm" class="btn-primary" type="object" name="do_confirm"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+        <record id="view_inno_finishing_transfer_wizard" model="ir.ui.view">
+        <field name="name">finishing.operation.wizard</field>
+        <field name="model">finishing.operation.wizard</field>
+        <field name="arch" type="xml">
+            <form >
+                <sheet>
+                    <div style="color:black; padding: 10px; text-align:center;">
+                        <h4>ISSUE</h4>
+                    </div>
+                         <div style="background-color:#FADA5E; color:black; padding: 10px;text-align:center;" attrs="{'invisible': [('display_warning', '=', False),]}">
+                        <field name="display_warning" readonly="1"/>
+                    </div>
+                    <div style="color:white; padding: 10px;text-align:center;" attrs="{'invisible': [('success_message', '=', False),]}" class="bg-info">
+                        <field name="success_message" readonly="1"/>
+                    </div>
+                    <br/>
+                    <group>
+                        <group>
+                            <field name="subcontractor_id" required="1" />
+                             <label for="source_location_id" string="Location"/>
+                                <div class="oe_inline">
+                                    <field name="source_location_id" class="mr8 oe_inline" style="border: 2px solid black; border-radius:12px;" placeholder="Source ......." options="{'no_create': True, 'no_open': True}"  required="True"/>
+                                    <strong class="mr8 oe_inline">to</strong>
+                                    <field name="dest_location_id" class="oe_inline" attrs="{'invisible': [('source_location_id', '=', False),]}" style="border: 2px solid black; border-radius:12px;" placeholder="Destination......."  options="{'no_create': True, 'no_open': True}" required="1"/>
+                                </div>
+                        </group>
+                         <group>
+                            <field name='issue_date' required="1" />
+                            <field name="remarks" required="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="barcode_ids" invisible="1"/>
+                            <field name="display_warning" invisible="1"/>
+                        </group>
+                        <group >
+                            <field name="scan_count" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name='barcode_id' options="{'no_create': True, 'no_open': True}" style="border: 2px solid black; border-radius:12px;" placeholder="Click here and Start Scanning Barcodes......."/>
+                        </group>
+                        <group>
+                            <field name="remove_barcode_id" options="{'no_create': True, 'no_open': True}" style="border: 2px solid black; border-radius:12px;" placeholder="Click here to Remove Scanned Barcodes......."/>
+                        </group>
+                        <field name="barcode_ids" widget="many2many_tags" readonly="1" force_save="1"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Confirm" class="btn-primary" type="object" name="do_transfer_confirm"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+            <record id="view_inno_finishing_transfer_received_wizard" model="ir.ui.view">
+        <field name="name">finishing.operation.wizard</field>
+        <field name="model">finishing.operation.wizard</field>
+        <field name="arch" type="xml">
+            <form >
+                <sheet>
+                    <div style="color:black; padding: 10px; text-align:center;">
+                        <h4>RECEIVE</h4>
+                    </div>
+                         <div style="background-color:#FADA5E; color:black; padding: 10px;text-align:center;" attrs="{'invisible': [('display_warning', '=', False),]}">
+                        <field name="display_warning" readonly="1"/>
+                    </div>
+                    <div style="color:white; padding: 10px;text-align:center;" attrs="{'invisible': [('success_message', '=', False),]}" class="bg-info">
+                        <field name="success_message" readonly="1"/>
+                    </div>
+                    <br/>
+                    <group>
+                        <group>
+                            <field name="barcode_ids" invisible="1"/>
+                            <field name="display_warning" invisible="1"/>
+                        </group>
+                        <group >
+                            <field name="scan_count" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name='barcode_id' options="{'no_create': True, 'no_open': True}" style="border: 2px solid black; border-radius:12px;" placeholder="Click here and Start Scanning Barcodes......."/>
+                        </group>
+                        <group>
+                            <field name="remove_barcode_id" options="{'no_create': True, 'no_open': True}" style="border: 2px solid black; border-radius:12px;" placeholder="Click here to Remove Scanned Barcodes......."/>
+                        </group>
+                        <field name="barcode_ids" widget="many2many_tags" readonly="1" force_save="1"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Confirm" class="btn-primary" type="object" name="do_transfer_received_confirm"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+     <record id="view_inno_finishing_skip_reason_wizard" model="ir.ui.view">
+        <field name="name">finishing.operation.wizard</field>
+        <field name="model">finishing.operation.wizard</field>
+        <field name="arch" type="xml">
+            <form >
+                <sheet>
+<!--                    <div style="color:black; padding: 10px; text-align:center;">-->
+<!--                        <h4>Reason</h4>-->
+<!--                    </div>-->
+                    <group>
+                        <group>
+                        <field name="barcode_id" required="1" readonly="1"/>
+                    </group>
+                        <group>
+                    </group>
+                    </group>
+                    <group>
+                        <group>
+                        <field name="skip_operation" required="1" readonly="1"/>
+                    </group>
+                        <group>
+                        <field name="next_operation" required="1" readonly="1"/>
+                    </group>
+                    </group>
+                    <group>
+                        <field name="skip_reason" required="1" />
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Confirm" class="btn-primary" type="object" name="do_confirm_reason"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+     <record id="action_finishing_operation_issue_wizard" model="ir.actions.act_window">
+            <field name="name">Finishing Work Order</field>
+            <field name="res_model">finishing.operation.wizard</field>
+            <field name="view_mode">form</field>
+           <field name="target">new</field>
+            <field name="view_id" ref="view_inno_finishing_operation_issued_wizard" />
+        </record>
+
+          <record id="action_finishing_transfer_wizard" model="ir.actions.act_window">
+            <field name="name">Carpet Transfer</field>
+            <field name="res_model">finishing.operation.wizard</field>
+            <field name="view_mode">form</field>
+           <field name="target">new</field>
+            <field name="view_id" ref="view_inno_finishing_transfer_wizard" />
+        </record>
+         <record id="action_finishing_transfer_received_wizard" model="ir.actions.act_window">
+            <field name="name">Carpet Transfer</field>
+            <field name="res_model">finishing.operation.wizard</field>
+            <field name="view_mode">form</field>
+           <field name="target">new</field>
+            <field name="view_id" ref="view_inno_finishing_transfer_received_wizard" />
+        </record>
+</odoo>

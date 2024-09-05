@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_migration_records_tree" model="ir.ui.view">
+        <field name="name">Migration Records Tree</field>
+        <field name="model">inno.migration.record</field>
+        <field name="arch" type="xml">
+            <tree duplicate="false" create="false">
+                <field name="name" readonly="1"/>
+                <field name="operation_type" readonly="1"/>
+                <field name="state" readonly="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_migration_records_form" model="ir.ui.view">
+        <field name="name">Migration Records Tree</field>
+        <field name="model">inno.migration.record</field>
+        <field name="arch" type="xml">
+            <form duplicate="false" create="false">
+                <header>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="h2" name="reference_header">
+                        <field name="name" nolabel="1" readonly="1"/>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="operation_type" readonly="1"/>
+                            <!--                             <field name="barocode" readonly="1"/>-->
+                        </group>
+                        <!--                        <group>-->
+                        <!--                            <field name="job_work" readonly="1"/>-->
+                        <!--                            <field name="purchase_job_work" readonly="1"/>-->
+                        <!--                        </group>-->
+                        <group>
+                            <field name="finishing_operation_id" readonly="1"
+                                   attrs="{'invisible': [('operation_type', '!=', 'finishing')]}"/>
+                        </group>
+                        <group>
+                            <field name="finishing_operation_id" readonly="1"
+                                   attrs="{'invisible': [('operation_type', '!=', 'finishing')]}"/>
+                        </group>
+                        <group>
+                            <field name="finishing_operation_id" readonly="1"
+                                   attrs="{'invisible': [('operation_type', '!=', 'finishing')]}"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Data">
+                            <field name="data" readonly="1"/>
+                        </page>
+                        <page string="Logs">
+                            <field name="logs_ids">
+                                <tree editable="top" create="0" delete="0">
+                                    <field name="name" readonly="1"/>
+                                    <field name="error_description" readonly="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_fetch_api_stock" model="ir.ui.view">
+        <field name="name">Fetch Stock Rec</field>
+        <field name="model">inno.migration.record</field>
+        <field name="arch" type="xml">
+            <form duplicate="false" create="false">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="site"/>
+                            <field name="division"/>
+                            <field name="warehouse"/>
+                        </group>
+                        <group>
+                            <field name="product_type"/>
+                            <field name="product_group"/>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Confirm" class="btn-primary" type="object" name="get_opening_stock"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="view_fetch_api_data" model="ir.ui.view">
+        <field name="name">Fetch API Data View</field>
+        <field name="model">inno.migration.record</field>
+        <field name="arch" type="xml">
+            <form duplicate="false" create="false">
+                <sheet>
+                    <div style="text-align: center;">
+                        <b>FETCH DATA FROM API</b>
+                    </div>
+                    <hr/>
+                    <div class="row" style="text-align: center;">
+                        <div class="col-6" style="border-right: 2px solid black;">
+                            <button type="object" name="get_pending_sale_data" string="Pending PO  (Surya INC)"
+                                    class="btn-success" context="{'type': 'surya_inc'}"/>
+                        </div>
+                        <div class="col-6">
+                            <button type="object" name="get_pending_sale_data" string="Pending PO  (Freshno)"
+                                    class="btn-success" context="{'type': 'freshno'}"/>
+                        </div>
+                    </div>
+                    <hr/>
+                    <div class="row" style="text-align: center;">
+                        <div class="col-6" style="border-right: 2px solid black;">
+                            <button type="object" name="get_pending_sale_data" string="Pending PO  (RH)"
+                                    class="btn-success" context="{'type': 'rh'}"/>
+                        </div>
+                        <div class="col-6">
+                            <button type="object" name="get_pending_sale_data" string="Pending PO  (Surya Living)"
+                                    class="btn-success" context="{'type': 'living'}"/>
+                        </div>
+                    </div>
+                    <hr/>
+                    <div class="row" style="text-align: center;">
+                        <div class="col-6" style="border-right: 2px solid black;">
+                            <button type="object" name="get_weaving_order_through_api" string="Weaving Orders for Weaving and FullFinishing"
+                                    class="btn-success"/>
+                        </div>
+                        <div class="col-6">
+                            <button type="object" name="get_finishing_data" string="Finishing Records"
+                                    class="btn-success"/>
+                        </div>
+                    </div>
+                    <hr/>
+                    <div class="row" style="text-align: center;">
+                        <div class="col-6" style="border-right: 2px solid black;">
+                            <button type="object" name="get_finishing_bazaar" string="Finishing Bazaar"
+                                    class="btn-success"/>
+                        </div>
+                        <div class="col-6">
+                            <button type="object" name="fetch_old_weaving_orders"
+                                    string="Pending Weaving Orders (Knotted)" class="btn-success"
+                                    context="{'type': 'knotted'}"/>
+                        </div>
+                    </div>
+                    <hr/>
+                    <div class="row" style="text-align: center;">
+                        <div class="col-6" style="border-right: 2px solid black;">
+                            <button type="object" name="fetch_old_weaving_orders"
+                                    string="Pending Weaving Orders (Kelim)" class="btn-success"
+                                    context="{'type': 'kelim'}"/>
+                        </div>
+                        <div class="col-6">
+                            <button type="object" name="fetch_old_weaving_orders"
+                                    string="Pending Weaving Orders (Tufted)" class="btn-success"
+                                    context="{'type': 'tufted'}"/>
+                        </div>
+                    </div>
+                    <hr/>
+                    <div class="row" style="text-align: center;">
+                        <div class="col-6" style="border-right: 2px solid black;">
+                            <button type="object" name="fetch_old_weaving_orders"
+                                    string="Pending Weaving Orders (Fattupur)" class="btn-success"
+                                    context="{'type': 'Fattupur Tufted'}"/>
+                        </div>
+                        <div class="col-6">
+                            <button type="object" name="fetch_old_weaving_orders"
+                                    string="Pending Weaving Orders (Sarawatkhani)" class="btn-success"
+                                    context="{'type': 'Sarwatkhani Tufted'}"/>
+                        </div>
+                    </div>
+                    <hr/>
+                    <div class="row" style="text-align: center;">
+                        <div class="col-6" style="border-right: 2px solid black;">
+                            <button type="object" name="fetch_old_weaving_orders"
+                                    string="Pending Weaving Orders (Chaksari)" class="btn-success"
+                                    context="{'type': 'Chaksari Tufted'}"/>
+                        </div>
+                        <div class="col-6">
+                            <button type="object" name="fetch_old_weaving_orders"
+                                    string="Pending Weaving Orders (Tufted Branch)" class="btn-success"
+                                    context="{'type': 'branch tufted'}"/>
+                        </div>
+                    </div>
+                    <hr/>
+                    <hr/>
+                    <div class="row" style="text-align: center;">
+                        <div class="col-6" style="border-right: 2px solid black;">
+                            <button type="object" name="fetch_old_weaving_orders"
+                                    string="Pending Weaving Orders (HandLoom)" class="btn-success"
+                                    context="{'type': 'Handloom Tufted'}"/>
+                        </div>
+                        <div class="col-6">
+                            <button type="object" name="get_opening_stock" string="Fetch Opening Stock"
+                                    class="btn-success"/>
+                        </div>
+                    </div>
+                    <hr/>
+                    <div class="row" style="text-align: center;">
+                        <div class="col-6" style="border-right: 2px solid black;">
+                            <button type="object" name="trace_mapping" string="Trace Mapping" class="btn-success"
+                                    context="{'type': 'Handloom Tufted'}"/>
+                        </div>
+                        <div class="col-6">
+                            <button type="object" name="map_mapping" string="Map Mapping" class="btn-success"
+                                    context="{'type': 'Handloom Tufted'}"/>
+                        </div>
+                    </div>
+                    <hr/>
+                    <div class="row" style="text-align: center;">
+                        <div class="col-3" style="border-right: 2px solid black;">
+                            <button type="object" name="get_carpet_stock" string="Carpet Stock" class="btn-success"/>
+                        </div>
+                        <div class="col-3">
+                            <button type="object" name="get_pending_sale_data" string="Pending PO  (Local)" class="btn-success" context="{'type': 'local'}"/>
+                        </div>
+                         <div class="col-3">
+                            <button type="object" name="get_buyer_wise_sale_orders" string="Buyer Wise Sale Order" class="btn-success" context="{'type': 'local'}"/>
+                        </div>
+                    </div>
+                    <hr/>
+                    <div class="row" style="text-align: center;">
+                        <div class="col-6" style="border-right: 2px solid black;">
+                            <button type="object" name="get_to_be_issue" string="To Be Issue (Tufted)"
+                                    class="btn-success" context="{'type': 'tufted'}"/>
+                        </div>
+                        <div class="col-6">
+                            <button type="object" name="get_to_be_issue" string="To Be Issue (Knotted)"
+                                    class="btn-success" context="{'type': 'knotted'}"/>
+                        </div>
+                    </div>
+                    <hr/>
+                    <div class="row" style="text-align: center;">
+                        <div class="col-6" style="border-right: 2px solid black;">
+                            <button type="object" name="get_to_be_issue" string="To Be Issue (Kelim)"
+                                    class="btn-success" context="{'type': 'kelim'}"/>
+                        </div>
+                        <div class="col-6">
+                            <button type="object" name="get_to_be_issue" string="To Be Issue (Chaksari)"
+                                    class="btn-success" context="{'type': 'chaksari'}"/>
+                        </div>
+                    </div>
+                    <hr/>
+                    <div class="row" style="text-align: center;">
+                        <div class="col-3" style="border-right: 2px solid black;">
+                            <button type="object" name="get_to_be_issue" string="To Be Issue (Fattupur)"
+                                    class="btn-success" context="{'type': 'fattupur'}"/>
+                        </div>
+                        <div class="col-3">
+                            <button type="object" name="get_to_be_issue" string="To Be Issue (sarwatkhani)"
+                                    class="btn-success" context="{'type': 'sarwatkhani'}"/>
+                        </div>
+                        <div class="col-4" style="border-right: 2px solid black;">
+                            <button type="object" name="process_weaving_branch_to_venodor_sale_order" string="Weaving Order Branch to Vendor"
+                                    class="btn-success" context="{'type': 'fattupur'}"/>
+                        </div>
+                    </div>
+                    <hr/>
+                    <div class="row" style="text-align: center;">
+                        <div class="col-6" style="border-right: 2px solid black;">
+                            <button type="object" name="get_material_on_loom" string="Get On Loom Material"
+                                    class="btn-success"/>
+                        </div>
+<!--                        <div class="col-6">-->
+<!--                            <button type="object" name="get_to_be_issue" string="To Be Issue (sarwatkhani)"-->
+<!--                                    class="btn-success" context="{'type': 'sarwatkhani'}"/>-->
+<!--                        </div>-->
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="action_migration_records" model="ir.actions.act_window">
+        <field name="name">Migration Records</field>
+        <field name="res_model">inno.migration.record</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('view_migration_records_tree')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('view_migration_records_form')})]"/>
+    </record>
+
+    <record id="action_fetch_api_data" model="ir.actions.act_window">
+        <field name="name">Fetch API Data</field>
+        <field name="res_model">inno.migration.record</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_fetch_api_data"/>
+        <field name="target">new</field>
+    </record>
+
+    <record id="action_fetch_stock" model="ir.actions.act_window">
+        <field name="name">Fetch Stock</field>
+        <field name="res_model">inno.migration.record</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_fetch_api_stock"/>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="inno_stock_packaging" model="ir.ui.view">
+            <field name="name">Inno Stock Packaging</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='extra']" position="inside">
+                    <group>
+                        <group string="Planning"  attrs="{'invisible': [('sale_id', '=', False)]}" name="Planning">
+                            <field name="po_number"/>
+                            <field name="sale_id" invisible="1"/>
+                            <field name="inno_package_ids" invisible="1"/>
+                        </group>
+                    </group>
+                </xpath>
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button class="oe_stat_button" type="object" name="action_open_inno_pickings" icon="fa-cubes" attrs="{'invisible': [('package_count', '=', 0)]}">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="package_count"/>
+                                </span>
+                                <span class="o_stat_text">Packages</span>
+                            </div>
+                        </button>
+                </xpath>
+                <xpath expr="//page[@name='detailed_operations']/button[@name='action_put_in_pack']" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|', ('state', 'in', ('draft', 'done', 'cancel')), ('sale_id', '=', False)]}</attribute>
+                </xpath>
+                <xpath expr="//page[@name='operations']/button[@name='action_put_in_pack']" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|', ('state', 'in', ('draft', 'done', 'cancel')), ('sale_id', '=', False)]}</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="inno_stock_packaging_move_line_weight" model="ir.ui.view">
+            <field name="name">Stock move line weight</field>
+            <field name="model">stock.move.line</field>
+            <field name="inherit_id" ref="stock.view_stock_move_line_detailed_operation_tree" />
+            <field name="arch" type="xml">
+                <field name="location_dest_id" position="after">
+                    <field name="package_weight"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</odoo>

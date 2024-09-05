@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="action_finishing_division_order_bom" model="ir.actions.act_window">
+            <field name="name">Finishing Bom</field>
+            <field name="res_model">mrp.division</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    </data>
+</odoo>

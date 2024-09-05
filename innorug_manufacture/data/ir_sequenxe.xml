@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+   <data>
+       <record id="seq_cost_center" model="ir.sequence">
+           <field name="name">Cost Center</field>
+           <field name="code">mrp.cost.center</field>
+           <field name="prefix">CC/%(range_year)s/</field>
+           <field name="padding">5</field>
+           <field name="company_id" eval="False"/>
+       </record>
+
+        <record id="main_job_work_ff_knot" model="ir.sequence">
+           <field name="name">Main Job Work Full Finishing Knotted</field>
+           <field name="code">main.jobwork.ff.knot</field>
+           <field name="prefix">FFKN/%(range_year)s/</field>
+           <field name="padding">5</field>
+           <field name="company_id" eval="False"/>
+       </record>
+
+       <record id="main_job_work_ff_tuft" model="ir.sequence">
+           <field name="name">Main Job Work Full Finishing Tuft</field>
+           <field name="code">main.jobwork.ff.tuft</field>
+           <field name="prefix">FFTF/%(range_year)s/</field>
+           <field name="padding">5</field>
+           <field name="company_id" eval="False"/>
+       </record>
+
+       <record id="main_job_work_ff_kel" model="ir.sequence">
+           <field name="name">Main Job Work Full Finishing Kelim</field>
+           <field name="code">main.jobwork.ff.kelim</field>
+           <field name="prefix">FFKL/%(range_year)s/</field>
+           <field name="padding">5</field>
+           <field name="company_id" eval="False"/>
+       </record>
+
+         <record id="main_job_work_tuft" model="ir.sequence">
+           <field name="name">Main Job Work Tufted</field>
+           <field name="code">main.jobwork.tuft</field>
+           <field name="prefix">TF/%(range_year)s/</field>
+           <field name="padding">5</field>
+           <field name="company_id" eval="False"/>
+       </record>
+
+       <record id="main_job_work_tuft_hl" model="ir.sequence">
+           <field name="name">Main Job Work Tufted Hand Loom</field>
+           <field name="code">main.jobwork.hl</field>
+           <field name="prefix">HL/%(range_year)s/</field>
+           <field name="padding">5</field>
+           <field name="company_id" eval="False"/>
+       </record>
+
+       <record id="main_job_work_kelim" model="ir.sequence">
+           <field name="name">Main Job Work Kelim</field>
+           <field name="code">main.jobwork.klim</field>
+           <field name="prefix">KL/%(range_year)s/</field>
+           <field name="padding">5</field>
+           <field name="company_id" eval="False"/>
+       </record>
+
+       <record id="main_job_work_knot" model="ir.sequence">
+           <field name="name">Main Job Work Knotted</field>
+           <field name="code">main.jobwork.knot</field>
+           <field name="prefix">KTT/%(range_year)s/</field>
+           <field name="padding">5</field>
+           <field name="company_id" eval="False"/>
+       </record>
+
+       <record id="seq_main_bazaar" model="ir.sequence">
+           <field name="name">Main Bazaar</field>
+           <field name="code">main_bazaar_seq</field>
+           <field name="prefix">BZ/%(range_year)s/</field>
+           <field name="padding">5</field>
+           <field name="company_id" eval="False"/>
+       </record>
+       <record id="seq_api_request" model="ir.sequence">
+           <field name="name">api.request</field>
+           <field name="code">api_request_seq</field>
+           <field name="prefix">API/REQ/%(range_year)s/</field>
+           <field name="padding">10</field>
+           <field name="company_id" eval="False"/>
+       </record>
+       <record id="seq_production_barcode" model="ir.sequence">
+           <field name="name">production.barcode.seq</field>
+           <field name="code">production_barcode_seq</field>
+           <field name="prefix">%(range_year)s</field>
+           <field name="padding">8</field>
+           <field name="company_id" eval="False"/>
+       </record>
+    </data>
+</odoo> 
