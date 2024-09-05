@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_weaving_report" model="ir.ui.view">
+        <field name="name">Report Sale Wizards</field>
+        <field name="model">inno.sale.reports</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="report_type" />
+                            <field name="report_for" attrs="{'invisible': [('report_type', 'not in', ['sale_order_inventory_status'])]}"/>
+                            <field name="report_pending_all"
+                                attrs="{'invisible': [('report_type', 'not in', ['sale_order_inventory_status'])]}" />
+                            <field name="buyer_id" options="{'no_create': True, 'no_open': True}"
+                                attrs="{'invisible': [('report_type', 'not in', ['sale_order_customize','sale_order_inventory_status'])]}" />
+                            <field name="division_id"
+                                attrs="{'invisible': [('report_type', 'not in', ['sale_order_customize','sale_order_inventory_status'])]}"
+                                widget="many2many_tags" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="order_type" options="{'no_create': True, 'no_open': True}"
+                                attrs="{'invisible': [('report_type', 'not in', ['sale_order_customize','sale_order_inventory_status'])]}" />
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="from_date"
+                                attrs="{'invisible': [('report_type', 'not in', ['sale_order_customize','sale_order_inventory_status','report_sale_order_summary','report_dyeing_order_status'])]}" />
+                        </group>
+                        <group>
+                            <field name="to_date"
+                                attrs="{'invisible': [('report_type', 'not in', ['sale_order_customize','sale_order_inventory_status','report_sale_order_summary','report_dyeing_order_status'])]}" />
+                            <field name="planning_ids"
+                                attrs="{'invisible': [('report_type', 'not in', ['to_be_issue','sale_order_customize','sale_order_inventory_status'])]}"
+                                widget='many2many_tags' options="{'no_create': True ,'no_open': True}"/>
+                            <field name="product_group"
+                                attrs="{'invisible': [('report_type', 'not in', ['sale_order_customize','sale_order_inventory_status'])]}"
+                                widget="many2many_tags" options="{'no_create': True ,'no_open': True}"/>
+                            <field name="product"
+                                attrs="{'invisible': [('report_type', 'not in', ['sale_order_customize','sale_order_inventory_status','report_sale_order_summary'])]}"
+                                widget="many2many_tags" options="{'no_create': True ,'no_open': True}"/>
+                            <field name="excel_report"
+                                attrs="{'invisible': [('report_type', 'not in', ['sale_order_customize','sale_order_inventory_status'])]}" />
+                            <field name="vendor"
+                                attrs="{'invisible': [('report_type', 'not in', ['report_dyeing_order_status'])]}" />
+                            
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Generate" type="object" class="btn-success"
+                        name="generate_report" />
+                    <button string="Cancel" class="btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_sale_order_reports" model="ir.actions.act_window">
+        <field name="name">Sale Reports</field>
+        <field name="res_model">inno.sale.reports</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

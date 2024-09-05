@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record id="view_dyeing_receive_wiz" model="ir.ui.view">
+        <field name="name">Dyeing Receive</field>
+        <field name="model">dyeing.receive</field>
+        <field name="arch" type="xml">
+            <form >
+                <sheet>
+                    <group>
+                        <group>
+                            <field name='dispatch_no' required="1"/>
+                        </group>
+                    </group>
+                </sheet>
+                 <footer>
+                    <button type="object" name="confirm_receive" string="Receive" class="btn-success"/>
+                     <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_dyeing_receive" model="ir.actions.act_window">
+        <field name="name">Dyeing Receive</field>
+        <field name="res_model">dyeing.receive</field>
+        <field name="view_mode">form</field>
+         <field name="target">new</field>
+    </record>
+</odoo>

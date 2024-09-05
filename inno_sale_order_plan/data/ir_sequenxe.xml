@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+   <data>
+       <record id="seq_dyeing_intend" model="ir.sequence">
+           <field name="name">Dyeing Intend</field>
+           <field name="code">dyeing.intend.seq</field>
+           <field name="prefix">DYE/INT/%(range_year)s/</field>
+           <field name="padding">5</field>
+           <field name="company_id" eval="False"/>
+       </record>
+       <record id="seq_dyeing_order" model="ir.sequence">
+           <field name="name">Dyeing Order</field>
+           <field name="code">dyeing.order.seq</field>
+           <field name="prefix">DYE/ORD/%(range_year)s/</field>
+           <field name="padding">5</field>
+           <field name="company_id" eval="False"/>
+       </record>
+       <record id="seq_dyeing_material_issuer" model="ir.sequence">
+           <field name="name">Dyeing Material Issue</field>
+           <field name="code">dyeing.material.issue.seq</field>
+           <field name="prefix">DYE/MAT/%(range_year)s/</field>
+           <field name="padding">5</field>
+           <field name="company_id" eval="False"/>
+       </record>
+       <record id="seq_dyeing_material_gate_pass" model="ir.sequence">
+           <field name="name">Dyeing Material gate pass</field>
+           <field name="code">dyeing.material.gate_pass.seq</field>
+           <field name="prefix">DY/GPASS/%(range_year)s/</field>
+           <field name="padding">5</field>
+           <field name="company_id" eval="False"/>
+       </record>
+    </data>
+</odoo> 

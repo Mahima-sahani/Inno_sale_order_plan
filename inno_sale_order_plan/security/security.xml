@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+<!--    category-->
+     <record model="ir.module.category" id="inno_sales_planning_category">
+         <field name="name">Planning</field>
+         <field name="description">User Access for inno sale order planning module</field>
+         <field name="sequence">20</field>
+    </record>
+
+<!--    groups-->
+    <record id="group_inno_sales_planning_user" model="res.groups">
+        <field name="name">User</field>
+        <field name="category_id" ref="inno_sales_planning_category"/>
+    </record>
+
+    <record id="group_inno_sales_planning_manager" model="res.groups">
+        <field name="name">Manager</field>
+        <field name="category_id" ref="inno_sales_planning_category"/>
+        <field name="implied_ids" eval="[(4, ref('group_inno_sales_planning_user'))]"/>
+    </record>
+
+<!--    rules-->
+    <record id="inno_sale_plan_manger_rule" model="ir.rule">
+        <field name="model_id" ref="model_inno_sale_order_planning" />
+        <field name="name">Planning Manager Rule</field>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4,ref('group_inno_sales_planning_manager'))]"/>
+    </record>
+
+    <record id="inno_sale_plan_user_rule" model="ir.rule">
+        <field name="name">Planning User Rule</field>
+        <field name="model_id" ref="model_inno_sale_order_planning"/>
+        <field name="domain_force">['|', ('assigned_to','=', user.id), ('message_partner_ids', 'in', [user.partner_id.id])]</field>
+        <field name="groups" eval="[(4,ref('group_inno_sales_planning_user'))]"/>
+    </record>
+
+    <record id="inno_dyeing_intend_user_rule" model="ir.rule">
+        <field name="name">Dyeing Intend User Rule</field>
+        <field name="model_id" ref="model_dyeing_intend"/>
+        <field name="domain_force">[('division','=', user.division_id.ids)]</field>
+        <field name="groups" eval="[(4,ref('stock.group_stock_user'))]"/>
+    </record>
+
+    <record id="inno_dyeing_intend_manager_rule" model="ir.rule">
+        <field name="name">Dyeing Intend Manager Rule</field>
+        <field name="model_id" ref="model_dyeing_intend"/>
+        <field name="domain_force">[(1,'=', 1)]</field>
+        <field name="groups" eval="[(4,ref('stock.group_stock_manager'))]"/>
+    </record>
+</odoo>

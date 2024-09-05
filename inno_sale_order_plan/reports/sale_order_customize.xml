@@ -1,0 +1,176 @@
+<odoo>
+    <template id="report_sale_order_customize">
+        <t t-call="web.html_container">
+            <t t-set="data_report_landscape" t-value="False"/>
+            <t t-call="web.external_layout" style="margin-top: 100px;">
+                <div class="page">
+                    <div class="text-center" style="border-bottom: 1px solid black;">
+                        <br/>
+                        <h4>
+                            <b>Sale Order Status Customize Summary</b>
+                        </h4>
+                        <br/>
+                    </div>
+                    <br/>
+                    <!-- <t t-foreach="data" t-as="rec"> -->
+                        <!-- Worker Details -->
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <h6><b>Summary Type</b></h6>
+                                    </div>
+                                    <div class="col-1">
+                                        <h6>:</h6>
+                                    </div>
+                                    <div class="col-7">
+                                        Order No Wise Summary
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <h6><b>From Date</b></h6>
+                                    </div>
+                                    <div class="col-1">
+                                        <h6>:</h6>
+                                    </div>
+                                    <div class="col-7">
+                                        <h6><t t-esc="data.get('from_date')"/></h6>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <h6><b>Buyer</b></h6>
+                                    </div>
+                                    <div class="col-1">
+                                        <h6>:</h6>
+                                    </div>
+                                    <div class="col-7">
+                                        <h6><t t-esc="data.get('buyer')"/></h6>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <h6><b>To Date</b></h6>
+                                    </div>
+                                    <div class="col-1">
+                                        <h6>:</h6>
+                                    </div>
+                                    <div class="col-7">
+                                        <h6><t t-esc="data.get('to_date')"/></h6>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <h6><b>Document Type</b></h6>
+                                    </div>
+                                    <div class="col-1">
+                                        <h6>:</h6>
+                                    </div>
+                                    <div class="col-7">
+                                        <h6><t t-esc="data.get('order_type')"/></h6>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <h6><b>Report For</b></h6>
+                                    </div>
+                                    <div class="col-1">
+                                        <h6>:</h6>
+                                    </div>
+                                    <div class="col-7">
+                                        Pending
+                                        <!-- <h6><t t-esc="rec.get('gst_no')"/></h6> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Table -->
+                        <div class="row" style="margin-top: 20px;">
+                            <div class="col-12">
+                                <table class="table table-bordered">
+                                    <thead style="background-color: rgb(182, 179, 179); height: 5px;">
+                                        <tr style="text-align: center;">
+                                            <th scope="col">Sr.</th>
+                                            <th scope="col">Order No</th>
+                                            <th scope="col">Buyer Code</th>
+                                            <th scope="col">Order Date</th>
+                                            <th scope="col">Ship Date</th>
+                                            <th scope="col">Over Due Days</th>
+                                            <th scope="col">Product Name</th>
+                                            <th scope="col">Order Qty</th>
+                                            <th scope="col">Can Qty</th>
+                                            <th scope="col">Order Amount</th>
+                                            <th scope="col">Balance Qty</th>
+                                            <th scope="col">Balance Amount</th>
+                                            <th scope="col">Last Invoice No</th>
+                                            <th scope="col">Last Invoice Date</th>
+                                            <th scope="col">Last Invoice Qty</th>
+                                            <th scope="col">Revised EDT</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="docs.sale_order_planning_lines" t-as="record">
+                                            <tr style="text-align: center;">
+                                                <td><t t-esc="data.get('serial_number').get(record.id)"/></td>
+                                                <td><t t-esc="record.sale_order_planning_id.order_no"/></td>
+                                                <td><t t-esc="record.sale_order_planning_id.customer_name.job_worker_code"/></td>
+                                                <td><t t-esc="record.sale_order_planning_id.order_date.strftime('%d/%b/%y') if record.sale_order_planning_id.order_date else False"/></td>
+                                                <td><t t-esc="record.sale_order_planning_id.due_date.strftime('%d/%b/%y') if record.sale_order_planning_id.due_date else False"/></td>
+                                                <td><t t-esc="data.get('overdue_days').get(record.id)"/></td>
+                                                <td><t t-esc="record.product_id.default_code"/></td>
+                                                <td><t t-esc="round(record.product_uom_qty,3)"/></td>
+                                                <td>-</td>
+                                                <td><t t-esc="round(record.total_amount,3)"/></td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr style="text-align: center;">
+                                            <td>Total</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><t t-esc="round(data.get('total_order_qty'),3)"/></td>
+                                            <td></td>
+                                            <td><t t-esc="round(data.get('total_order_amount'),3)"/></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="row" style="margin-top: 20px;">
+                            <div class="col-12 text-center">
+                                <h6><b>Authorised Signatory</b></h6>
+                            </div>
+                        </div>
+                    <!-- </t> -->
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_reports_sale_order_customize" model="ir.actions.report">
+        <field name="name">Sale Order Customize Report</field>
+        <field name="model">inno.sale.order.planning</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">inno_sale_order_plan.report_sale_order_customize</field>
+        <field name="report_file">Sale Order Customize</field>
+        <field name="paperformat_id" ref="base.paperformat_euro"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

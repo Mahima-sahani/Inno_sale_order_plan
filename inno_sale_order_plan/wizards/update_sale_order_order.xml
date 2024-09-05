@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record id="view_update_sale_order_wiz" model="ir.ui.view">
+        <field name="name">Update Sale Order</field>
+        <field name="model">update.sale.order.wiz</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name='planning_id' readonly="1"/>
+<!--                            <field name="barcodes" options="{'no_create': True, 'no_open': True}"/>-->
+                            <field name="is_new"/>
+                        </group>
+                        <group>
+                            <field name="reasons" required="1"/>
+                            <field name="product_id" options="{'no_create': True, 'no_open': True}"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Revised Lines">
+                            <field name="order_wiz_lines">
+                                <tree editable="bottom" delete="1" create="0">
+                                    <field name="product_id" readonly="1" force_save="1"/>
+                                    <!--                                      <field name="new_product_id" force_save="1"/>-->
+                                    <field name="onloom_qty" readonly="1" force_save="1" sum="total" optional="hide"/>
+                                    <field name="manufacturing_qty" readonly="1" force_save="1" optional="hide"/>
+                                    <field name="purchase_qty" readonly="1" optional="hide"/>
+                                    <field name="rate" readonly="1" optional="hide"/>
+                                    <field name="update_rate"/>
+                                    <field name="amended_qty" string="Amended Qty"/>
+                                    <field name="desc_manufacturing_qty" string="Less Qty"/>
+                                    <field name="planning_line_id" invisible="1"/>
+                                    <field name="barcodes" widget="many2many_tags" readonly="1" force_save="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Add New Lines" attrs="{'invisible': [('is_new', '=', False)]}">
+                            <field name="order_wiz_new_lines">
+                                <tree editable="bottom" delete="1" create="1">
+                                    <field name="product_id" options="{'no_create': True, 'no_open': True}"/>
+                                       <field name="buyer_up_code" />
+                                     <field name="brand"/>
+                                     <field name="manufacturing_qty" string="Qty" sum="qty"/>
+                                      <field name="rate"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <footer>
+                    <button type="object" name="do_confirm" string="Confirm" class="btn-success"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_revised_order" model="ir.actions.act_window">
+        <field name="name">Revised</field>
+        <field name="res_model">update.sale.order.wiz</field>
+        <field name="view_mode">form</field>
+        <!--            <field name="view_id" ref="view_surya_excel_sale_order_custom_order_form_view"/>-->
+        <field name="target">new</field>
+    </record>
+</odoo>

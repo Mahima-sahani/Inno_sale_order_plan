@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Tree -->
+        <record id="view_dyeing_intend_tree" model="ir.ui.view">
+            <field name="name">Dyeing Intend Tree</field>
+            <field name="model">dyeing.intend</field>
+            <field name="arch" type="xml">
+                <tree create="0" edit="0" delete="1" duplicate="0">
+                    <header>
+                        <button type="action" name="%(action_dyeing_order_wiz)d" string="Create Dyeing Order"/>
+                    </header>
+                    <field name="name"/>
+                    <field name="division"/>
+                    <field name="product_tmpl_id"/>
+                    <field name="order_no"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form -->
+        <record id="view_dyeing_intend_form" model="ir.ui.view">
+            <field name="name">Dyeing Intend Form</field>
+            <field name="model">dyeing.intend</field>
+            <field name="arch" type="xml">
+                <form create="0" delete="0" duplicate="0">
+                    <header>
+                        <button name="dyeing_plan_complete" string="Finish Dyeing Intend" type="object"
+                                class="btn-primary" attrs="{'invisible': [('state', '!=', 'partial')]}"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" readonly="1"/>
+                                <field name="division" readonly="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Raw Materials">
+                                <field name="dyeing_intend_line_ids">
+                                    <tree editable="top" delete="0">
+                                        <field name="product_id" readonly="1"/>
+                                        <field name="required_qty" readonly="1"/>
+                                        <field name="alloted_to_dyeing" readonly="1"/>
+                                        <field name="remaining_qty" readonly="1"/>
+                                        <field name="qty_to_dyeing"/>
+                                        <field name="rate"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+<!--                    <div class="oe_chatter">-->
+<!--                        <field name="message_follower_ids"/>-->
+<!--                        <field name="activity_ids"/>-->
+<!--                        <field name="message_ids"/>-->
+<!--                    </div>-->
+                </form>
+            </field>
+        </record>
+
+        <record id="view_dyeing_intend_search" model="ir.ui.view">
+            <field name="name">Dyeing intend search</field>
+            <field name="model">dyeing.intend</field>
+            <field name="arch" type="xml">
+                <search string="Users">
+                    <field name="order_no"/>
+                    <field name="product_tmpl_id"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_dyeing_intend" model="ir.actions.act_window">
+            <field name="name">Dyeing Intend</field>
+            <field name="res_model">dyeing.intend</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>
